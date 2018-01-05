@@ -547,4 +547,4 @@ Directory understands: 'use [defdir ← self]'
 Directory understands: 'on: dirinst []'
 
 ↪dp0 ← Directory new use on: 0↪
-(500)\f4gg
+

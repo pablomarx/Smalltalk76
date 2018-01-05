@@ -1,4 +1,4 @@
-↪READ ROUTINE↪c(635)\f4g1f5bG12f4Bg1f5bG
+↪READ ROUTINE↪
 Smalltalk define "Readerstuff as "Readerstuff ← SymbolTable new.
 Readerstuff insertall: "(typetable scantable dot
 	separ letter digit notapos notcomnt notcr).
@@ -103,9 +103,9 @@ Readerinit 7  0  051  ↪close-paren↪
 Readerinit 8  notcomnt  017  ↪comments↪
 Readerinit 9  0  032 ↪^Z format runs↪
 Readerinit 10  0  036  ↪null and DOIT↪
-\f4g161f5bG81f0B2f5b25f4Bg21u3U147u4U31f0iG26f4Ig23u4U87f0iG10f4Ig57f0iG11f4Ig46f0iG13f4Ig56f0iG7f4Ig37f0iG7f4Ig48f0iG11f4Ig38f0iG11f4Ig25f0iG8f4Ig31f0iG14f4Ig30f0iG13f4Ig46u5U250u7U110u5U60f0iG4f4Ig34f0iG4f4Ig50f0iG12f4Ig33f0iG23f4Ig71f0iG16f4Ig117f0iG21f4Ig103u6U5u5U130u5U132f0iG21f4Ig88u5U1577f0G
+
 
-↪BYTE COMPILER↪c\2f4g1f5bG13f4Bg1f5bG
+↪BYTE COMPILER↪
 Smalltalk define "Compilerstuff as "Compilerstuff ← SymbolTable new.
 Compilerstuff insertall: "(cdict opdict initcdict initopdict selector nargs ntemps maxtemp
 		environment literals precode stack maxstack canoptpop).
@@ -433,9 +433,9 @@ Compiler understands: 'compileloop: b|a c
 	code append: a; append: (self encodejmp: jmpcode by: b-code loc-2)]'
 Compiler understands: 'code [!code contents]'
 
-\f4g573f5bG79f0B2f5b27f4Bg23u8U3u3U908u8U549u5U905u15U559u11U225u12U152u7U96u13U1401u6U7f0iG23f4Ig100f0iG19f4Ig116f0iG25f4Ig48u7U22f0iG25f4Ig147f0iG27f4Ig42f0iG24f4Ig79u9U119u8U2f0iG25f4Ig157u6U3u4U542u11U159u14U61u12U61u12U61u15U61u14U7u5U1528u15U7u5U3u6U570u10U279u7U259u10U441u7U128u9U155u7U65f0i26f4I220u4U94u3U83u6U190u8U66u10U3u3U282u10U905u12U355u4U21f0G
+
 
-↪SCHEDULING↪c\2f4g1f5bG10f4Bg1f5bG
+↪SCHEDULING↪
 
 Class new title:'PriorityScheduler';
 fields: 'source	↪the source of power, ie the source from which
@@ -490,4 +490,4 @@ PriorityScheduler understands: 'disable | t
 	sleep source on sleep
 	arrange to sleep or restart when a process returns
 	what does an empty scheduler do↪
-(500)\f5b54f4Bg1f0iG138f4Ig1f5bG13f4Bg1f0iG44f4Ig1f5bG17f4Bg1f0iG50f4Ig1f5bG11f4Bg1f0iG54f4Ig1f5bG10f4Bg1f0iG53f4Ig1f5bG16f4Bg1f0iG42f4Ig1f5bG3f4Bg1f0iG176u6U5u8U49u8U84f4Ig34u8U9u3U130u7U79u8U81u7U93u6U95u6U107u8U108u10U178u8U143f0iG2f4Ig35u7U62u9U80u9U50f0iG27f4Ig54u7U 
+

@@ -6,14 +6,14 @@ Improved
 SMALLTALK
 System
 Definition
-June 12, 1977c(500)\f4g1f5bG47f0B13f5b
+June 12, 1977
 
 
-This is the new SYSDEFS\b
-This is <INGALLS>bootstrap.st.  The read routine, compiler and file system(draft) appear in a separate file called bootstrap2.st.  The user interface(draft) is in userface.st.  The objects which are initially needed get created in the file launch.ft.  A complete simulator exists in simulate.ft, and old-system defs of the new classes are in genclass.ft↪l4269j\i353f4Ig1f0iG
-
+This is the new SYSDEFS
+This is <INGALLS>bootstrap.st.  The read routine, compiler and file system(draft) appear in a separate file called bootstrap2.st.  The user interface(draft) is in userface.st.  The objects which are initially needed get created in the file launch.ft.  A complete simulator exists in simulate.ft, and old-system defs of the new classes are in genclass.ft↪
 
-↪RAW MATERIALS↪c(635)\1f4g1f5bG13f4Bg1f5bG
+
+↪RAW MATERIALS↪
 
 Class new title: 'Object';
 	subclassof: nil;
@@ -74,10 +74,10 @@ Object understands: 'error
 Object understands: 'ⓢ code
 	[self class understands: ''doit [!['' + code + '']]''.
 	!self doit]'
-\1f5b56f4Bg1f0iG265f4Ig1f0G2f4g1f0iG10f4Ig1f0G1f4g21u1U22f0iG27f4Ig4f0iG39f3Ig1f0iG12f4Ig1f0G1f4g21u4U21f0iG21f4Ig23u5U21f0iG18f4Ig23u5U21f0iG23f4Ig23u5U21f0iG20f4Ig23u10U23f0iG19f4Ig23u10U3u1U26f0iG19f4Ig23u3U44u4U45u4U50u4U31f0iG95f4Ig23u3U49u4U31f0iG16f4Ig23u8U172u8U93u5U52u1U36u1U42u3U42u1U209u14U72u4U3f0iG23f4Ig51u6U2f0iG32f4Ig53u5U146f0G
-c
+
+
 
-↪FUNDAMENTAL ORGANIZATION↪c\2f4g1f5bG24f4Bg1f5bG
+↪FUNDAMENTAL ORGANIZATION↪
 
 Class new title: 'Class';
 	fields: 'title	↪<String> for identification, printing↪
@@ -226,9 +226,9 @@ Context understands: 'debug | t
 	[user cr. self print.
 	while⦂ [t ← user request: ''
 *''] do⦂ [user show: (selfⓢt) asString]]'
-\1f5b42f4Bg1f0iG37f4Ig1f5bG15f4Bg1f0iG62f4Ig1f5bG13f4Bg1f0iG32f4Ig1f5bG16f4Bg1f0iG42f4Ig1f5bG13f4Bg1f0iG37f4Ig1f5bG15f4Bg1f0iG43f4Ig1f5bG16f4Bg1f0iG48f4Ig1f5bG16f4Bg1f0iG37f4Ig1f5bG18f0B1f4g1f0iG48I1u5U21u15U2u8U43f4g1f0G1f4g20u6U70u6U7u9U92u11U34u8U50u7U14f0iG26f4Ig232u8U116u12U8f0iG14f4Ig87u14U62u10U77u9U6u7U8u9U12u5U6u13U226u5U63u3U21f0iG21f4Ig22u8U50u12U21f0iG11f4Ig4f0iG32f4Ig22u9U4f0iG23f4Ig38f0iG25f4Ig1f0G1f4g20u12U5f0iG16f4Ig31f0iG22f4Ig22u10U37u11U38u6U6u3U178f0G1f4g17f0G1f4g52u4U3f0ui4U5u7U28f4I42u7U44u5U119u7U73f0G1f4g17f0G8f4g236f0G1b1f5 91f4Bg34u4U214u3U89u5U127u7U85f0G8f4g9f0G1b1f5 45f4Bg1f0iG42f4Ig1f5bG12f4Bg1f0iG39f4Ig1f5bG10f4Bg1f0iG35f4Ig1f5bG10f4Bg1f0iG28f4Ig1f5bG13f4Bg1f0iG40f4Ig1f5bG6f4Bg1f0iG47f4Ig1f5bG12f4Bg1f0iG42f4Ig1f5bG3f4Bg22u4U42u7U8u9U10u7U10u7U8u10U11u3U4u9U34u10U156u6U35u7U35u8U121u5U169u6U130u6U59u10U197u5U
+
 
-↪NUMBERS↪c\2f4g1f5bG7f4Bg1f5bG
+↪NUMBERS↪
 Class new title: 'Number';
 	abstract		↪Numbers in general↪
 Number understands: 'min: arg
@@ -388,9 +388,9 @@ Float understands: 'absprinton: strm | x y q i fuzz
 Float understands: 'asFloat'
 Float understands: 'copy [!self]'
 Float understands: 'recopy [!self]'
-\f5b36f0B3f4g1f0iG18f4Ig1f0G1f4g21u4U47u4U47u1U53u3U66u3U3u3U66u11U47u11U3u1U34f0G2f5b27f0B3f4g1f0iG15f4Ig1f0G1f5b66f4Bg1f0iG39f4Ig1f5bG1f4Bg22u1U67u1U67u1U68u1U68u1U67u1U67u1U68u1U68u1U68u1U68u7U74u5U72u4U71u4U71u6U73u6U95u1U74u1U57u8U111u11U113f0G1f4ug9U33u7U41f0G1f4ug15U102f0G1f4ug4U32f0G1f4ug6U33u8U121u8U136u11U89u11U3u1U92u5U21f0iG22f4Ig146u8U21f0iG15f4Ig2f0G2f5b24f0B3f4g1f0iG14f4Ig1f0G1f5b66f4Bg1f0iG39f4Ig1f5bG1f4Bg20u1U62u1U62u1U62u1U62u1U62u1U62u1U62u1U62u1U62u1U62u5U40u5U22f0G2f4g1f0iG25f4Ig1f0G1f4g20u9U19f0G2f4g1f0iG18f4Ig1f0G1f4g20u4U40u5U5f0iG27f4Ig126u6U11f0iG25f4Ig22f0iG21f4Ig59f0iG26f4Ig67u8U114u11U41f0iG24f4Ig99f0iG11f4Ig37f0iG12f4Ig32f0iG16f4Ig96f0iG19f4Ig247u7U1f0G2f4g19f0G1f4ug4U30f0G1f4ug6U11f0G
+
 
-↪ARRAYS↪c\2f4g1f5bG6f4Bg1f5bG
+↪ARRAYS↪
 Class new title: 'Array';
 	abstract			↪arrays in general↪
 Array understands: 'length [] primitive: 16'
@@ -460,7 +460,7 @@ Array understands: 'asStream
 Array understands: 'isIntervalBy1
 	[!false]'
 Array understands: 'swap: i with: j | t
-	[t ← self◦i. self◦i ← self◦j. self◦j ← t]'\f5b36f0B3f4g1f0iG17f4Ig1f0bG1f4Bg20u6U40u1U62u1U3u1U51f0iG188f4Ig1f0iG1f4Ig20u11U75u11U3u1U178u5U78u1U139u5U83u8U83u4U46u7U85u7U156u4U72u7U91u8U3u3U3u3U211u7U76u4U83u4U44u6U54u7U34u5U49u8U47u13U33u5U3u5U
+	[t ← self◦i. self◦i ← self◦j. self◦j ← t]'
 
 
 VariableLengthClass new title: 'Vector';		↪Array of objects↪
@@ -594,7 +594,7 @@ Interval understands: '◦ x ← val
 	[user notify: ''Intervals are not for writing into'']'
 Interval understands: 'length [!length]'
 Interval understands: 'isIntervalBy1
-	[!step=1]'\b2f5 40f0B2f4g1f0G5i11f4Ig1f0bG1f5 20f4Bg21u1U30f0iG32f4Ig42u8U144f0G2f5b40f0B2f4g1f0iG20f4Ig1f0bG1f5 34f4Bg21u5U5f0iG19f4Ig67u5U3u1U5f0iG20f4Ig88u8U11f0iG26f4Ig86f0iG27f4Ig42u7U35u8U51u11U66u6U38u6U6u4U110f0iG33f4Ig245u6U7f0iG15f4Ig76u4U9f0iG46f4Ig96f0G2f5b47f0Bi1f4Ig1f0iG35f4Ig1f0bG1f5 33f0B1f5b1f4Bg27u3U134f0iG21f4Ig24f0iG21f4Ig70f0iG17f4Ig29u7U3u5U73f0iG51f4Ig36f0iG10f4Ig39f0iG14f4Ig56f0iG19f4Ig30f0iG15f4Ig32f0iG11f4Ig23f0iG34f4Ig20f0iG28f4Ig98u10U45u1U2u1U93u8U56u7U3f0iG18f4Ig84u9U6f0iG30f4Ig102u8U3f0iG20f4Ig55u1U16f0iG15f4Ig29u4U21f0iG23f4Ig29u6U3f0G2f5b30f0Bi1f4Ig10f0iG18f4Ig1f0bG1f5 38f0B2f5b1f4Bg24u5U6u4U31u1U46u1U3u1U54u6U42u7U44u8U23f0iG35f4Ig104f0G2f5b28f0B2f4g1f0iG28f4Ig1f0bG1f5 52f0B2f5b1f4Bg23u5U7u3U6u3U63u1U80u1U3u1U85u6U36u13U
+	[!step=1]'
 Interval understands: 'start [!start]'
 Interval understands: 'stop [!stop]'
 
@@ -602,13 +602,13 @@ Interval understands: 'stop [!stop]'
 Class new title: 'CoreLocs';		↪Proceed at your own risk...↪
 	subclassof: Array;
 	fields: 'base length'
-CoreLocs understands: 'base: base length: length'\f4g23u5U35u4U11f0G2f5b28f0B2f4g1f0iG27f4Ig1f0bG1f5 41f0B2f5b1f4Bg23u5U6u7U
-CoreLocs understands: '◦ x [] primitive: 42'	↪contents of memory location x↪\f4g23u1U23f0iG29f4Ig
-CoreLocs understands: '◦ x ← val [] primitive: 43'	↪stores into memory location x↪\f4g23u1U3u5U21f0iG29f4Ig
-CoreLocs understands: 'length [!length]'\f4g23u6U
-
+CoreLocs understands: 'base: base length: length'
+CoreLocs understands: '◦ x [] primitive: 42'	↪contents of memory location x↪
+CoreLocs understands: '◦ x ← val [] primitive: 43'	↪stores into memory location x↪
+CoreLocs understands: 'length [!length]'
+
 
-↪STREAMS↪c\2f4g1f5bG7f4Bg1f5bG
+↪STREAMS↪
 Class new title: 'Stream';
 	fields: 'array position limit'
 Stream understands: 'of: array
@@ -698,9 +698,9 @@ Stream understands: 'print: obj
 Stream understands: 'asStream'
 Stream understands: 'asVector
 	[!(Reader new of: self) read]'
-\f5b57f0B2f5b1f4Bg21u3U68u3U7u5U10u3U114u4U2f0iG13f4Ig102u6U5f0iG10f4Ig110u7U8f0iG9f4Ig70u5U43u7U34u9U87u5U9f0iG12f4Ig77u8U58u5U51u5U40u3U43u8U37u3U2f0iG20f4Ig38u5U39u4U52f0iG20f4Ig34u1U25f0iG25f4Ig17f0iG18f4Ig67u3U3f0iG16f4Ig56f0G1f4g10f0G1f4g25u4U100u4U43u5U71uG7Ug3f0iG16f4Ig45uG7g1U164u5U134u1U3u1U46u1U38u5U43u3U43u2U43u6U49u8U24u8U34f0G
+
 
-↪GRAPHICAL OBJECTS↪c\2f4g1f5bG17f4Bg1f5bG
+↪GRAPHICAL OBJECTS↪
 Class new title: 'Point';
 	fields: 'x y'
 Point understands: 'x: x y: y'
@@ -842,9 +842,9 @@ Turtle understands: 'home
 Turtle understands: 'erase
 	[frame clear: 0]'
 Turtle understands: 'frame: frame'
-\f5b39f0B2f5b1f4Bg20u2U3u2U25u3U25u1U29u3U25u1U28u1U49u1U49u1U49u1U60u1U60u1U65u1U65u1U62u4U71u4U71u5U5f0iG28f4Ig45f0G2f4g164f5bG53f0B1f5b2f4Bg24u7U8u7U34u6U37u8U34u6U37u8U34u6U45u8U69u4U59u5U51u6U51u4U6u5U49u8U6u5U49u6U6u5U6u6U50u6U7u5U49u6U68u5U3f0iG20f4Ig67u4U61u7U44f0iG23f4Ig29f0iG33f4Ig67f0G1f4g28f0G1f4g31f0G1f4g25f0G1f4g63f0G1f4g31f0G1f4g25f0G1f4g78u6U4u4U60u6U60u7U70u7U72u7U35u6U47u8U109u7U3f0iG27f4Ig28f0iG21f4Ig26u14U147u15U48u15U48u8U178f0G1f5b70f0B2f5b1f4Bg21u4U117u3U48u5U44u5U69u4U6u5U46u5U5u5U84u6U62u6U30u4U28u4U28u2U37u5U35u5U35u5U36u5U36u3U36u4U65u5U42u6U9f0G
+
 
-↪TEXT DISPLAY↪c\2f4g1f5bG12f4Bg1f5bG
+↪TEXT DISPLAY↪
 Class new title: 'Textframe';
 	fields: 'frame para style reply1 reply2 window'
 Textframe understands: 'para: para frame: frame
@@ -981,9 +981,9 @@ Dispframe understands: 'outline
 	[text window outline]'
 Dispframe understands: 'moveto: pt
 	[(text window inset: ¬2@¬2) dragto: pt-(¬2@¬2)]'
-\f5b77f0B2f5b1f4Bg24u5U6u6U100u4U44u5U70u9U47u11U57u11U81u9U66u11U79u4U42u10U48u8U90u9U38u6U37u4U6u3U71u4U6u9U70u4U6u3U4u9U103f0iG19f4Ig73f0iG9f4Ig40u8U40f0G2f5b79f0B2f5b1f4Bg24u5U32u5U6u5U32u5U6u10U37u5U6u5U6u10U37u9U44u7U44u6U44u10U44u11U27u8U3u3U3u3U98u5U3u3U73u8U44u6U44u1U15f0G2f5b45f0Bi1f4Ig1f0iG213f4Ig1f0iG3f5bI11f0Bi1f4Ig1f0iG36f4Ig1f0iG3f5bI9f0Bi1f4Ig1f0iG37f4Ig1f0iG3f5bI10f0Bi1f4Ig1f0iG38f4Ig1f0iG3f5bI4f0Bi1f4Ig1f0iG46f4Ig1f0iG3f5bI9f0Bi1f4Ig1f0iG46f4Ig1f0G2f5b1f4Bg24u5U36u10U52u7U62u4U78u6U79u5U32u8U3u5U15f0iG28f4Ig18f0G1f4g16f0G1f4g155f0G1f4g5f0G1f4g57u14U3u5U3u3U37f0G1f4g11f0G1f4g4f0G2f5b65f0B2f5b1f4Bg24u5U56f0G1f4g14f0G1f4g40u4U161u2U154u8U59u4U119f0iG14f4Ig81f0iG9f4Ig34f0iG4f4Ig30f0iG5f4Ig161u5U52u7U50u7U55f0G
+
 
-↪SETS AND DICTIONARIES↪c\2f4g1f5bG21f4Bg1f5bG
+↪SETS AND DICTIONARIES↪
 Class new title: 'HashSet';
 	fields: 'objects'
 HashSet understands: 'default
@@ -1127,9 +1127,9 @@ MessageDict understands: 'growto: size | name copy i
 				code: code◦i backpointers: backpointers◦i]
 	!copy]'	↪copy new parts↪
 
-\f5b48f4Bg22u7U20f0iG20f4Ig24u4U20f0iG8f4Ig24u5U69u7U65u4U63u13U11f0iG21f4Ig84f0iG23f4Ig52u5U10f0iG27f4Ig93u10U14f0iG38f4Ig38f0iG25f4Ig57f0iG17f4Ig79f0iG28f4Ig92u7U52f0iG19f4Ig38f0iG24f4Ig24u7U52f0iG13f4Ig45f0iG23f4Ig30f0iG26f4Ig24u7U36u8U33u8U160u8U52u9U54f0G2f5b72f4Bg1f0iG119f4Ig1f0iG1f4Ig25u5U80u7U6u5U90u1U94u1U6u1U103u7U80u7U254u9U97u6U38u5U9f0iG28f4Ig31f0iG10f4Ig78u10U7u5U12f0iG19f4Ig98u10U9f0iG20f4Ig62f0G2f5b69f4Bg1f0iG390f4Ig1f0iG1f4Ig26u7U6u5U30f0G1f4g28f0G1f4g30u1U57u1U6u1U58u4U49u7U6u3U89f0G1f4g19f0G1f4g76f0G2f5b72f4Bg1f0iG67f4Ig1f5bG12f4Bg1f0iG71f4Ig1f5bG8f4Bg1f0iG62f4Ig1f5bG16f4Bg1f0iG80f4Ig1f5bG3f4Bg1f0iG215f4Ig28u5U174u7U6u7U3u9U5u5U3u13U42f0iG24f4Ig95f0iG27f4Ig43f0iG15f4Ig72f0iG10f4Ig14f0iG44f4Ig28u7U64u9U65u5U61u13U69u7U57f0iG29f4Ig53f0iG23f4Ig119f0iG14f4Ig3f0G
+
 
-↪INDIRECT REFERENCES↪c\2f4g1f5bG19f4Bg1f5bG
+↪INDIRECT REFERENCES↪
 
 Class new title: 'ObjectReference'
 	fields: 'object'
@@ -1143,6 +1143,6 @@ Class new title: 'FieldReference'
 FieldReference understands: 'value [!object instfield: offset]'
 FieldReference understands: 'value ← value
 	[!object instfield: offset ← value]'
-\1f5b54f4Bg30u5U43u7U40u8U59f0G1f5b60f4Bg29u5U60u7U46f0G
-(500)
+
+
 

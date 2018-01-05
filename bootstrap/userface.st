@@ -1,5 +1,5 @@
 
-↪TERMINAL I/O↪c(635)\1f4g1f5bG12f4Bg1f5bG
+↪TERMINAL I/O↪
 
 Class new title: 'UserView';
 	fields: 'screenrect ↪<Rectangle> current screen size↪
@@ -108,14 +108,14 @@ UserView understands: 'overlay: fileid
 UserView understands: 'quit | t
 	[t ← Vector new: 5; all ← 0.  self overlay: t]'
 UserView understands: 'Swat [] primitive: 90'
-\f5b51f4Bg1f0iG31f4Ig1f5bG8f4Bg1f0iG40f4Ig1f5bG8f4Bg1f0iG42f4Ig1f5bG9f4Bg1f0iG41f4Ig1f5bG9f4Bg1f0iG38f4Ig1f0iG1f5bI13f4Bg1f0iG32f4Ig1f0iG1f5bI7f4Bg1f0iG34f4Ig1f5bG9f4Bg1f0iG39f4Ig1f5bG3f4Bg2f0iG15f4Ig25u7U78u11U21f0iG20f4Ig25u5U22f0iG24f4Ig131u4U22f0iG22f4Ig107f0iG20f4Ig25u3U47u4U72u6U43u7U43u7U54u6U44u9U44u7U44u6U44u6U70u2U74u9U56f0iG15f4Ig25u19U92u16U99u14U59u13U8u4U203f0iG15f4Ig25u2U91u5U56u2U7u2U27u10U63u7U168u7U53u8U56f0iG20f4Ig45f0iG17f4Ig98u10U19f0iG17f4Ig25u9U110u11U130u5U35u3U109u8U41f0iG14f4Ig25u5U91u5U80u8U67u4U78u4U
+
 
-↪PARAGRAPH EDITOR↪c(500)\f4g3f5b16f4B1f5b
+↪PARAGRAPH EDITOR↪
 Smalltalk define "Peditorstuff as "Peditorstuff ← SymbolTable new.
 Peditorstuff insertall: "(bs del esc doit paste typing editmenu
 		Scrap Deletion ctlchars runvals p1 p2 selon oldpara oldheight)
 	with: "(010 0177 033 036 02 typing editmenu
-		Scrap Deletion ctlchars runvals p1 p2 selon oldpara oldheight).e12\f4g
+		Scrap Deletion ctlchars runvals p1 p2 selon oldpara oldheight).
 Class new title: 'ParagraphEditor';
 	subclassof: Textframe;
 	fields: 'loc1 loc2';
@@ -208,9 +208,9 @@ Integer understands: 'tokenish		↪test for token-chars↪
 	[self isletter?[!true]	↪lower-case↪
 	 self isdigit?[!true]	↪digits↪
 	 !''¬.:⦂'' has: self]'	↪also high-minus and dot↪
-\f5bg108f4B30u6U123u5U58u4U256u7U703u8U156u9U65u4U102u6U135u5U3u3U48f0G17f4g410u10U236f0 2f4 129f0 2f4 288f0 2f4
+
 
-↪CLASS EDITOR↪c\f4g3f5b12f4B1f5b
+↪CLASS EDITOR↪
 Class new title: 'ClassEditor';
 	subclassof: ParagraphEditor;
 	fields: 'class selector'
@@ -257,7 +257,7 @@ Dispframe understands: 'eachtime
 	user anybug?[!false]]'
 Dispframe understands: 'lasttime
 	[self skip: [¬2 max: 0-position]; show]'
-e12\f5bg89f4B26u9U100u8U317u8U44u6U7u9U12u5U6u7U110u10U61u5U92u5U
+
 
 ******  NOT DONE BEYOND HERE ******
 
@@ -291,10 +291,10 @@ ParagraphEditor understands: 'asParagraph	[!para]'
 ParagraphEditor understands: 'changed	[!changed]'
 ParagraphEditor understands: 'selection	[!para copy: loc1 to: loc2-1]'
 
-e12\f4g
+
 
 ↪WINDOW FRAME AND CONTROL↪
-c\f4g3f5b24f4B
+
 Class new title: 'UserWindow';
 	fields: 'frame contents title';
 	sharing: Userstuff
@@ -350,10 +350,10 @@ UserWindow understands: 'movegrow
 UserWindow evals ["p1 ← point 3 fontheight+4. "p2 ← point 3 3.
 		"p3 ← point 4 2. "p4 ← point 4 0. "p5 ← point 3 2.
 		"whitey ← textframe rectangle p1 p1]'
-\f5bg85f4B
+
 
 ↪FORMATTED TEXT↪
-c\f4g3f5b14f4B1f5b
+
 Paragraph understands: 'runfind b | a			↪**index into run**↪
 	[a←1.
 	while⦂ true do⦂
@@ -419,10 +419,10 @@ Paragraph understands: 'runshow | strm i		↪**print a run**↪
 		[strm append: (runs◦i) asString; append: '.'.
 		strm append: (runs◦(i+1)) asString; append: ', ']
 	!strm contents]'
-\f4g
+
 
 ↪MENUS↪
-c\f4g3f5b5f4B1f5b
+
 "menu ← class [[pt i bits][str text thisline frame but][pt2][]] [] [] []'
 
 menuⓢinitcode ←
@@ -459,10 +459,10 @@ menu understands: 'bug
 menu understands: 'rebug
 	[showcursor [but=1?[bug2cursor] bug3cursor]
 			repeat do [button but?[done]]		↪wait for button down again↪
-		!self bug]'\f4g
+		!self bug]'
 
 ↪BRAVO CONVERSION↪
-c\f4g3f5b16f4B1f5b
+
 "bravo2para ← function [a b c f ff i p q s st]
 		["f←:. f end?[!false]
 		"a ← f upto 26. f next.		↪pick up ascii↪
@@ -503,4 +503,4 @@ menu understands: 'rebug
 		f skip ¬1. done]
 	!i]'
 
-\f4g 
+
