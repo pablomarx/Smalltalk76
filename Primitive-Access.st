@@ -1,4 +1,4 @@
-'From Smalltalk 5.5k XM November 24 on 5 February 2037 at 11:10:42 pm.'
+'From Smalltalk 5.5k XM November 24 on 22 November 1980 at 2:57:08 am.'
 \g
 "BitBlt"l15000z20000\gbf5 
 Class new title: 'BitBlt'
