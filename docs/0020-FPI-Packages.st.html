@@ -6,11 +6,11 @@
   </head>
   <body>
     <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&rsquo;From Smalltalk 5.5k XM November 24 on 5 February 2037 at 11:33:12 pm.&rsquo;&#771;</span></div>
+<span style="font: 10pt serif">&rsquo;From Smalltalk 5.5k XM November 24 on 5 February 2037 at 11:33:12 pm.&rsquo;<br></span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif">"BitImage"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;BitImage&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Image<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;strips nstrips&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;brush aurora stripheightSPARE stripheight black white bitimagemenu erase SPARE color formmenu under reverse blankcursor over dotsetter &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;BitImage&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Image<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;strips nstrips&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;brush aurora stripheightSPARE stripheight black white bitimagemenu erase SPARE color formmenu under reverse blankcursor over dotsetter &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>This class is a virtual bit map represented as a smalltalk String</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -100,15 +100,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">yellowbug </span><span style="font: 10pt serif">| <br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">bitimagemenu bug<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=1⇒</span><span class="tab" val="79"></span><span style="font: 10pt serif">[self resize: superimage<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">]; "change size"<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=2⇒</span><span class="tab" val="79"></span><span style="font: 10pt serif">[self setfigure];</span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif"><br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=3⇒</span><span class="tab" val="79"></span><span style="font: 10pt serif">[self setground];</span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif"><br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=4⇒</span><span class="tab" val="79"></span><span style="font: 10pt serif">[self newbrush];</span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif"><br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=5⇒</span><span class="tab" val="79"></span><span style="font: 10pt serif">[self pastebrush];</span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif"><br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=6⇒</span><span class="tab" val="79"></span><span style="font: 10pt serif">[self arc ];<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=7⇒</span><span class="tab" val="79"></span><span style="font: 10pt serif">[Rectangle new fromuser fillin: ((dotsetter tool) tone)<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">mode: ((dotsetter tool) mode) ];<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=8⇒  [(dotsetter tool) shade];<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=9⇒  [self verticalsymmetry];<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=10⇒  [self horizontalsymmetry];<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=11⇒  [self rotate]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪BitImage under: &rsquo;FPI Packages&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪BitImage under: &rsquo;FPI Packages&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">BitImage classInit&#771;</span></div>
+<span style="font: 10pt serif">BitImage classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"BorderedText"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;BorderedText&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: TextImage<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;BorderedText&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: TextImage<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>This class has not yet been commented</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -124,13 +124,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">presson: press in: r | scale<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">scale &larr; press scale.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">press setp: (r origin x- scale)⌾(r corner y-(3*scale)) ;<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">showrectwidth: (scale*(2+self width)) height: scale.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">press setp: (r origin x- scale)⌾(r corner y-((self height+5)*scale)) ;<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">showrectwidth: (scale*(2+self width)) height: scale.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">press setp: (r origin x- scale)⌾(r corner y-(scale*(self height+4))) ;<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">showrectwidth: scale height: (scale*(self height+2)).<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">press setp: (r origin x+(scale*(self width)))⌾(r corner y-(scale*(self height+4))) ;<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">showrectwidth: scale height: (scale*(self height+2)).<br><br>⇑ para presson: press in: r.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪BorderedText under: &rsquo;FPI Packages&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪BorderedText under: &rsquo;FPI Packages&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Document"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Document&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Image<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;displayorder style&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;leading micasperinch &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Document&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Image<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;displayorder style&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;leading micasperinch &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>basic document class</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -174,15 +174,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">printon: strm </span><span style="font: 10pt serif">| t<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">strm append: &rsquo;a Document &rsquo;.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Document under: &rsquo;FPI Packages&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Document under: &rsquo;FPI Packages&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">Document classInit&#771;</span></div>
+<span style="font: 10pt serif">Document classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"DocumentEditor"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;DocumentEditor&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Window<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;document documentwindow screenimage firstindex lastindex<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">indexofselection selection &rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;jumpcursor documentmenu scrap blankcursor &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;DocumentEditor&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Window<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;document documentwindow screenimage firstindex lastindex<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">indexofselection selection &rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;jumpcursor documentmenu scrap blankcursor &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>This class has not yet been commented</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -258,15 +258,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">update </span><span style="font: 10pt serif">|  i <br></span><span class="tab" val="79"></span><span style="font: 10pt serif">["update the document to reflect any changes in the subimages ."<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">XeqCursor topage1.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[selection⇒</span><span class="tab" val="79"></span><span style="font: 10pt serif">[self deselect]].<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">document deleteI: firstindex to: lastindex. "update document"<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">for⦂ i to: screenimage length  do⦂ <br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[document insert: <br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">(screenimage◦i translate: (0⌾documentwindow origin y)).<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">document resize.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">NormalCursor topage1.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">]<br></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪DocumentEditor under: &rsquo;FPI Packages&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪DocumentEditor under: &rsquo;FPI Packages&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">DocumentEditor classInit&#771;</span></div>
+<span style="font: 10pt serif">DocumentEditor classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Heading"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Heading&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Image<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;formset index charactercodes currentcharacter&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;headingmenu &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Heading&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Image<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;formset index charactercodes currentcharacter&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;headingmenu &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>This class has not yet been commented</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -308,11 +308,11 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">printon: strm </span><span style="font: 10pt serif">| t [<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">strm append: &rsquo;a Heading &rsquo;.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Heading under: &rsquo;FPI Packages&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Heading under: &rsquo;FPI Packages&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">Heading classInit&#771;</span></div>
+<span style="font: 10pt serif">Heading classInit</span></div>
 <script>function do_tabs() { // unit = px
   var tabs = document.getElementsByClassName("tab");
   for (var i = 0; i < tabs.length; ++i) {

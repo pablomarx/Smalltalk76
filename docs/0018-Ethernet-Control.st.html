@@ -6,11 +6,11 @@
   </head>
   <body>
     <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&rsquo;From Smalltalk 5.5k XM November 24 on 5 February 2037 at 11:23:01 pm.&rsquo;&#771;</span></div>
+<span style="font: 10pt serif">&rsquo;From Smalltalk 5.5k XM November 24 on 5 February 2037 at 11:23:01 pm.&rsquo;<br></span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif">"Etherworld"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Etherworld&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: EtherPool;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Etherworld&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: EtherPool;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>This is, of course, the class that controls all of the basic ethernet operations.  There should not be more than one EtherWorld, and one, E, has to be defined for the system to work.    <br><br>In this implementation, and due to timing considerations, it is expected that the transmitter will post quite quickly;  thus, we disable interrupts and busy wait for its completion.<br><br>In general, the interrupt is only armed when we have started the receiver.  The Etherworld currently uses these input processes in the PrioityScheduler: <br></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">IntProc, at IntProcLevel (14)  -- awakened when the device interrupts<br></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">InputProc, at InputProcLevel (13) -- distributes packets to sockets, <br></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">allowing each  socket to then run.<br><br>Note that some of the timers may be on other levels.<br><br>The ethernet can be in one of several states:<br></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">if E ≡ nil, there is nothing<br></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">if E ~≡ nil, etherState can be ethAwake, ethAsleep, ethDead.<br><br>ethDead means E created, and classInit done, but nothing else.<br>ethAsleep means all data structures created, but no attempt to start.<br>ethAwake means it is up and running.<br><br>The messages wakeup,  sleep and kill move to one of those states.<br>Other messages are used for single transitions from adjacent states.<br><br>If you just want to temporarily prevent the device from running use etherStop and etherStart.<br>Should go to ethAsleep (use E sleep) if you quit, since may come up on a different machine.<br><br>The lights on the right side of the screen are Etherworld signals.  They mean  Etherworld awakened; packet addressed to the Alto received; packet being processed; output being sent; and input rejected.<br></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -78,15 +78,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">SIO: sioArg </span><span style="font: 10pt serif">[] primitive: 91</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Etherworld under: &rsquo;Ethernet Control&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Etherworld under: &rsquo;Ethernet Control&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">Etherworld classInit&#771;</span></div>
+<span style="font: 10pt serif">Etherworld classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Int32"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Int32&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Number<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;high low&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Int32&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Number<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;high low&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>This class should probably be part of Number rather than Etherworld.<br>NOTE THAT + AND - SHOULD BE FIXED TO RETURN TO SMALLTALK IF TYPE OF ARG IS NOT INT32</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -120,13 +120,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">&gt; arg </span><span style="font: italic 10pt serif">"revised M. Dolbec 6/25/80"</span><span style="font: bold 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[⇑arg &lt; self]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Int32 under: &rsquo;Ethernet Control&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Int32 under: &rsquo;Ethernet Control&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Pacbuf"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Pacbuf&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;pupString locked&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Pacbuf&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;pupString locked&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>This is the basic unit for building and interpreting packets for the ethernet.<br>It contains the messages that allow fields of a packet to be filled and read.<br>Most users will prefer to use the socket mechanisms</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -270,13 +270,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">word: i &larr; v </span><span style="font: 10pt serif">[⇑pupString word: i &larr; v]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Pacbuf under: &rsquo;Ethernet Control&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Pacbuf under: &rsquo;Ethernet Control&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"SafeQ"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;SafeQ&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: PQueue<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;enabled&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;SafeQ&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: PQueue<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;enabled&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>checks all objects enqueued, to be sure not there already</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -292,13 +292,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">status </span><span style="font: 10pt serif">[⇑enabled]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪SafeQ under: &rsquo;Ethernet Control&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪SafeQ under: &rsquo;Ethernet Control&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Socket"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Socket&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;socNumber computeOutgoingCS filterInput outAddBlock<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">lclSocNum frnNet frnHost frnSocNum&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: EtherPool;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Socket&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;socNumber computeOutgoingCS filterInput outAddBlock<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">lclSocNum frnNet frnHost frnSocNum&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: EtherPool;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>Sockets are used to do all communication through the net.  <br>It is expected that a specialized server or process can have<br>its own subclass of Socket with its own definitions of the<br>&rsquo;Overwrite by Subclass&rsquo; operations.  Note that subclasses will<br>have to access some global variables. <br><br>Each socket is identified by a 32-bit lclSocNum, which really<br>defines who we are.<br>In addition, aspects of the lcl and frn addresses are used  to make<br>decisions about accepting<br>incoming packets, addressing outgoing packets, defaulting fields, etc.<br><br>The input distributor assures that an input was destined for our net<br>(not trying to<br>find a gateway) and our host (either explicitly or as broadcast, <br>if not filtered), and found us by socket number.  Input need NOT be<br>filtered by the socket according to source, since the client may want<br>to see error messages from an intermediate address.<br><br>As a convenience, however, the socket can be asked to filterInput,<br>so it only accepts things which match the frnPort.<br>Thus, local and foreign attributes are primarily used to default<br>fields of an outgoing  packet.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -388,13 +388,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">socProcess: Ipac </span><span style="font: 10pt serif">[self freePacket: Ipac]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Socket under: &rsquo;Ethernet Control&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Socket under: &rsquo;Ethernet Control&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"RetransmitSocket"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;RetransmitSocket&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Socket<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;retransTimer retransMax retransCount&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;RetransmitSocket&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Socket<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;retransTimer retransMax retransCount&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>An abstract socket for handling retransmission behavior</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -418,13 +418,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">timerFired </span><span style="font: 10pt serif">[<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"</span><span style="font: italic 10pt serif">subclass should redefine this</span><span style="font: 10pt serif">"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">self timerOn⇒ ["</span><span style="font: italic 10pt serif">again, e.g. self completePup: pac"</span><span style="font: 10pt serif">]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"</span><span style="font: italic 10pt serif">done</span><span style="font: 10pt serif">"]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪RetransmitSocket under: &rsquo;Ethernet Control&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪RetransmitSocket under: &rsquo;Ethernet Control&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"NameUser"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;NameUser&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: RetransmitSocket<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;resultType resultSet result outPac&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;NameUser&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: RetransmitSocket<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;resultType resultSet result outPac&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>Typical use: <br>   foo &larr; NameUser init.<br>   foo getAddressBlock: string.  --- returns 6-byte string<br></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">foo getAddressString.  --- returns string like 2#2#0<br>   foo close.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -446,13 +446,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">timerFired  </span><span style="font: 10pt serif">[<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">self timerOn⇒ [self completePup: outPac]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">resultSet &larr; true]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪NameUser under: &rsquo;Ethernet Control&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪NameUser under: &rsquo;Ethernet Control&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"RoutingUpdater"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;RoutingUpdater&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: RetransmitSocket<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;outPac resultSet&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;RoutingUpdater&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: RetransmitSocket<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;outPac resultSet&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>A specialized sub-class of Socket, designed to send out requests<br>for the current routing info, and update the routing table.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -470,13 +470,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">timerFired </span><span style="font: 10pt serif">[<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">self timerOn⇒ [self completePup: outPac]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">resultSet &larr; true]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪RoutingUpdater under: &rsquo;Ethernet Control&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪RoutingUpdater under: &rsquo;Ethernet Control&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"RPPSocket"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;RPPSocket&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: RetransmitSocket<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;seqNum outPac ackOK abortTransfer inQ ackType transaction myStream eof&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;RPPSocket&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: RetransmitSocket<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;seqNum outPac ackOK abortTransfer inQ ackType transaction myStream eof&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I establish a reliable packet protocol for communication.<br>This is a sub-class of Socket, and uses many of its messages.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -516,13 +516,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">timerFired </span><span style="font: 10pt serif">[<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"This piece of code only runs when a Timer fires;  <br></span><span class="tab" val="79"></span><span style="font: 10pt serif">Don&rsquo;t do an active return"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">ackOK or⦂ abortTransfer⇒ ["This transaction has been terminated"]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">self timerOn⇒ [<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">"retransmit"<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">self completePup: outPac]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">user show: &rsquo;Excessive retransmits in RPP retransmit&rsquo; .<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">abortTransfer &larr; true]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪RPPSocket under: &rsquo;Ethernet Control&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪RPPSocket under: &rsquo;Ethernet Control&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"EFTPSender"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;EFTPSender&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: RPPSocket<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo; &rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;EFTPSender&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: RPPSocket<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo; &rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>A specialized sub-class of RPPSocket, designed to send files to an<br>EFTP receiver.  By convention, the receiver will be on socket 020<br>There can only be one outstanding packet at a time, called outPac.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -534,9 +534,9 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">process: packet </span><span style="font: 10pt serif">| error "The printer is trying to tell me something" [<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">packet pupType = 033⇒[<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">"error 33!!!" error &larr; packet dataString.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">self freePacket: packet.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">user show: &rsquo;remote server aborted: &rsquo;; show: error◦(3 to: error length).<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">abortTransfer&larr;true]]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪EFTPSender under: &rsquo;Ethernet Control&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪EFTPSender under: &rsquo;Ethernet Control&rsquo;.</span></div>
 <script>function do_tabs() { // unit = px
   var tabs = document.getElementsByClassName("tab");
   for (var i = 0; i < tabs.length; ++i) {

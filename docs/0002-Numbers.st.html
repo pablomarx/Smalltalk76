@@ -6,11 +6,11 @@
   </head>
   <body>
     <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&rsquo;From Smalltalk 5.5k XM November 24 on 5 February 2037 at 10:39:18 pm.&rsquo;&#771;</span></div>
+<span style="font: 10pt serif">&rsquo;From Smalltalk 5.5k XM November 24 on 5 February 2037 at 10:39:18 pm.&rsquo;<br></span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif">"Natural"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">VariableLengthClass new title: &rsquo;Natural&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: String<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;Naturalzero &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">bytesize: 8;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">VariableLengthClass new title: &rsquo;Natural&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: String<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;Naturalzero &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">bytesize: 8;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>A Natural consists of digits between 0 and 255. Accessing beyond the end gives zeroes. This Class is intended to be used by people who implement nicer numbers such as LargeInteger or Rational, thus some of the messages are hard to use because they smash existing Naturals. These messages are only used on Naturals that were created by the programmer using the message.<br>Since we want to eventually have the result of a LargeInteger operation to return a SmallInteger if possible, Natural numbers do not respond to the same set of arithmetic messages as Integers. All of the messages for Natural numbers are preceeded by "nat".</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -48,15 +48,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">species<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[⇑Natural]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Natural under: &rsquo;Numbers&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Natural under: &rsquo;Numbers&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">Natural classInit&#771;</span></div>
+<span style="font: 10pt serif">Natural classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Number"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Number&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Number&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>Numbers in general</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -134,13 +134,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">isNumber</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Number under: &rsquo;Numbers&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Number under: &rsquo;Numbers&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Date"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Date&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Number<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;day year&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;monthnames secsinday &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Date&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Number<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;day year&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;monthnames secsinday &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>Implements dates. (Steve Weyer)</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -224,15 +224,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">readfrom: strm format: order </span><span style="font: 10pt serif">| dmy i [<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">strm ∢ ↪today⇒ [⇑self default]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[order ≡ nil⇒ [order &larr; ↪(1 2 3)]].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">dmy &larr; Vector new: 3.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">for⦂ i to: 3 "dmy length" do⦂ [dmy◦(order◦i) &larr; strm next].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">self day: dmy◦1 month: dmy◦2 year: dmy◦3]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Date under: &rsquo;Numbers&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Date under: &rsquo;Numbers&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">Date classInit&#771;</span></div>
+<span style="font: 10pt serif">Date classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Float"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Float&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Number<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;halfpi sqrt2 twopi fourthpi degreesPerRadian pi radiansPerDegree ln2 &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">bytesize: 16;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">veryspecial: 3;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Float&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Number<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;halfpi sqrt2 twopi fourthpi degreesPerRadian pi radiansPerDegree ln2 &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">bytesize: 16;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">veryspecial: 3;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>These floating-point numbers are good for about 8 or 9 digits of accuracy, and the range is between plus and minus 10&uarr;4000.  Here are some valid floating-point examples:<br></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">8.0   13.3   0.3   2.5e6   1.27e¬300   ¬12.987654e2412<br>Mainly: use shift-minus, no imbedded blanks, little e for tens power, and a digit on both sides of the decimal point.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -334,15 +334,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">classInit </span><span style="font: 10pt serif">[<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"</span><span style="font: italic 10pt serif">constants from Computer Approximations, pp. 182-183</span><span style="font: 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">pi = 3.14159265358979323846264338327950288<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">pi/2 = 1.57079632679489661923132169163975144<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">pi/4 = 0.78539816339744830961566084581987572<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">pi*2 = 6.28318530717958647692528676655900576<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">pi/180 = 0.01745329251994329576923690768488612<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">2.0 ln = 0.69314718055994530941723212145817657<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">2.0 sqrt = 1.41421356237309504880168872420969808"<br><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">pi &larr; 3.141592654.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">halfpi &larr; pi/2.0.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">fourthpi &larr; pi/4.0.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">twopi &larr; pi*2.0.<br><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">radiansPerDegree &larr; pi/180.0.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">degreesPerRadian &larr; 180.0/pi.<br><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">ln2 &larr;0.6931471806.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">sqrt2 &larr; 1.414213562]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Float under: &rsquo;Numbers&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Float under: &rsquo;Numbers&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">Float classInit&#771;</span></div>
+<span style="font: 10pt serif">Float classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Integer"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Integer&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Number<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;digitbuffer &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">bytesize: 16;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">veryspecial: 1;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: BitMasks;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Integer&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Number<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;digitbuffer &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">bytesize: 16;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">veryspecial: 1;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: BitMasks;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>Integers are 16-bit numbers, stored in two-s complement form.  The allowable range is from ¬32768 to +32767.  You can type them in octal by typing a leading zero, as in 0377.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -538,15 +538,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">between: min and: max<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[⇑self≥min and⦂ self≤max]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Integer under: &rsquo;Numbers&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Integer under: &rsquo;Numbers&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">Integer classInit&#771;</span></div>
+<span style="font: 10pt serif">Integer classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"LargeInteger"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;LargeInteger&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Number<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;bytes</span><span class="tab" val="79"></span><span style="font: bold 12pt serif">"A Natural number (digits are 0 to 255)"<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: bold 12pt serif"> neg</span><span class="tab" val="79"></span><span style="font: bold 12pt serif">"The sign" &rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;LargeInteger&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Number<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;bytes</span><span class="tab" val="79"></span><span style="font: bold 12pt serif">"A Natural number (digits are 0 to 255)"<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: bold 12pt serif"> neg</span><span class="tab" val="79"></span><span style="font: bold 12pt serif">"The sign" &rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>LargeInteger is a class of Numbers with integral values of arbitrary precision. The values are stored as a Natural number that has digits between 0 and 255. The real work is done in Natural, which uses MachineDouble for single digit calculations. The first element of bytes contains the lowest precision digit.<br>All of the Bit Manipulation messages behave like the integer is represented in twos complement and then truncates the number to 16 bits before operating upon it. The value is always a Small integer.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -632,13 +632,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">nomask: b </span><span style="font: 10pt serif">[⇑0 = (self land: b)]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪LargeInteger under: &rsquo;Numbers&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪LargeInteger under: &rsquo;Numbers&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"MachineDouble"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;MachineDouble&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Number<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;high low&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;low4 low8 high4 high8 &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;MachineDouble&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Number<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;high low&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;low4 low8 high4 high8 &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>MachineDouble is intended to be used by people who are implementing multiple precision arithmetic. It is hard to use - be careful! These are not ordinary numbers.<br>A MachineDouble behaves like a double precision register on an 8-bit machine. Accessing and setting the high and low words of the register are legitimate. Extract returns the low word and shifts the register right by one word, while propagating the sign. This turns out to be very convenient for addition and subtraction to propagate carries and borrows. Sometimes it does too much, but it is faster than using two other messages. Arithmetic is all unsigned, but decreaseby:, when answer is negative, uses twos complement notation to represent borrows.<br>On the NoteTaker, each half of the MachineDouble will be a complete 15-bit unsigned quantity. Obtaining the low or high half may return a negative number that should be considered to be positive (unsigned). The unsignedadd: and unsignedlessthan: messages to integers allow such numbers to be used without creating large integers.<br>This class will be Nova-coded soon.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -676,15 +676,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">printon: strm </span><span style="font: 10pt serif">| <br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[strm append: &rsquo;[MachineDouble 0&rsquo;.<br>     high printon: strm base: 8.<br>     strm append: &rsquo; 0&rsquo;.<br>     low printon: strm base: 8.<br>     strm append: &rsquo;]&rsquo;]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪MachineDouble under: &rsquo;Numbers&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪MachineDouble under: &rsquo;Numbers&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">MachineDouble classInit&#771;</span></div>
+<span style="font: 10pt serif">MachineDouble classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Time"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Time&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;h m s&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Time&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;h m s&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>Implements times of day.  Still needs a lot of work.  (Steve Weyer)</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -710,9 +710,9 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">hours </span><span style="font: 10pt serif">[⇑h]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Time under: &rsquo;Numbers&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Time under: &rsquo;Numbers&rsquo;.</span></div>
 <script>function do_tabs() { // unit = px
   var tabs = document.getElementsByClassName("tab");
   for (var i = 0; i < tabs.length; ++i) {

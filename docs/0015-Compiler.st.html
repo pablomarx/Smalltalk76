@@ -6,11 +6,11 @@
   </head>
   <body>
     <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&rsquo;From Smalltalk 5.5k XM November 24 on 5 February 2037 at 11:15:28 pm.&rsquo;&#771;</span></div>
+<span style="font: 10pt serif">&rsquo;From Smalltalk 5.5k XM November 24 on 5 February 2037 at 11:15:28 pm.&rsquo;<br></span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif">"Decompiler"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Decompiler&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;method temps instvars literals stack isReference literalNames&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;breakPC highlight &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Decompiler&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;method temps instvars literals stack isReference literalNames&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;breakPC highlight &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>This class has not yet been commented</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -72,13 +72,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">quickCode: sel class: class </span><span style="font: 10pt serif">| t strm<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[method length=2⇒[⇑sel asParagraph makeBoldPattern]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">method length=5⇒<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[t &larr; method◦5.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">strm &larr; Stream default.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">strm append: sel; append: &rsquo; [⇑&rsquo;; append: class instvars◦(t+1); append: &rsquo;]&rsquo;.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">⇑strm contents asParagraph makeBoldPattern]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">⇑&rsquo;undeciperable method&rsquo; asParagraph]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Decompiler under: &rsquo;Compiler&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Decompiler under: &rsquo;Compiler&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Generator"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Generator&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;literals nTemps maxTemp local environment parser supered root requestor sourceStream sourceParagraph&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Generator&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;literals nTemps maxTemp local environment parser supered root requestor sourceStream sourceParagraph&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I generate code parsed by parser.  The symbol tables I use are local and environment.  The run-time needs of the code are recorded in literals, nTemps, and maxTemp.  If a message was passed to super, then supered is true.  I remember my root context to abort in case of error.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -186,13 +186,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">unjuggle: oldTemps<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[maxTemp &larr; oldTemps max: maxTemp]<br></span><span style="font: italic 10pt serif">"Parser macro"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Generator under: &rsquo;Compiler&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Generator under: &rsquo;Compiler&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"ParsedAssignment"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedAssignment&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;var expr elide&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedAssignment&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;var expr elide&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a node in a compiler parse tree.  I represent an assignment of an expression to a variable.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -232,13 +232,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">var </span><span style="font: 10pt serif">[⇑var]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedAssignment under: &rsquo;Compiler&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedAssignment under: &rsquo;Compiler&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"ParsedBlock"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedBlock&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Stream<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;returns&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedBlock&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Stream<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;returns&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a stream to collect the statements of a block and then to become a node in a compiler parse tree.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -290,13 +290,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">emitForTruth: trueSkip falsity: falseSkip into: code on: stack<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[returns⇒ [self emitForValue: code on: stack]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">self emitExceptLast: code on: stack.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">(array◦position) emitForTruth: trueSkip falsity: falseSkip into: code on: stack]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedBlock under: &rsquo;Compiler&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedBlock under: &rsquo;Compiler&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"ParsedConditional"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedConditional&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;ifExpr thenExpr elseExpr thenSize elseSize jmpSize&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedConditional&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;ifExpr thenExpr elseExpr thenSize elseSize jmpSize&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a node in a compiler parse tree.  I represent a condition and two alternatives.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -328,13 +328,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">printon: strm indent: level precedence: p forValue: v decompiler: decompiler<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">| pos char<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[ifExpr printon: strm indent: level precedence: 0 <br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">forValue: true decompiler: decompiler.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">strm append: &rsquo; ⇒&rsquo;.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[thenExpr position&gt;1 or⦂ (thenExpr◦1 is: ParsedConditional)⇒<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[strm crtab: level+1] strm space].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">thenExpr printon: strm indent: level+1 precedence: 0 <br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">forValue: v decompiler: decompiler.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">elseExpr position=1 and⦂ elseExpr last≡nil⇒[]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">strm crtab: level.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"</span><span style="font: italic 10pt serif">Kludge!! Delete brackets around else block</span><span style="font: 10pt serif">"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">pos&larr;strm position.  char&larr;strm pop.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">elseExpr printon: strm indent: level precedence: 0 <br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">forValue: v decompiler: decompiler.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">strm skip: ¬1.  strm◦pos&larr;char]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedConditional under: &rsquo;Compiler&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedConditional under: &rsquo;Compiler&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"ParsedConjunct"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedConjunct&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;left right rightSize&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedConjunct&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;left right rightSize&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a node in a compiler parse tree.  I represent (left and⦂ right) and try to optimize the code generation thereof.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -372,13 +372,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">printon: strm indent: level precedence: p forValue: v decompiler: decompiler<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[ [p≥2⇒[strm append: &rsquo;(&rsquo;]].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">left printon: strm indent: level precedence: 2<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">forValue: true decompiler: decompiler.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">strm append: &rsquo; and⦂ &rsquo;.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">right printon: strm indent: level precedence: 2<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">forValue: v decompiler: decompiler.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">p≥2⇒[strm append: &rsquo;)&rsquo;]]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedConjunct under: &rsquo;Compiler&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedConjunct under: &rsquo;Compiler&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"ParsedDisjunct"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedDisjunct&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;left right rightSize&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedDisjunct&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;left right rightSize&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a node in a compiler parse tree.  I represent (left or⦂ right) and try to optimize the code generation thereof.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -416,13 +416,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">printon: strm indent: level precedence: p forValue: v decompiler: decompiler<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[ [p≥2⇒[strm append: &rsquo;(&rsquo;]].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">left printon: strm indent: level precedence: 2<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">forValue: true decompiler: decompiler.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">strm append: &rsquo; or⦂ &rsquo;.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">right printon: strm indent: level precedence: 2<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">forValue: v decompiler: decompiler.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">p≥2⇒[strm append: &rsquo;)&rsquo;]]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedDisjunct under: &rsquo;Compiler&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedDisjunct under: &rsquo;Compiler&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"ParsedFieldReference"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedFieldReference&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;var toLoadVar toLoadFieldReference toObjectOffset&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedFieldReference&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;var toLoadVar toLoadFieldReference toObjectOffset&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a node in a compiler parse tree.  I represent a remote argument which is a reference to a method or instance variable.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -450,13 +450,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">printon: strm indent: level precedence: p forValue: v decompiler: decompiler<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[var printon: strm indent: level precedence: p<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">forValue: true decompiler: decompiler]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedFieldReference under: &rsquo;Compiler&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedFieldReference under: &rsquo;Compiler&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"ParsedForLoop"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedForLoop&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;var source start stop step doExpr nStatements&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedForLoop&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;var source start stop step doExpr nStatements&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I represent a for loop.  I am used only by the decompiler, not the compiler.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -468,13 +468,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">printon: strm indent: level precedence: p forValue: v decompiler: decompiler<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[source≡nil⇒<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[strm append: &rsquo;for⦂ &rsquo;.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">var printon: strm indent: level precedence: 2<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">forValue: true decompiler: decompiler.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif"> [start≡toLoad1⇒[] strm append: &rsquo; from: &rsquo;.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">start printon: strm indent: level precedence: 2<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">forValue: true decompiler: decompiler].<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">strm append: &rsquo; to: &rsquo;.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">stop printon: strm indent: level precedence: 2<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">forValue: true decompiler: decompiler.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif"> [step≡toLoad1⇒[] strm append: &rsquo; by: &rsquo;.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">step printon: strm indent: level precedence: 2<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">forValue: true decompiler: decompiler].<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">strm append: &rsquo; do⦂&rsquo;; crtab: level+1.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">doExpr printon: strm indent: level+1 precedence: 0 <br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">forValue: false decompiler: decompiler]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"</span><span style="font: italic 10pt serif">source is a stream</span><span style="font: 10pt serif">"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">strm append: &rsquo;for⦂ &rsquo;.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">var printon: strm indent: level precedence: 2<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">forValue: true decompiler: decompiler.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">strm append: &rsquo; from: &rsquo;.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">source printon: strm indent: level precedence: 2<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">forValue: true decompiler: decompiler.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">strm append: &rsquo; do⦂&rsquo;; crtab: level+1.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">doExpr printon: strm indent: level+1 precedence: 0 <br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">forValue: false decompiler: decompiler]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedForLoop under: &rsquo;Compiler&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedForLoop under: &rsquo;Compiler&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"ParsedLoop"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedLoop&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;whileExpr doExpr whileSize doSize&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedLoop&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;whileExpr doExpr whileSize doSize&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a node in a compiler parse tree.  I represent that part of an in-line loop statement that can be expressed in the while-do form.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -508,13 +508,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">whileExpr </span><span style="font: 10pt serif">[⇑whileExpr]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedLoop under: &rsquo;Compiler&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedLoop under: &rsquo;Compiler&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"ParsedMessage"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedMessage&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;rcvr op args "false if no args, Vector if many args" hasPC&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedMessage&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;rcvr op args "false if no args, Vector if many args" hasPC&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a node in a compiler parse tree.  I represent an expression consisting of a receiver (rcvr), a selector byte code (op), and an argument list (args) which is false for no arguments, a vector of parse trees for 2 or more arguments, or the argument parse tree for one argument.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -558,13 +558,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">printon: strm indent: level precedence: p forValue: v decompiler: decompiler<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">| sel keywords i parens myP vec char1<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[sel &larr; decompiler selector: op.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">myP &larr; [sel isinfix⇒[3]; iskeyword⇒[2]; isarrow⇒[1] 4].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"check if parens are needed"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">parens &larr; [myP&lt;p or⦂ (p=2 and⦂ myP=2)].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif"> [parens⇒[strm append: &rsquo;(&rsquo;]].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">char1&larr; strm position.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">rcvr printon: strm indent: level precedence: myP<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">forValue: true decompiler: decompiler.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif"> [myP=4⇒[strm space; append: sel  "unary selector"]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif"> keywords &larr; sel keywords.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">vec &larr; [args≡nil⇒[↪()] args is: Vector⇒[args] args inVector].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif"> for⦂ i to: keywords length do⦂<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[strm space; append: keywords◦i; space.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">vec◦i printon: strm indent: level <br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">precedence: [myP=3⇒[4] myP]<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">forValue: true decompiler: decompiler]].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[hasPC⇒[decompiler highlight: (char1+1 to: strm position+1)]].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">parens⇒[strm append: &rsquo;)&rsquo;]]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedMessage under: &rsquo;Compiler&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedMessage under: &rsquo;Compiler&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"ParsedNegation"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedNegation&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: ParsedMessage<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedNegation&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: ParsedMessage<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a node in a compiler parse tree.  I am a parsed messsage in which the selector is ≡ and one of the participants is false.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -584,13 +584,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">printon: s<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[s append: &rsquo;(negation)&rsquo;. super printon: s]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedNegation under: &rsquo;Compiler&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedNegation under: &rsquo;Compiler&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"ParsedObjectReference"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedObjectReference&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;var&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedObjectReference&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;var&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a node in a compiler parse tree.  I represent a remote argument which is a reference to a class or pool variable.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -618,13 +618,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">printon: strm indent: level precedence: p forValue: v decompiler: decompiler<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[strm append: (decompiler literal: var)]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedObjectReference under: &rsquo;Compiler&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedObjectReference under: &rsquo;Compiler&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"ParsedRemote"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedRemote&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;expr esize toRemoteCopy&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;ParsedRemote&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;expr esize toRemoteCopy&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: ByteCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a node in a compiler parse tree.  I represent an argument that is to be passed unevaluated.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -652,13 +652,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">printon: strm indent: level precedence: p forValue: v decompiler: decompiler<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[[(expr is: ParsedBlock) and⦂ <br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">(expr position&gt;1 or⦂ (expr◦1 is: ParsedConditional))⇒<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[strm crtab: level+1]].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">expr printon: strm indent: level+1 precedence: p<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">forValue: true decompiler: decompiler]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedRemote under: &rsquo;Compiler&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪ParsedRemote under: &rsquo;Compiler&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Parser"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Parser&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;source dest oppositeCourt type token mark keep&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: TokenCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Parser&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;source dest oppositeCourt type token mark keep&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: TokenCodes;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I parse tokens from source (a stream).  I report each parse node to dest (e.g., a code generator).  When an error occurs, I back up source to mark and notify dest.  I have two kinds of methods, token suppliers and token consumers, which coroutine with each other.  The coroutine that is not in control is suspended in the context, oppositeCourt.  Token suppliers are driven by an instance of class Reader that scans source and classifies each token by type.  Token consumers analyze the syntax and report it to dest.  The variable "keep" is no longer used.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -758,13 +758,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">terminate<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[[dest≡nil⇒ [] dest terminate. dest &larr; nil].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[oppositeCourt≡nil⇒ [] oppositeCourt release. oppositeCourt &larr; nil]]<br></span><span style="font: italic 10pt serif">"mustBeDone|Generator abortWith|Context variableNamesInto"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Parser under: &rsquo;Compiler&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Parser under: &rsquo;Compiler&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"ParseStack"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;ParseStack&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;position length&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;ParseStack&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;position length&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I keep track of the current and high position of the stack that will be needed by code being compiled.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -784,9 +784,9 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">position<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[⇑position]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪ParseStack under: &rsquo;Compiler&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪ParseStack under: &rsquo;Compiler&rsquo;.</span></div>
 <script>function do_tabs() { // unit = px
   var tabs = document.getElementsByClassName("tab");
   for (var i = 0; i < tabs.length; ++i) {

@@ -6,11 +6,11 @@
   </head>
   <body>
     <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&rsquo;From Smalltalk 5.5k XM November 24 on 5 February 2037 at 10:43:43 pm.&rsquo;&#771;</span></div>
+<span style="font: 10pt serif">&rsquo;From Smalltalk 5.5k XM November 24 on 5 February 2037 at 10:43:43 pm.&rsquo;<br></span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif">"Array"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Array&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Array&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>Array is an abstract class in the sense that it has no state, and instantiation is consequently not meaningful.  However it defines the default message set inherited by its subclasses, notably String, Vector, and UniqueString.  Notice that subscripting is not done here, except to handle the exceptional cases such as subscripting by other types as in a◦(1 to: 3).</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -134,13 +134,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">hash </span><span style="font: italic 10pt serif">"make sure = arrays hash =ly"</span><span style="font: 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[self length=0⇒[⇑17171]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">⇑(self◦1) hash + (self◦self length) hash]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Array under: &rsquo;Basic Data Structures&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Array under: &rsquo;Basic Data Structures&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"FieldReference"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;FieldReference&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;object offset&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;FieldReference&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;object offset&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I reference a field of an instance</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -156,13 +156,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">value &larr; value<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[object instfield: offset &larr; value. ⇑value]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪FieldReference under: &rsquo;Basic Data Structures&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪FieldReference under: &rsquo;Basic Data Structures&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Interval"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Interval&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Array<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;start stop step length&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Interval&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Array<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;start stop step length&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am an arithmetic progression from start in steps of step, not exceeding stop</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -200,13 +200,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">randomInit: x</span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">"Call with const to get repeatable sequence"</span><span style="font: bold 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[step&larr; x.</span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">"step holds the current state"</span><span style="font: 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">start is: Float⇒[length&larr;stop-start]</span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">"for Float intervals"</span><span style="font: 10pt serif">]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Interval under: &rsquo;Basic Data Structures&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Interval under: &rsquo;Basic Data Structures&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"ObjectReference"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;ObjectReference&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;object&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;ObjectReference&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;object&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am an indirect reference</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -226,13 +226,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">printon: strm<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[strm append: &rsquo;-&gt;&rsquo;; print: object]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪ObjectReference under: &rsquo;Basic Data Structures&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪ObjectReference under: &rsquo;Basic Data Structures&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"RunVector"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;RunVector&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Array<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo; min max starts values offset&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;RunVector&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Array<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo; min max starts values offset&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>RunVectors compactly store data which tends to be constant over much<br>of its domain.  They may have any range of subscript, but must be stored<br>into consecutively.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -248,13 +248,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">min </span><span style="font: 10pt serif">[⇑min]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪RunVector under: &rsquo;Basic Data Structures&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪RunVector under: &rsquo;Basic Data Structures&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Stream"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Stream&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;array position limit&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Stream&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;array position limit&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>Streams provide fast sequential access to arrays (implemented in microcode for Strings and Vectors).  A subclass can handle end conditions if desired (disk files do this).</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -406,13 +406,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">emitLong: jmpOrBfp by: dist<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[[dist&lt;0⇒ [dist&larr;dist+1024]; &gt;1023⇒ [dist&larr;¬1] jmpOrBfp&larr;jmpOrBfp+4].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">dist&lt;0⇒ [user notify: &rsquo;A block compiles more than 1K bytes of code&rsquo;]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">self next &larr; dist/256 + jmpOrBfp. self next &larr; dist\256]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Stream under: &rsquo;Basic Data Structures&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Stream under: &rsquo;Basic Data Structures&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"PQueue"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;PQueue&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Stream<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;readposition&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;PQueue&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Stream<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;readposition&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>A PQueue is a First In First Out list of objects implemented as an array and a read pointer and write pointer. PQueue is a subclass of Stream and uses Streamⓢstandard method for inserting a new item (next&larr;, i.e. Streamⓢposition is the write pointer). A PQueue also has a read pointer which it uses for accessing objects with the messages next or dequeue (which are identical). All messages to a PQueue that change its state are declared as critical sections to avoid race conditions</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -450,13 +450,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">reset<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[Top critical⦂ [readposition &larr; position &larr; 0]]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪PQueue under: &rsquo;Basic Data Structures&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪PQueue under: &rsquo;Basic Data Structures&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Queue"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Queue&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Stream<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;readposition&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Queue&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Stream<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;readposition&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>A Queue is a First In First Out list of objects implemented as an array and a read pointer and write pointer. Queue is a subclass of Stream and uses Streamⓢstandard method for inserting a new item (next&larr;, i.e. Streamⓢposition is the write pointer). A Queue also has a read pointer which it uses for accessing objects with the messages next or dequeue (which are identical)</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -498,13 +498,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">reset<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[readposition &larr; position &larr; 0]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Queue under: &rsquo;Basic Data Structures&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Queue under: &rsquo;Basic Data Structures&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Set"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Set&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Stream<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;views&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Set&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Stream<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;views&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>For storing/collecting, read by a SetReader.<br>Use no messages from Stream except of:, empty, next&larr;, contents, space, nextword&larr;</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -588,13 +588,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">summation</span><span style="font: 10pt serif">| i summation<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">["sum of the values in the set"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">summation &larr; 0.0.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">for⦂ i to: position do⦂ [summation &larr; summation + (self◦i)].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">⇑ summation<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Set under: &rsquo;Basic Data Structures&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Set under: &rsquo;Basic Data Structures&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"SetReader"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;SetReader&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Stream<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;SetReader&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Stream<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>Read a Set; no edits occur to set. (see Steve for ISetReader (interruptible))<br>Inherit of:from:to:, next, next:, end, pastend, skip:, ∢, asStream, viewer</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -610,13 +610,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">length </span><span style="font: 10pt serif">[<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"how much left"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">⇑limit-position]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪SetReader under: &rsquo;Basic Data Structures&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪SetReader under: &rsquo;Basic Data Structures&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"String"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">VariableLengthClass new title: &rsquo;String&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Array<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;StringBlter &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">bytesize: 8;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">VariableLengthClass new title: &rsquo;String&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Array<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;StringBlter &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">bytesize: 8;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am an array of bytes, integers between 0 and 255 usually representing ascii characters</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -706,13 +706,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">unlock </span><span style="font: 10pt serif">[] primitive: 32</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪String under: &rsquo;Basic Data Structures&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪String under: &rsquo;Basic Data Structures&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Substring"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Substring&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Array<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;data map&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Substring&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Array<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;data map&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am an array that consists of a set of elements (specified by map) of an array (data)</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -742,13 +742,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">species<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[⇑data species]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Substring under: &rsquo;Basic Data Structures&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Substring under: &rsquo;Basic Data Structures&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"UniqueString"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">VariableLengthClass new title: &rsquo;UniqueString&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: String<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">bytesize: 8;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">VariableLengthClass new title: &rsquo;UniqueString&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: String<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">bytesize: 8;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a string that is unequal to every other instance of my subclass</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -808,15 +808,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">printon: strm<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[strm append: self]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪UniqueString under: &rsquo;Basic Data Structures&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪UniqueString under: &rsquo;Basic Data Structures&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">UniqueString classInit&#771;</span></div>
+<span style="font: 10pt serif">UniqueString classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Vector"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">VariableLengthClass new title: &rsquo;Vector&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Array<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">VariableLengthClass new title: &rsquo;Vector&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Array<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>Vector is a VariableLengthClass.  The length of a Vector may not be less than 0,<br>nor may it be greater than 8196.  <br>A field of a Vector may contain any other object.<br>A new Vector contains nil in every field.  <br>To create a new Vector of length 8, say:<br></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">Vector new: 8<br><br>Microcode Primitives<br>◦ x   "subscript"<br></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">[0 &gt; x or: x &gt; self length ⇒[user notify: &rsquo;Subscript out of bounds&rsquo;]<br></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">x class ≡ Integer ⇒[Return the xth element of the Vector]<br></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">⇑ super ◦ x]<br>◦ x &larr; val  "assign value to element"<br></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">[0 &gt; x or: x &gt; self length ⇒[user notify: &rsquo;Subscript out of bounds&rsquo;]<br></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">x class ≡ Integer ⇒[Store the value val as the xth element. ⇑val]<br></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">⇑ super ◦ x &larr; val]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -856,9 +856,9 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">sizeForValue  </span><span style="font: 10pt serif">| size x<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[size &larr; 0. for⦂ x from: self do⦂ [size &larr; size+ x sizeForValue]. ⇑size]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Vector under: &rsquo;Basic Data Structures&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Vector under: &rsquo;Basic Data Structures&rsquo;.</span></div>
 <script>function do_tabs() { // unit = px
   var tabs = document.getElementsByClassName("tab");
   for (var i = 0; i < tabs.length; ++i) {

@@ -6,11 +6,11 @@
   </head>
   <body>
     <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&rsquo;From Smalltalk 5.5k XM November 24 on 5 February 2037 at 11:26:34 pm.&rsquo;&#771;</span></div>
+<span style="font: 10pt serif">&rsquo;From Smalltalk 5.5k XM November 24 on 5 February 2037 at 11:26:34 pm.&rsquo;<br></span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif">"Form"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Form&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;extent bits offset figure ground&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;brush aurora black white aurorarunning SPARE color formmenu under reverse blankcursor over dotsetter &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Form&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;extent bits offset figure ground&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;brush aurora black white aurorarunning SPARE color formmenu under reverse blankcursor over dotsetter &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>This class is a virtual bit map represented as a smalltalk String</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -114,15 +114,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">setground: parentimage </span><span style="font: 10pt serif">| <br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[</span><span style="font: italic 10pt serif">"for now just increment the ground color by 1 \ 14"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">ground &larr; (ground +1 ) \ 14.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">self displayat: (parentimage origin) effect: 0 clippedBy: user screenrect.<br>]<br></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Form under: &rsquo;Form Path Image&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Form under: &rsquo;Form Path Image&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">Form classInit&#771;</span></div>
+<span style="font: 10pt serif">Form classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"FormSet"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;FormSet&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;space spaceorigin image strike style styleindex formindex offsettable&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;imageindex bitmover &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;FormSet&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;space spaceorigin image strike style styleindex formindex offsettable&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;imageindex bitmover &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>An object for holding sets of forms.  The most conventional use will be as a repository of a set of forms typically identified as characters when seen on the display or on paper.  The forms will be ascessible by passing a one-character<br>string or a number.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -238,15 +238,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">wordwidth: wordwidth<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[</span><span style="font: italic 10pt serif">"Also know as the raster of the formset.<br></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">The width in alto words of the bits of the formset.  When the display of a <br></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">form is desired, the word and bit address of the bits of the form must<br></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">be discovered.  Adding the wordwidth to the word portion of that value,<br></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">produces the word address of the second line of the bits of the form, and<br></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">so on until the height of the form is spanned."</span><span style="font: 10pt serif"><br><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">strike word: 9 &larr; wordwidth.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪FormSet under: &rsquo;Form Path Image&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪FormSet under: &rsquo;Form Path Image&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">FormSet classInit&#771;</span></div>
+<span style="font: 10pt serif">FormSet classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Image"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Image&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Set<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo; origin rectangle path form superimage xgrid ygrid figure ground&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;aurora under black screen reverse white over aurorarunning &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Image&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Set<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo; origin rectangle path form superimage xgrid ygrid figure ground&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;aurora under black screen reverse white over aurorarunning &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>This class has not yet been commented</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -438,15 +438,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">close<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">| im<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[[array≡nil<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">⇒[]<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">for⦂ im  from: self asArray notNil do⦂<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[im close]].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">superimage&larr;nil.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">form&larr;nil.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">self vector: 0]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Image under: &rsquo;Form Path Image&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Image under: &rsquo;Form Path Image&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">Image classInit&#771;</span></div>
+<span style="font: 10pt serif">Image classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Path"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Path&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Set<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Path&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Set<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>This class has not yet been commented</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -508,13 +508,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">printon: strm </span><span style="font: 10pt serif">| t [<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">strm append: &rsquo;a Path: &rsquo;.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">array is: String⇒ [strm space append: self]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">for⦂ t from: self do⦂ [strm space print: t]]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Path under: &rsquo;Form Path Image&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Path under: &rsquo;Form Path Image&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Point"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Point&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;x y&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Point&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;x y&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am an x-y pair of numbers usually designating a location on the screen</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -616,13 +616,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">pressCode </span><span style="font: 10pt serif">[⇑7]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Point under: &rsquo;Form Path Image&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Point under: &rsquo;Form Path Image&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Rectangle"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Rectangle&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;origin corner&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Rectangle&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;origin corner&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a pair of points, usually representing a rectangular area on the screen</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -836,13 +836,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">outline: thick </span><span style="font: 10pt serif">| t<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[t &larr; (¬1⌾¬1)*thick.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">(self inset: t) clear: black.  self clear: white]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Rectangle under: &rsquo;Form Path Image&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Rectangle under: &rsquo;Form Path Image&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"TextImage"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;TextImage&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Textframe<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;c1 c2 begintypein superimage figure ground&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;cut esc paste aurora Scrap scrap bs Deletion aurorarunning paragraphmenu ctlw &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;TextImage&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Textframe<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;c1 c2 begintypein superimage figure ground&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;cut esc paste aurora Scrap scrap bs Deletion aurorarunning paragraphmenu ctlw &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>This class has not yet been commented</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -934,4 +934,4 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>DISPLAY</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 10pt serif">displayat: pt effect: effect clippedBy: cliprect | clippedrect<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">["display text "<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">super displayat: pt effect: effect clippedBy: cliprect.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">aurorarunning⇒ <br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[user displayoffwhile⦂<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[clippedrect &larr; (super frame) intersect: (user screenrect).<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">aurora destination: clippedrect ; source: clippedrect ;<br></span><span cla
+<span style="font: bold 10pt serif">displayat: pt effect: effect clippedBy: cliprect | clippedrect<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">["display text "<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">super displayat: pt effect: effect clippedBy: cliprect.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">aurorarunning⇒ <br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[user displayoffwhile⦂<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[clippedrect &larr; (super frame) intersect: (user screenrect).<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">aurora destination: clippedrect ; source: clippedrect ;<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" v

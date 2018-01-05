@@ -6,11 +6,11 @@
   </head>
   <body>
     <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&rsquo;From Smalltalk 5.5k XM November 24 on 5 February 2037 at 11:02:24 pm.&rsquo;&#771;</span></div>
+<span style="font: 10pt serif">&rsquo;From Smalltalk 5.5k XM November 24 on 5 February 2037 at 11:02:24 pm.&rsquo;<br></span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif">"File"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;File&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Dict<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;directory type name serialNumber pageReaders pageBuffer lastpn error&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: FilePool;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;File&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Dict<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;directory type name serialNumber pageReaders pageBuffer lastpn error&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: FilePool;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>A collection of FilePages usually on some device external to the virtual memory, which can be viewed and modified. File is a generalization: some examples are AltoFile and WoodstockFile. FilePage and FileDirectory are related classes. FileStream provides Stream access to Files.<br><br>Subclasses should override any superclass message implemented as [self subError]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -120,15 +120,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">asStream </span><span style="font: 10pt serif">[⇑(FileStream new) on: [self open; get: 1]]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪File under: &rsquo;Files&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪File under: &rsquo;Files&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">File classInit&#771;</span></div>
+<span style="font: 10pt serif">File classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"FileDirectory"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;FileDirectory&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Dict<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;directory fileReaders&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: FilePool;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;FileDirectory&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Dict<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;directory fileReaders&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: FilePool;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>A collection of Files. FileDirectory is a generalization: some examples are AltoFileDirectory and WoodstockFileDirectory</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -216,13 +216,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">exceptionHandler: eh </span><span style="font: 10pt serif">"</span><span style="font: italic 10pt serif">default is to do nothing</span><span style="font: 10pt serif">"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪FileDirectory under: &rsquo;Files&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪FileDirectory under: &rsquo;Files&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"FilePage"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;FilePage&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Dict<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;file page&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: FilePool;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;FilePage&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Dict<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;file page&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: FilePool;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>A block, chunk, or page of information from some collection of pages (a File).  FilePage is a generalization: some examples are AltoFilePage and WoodstockFilePage</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -320,13 +320,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">word: i &larr; v </span><span style="font: 10pt serif">["</span><span style="font: italic 10pt serif">no bounds checking</span><span style="font: 10pt serif">" ⇑page word: self headerLength/2 + i &larr; v]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪FilePage under: &rsquo;Files&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪FilePage under: &rsquo;Files&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"EtherFilePage"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;EtherFilePage&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: FilePage<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;EtherFilePage&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: FilePage<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>A FilePage which consists of an ethernet packet (Pacbuf) containing network information, header info and data</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -356,13 +356,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">pupType&larr; p </span><span style="font: 10pt serif">[⇑page pupType&larr; p]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪EtherFilePage under: &rsquo;Files&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪EtherFilePage under: &rsquo;Files&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"FileStream"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;FileStream&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Stream<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;page dirty rwmode&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: FilePool;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;FileStream&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Stream<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;page dirty rwmode&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: FilePool;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>A Stream which windows a File. see File example</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -512,13 +512,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">writeString: s from: start to: stop </span><span style="font: 10pt serif">| len charsLeft maxLimit [<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"</span><span style="font: italic 10pt serif">for writing a subrange of a large String onto a file (quickly, if BitBlt is used);<br></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">called by </span><span style="font: bold 10pt serif">FileStream</span><span style="font: italic 10pt serif"> </span><span style="font: bold 10pt serif">append:</span><span style="font: 10pt serif">"<br><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[self writing⇒ [] self error: &rsquo;read only!&rsquo;].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">self reopen.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">start &larr; start - 1.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">charsLeft &larr; stop - start.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">maxLimit &larr; page dataMaxEnd.<br><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"</span><span style="font: italic 10pt serif">keep going until all of the requested characters are copied</span><span style="font: 10pt serif">"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">while⦂ charsLeft &gt; 0 do⦂ [<br><br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">"</span><span style="font: italic 10pt serif">end of current page?</span><span style="font: 10pt serif">"<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[position = maxLimit⇒ [self nextPage]].<br><br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">"</span><span style="font: italic 10pt serif">len = # characters of String that will fit in current page</span><span style="font: 10pt serif">"<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">len &larr; maxLimit - position min: charsLeft.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">charsLeft &larr; charsLeft - len.<br><br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">"</span><span style="font: italic 10pt serif">copy subrange of String into page</span><span style="font: 10pt serif">"<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">array copy: position+1 to: position+len<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">with: s from: start+1 to: start+len.<br><br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">"</span><span style="font: italic 10pt serif">update source and destination pointers</span><span style="font: 10pt serif">"<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">start &larr; start + len.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">position &larr; position + len.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">position &gt; limit⇒ [limit &larr; position]<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">⇑s]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪FileStream under: &rsquo;Files&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪FileStream under: &rsquo;Files&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"FtpDirectory"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;FtpDirectory&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: FileDirectory<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;command&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;FtpDirectory&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: FileDirectory<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;command&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>an interim(?) substitute for our own ftp server</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -552,9 +552,9 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">store: local as: remote </span><span style="font: 10pt serif">[<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">command append: &rsquo; Store/S &rsquo;;<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">append: (self checkName: local); space; append: (self checkName: remote)]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪FtpDirectory under: &rsquo;Files&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪FtpDirectory under: &rsquo;Files&rsquo;.</span></div>
 <script>function do_tabs() { // unit = px
   var tabs = document.getElementsByClassName("tab");
   for (var i = 0; i < tabs.length; ++i) {

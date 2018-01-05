@@ -6,11 +6,11 @@
   </head>
   <body>
     <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&rsquo;From Smalltalk 5.5k XM November 24 on 5 February 2037 at 10:48:23 pm.&rsquo;&#771;</span></div>
+<span style="font: 10pt serif">&rsquo;From Smalltalk 5.5k XM November 24 on 5 February 2037 at 10:48:23 pm.&rsquo;<br></span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif">"ClassOrganizer"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;ClassOrganizer&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;globalComment commentVector groupVector&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;default &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;ClassOrganizer&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;globalComment commentVector groupVector&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;default &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>ClassOrganizers contain the formatting information for printing classes.  Each String in commentVector describes a category comprising the messages contained in the Vector which is the corresponding entry in groupVector.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -52,15 +52,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">fromParagraph: para </span><span style="font: 10pt serif">| t i j g<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[user displayoffwhile⦂<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[t &larr; para asVector.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">self globalComment &larr; t◦1.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">commentVector &larr; Vector new: t length-1.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">groupVector &larr; Vector new: t length-1.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">for⦂ i to: t length-1 do⦂<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[g &larr; t◦(i+1).<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">commentVector◦i &larr; g◦1.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">until⦂ 0=(j&larr; g find: ↪&larr;) do⦂</span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">"reconstitute &larr; suffixes"</span><span style="font: 10pt serif"><br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[g &larr; g replace: j-1 to: j by: (g◦(j-1)+&rsquo;&larr;&rsquo;) unique inVector]<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">groupVector◦i &larr; (g copy: 2 to: g length) sort]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">]]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪ClassOrganizer under: &rsquo;Sets and Dictionaries&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪ClassOrganizer under: &rsquo;Sets and Dictionaries&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">ClassOrganizer classInit&#771;</span></div>
+<span style="font: 10pt serif">ClassOrganizer classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Dict"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Dict&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Dict&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>a model for dictionary-index classes</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -176,13 +176,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">reopen </span><span style="font: 10pt serif">["</span><span style="font: italic 10pt serif">reinitialize, especially if a File is involved</span><span style="font: 10pt serif">" self open]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Dict under: &rsquo;Sets and Dictionaries&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Dict under: &rsquo;Sets and Dictionaries&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"DictionaryEntry"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;DictionaryEntry&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;DictionaryEntry&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>a model for entries --what to retrieve with and store in dictionaries</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -208,13 +208,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">storeOn: file </span><span style="font: 10pt serif">["store </span><span style="font: bold 10pt serif">self</span><span style="font: 10pt serif"> as </span><span style="font: bold 10pt serif">fileSize</span><span style="font: 10pt serif"> characters on </span><span style="font: bold 10pt serif">file</span><span style="font: 10pt serif">" self subError]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪DictionaryEntry under: &rsquo;Sets and Dictionaries&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪DictionaryEntry under: &rsquo;Sets and Dictionaries&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"HashSet"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;HashSet&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;objects&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;HashSet&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;objects&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>HashSets are pure sets of objects with no associated values.  However, since they allow callers to determine the location of objects in the hash table, subclasses such as Dictionary and MessageDict can provide parallel tables to hold values.  Such subclasses must intercept growto: and reorder their own tables then.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -278,13 +278,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">swap: i with: j<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[objects swap: i with: j]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪HashSet under: &rsquo;Sets and Dictionaries&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪HashSet under: &rsquo;Sets and Dictionaries&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Dictionary"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Dictionary&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: HashSet<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;values&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Dictionary&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: HashSet<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;values&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>Dictionaries are sets with associated values.  They are very handy but not terribly efficient.  Most of their work is done by HashSet.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -338,13 +338,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">invertto: dict </span><span style="font: 10pt serif">| i<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[for⦂ i to: objects length do⦂<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[objects◦i≡nil⇒ []<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">dict insert: values◦i with: objects◦i].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">⇑dict]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Dictionary under: &rsquo;Sets and Dictionaries&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Dictionary under: &rsquo;Sets and Dictionaries&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"MessageDict"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;MessageDict&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: HashSet<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;methods "&lt;Vector of Strings&gt; which are the compiled methods for each message"<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">literals "&lt;Vector of Vectors&gt; which hold pointers to literals used in the methods"<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">code "&lt;Vector of Strings&gt; which are the source text for each message"<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">backpointers "&lt;Vector of Vectors&gt; which are the tables of text location vs pc for each message"&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;MessageDict&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: HashSet<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;methods "&lt;Vector of Strings&gt; which are the compiled methods for each message"<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">literals "&lt;Vector of Vectors&gt; which hold pointers to literals used in the methods"<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">code "&lt;Vector of Strings&gt; which are the source text for each message"<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">backpointers "&lt;Vector of Vectors&gt; which are the tables of text location vs pc for each message"&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>MessageDicts hold the source code and compiled methods for each message to a class.  The source code is a packed paragraph (see Paragraph packIntoString).  The methods contain pointers to literals, and must be specially freed.  If a method is being executed during its redefinition, its release must be delayed (its literals gets held in CodeKeeper).  Finally, MessageDicts must be copied to be grown, so that current use is not disturbed.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -402,13 +402,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">swap: i with: j<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[methods swap: i with: j.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">code swap: i with: j.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">super swap: i with: j]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪MessageDict under: &rsquo;Sets and Dictionaries&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪MessageDict under: &rsquo;Sets and Dictionaries&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"SymbolTable"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;SymbolTable&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Dictionary<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;SymbolTable&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Dictionary<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I associate each of my objects with an object reference</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -458,13 +458,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">rehash </span><span style="font: 10pt serif">| i copy<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[copy &larr; SymbolTable new init: self size.</span><span class="tab" val="79"></span><span style="font: italic 10pt serif">"create a copy"</span><span style="font: 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">for⦂ i to: objects length do⦂<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[objects◦i≡nil⇒[]<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif"> copy insert: objects◦i withref: values◦i]</span><span class="tab" val="79"></span><span style="font: italic 10pt serif">"hash each entry into it"</span><span style="font: 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">self copyfrom: copy]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪SymbolTable under: &rsquo;Sets and Dictionaries&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪SymbolTable under: &rsquo;Sets and Dictionaries&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"SystemOrganizer"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;SystemOrganizer&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: ClassOrganizer<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;SystemOrganizer&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: ClassOrganizer<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>Provides an organization for the classes in the system just as ClassOrganizer organizes the messages within a class.  (In fact, the only difference is the filout/printing messages.)</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -476,4 +476,5 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">printAll </span><span style="font: 10pt serif">| cat<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[for⦂ cat from: commentVector do⦂<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[self printCategory: cat]]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 10pt serif">printCategory: cat </span><span style="font: 10pt serif">[user displayoffwhile⦂ [<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">(dp0 file: (cat+&rsquo;.press&rsquo;) asFileName) p
+<span style="font: bold 10pt serif">printCategory: cat </span><span style="font: 10pt serif">[user displayoffwhile⦂ [<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">(dp0 file: (cat+&rsquo;.press&rsquo;) asFileName) printoutclass: (self superclassOrder: cat)]]</span></div>
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt

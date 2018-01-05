@@ -6,11 +6,11 @@
   </head>
   <body>
     <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&rsquo;From Smalltalk 5.5k XM November 24 on 5 February 2037 at 11:05:45 pm.&rsquo;&#771;</span></div>
+<span style="font: 10pt serif">&rsquo;From Smalltalk 5.5k XM November 24 on 5 February 2037 at 11:05:45 pm.&rsquo;<br></span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif">"AltoFile"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;AltoFile&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: File<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;leader pageAddresses&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: AltoFilePool;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;AltoFile&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: File<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;leader pageAddresses&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: AltoFilePool;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>A File found on an Alto Model 31(44) disk</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -64,15 +64,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">updateLeader: page </span><span style="font: 10pt serif">| s time lastwrite [ <br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"</span><span style="font: italic 10pt serif">see &lt;Alto&gt;AltoFileSys.D, (p.3 leader page) for further info</span><span style="font: 10pt serif">"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">time &larr; user timewords.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">s &larr; page asStream.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[type anymask: write ⇒ [<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">"</span><span style="font: italic 10pt serif">set creation/write read date and name</span><span style="font: 10pt serif">"<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">directory flush.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">lastwrite &larr; time.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">s append: time; append: time; append: time.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">name empty⇒ []<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">s nextString&larr; name]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">lastwrite &larr; s next: 4.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">s skip: 4; append: time].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">self Write: page.<br><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">⇑lastwrite]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪AltoFile under: &rsquo;Alto File System&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪AltoFile under: &rsquo;Alto File System&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">AltoFile classInit&#771;</span></div>
+<span style="font: 10pt serif">AltoFile classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"AltoFileAddressTable"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;AltoFileAddressTable&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: RunVector<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;AltoFileAddressTable&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: RunVector<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>This class converts to virtual disk addrs which tend to come in consecutive<br>runs, and can thus use the compact representation of its superclass.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -84,13 +84,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">position&larr; p </span><span style="font: 10pt serif">| l</span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">"shortens (for file shorten)"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[p&gt;max⇒[user notify: &rsquo;invalid extension&rsquo;] max&larr; p.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">(l&larr; starts findSorted: max)&lt;starts length⇒<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[starts&larr; starts copy: 1 to: l.  values&larr; values copy: 1 to: l]]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪AltoFileAddressTable under: &rsquo;Alto File System&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪AltoFileAddressTable under: &rsquo;Alto File System&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"AltoFileDirectory"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;AltoFileDirectory&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: FileDirectory<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;dirFile bitsFile closed diskPages totalPages nSectors&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: AltoFilePool;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;AltoFileDirectory&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: FileDirectory<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;dirFile bitsFile closed diskPages totalPages nSectors&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: AltoFilePool;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -158,13 +158,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">stampBoot </span><span style="font: 10pt serif">| a file page ["dp0 stampBoot."<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"update the time stamps in leader page of current boot file"<br><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"find SafeId for current boot file"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">a &larr; Vmem specialLocs◦13.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">file &larr; self makeEntry: &rsquo;&rsquo;.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">file serialNumber: mem◦a, (mem◦(a+1)).<br><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"read page one of the boot file to find out the leader address"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">page &larr; file makeEntry: 1.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">page address: mem◦(a+4).<br><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"then set leader address and dirty flag, and close file<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">thereby updating create/write/read dates, but not name"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">file doCommand: CCR page: page error: &rsquo;cannot read page 1 of boot file&rsquo;;<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">leader: (page header: backp);<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">type: write;<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">close]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪AltoFileDirectory under: &rsquo;Alto File System&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪AltoFileDirectory under: &rsquo;Alto File System&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"AltoFilePage"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;AltoFilePage&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: FilePage<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;address&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: AltoFilePool;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;AltoFilePage&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: FilePage<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;address&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">sharing: AltoFilePool;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>A FilePage from an AltoFile consists of a header (2 words), a label (8 words) and data (512 characters)</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -196,9 +196,9 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">freePage </span><span style="font: 10pt serif">[<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"</span><span style="font: italic 10pt serif">label for a free page: version, sn1, sn2 = ¬1</span><span style="font: 10pt serif">"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">page fill: 11 to: 16 with: 0377]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪AltoFilePage under: &rsquo;Alto File System&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪AltoFilePage under: &rsquo;Alto File System&rsquo;.</span></div>
 <script>function do_tabs() { // unit = px
   var tabs = document.getElementsByClassName("tab");
   for (var i = 0; i < tabs.length; ++i) {

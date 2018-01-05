@@ -6,11 +6,11 @@
   </head>
   <body>
     <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&rsquo;From Smalltalk 5.5k XM November 24 on 5 February 2037 at 10:58:47 pm.&rsquo;&#771;</span></div>
+<span style="font: 10pt serif">&rsquo;From Smalltalk 5.5k XM November 24 on 5 February 2037 at 10:58:47 pm.&rsquo;<br></span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif">"CodePane"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;CodePane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Window<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;pared class selector selectorPane scrollBar&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;editmenu &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;CodePane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Window<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;pared class selector selectorPane scrollBar&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;editmenu &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a Window for editing a paragraph which may include Smalltalk source code.  My selectorPane (not necessarily of class SelectorPane, and possibly even myself) compiles and doits for me.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -88,15 +88,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">selectRange: r </span><span style="font: 10pt serif">[pared selectRange: r; selectAndScroll]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪CodePane under: &rsquo;Panes and Menus&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪CodePane under: &rsquo;Panes and Menus&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">CodePane classInit&#771;</span></div>
+<span style="font: 10pt serif">CodePane classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"FilePane"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;FilePane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: CodePane<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;file&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;editmenu &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;FilePane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: CodePane<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;file&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;editmenu &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>This class has not yet been commented</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -108,15 +108,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">yellowbug<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[editmenu bug<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=1⇒[pared again];<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=2⇒[pared copy];<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=3⇒[pared cut];<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=4⇒[pared paste];<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=5⇒[self doit];<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=6⇒[pared formerly⇒ [user displayoffwhile⦂ [<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">file readwriteshorten; reset; append: pared contents; close.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">pared formerly: false]]<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">frame flash];<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=7⇒[pared undo];<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=8⇒[user displayoffwhile⦂ [scrollBar hidewhile⦂<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[self showing: file contents asParagraph]]];<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=9⇒[pared realign]]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪FilePane under: &rsquo;Panes and Menus&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪FilePane under: &rsquo;Panes and Menus&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">FilePane classInit&#771;</span></div>
+<span style="font: 10pt serif">FilePane classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"ListPane"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;ListPane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Textframe<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;list firstShown lastShown selection scrollBar&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;ListPane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Textframe<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;list firstShown lastShown selection scrollBar&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>A list pane displays a vertical list of one-line items.  The list can be scrolled slow or fast, and any item can be selected.  When an item is selected (or deselected), a dependent pane can be told to display appropriate material.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -200,13 +200,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">selectionRect </span><span style="font: 10pt serif">| h w<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[</span><span style="font: italic 10pt serif">"I have a selection.  Return its highlighting rectangle."</span><span style="font: 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">(w &larr; window inset: 2) height &larr; h &larr; self lineheight. <br></span><span class="tab" val="79"></span><span style="font: 10pt serif">⇑w + (0⌾(selection-firstShown *h))]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪ListPane under: &rsquo;Panes and Menus&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪ListPane under: &rsquo;Panes and Menus&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"ClassPane"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;ClassPane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: ListPane<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;systemPane organizationPane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;editmenu &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;ClassPane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: ListPane<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;systemPane organizationPane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;editmenu &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a list pane that displays the names of all the classes of a category</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -236,15 +236,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">noCode<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[selection=0⇒ [⇑systemPane noCode] ⇑&rsquo;&rsquo;]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪ClassPane under: &rsquo;Panes and Menus&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪ClassPane under: &rsquo;Panes and Menus&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">ClassPane classInit&#771;</span></div>
+<span style="font: 10pt serif">ClassPane classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"Menu"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;Menu&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;str text thisline frame&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;Menu&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;str text thisline frame&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;&rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a list of text lines one of which can be selected with the pointing device</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -284,13 +284,13 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">movingsetup </span><span style="font: 10pt serif">| pt bits<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[pt &larr; user mp - thisline center.</span><span class="tab" val="79"></span><span style="font: italic 10pt serif">"center prev item on mouse"</span><span style="font: 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">text frame moveby: pt. thisline moveby: pt.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">frame moveby: pt.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">bits &larr; frame bitsIntoString.</span><span class="tab" val="79"></span><span style="font: italic 10pt serif">"save background"</span><span style="font: 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">frame clear: black. text show.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">⇑ bits<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪Menu under: &rsquo;Panes and Menus&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪Menu under: &rsquo;Panes and Menus&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"OrganizationPane"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;OrganizationPane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: ListPane<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;classPane selectorPane class&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;editmenu &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;OrganizationPane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: ListPane<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;classPane selectorPane class&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;editmenu &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a list pane that displays the selector categories of a class.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -332,15 +332,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">spawn: selector with: parag formerly: oldparag<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[selectorPane compselection; select: 0.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">class edit: selector para: parag formerly: oldparag]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪OrganizationPane under: &rsquo;Panes and Menus&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪OrganizationPane under: &rsquo;Panes and Menus&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">OrganizationPane classInit&#771;</span></div>
+<span style="font: 10pt serif">OrganizationPane classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"ScrollBar"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;ScrollBar&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;rect bitstr owner position&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;DownCursor UpCursor JumpCursor &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;ScrollBar&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;rect bitstr owner position&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;DownCursor UpCursor JumpCursor &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a bar to the left of an awake window.  With the cursor in me I can make that window scroll.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -378,15 +378,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">show</span><span class="tab" val="79"></span><span style="font: 10pt serif">"</span><span style="font: italic 10pt serif">Save background and turn gray</span><span style="font: 10pt serif">"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[bitstr &larr; rect bitsIntoString.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">rect clear: black.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">(rect inset: 2⌾2 and: 1⌾2) clear: white.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">position outline]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪ScrollBar under: &rsquo;Panes and Menus&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪ScrollBar under: &rsquo;Panes and Menus&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">ScrollBar classInit&#771;</span></div>
+<span style="font: 10pt serif">ScrollBar classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"SelectorPane"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;SelectorPane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: ListPane<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;organizationPane codePane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;editmenu &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;SelectorPane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: ListPane<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;organizationPane codePane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;editmenu &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a ListPane whose entries are the message selectors of a category within a class.  Only organizationPane knows what the class and category are.  I make codePane display the code of my selected selector, if any.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -418,15 +418,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">execute: parseStream for: codePane<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[⇑codePane execute: parseStream in: false to: nil]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪SelectorPane under: &rsquo;Panes and Menus&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪SelectorPane under: &rsquo;Panes and Menus&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SelectorPane classInit&#771;</span></div>
+<span style="font: 10pt serif">SelectorPane classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"StackPane"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;StackPane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: ListPane<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;contextVarPane instanceVarPane codePane variables proceed&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;stackmenu &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;StackPane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: ListPane<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;contextVarPane instanceVarPane codePane variables proceed&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;stackmenu &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a list pane that displays one or all of the stack below a context in a notify window.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -490,15 +490,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">trailer: s</span><span class="tab" val="79"></span><span style="font: italic 10pt serif">"called by selected via Class fieldNamesInto"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪StackPane under: &rsquo;Panes and Menus&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪StackPane under: &rsquo;Panes and Menus&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">StackPane classInit&#771;</span></div>
+<span style="font: 10pt serif">StackPane classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"SystemPane"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;SystemPane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: ListPane<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;mySysOrgVersion classPane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;sysmenu &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;SystemPane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: ListPane<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;mySysOrgVersion classPane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;sysmenu &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a list pane in which all the system categories are displayed.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -536,15 +536,15 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">noCode<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[selection=0⇒ [⇑&rsquo;&rsquo;]; =2⇒ [⇑SystemOrganization]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">⇑&rsquo;Class new title: &rsquo;&rsquo;NameOfClass&rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">subclassof: Object<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">fields: &rsquo;&rsquo;names of fields&rsquo;&rsquo;<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">declare: &rsquo;&rsquo;names of class variables&rsquo;&rsquo;&rsquo; copy]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪SystemPane under: &rsquo;Panes and Menus&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪SystemPane under: &rsquo;Panes and Menus&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemPane classInit&#771;</span></div>
+<span style="font: 10pt serif">SystemPane classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 12pt serif"><br>"VariablePane"</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 12pt serif">Class new title: &rsquo;VariablePane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: ListPane<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;valuePane values context&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;varmenu &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows&#771;</span></div>
+<span style="font: bold 12pt serif">Class new title: &rsquo;VariablePane&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">subclassof: ListPane<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">fields: &rsquo;valuePane values context&rsquo;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">declare: &rsquo;varmenu &rsquo;;<br></span><span class="tab" val="79"></span><span style="font: bold 12pt serif">asFollows</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: italic 10pt serif"><br>I am a list pane that displays the names of variables in a context or instance.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
@@ -576,11 +576,11 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">value<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[selection=1⇒ [⇑values◦1] ⇑(values◦2) inspectfield: selection-1]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">&#771;</span></div>
+<span style="font: 10pt serif"></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">SystemOrganization classify: ↪VariablePane under: &rsquo;Panes and Menus&rsquo;.&#771;</span></div>
+<span style="font: 10pt serif">SystemOrganization classify: ↪VariablePane under: &rsquo;Panes and Menus&rsquo;.</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: 10pt serif">VariablePane classInit&#771;</span></div>
+<span style="font: 10pt serif">VariablePane classInit</span></div>
 <script>function do_tabs() { // unit = px
   var tabs = document.getElementsByClassName("tab");
   for (var i = 0; i < tabs.length; ++i) {
