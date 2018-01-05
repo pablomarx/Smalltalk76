@@ -699,9 +699,6 @@ Class new title: 'SystemOrganizer'
 Provides an organization for the classes in the system just as ClassOrganizer organizes the messages within a class.  (In fact, the only difference is the filout/printing messages.)\gi
 
 Filout and printing\gbf5 
-filoutAll | cat
-	[for⦂ cat from: commentVector do⦂
-		[self filoutCategory: cat]]\gb10B
 filoutCategory: cat | all a [user displayoffwhile⦂ [
 	all ← self superclassOrder: cat.
 	(dp0 file: (cat+'.st.') asFileName) filoutclass: all.
