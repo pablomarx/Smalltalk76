@@ -704,7 +704,7 @@ filoutAll | cat
 		[self filoutCategory: cat]]\gb10B
 filoutCategory: cat | all a [user displayoffwhile⦂ [
 	all ← self superclassOrder: cat.
-	(dp1 file: (cat+'.st.') asFileName) filoutclass: all.
+	(dp0 file: (cat+'.st.') asFileName) filoutclass: all.
 	for⦂ a from: all do⦂ [(Smalltalk◦a) noChanges]]]\gb20B
 printAll | cat
 	[for⦂ cat from: commentVector do⦂

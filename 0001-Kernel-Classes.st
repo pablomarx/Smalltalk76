@@ -665,10 +665,10 @@ endCategoryOn: pstrm\gb
 endChangesOn: pstrm
 	[pstrm print: '' asParagraph]\gb21B
 filout [user displayoffwhile⦂ [
-	(dp1 file: title+'.st.') filoutclass: self.
+	(dp0 file: title+'.st.') filoutclass: self.
 	self noChanges]]\gb7B
 filoutCategory: cat
-	[(dp1 file: (title+'-'+cat+'.st') asFileName) filout: (self changelist: cat)]\gb21B
+	[(dp0 file: (title+'-'+cat+'.st') asFileName) filout: (self changelist: cat)]\gb21B
 filoutOrganization	"So we can merge separate work on organization"
 	[user show: title; cr.
 	user displayoffwhile⦂
