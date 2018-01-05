@@ -24,141 +24,141 @@ Scans through a paragraph computing the dimensions of a partial line of text.\g
 Initialization\gbf5 
 in: rect\gb
 init
-	[ascent _ descent _ width _ spaces _ 0. tabpos reset]\gb6B
+	[ascent ← descent ← width ← spaces ← 0. tabpos reset]\gb6B
 of: para to: press style: style
-	[textstrm _ '' asStream.
-	runstrm _ para runs asStream.
-	tabpos _ (Vector new: 10) asStream]\gb33B
+	[textstrm ← '' asStream.
+	runstrm ← para runs asStream.
+	tabpos ← (Vector new: 10) asStream]\gb33B
 
 Access\gbf5 
-position [textstrm position]\gb9B
-width [width]\gb6B
+position [⇑textstrm position]\gb9B
+width [⇑width]\gb6B
 
 Scanning\gbf5 
 backup
-	[textstrm skip: 1]\gb8B
+	[textstrm skip: ¬1]\gb8B
 scan "Scan up to a zero-width character, back up to last blank if width exceeded"
 		| maxw sp char t
 			"Save state" spos slim srunpos sasc sdesc swidth ssp sfont stpos
-	[textstrm end and self newrunfalse [false]
-	maxw _ rect width.
-	while
-		[ascent _ ascent max: font ascent.
-		descent _ descent max: font descent.
-		sp _ font space.
-		while [
-			t _ font scan: textstrm until: width exceeds: maxw.
-			[(char _ t1)  true [] width _ t2].
-			char = 040] do
+	[textstrm end and⦂ self newrun≡false⇒ [⇑false]
+	maxw ← rect width.
+	while⦂
+		[ascent ← ascent max: font ascent.
+		descent ← descent max: font descent.
+		sp ← font space.
+		while⦂ [
+			t ← font scan: textstrm until: width exceeds: maxw.
+			[(char ← t◦1) ≡ true⇒ [] width ← t◦2].
+			char = 040] do⦂
 			["Save state"
-				spos _ textstrm position. slim _ textstrm limit.
-				srunpos _ runstrm position. stpos _ tabpos position.
-				sasc _ ascent. sdesc _ descent.
-				swidth _ width. ssp _ spaces. sfont _ font.
-			spaces _ spaces+1.
-			width _ width+sp].
+				spos ← textstrm position. slim ← textstrm limit.
+				srunpos ← runstrm position. stpos ← tabpos position.
+				sasc ← ascent. sdesc ← descent.
+				swidth ← width. ssp ← spaces. sfont ← font.
+			spaces ← spaces+1.
+			width ← width+sp].
 
-		char
-			[(chartrue and nilspos) and (2*ascent  rect height) [
+		char⇒
+			[(char≡true and⦂ nil≠spos) and⦂ (2*ascent ≤ rect height)⇒ [
 				"Back up to just past last blank (if another line fits)"
 				textstrm of: para text from: spos+1 to: slim.
-				runstrm position _ srunpos. tabpos position _ stpos.
-				ascent _ sasc. descent _ sdesc.
-				width _ swidth. spaces _ ssp. font _ sfont.
-				040]
-			char]
+				runstrm position ← srunpos. tabpos position ← stpos.
+				ascent ← sasc. descent ← sdesc.
+				width ← swidth. spaces ← ssp. font ← sfont.
+				⇑040]
+			⇑char]
 		self newrun]
-	 do [].
-	false]\gb5Bi76I
+	 do⦂ [].
+	⇑false]\gb5Bi76I
 tab
-	[spaces _ 0.
-	tabpos next _ textstrm position;
-		next _ (width _ width + font tab | font tab)]\gb5B
+	[spaces ← 0.
+	tabpos next ← textstrm position;
+		next ← (width ← width + font tab | font tab)]\gb5B
 
 Printing\gbf5 
 printfrom: charpos aligned: align skip: n "Returns false if goes below bottom"
 		| ybot a b ix iy px xs sp rs len tpos ts ntab rval ifont w ps [
 	"this code basically writes the EL (entity list) for a line"
 	"bottom of character -- ascent not really ascent but height"
-	(ybot _ rect corner y - ascent) < rect origin y  [
-		"won't fit" false]
+	(ybot ← rect corner y - ascent) < rect origin y ⇒ [
+		"won't fit" ⇑false]
 
-	a _ charpos + 1.
-	b _ textstrm position - n.
-	[a > b  ["No text"]
-	ts _ tabpos viewer.
-	tpos _ ts next.
+	a ← charpos + 1.
+	b ← textstrm position - n.
+	[a > b ⇒ ["No text"]
+	ts ← tabpos viewer.
+	tpos ← ts next.
 
-	px _ false.
-	xs _ rect width - width.
-	ix _ rect minX + ["left margin offset" align=2 [xs/2]; =4[xs] 0].
+	px ← false.
+	xs ← rect width - width.
+	ix ← rect minX + ["left margin offset" align=2⇒ [xs/2]; =4⇒[xs] 0].
 	"set baseline of character.  do setx before showchars"
-	press sety: (iy _ ybot + descent).
-	sp _ font space "kludge?".
-	[align=1 ["do setspacex before showchars"] press setspacex: sp].
+	press sety: (iy ← ybot + descent).
+	sp ← font space "kludge?".
+	[align=1⇒ ["do setspacex before showchars"] press setspacex: sp].
 
-	rs _ (para run: a to: b) asStream.
-	while (len _ rs next) do [
-		press selectfont: (press fontindex: (rval _ rs next) style: style) - 1.
-		b _ a+len.
+	rs ← (para run: a to: b) asStream.
+	while⦂ (len ← rs next) do⦂ [
+		press selectfont: (press fontindex: (rval ← rs next) style: style) - 1.
+		b ← a+len.
 
-		[(rval land: 4) = 0 ["no underlining"]
+		[(rval land: 4) = 0⇒ ["no underlining"]
 		"unfortunately, we must rescan this part of line to find out how wide it is"
-		ifont _ press codefont: rval style: style "a WidthTable".
-		ps _ (para(a to: b-1)) asStream.
-		w _ true, 0.
-		while w1 do [
-			w _ ifont scan: ps until: w2 exceeds: rect width.
-			w1 = 040 [w2 _ w2 + ifont space];
-				=011 [w2 _ w2 + ifont tab | ifont tab]].
+		ifont ← press codefont: rval style: style "a WidthTable".
+		ps ← (para◦(a to: b-1)) asStream.
+		w ← true, 0.
+		while⦂ w◦1 do⦂ [
+			w ← ifont scan: ps until: w◦2 exceeds: rect width.
+			w◦1 = 040⇒ [w◦2 ← w◦2 + ifont space];
+				=011⇒ [w◦2 ← w◦2 + ifont tab | ifont tab]].
 
-		[px ["use current x position"] press setx: ix].
+		[px⇒ ["use current x position"] press setx: ix].
 		"change y position to show rectangle, then change y back again"
-		press sety: iy-40; showrectwidth: w2 height: 30; sety: iy].
+		press sety: iy-40; showrectwidth: w◦2 height: 30; sety: iy].
 
-		ntab _ 0.
-		while (tpos and tpos<b) do [	"Put out tabs"
-			[tpos = a ["no text between this tab and last"]
+		ntab ← 0.
+		while⦂ (tpos and⦂ tpos<b) do⦂ [	"Put out tabs"
+			[tpos = a⇒ ["no text between this tab and last"]
 			"put out accumulated tabs or initial x"
-			[ntab> 0 [
+			[ntab> 0⇒ [
 				press skipchars: ntab; setx: px.
-				ntab _ 0]
-			px []
-			press setx: (px _ ix)].
+				ntab ← 0]
+			px⇒ []
+			press setx: (px ← ix)].
 			press showchars: tpos-a].
-			ntab _ ntab+1.
-			px _ ix + ts next.
-			a _ tpos+1.
-			tpos _ ts next].
-		[ntab> 0 [
+			ntab ← ntab+1.
+			px ← ix + ts next.
+			a ← tpos+1.
+			tpos ← ts next].
+		[ntab> 0⇒ [
 			press skipchars: ntab;
 				setx: px]
-		px []
-		press setx: (px _ ix)].
+		px⇒ []
+		press setx: (px ← ix)].
 
-		[align=1 and tposfalse 		["Reset space width"
-			[spaces=0 [] press setspacex: xs/spaces+sp].
-			align _ 0]].
-		rs end [
+		[align=1 and⦂ tpos≡false ⇒		["Reset space width"
+			[spaces=0⇒ [] press setspacex: xs/spaces+sp].
+			align ← 0]].
+		rs end⇒ [
 			"for more compactness, maybe"
 			press showchars: b-a skip: n.
-			ybot]
+			⇑ybot]
 		press showchars: b-a.
-		a _ b]].
-	[n > 0 [
+		a ← b]].
+	[n > 0⇒ [
 		"skip over ending blank or carriage return"
 		press skipchars: n]].
-	ybot]\gb42Bi36I69i58I120i9I68i9I100i18I33i52I79i29I802i14I17i33I7i37I330i19I82i27I94i41I
+	⇑ybot]\gb42Bi36I69i58I120i9I68i9I100i18I33i52I79i29I802i14I17i33I7i37I330i19I82i27I94i41I
 
 Private scanning\gbf5 
 newrun | len pos [
-	len _ runstrm next
-		[pos _ textstrm position.
+	len ← runstrm next⇒
+		[pos ← textstrm position.
 		textstrm of: para text from: pos+1 to: pos+len.
-		font _ press codefont: (runstrm next) style: style]
-	false]\gb7B
+		font ← press codefont: (runstrm next) style: style]
+	⇑false]\gb7B
 \g
-SystemOrganization classify: ParagraphScanner under: 'Press File Support'.\g
+SystemOrganization classify: ↪ParagraphScanner under: 'Press File Support'.\g
 
 "PressFile"l15000z20000\gbf5 
 Class new title: 'PressFile'
@@ -185,13 +185,13 @@ see <GR-DOCS>PressFormat.Press and PressFormat-figure.Press for more details\gi
 
 Initialization\gbf5 
 of: DL [
-	EL _ Set new string: 200.
-	FL _ Set new string: 40.
-	parts _ Set new string: 40.
-	fontcodes _ Vector new: 0.
-	fontdefs _ Vector new: 0.
-	estate _ Vector new: 3 "font, spacex, spacey, ...".
-	prevstyle_ nil.
+	EL ← Set new string: 200.
+	FL ← Set new string: 40.
+	parts ← Set new string: 40.
+	fontcodes ← Vector new: 0.
+	fontdefs ← Vector new: 0.
+	estate ← Vector new: 3 "font, spacex, spacey, ...".
+	prevstyle← nil.
 	self scale: PressScale;
 		startPage]\gb7B
 reset [
@@ -201,301 +201,301 @@ scale: scale\gb
 
 Aspects\gbf5 
 defaultPrinterName [
-	[currentProfile  nil [PrinterName] currentProfile printerName]]\gb19B
-name [DL name]\gb5B
-scale [scale]\gb6B
+	⇑[currentProfile ≡ nil⇒ [PrinterName] currentProfile printerName]]\gb19B
+name [⇑DL name]\gb5B
+scale [⇑scale]\gb6B
 
 Entity/Page/File Commands\gbf5 
-box: rect hue: hue sat: sat bright: bright containing expr | w r
-	[self entity: (self transrect: (w_ rect inset: 2)) containing
-		[for r from: (w minus: rect) do
+box: rect hue: hue sat: sat bright: bright containing⦂ expr | w r
+	[self entity: (self transrect: (w← rect inset: ¬2)) containing⦂
+		[for⦂ r from: (w minus: rect) do⦂
 			[self showrect: r color: 0].
-		[ColorPrint
+		[ColorPrint⇒
 			[self hue: hue; saturation: sat;
 				showrect: rect color: bright; brightness: 0]].
 		expr eval]]\gb65B
 clip: boundingbox\gb
 close | p i font [
-	DL writingfalse [DL close]
+	DL writing≡false⇒ [DL close]
 	self closePage.
-	partsfalse or parts empty []
+	parts≡false or⦂ parts empty⇒ []
 
 	"if present, include the external file part  --- added Sept 80"
 
-	[FL empty[]
-	self part [DL append: FL] code: 2.
+	[FL empty⇒[]
+	self part⦂ [DL append: FL] code: 2.
 	FL reset.
 	self padpage].
 
 	"put font names and descriptions into font directory (part)"
-	self part [
-		for i to: fontdefs length do [
-			font _ fontdefs  i.
-			DL nextword_ 16; nextword_ i-1;
-				next _ font min; next _ font max.
+	self part⦂ [
+		for⦂ i to: fontdefs length do⦂ [
+			font ← fontdefs ◦ i.
+			DL nextword← 16; nextword← i-1;
+				next ← font min; next ← font max.
 			self Bcpl: font name pad: 20.
-			DL next _ font face; next _ font min;
-				nextword _ font pointsize; nextword_ 0]]
+			DL next ← font face; next ← font min;
+				nextword ← font pointsize; nextword← 0]]
 		code: 1.
 
 	"write part directory. Pstart is current page position"
 	DL append: parts asReadStream.
 	self padpage.
-	p _ self recordnum.
+	p ← self recordnum.
 
 	"document directory"
-	DL nextword_ 27183; "press password"
-		nextword_ p + 1 "number of records";
-		nextword_ parts position / 8 "number of parts";
-		nextword_ Pstart; "part dir and length"
-		nextword_ p - Pstart;
-		nextword_ 1; "backpointer to obsolete doc dir"
+	DL nextword← 27183; "press password"
+		nextword← p + 1 "number of records";
+		nextword← parts position / 8 "number of parts";
+		nextword← Pstart; "part dir and length"
+		nextword← p - Pstart;
+		nextword← ¬1; "backpointer to obsolete doc dir"
 		append: user timewords; "2 time words"
-		nextword_ 1; "first and last copies"
-		nextword_ 1;
-		nextword_ 1; "first and last pages"
-		nextword _ 1;
-		nextword _ 'S'1 "solid color (looked at by color printers)";
-		next: 2*(0177-12) _ 0377.
+		nextword← 1; "first and last copies"
+		nextword← 1;
+		nextword← ¬1; "first and last pages"
+		nextword ← ¬1;
+		nextword ← 'S'◦1 "solid color (looked at by color printers)";
+		next: 2*(0177-12) ← 0377.
 
-	p _ user now.
+	p ← user now.
 	self Bcpl: self name pad: 52;
-		Bcpl: [currentProfilenil [dp0 diskID1] currentProfile printedBy] pad: 32;
-		Bcpl: [((String new: 40) asStream) print: p1; space; print: p2; contents] pad: 40;
+		Bcpl: [currentProfile≡nil⇒ [dp0 diskID◦1] currentProfile printedBy] pad: 32;
+		Bcpl: [((String new: 40) asStream) print: p◦1; space; print: p◦2; contents] pad: 40;
 		padpage.
 	DL close.
 	parts reset]\gb6B240i60I280i53I73i18I23i16I19i19I33i17I22i21I42i31I58i23I32i24I36i41I
-entity: box containing expr | v [
+entity: box containing⦂ expr | v [
 	self startEntity.
-	boundbox _ box.
-	v _ expr eval.
+	boundbox ← box.
+	v ← expr eval.
 	self closeEntity.
-	v]\gb29B
+	⇑v]\gb29B
 entityorigin: eorigin\gb
 page [self closePage]\gb5B
 pictureinit [self pictureinit: user screenrect scale: PressScale]\gb12B
 pictureinit: rect scale: scale
-	[boundbox _ boundbox include: (self transrect: rect).
+	[boundbox ← boundbox include: (self transrect: rect).
 	self somefont]\gb32B
 screenout: rect scale: scale
 	["puts a bit map image onto the PressFile.  The standard
 	scaling is 32 micas per Alto dot.  22 looks better, Dover only
 	works with 32"
-	user displayoffwhile [
+	user displayoffwhile⦂ [
 		self somefont; setp: (self transrect: rect) origin; bitmap: rect bits: false; close]]\gb30B1i135I
-selectPrinter [self selectPrinter: self defaultPrinterName]\gb14B
+selectPrinter [⇑self selectPrinter: self defaultPrinterName]\gb14B
 selectPrinter: oldName | t [
 	user cr; show: 'select a printer (currently ';
-		show: [oldNamefalse or oldName empty ['none'] oldName]; show: ')'.
-	user cursorloc _ user screenrect center; restoredisplay.
-	t _ 0.
-	while t = 0 do [t _ printerMenu wbug].
-	[t  printers length [printerst]
-		t = (printers length+1) ["same" oldName] "none" false]]\gb23B
+		show: [oldName≡false or⦂ oldName empty⇒ ['none'] oldName]; show: ')'.
+	user cursorloc ← user screenrect center; restoredisplay.
+	t ← 0.
+	while⦂ t = 0 do⦂ [t ← printerMenu wbug].
+	⇑[t ≤ printers length⇒ [printers◦t]
+		t = (printers length+1)⇒ ["same" oldName] "none" false]]\gb23B
 toPrinter [self toPrinter: self defaultPrinterName]\gb10B
 toPrinter: ndest "a printer name" | psocket dest np t perr [
-	ndest  false ["don't try to print" false]
+	ndest ≡ false⇒ ["don't try to print" ⇑false]
 
-	E  nil [
+	E ≡ nil⇒ [
 		"use O.S. if Smalltalk ethercode not alive"
-		t _ (String new: 100) asStream.
+		t ← (String new: 100) asStream.
 		t append: 'Empress. '; append: self name.
-		[ndest length > 0 [t space; append: ndest; append: '/H']].
+		[ndest length > 0⇒ [t space; append: ndest; append: '/H']].
 		t append: '; Resume.~ Small.Boot'.
 		user quitThen: t asReadStream]
 
-	dest _ ''.
-	perr _ psocket _ false.
-	np _ printers length+1.
+	dest ← ''.
+	perr ← psocket ← false.
+	np ← printers length+1.
 	DL readonly.
 
-	while ndest do [
-		perr or ndest empty [
-			perr _ false.
-			ndest _ self selectPrinter: dest]
+	while⦂ ndest do⦂ [
+		perr or⦂ ndest empty⇒ [
+			perr ← false.
+			ndest ← self selectPrinter: dest]
 
-		[dest = ndest ["to same printer"]
-		dest _ ndest.
+		[dest = ndest⇒ ["to same printer"]
+		dest ← ndest.
 		"close previous socket"
-		psocket [psocket close. psocket _ false]].
+		psocket⇒ [psocket close. psocket ← false]].
 
-		[psocket []
+		[psocket⇒ []
 		"create new socket"
-		psocket _ EFTPSender new hostName: dest [psocket wakeup]
+		psocket ← EFTPSender new hostName: dest⇒ [psocket wakeup]
 		user cr; show: 'name lookup failure'].
 
 		"send file"
-		psocket and (user displayoffwhile [psocket send: DL reset]) [
-			"success--stop" ndest _ false]
+		psocket and⦂ (user displayoffwhile⦂ [psocket send: DL reset])⇒ [
+			"success--stop" ndest ← false]
 
 		"failure--switch servers?"
-		perr _ true].
+		perr ← true].
 
 	"cleanup after success or abort"
 	DL close.
-	psocket [psocket close]]\gb17B
+	psocket⇒ [psocket close]]\gb17B
 
 Fonts\gbf5 
 codefont: code style: style
-	[fontdefs(self fontindex: code style: style)]\gb29B
+	[⇑fontdefs◦(self fontindex: code style: style)]\gb29B
 fontindex: code style: style | ix font n
 	["return index if in font dictionary"
-	code _ code land: 0363.		"Remove underline and strikeout"
-		[style=prevstyle
-			[(ix _ fontcodes find: code) > 0  [ix]]
-		fontcodes all_ nil. "invalid across style change"
-		prevstyle_ style].
-	n _ code / 16 + 1.
-	font _ (WidthTable new
+	code ← code land: 0363.		"Remove underline and strikeout"
+		[style=prevstyle⇒
+			[(ix ← fontcodes find: code) > 0 ⇒ [⇑ix]]
+		fontcodes all← nil. "invalid across style change"
+		prevstyle← style].
+	n ← code / 16 + 1.
+	font ← (WidthTable new
 		named: (style fontfamily: n)
 		pointsize: (style fontsize: n)
 		face: (code / 2 land: 1) + (code * 2 land: 2))
 	 lookup.
-	(ix_ fontdefs find: font)>0
-		[fontcodesix_ code. ix]
+	(ix← fontdefs find: font)>0⇒
+		[fontcodes◦ix← code. ⇑ix]
 	"add entry to font dictionary"
-	fontdefs length=16[user notify: 'too many fonts'. 1]
-	fontcodes _ fontcodes, code.
-	fontdefs _ fontdefs, font.
-	fontcodes length]\gb29B14i36I27i32I365i30I
+	fontdefs length=16⇒[user notify: 'too many fonts'. ⇑1]
+	fontcodes ← fontcodes, code.
+	fontdefs ← fontdefs, font.
+	⇑fontcodes length]\gb29B14i36I27i32I365i30I
 selectfont: f [
-	estate1 = f []
-	EL next _ 0160 + (estate1 _ f)]\gb14B
+	estate◦1 = f⇒ []
+	EL next ← 0160 + (estate◦1 ← f)]\gb14B
 somefont		"fool self into writing non-empty fontdir"
 	[self fontindex: 5*16 style: DefaultTextStyle]\gb10Bi42I
 
 Transformations\gbf5 
 transpt: p
-	[ Point new x: (p x * scale) asInteger y: (25400 - (p y * scale)) asInteger]\gb12B
+	[⇑ Point new x: (p x * scale) asInteger y: (25400 - (p y * scale)) asInteger]\gb12B
 transrect: rect
-	[ Rectangle new
-		origin: (self transpt: rect minX  rect maxY)
-		corner: (self transpt: rect maxX  rect minY)]\gb17B
+	[⇑ Rectangle new
+		origin: (self transpt: rect minX ⌾ rect maxY)
+		corner: (self transpt: rect maxX ⌾ rect minY)]\gb17B
 
 EL commands\gbf5 
-brightness: b [EL next_ 0370; next_ b]\gb14B
-hue: b [EL next_ 0371; next_ b]\gb7B
-onlyoncopy: n [EL next _ 0355; next _ n]\gb14B
-resetspace [EL next _ 0366]\gb11B
-saturation: s [EL next_ 0372; next_ s]\gb14B
+brightness: b [EL next← 0370; next← b]\gb14B
+hue: b [EL next← 0371; next← b]\gb7B
+onlyoncopy: n [EL next ← 0355; next ← n]\gb14B
+resetspace [EL next ← 0366]\gb11B
+saturation: s [EL next← 0372; next← s]\gb14B
 setp: p [
 	"self setx: p x; sety: p y"
-	EL next _ 0356; nextword _ p x;
-		next _ 0357; nextword _ p y]\gb8B
+	EL next ← 0356; nextword ← p x;
+		next ← 0357; nextword ← p y]\gb8B
 setspacex: x [
-	estate2 = x []
-	estate2 _ x.
-	x  0 and x  2047 ["short form" EL nextword _ 060000 + x]
-	EL next _ 0364; nextword _ x]\gb13B59i10I
+	estate◦2 = x⇒ []
+	estate◦2 ← x.
+	x ≥ 0 and⦂ x ≤ 2047⇒ ["short form" EL nextword ← 060000 + x]
+	EL next ← 0364; nextword ← x]\gb13B59i10I
 setspacey: y [
-	estate3 = y []
-	estate3 _ y.
-	y  0 and y  2047 ["short form" EL nextword _ 064000 + y]
-	EL next _ 0365; nextword _ y]\gb13B59i10I
-setx: x [EL next _ 0356; nextword _ x]\gb8B
-sety: y [EL next _ 0357; nextword _ y]\gb8B
-showchar: char ["immediate" EL next _ 0363; next _ char]\gb15B
+	estate◦3 = y⇒ []
+	estate◦3 ← y.
+	y ≥ 0 and⦂ y ≤ 2047⇒ ["short form" EL nextword ← 064000 + y]
+	EL next ← 0365; nextword ← y]\gb13B59i10I
+setx: x [EL next ← 0356; nextword ← x]\gb8B
+sety: y [EL next ← 0357; nextword ← y]\gb8B
+showchar: char ["immediate" EL next ← 0363; next ← char]\gb15B
 showchars: n [
-	n=0 []
-	n  1 and n  32 ["short form" EL next _ n-1]
-	EL next _ 0360; next _ n]\gb13B33i10I
+	n=0⇒ []
+	n ≥ 1 and⦂ n ≤ 32⇒ ["short form" EL next ← n-1]
+	EL next ← 0360; next ← n]\gb13B33i10I
 showchars: n skip: t [
-	t=1 and (n  1 and n  32) [EL next _ 0100 + n-1]
+	t=1 and⦂ (n ≥ 1 and⦂ n ≤ 32)⇒ [EL next ← 0100 + n-1]
 	self showchars: n; skipchars: t]\gb21B
-showdots: nwords [EL next _ 0374; nextNumber: 4 _ nwords]\gb17B
-showdotsopaque: nwords [EL next _ 0375; nextNumber: 4 _ nwords]\gb23B
+showdots: nwords [EL next ← 0374; nextNumber: 4 ← nwords]\gb17B
+showdotsopaque: nwords [EL next ← 0375; nextNumber: 4 ← nwords]\gb23B
 showrect: rect [
 	self setp: rect origin.
-	EL next _ 0376;
-		nextword _ rect width;
-		nextword _ rect height]\gb15B
+	EL next ← 0376;
+		nextword ← rect width;
+		nextword ← rect height]\gb15B
 showrect: rect color: c [
-	[ColorPrint [self brightness: c]].
+	[ColorPrint⇒ [self brightness: c]].
 	self showrect: (self transrect: rect)]\gb24B
-showrectwidth: w height: h [EL next _ 0376; nextword _ w; nextword _ h]\gb27B
+showrectwidth: w height: h [EL next ← 0376; nextword ← w; nextword ← h]\gb27B
 skipchars: n [
-	n=0 []
-	n  1 and n  32 ["short form" EL next  _ 040 + n-1]
-	EL next _ 0361; next _ n]\gb13B33i10I
+	n=0⇒ []
+	n ≥ 1 and⦂ n ≤ 32⇒ ["short form" EL next  ← 040 + n-1]
+	EL next ← 0361; next ← n]\gb13B33i10I
 skipcontrol: n [
 	"immediate"
-	EL next _ 0353; next _ n.
+	EL next ← 0353; next ← n.
 	"now put n bytes in EL"]\gb15B
 skipcontrol: n type: t [
 	"n bytes have been put in DL"
-	EL next _ 0362; nextword _ n; next _ t]\gb23B
-space [EL next _ 0367]\gb6B
+	EL next ← 0362; nextword ← n; next ← t]\gb23B
+space [EL next ← 0367]\gb6B
 
 Bitmaps/Dots\gbf5 
 AIS: file width: w height: h croprect: r at: pt scale: s
-	[self setp: (self transpt: pt); dots
+	[self setp: (self transpt: pt); dots⦂
 		[self setcoding: 8 "byte samples" dots: w lines: h;
 				setmode: 3 "to right and to bottom of page";
 				setsizewidth: (s*r width*scale) asInteger height: (s*r height*scale) asInteger;
 				setwindowwidth: r width height: r height skipdots: r minX skiplines: r minY;
 				dotsfromAIS: file]]
 "
-(dp0 pressfile: 'pix.press') somefont; AIS: 'girl.ais' width: 512 height: 512 croprect: (5050 rect: 500500) at: 3680 scale: 0.65; close.
+(dp0 pressfile: 'pix.press') somefont; AIS: 'girl.ais' width: 512 height: 512 croprect: (50⌾50 rect: 500⌾500) at: 36⌾80 scale: 0.65; close.
 "\gb58B
 bitmap: rect bits: bits | w w16 h [
 	"some pecularities of spruce:
 	scale must be 32, and multiples of 16 for width (maybe extra stuff prints)"
-	w _ rect width.
-	w16 _ w + 15 | 16 "width to next word boundary".
-	h _ rect height.
+	w ← rect width.
+	w16 ← w + 15 | 16 "width to next word boundary".
+	h ← rect height.
 	"origin should be set earlier"
-	self dots [
+	self dots⦂ [
 		self setcoding: 0 "bitmap" dots: w16 lines: h;
 			setmode: 3 "to right and to bottom of page";
 			setsizewidth: scale * w16 height: scale * h;
-			setwindowwidth: [ColorPrint [w] w16] height: h;
+			setwindowwidth: [ColorPrint⇒ [w] w16] height: h;
 			dotsfollow.
-		bits["bits supplied" DL append: bits]
+		bits⇒["bits supplied" DL append: bits]
 		"else from screen"
 		rect bitsOntoStream: DL]]\gb24B9i1I4i104I39i27I23i28I37i6I37i30I127i13I22i16I
-dots exp | dlpos [
-	dlpos _ self padword.
+dots⦂ exp | dlpos [
+	dlpos ← self padword.
 	exp eval.
 	self showdots: DL wordposition - dlpos]\gb10B
-dotsfollow [DL nextword _ 3]\gb11B
+dotsfollow [DL nextword ← 3]\gb11B
 dotsfromAIS: file | f
-	[f_file length inString+file+[file length even[' ']'']. "BCPLize"
-	DL nextword _ 4; nextword _ 4; append: f. FL append: f]\gb18B
+	[f←file length inString+file+[file length even⇒[' ']'']. "BCPLize"
+	DL nextword ← 4; nextword ← 4; append: f. FL append: f]\gb18B
 setcoding: c dots: d lines: l [
-	DL next _ 1; next _ c;
-		nextword _ d; nextword _ l]\gb30B
-setmode: m [DL next _ 2; next _ m]\gb11B
+	DL next ← 1; next ← c;
+		nextword ← d; nextword ← l]\gb30B
+setmode: m [DL next ← 2; next ← m]\gb11B
 setsizewidth: w height: h [
-	DL nextword _ 2; nextword _ w; nextword _ h]\gb26B
+	DL nextword ← 2; nextword ← w; nextword ← h]\gb26B
 setwindowwidth: w height: h [
 	self setwindowwidth: w height: h skipdots: 0 skiplines: 0]\gb28B
 setwindowwidth: w height: h skipdots: sd skiplines: sl
-	[DL nextword _ 1;
-		nextword _ sd; nextword _ w;
-		nextword _ sl; nextword _ h]\gb56B
+	[DL nextword ← 1;
+		nextword ← sd; nextword ← w;
+		nextword ← sl; nextword ← h]\gb56B
 
 Lines/Objects\gbf5 
 drawcurve: v [
-	v length  12 [user notify: 'illegal drawcurve']
-	DL nextword _ 2.
-	for v from: v do [DL nextword _ v]]\gb13B
+	v length ≠ 12⇒ [user notify: 'illegal drawcurve']
+	DL nextword ← 2.
+	for⦂ v from: v do⦂ [DL nextword ← v]]\gb13B
 drawdiscat: pt radius: radius | dx dy i
-	[radius  16  []
-	 dx _ (5 4 3 1 1 3 4 5 5 4 3 1 1 3 4 5).
-	 dy _ (1 3 4 5 5 4 3 1 1 3 4 5 5 4 3 1).
-	 self showobject [
-		self moveto: pt + ((dx16*radius/5)  (dy16*radius/5)).
-	 	for i to: 16 do
-			[self drawto: pt + ((dxi*radius/5)  (dyi*radius/5))]]]\gb41B
+	[radius ≤ 16 ⇒ []
+	 dx ← ↪(5 4 3 1 ¬1 ¬3 ¬4 ¬5 ¬5 ¬4 ¬3 ¬1 1 3 4 5).
+	 dy ← ↪(1 3 4 5 5 4 3 1 ¬1 ¬3 ¬4 ¬5 ¬5 ¬4 ¬3 ¬1).
+	 self showobject⦂ [
+		self moveto: pt + ((dx◦16*radius/5) ⌾ (dy◦16*radius/5)).
+	 	for⦂ i to: 16 do⦂
+			[self drawto: pt + ((dx◦i*radius/5) ⌾ (dy◦i*radius/5))]]]\gb41B
 drawlinefrom: p1 to: p2 width: width | d length t1 t2
-	[[(d _ p2-p1) = (00)  []
-		d x_ d x asFloat. d y_ d y asFloat. width _ width asFloat.
-		length _ ((d x*d x)+(d y*d y)) sqrt.
-		d x_ (d x*width/length) asInteger.
-		d y_ (d y*width/length) asInteger.
-		t1 _ d y  (0 - d x).
-		t2 _ 0 - d y  d x.
-		self showobject [
+	[[(d ← p2-p1) = (0⌾0) ⇒ []
+		d x← d x asFloat. d y← d y asFloat. width ← width asFloat.
+		length ← ((d x*d x)+(d y*d y)) sqrt.
+		d x← (d x*width/length) asInteger.
+		d y← (d y*width/length) asInteger.
+		t1 ← d y ⌾ (0 - d x).
+		t2 ← 0 - d y ⌾ d x.
+		self showobject⦂ [
 			self moveto: p1 + t1.
 			self drawto: p2 + t1.
 			self drawto:  p2 + t2.
@@ -503,34 +503,34 @@ drawlinefrom: p1 to: p2 width: width | d length t1 t2
 			self drawto:  p1 + t1]].
 	 self drawdiscat: p2 radius: width]\gb55B
 drawlinefromscreen: p1 to: p2 width: width
-	[self drawlinefrom: (self transpt: p1) to: (self transpt: p2) width: (width*scale)] \gb44B
-drawto: p [DL nextword _ 1; nextPoint _ p]\gb10B
-moveto: p [DL nextword _ 0; nextPoint _ p]\gb10B
-object expr atScreen: p 
-	[self showobject [self objectGotoScreen: p pen: 0. expr eval]]\gb27B
+	[⇑self drawlinefrom: (self transpt: p1) to: (self transpt: p2) width: (width*scale)] \gb44B
+drawto: p [DL nextword ← 1; nextPoint ← p]\gb10B
+moveto: p [DL nextword ← 0; nextPoint ← p]\gb10B
+object⦂ expr atScreen: p 
+	[self showobject⦂ [self objectGotoScreen: p pen: 0. expr eval]]\gb27B
 objectGotoScreen: p pen: pen [
-	DL nextword_ pen; nextPoint _ (self transpt: p)]\gb29B
-showobject exp | p [
-	p _ self padword.
+	DL nextword← pen; nextPoint ← (self transpt: p)]\gb29B
+showobject⦂ exp | p [
+	p ← self padword.
 	"expression containing moveto, drawto, drawcurve"
 	exp eval.
-	EL next _ 0373; nextword _ DL wordposition - p]\gb16B
+	EL next ← 0373; nextword ← DL wordposition - p]\gb16B
 
 Private\gbf5 
 append: x
-	[DL append: x]\gb11B
+	[⇑DL append: x]\gb11B
 Bcpl: s pad: n | slen [
 	"write a Bcpl string and padding to fill n bytes (used by close)"
-	slen _ s length min: n-1.
-	DL next _ slen; append: s(1 to: slen); next: n-(slen+1) _ 0]\gb15B11i63I
+	slen ← s length min: n-1.
+	DL next ← slen; append: s◦(1 to: slen); next: n-(slen+1) ← 0]\gb15B11i63I
 classInit | a p ["PressFile classInit."
-	Smalltalk declare: PressScale as: 32.
-	recordsize _ 512.
-	SMentity _ 5.
+	Smalltalk declare: ↪PressScale as: 32.
+	recordsize ← 512.
+	SMentity ← 5.
 
-	a _ (String new: 250) asStream.
+	a ← (String new: 250) asStream.
 "from [Maxc1]<Altodocs>NetTopology.Press, October 1980. in order of net number"
-	printers _ (
+	printers ← ↪(
 		"net #"	"printer names"
 		" 1"		'Navajo'			"HENRIETTA"
 		" 3"		'Menlo' 'Clover' 'Lilac' "PARC: BLDG 35, FLOOR 2"
@@ -553,198 +553,198 @@ classInit | a p ["PressFile classInit."
 		"60"		'Adelie' 'Daisy' 'RockHopper' 	"BAYHILL"
 		"62"		'Bud'				"?"
 	).
-	for p from: printers do [a append: p; cr].
+	for⦂ p from: printers do⦂ [a append: p; cr].
 	a append: 'same printer'; cr; append: 'no printer'.
-	printerMenu _ Menu new string: a contents]\gb10B
+	printerMenu ← Menu new string: a contents]\gb10B
 closeEntity [self closeEntity: SMentity]\gb12B
 closeEntity: etype [
-	EL wordposition = ELstart []
+	EL wordposition = ELstart⇒ []
 	"Put a trailer into the EL"
-	EL	padNext _ 0377;	"word-pad EL with <Nop>"
-		next _ etype;
-		next_ 0; "fontset"
+	EL	padNext ← 0377;	"word-pad EL with <Nop>"
+		next ← etype;
+		next← 0; "fontset"
 		"dlstart relative to DL location in file"
-		nextNumber: 4 _ DLstart - (Pstart*recordsize);
-		nextNumber: 4 _ DL position - DLstart;
-		nextPoint_ eorigin; "entity origin"
-		nextPoint_ boundbox origin;
-		nextPoint_ boundbox extent.
-	EL nextword _ EL wordposition - ELstart + 1.
+		nextNumber: 4 ← DLstart - (Pstart*recordsize);
+		nextNumber: 4 ← DL position - DLstart;
+		nextPoint← eorigin; "entity origin"
+		nextPoint← boundbox origin;
+		nextPoint← boundbox extent.
+	EL nextword ← EL wordposition - ELstart + 1.
 	self startEntity]\gb19B34i27I21i24I28i9I3i44I110i15I
 closePage [
 	self closeEntity.
-	EL empty []
-	DL	padNext _ 0;
-		nextword _ 0;
+	EL empty⇒ []
+	DL	padNext ← 0;
+		nextword ← 0;
 		append: EL asReadStream.
 	self part: 0 start: Pstart]\gb10B
-data ["slightly dangerous" DL]\gb5B
-padpage ["words of padding to end of page" (DL pad: recordsize with: 0) / 2]\gb8B2i31I
+data ["slightly dangerous" ⇑DL]\gb5B
+padpage ["words of padding to end of page" ⇑(DL pad: recordsize with: 0) / 2]\gb8B2i31I
 padword [
 	"make object (lines or dots) start on word boundary"
-	[DL padNext _ 0 [self skipchars: 1]].
-	DL wordposition]\gb8B
-part exp code: c | fp [
+	[DL padNext ← 0⇒ [self skipchars: 1]].
+	⇑DL wordposition]\gb8B
+part⦂ exp code: c | fp [
 	self closePage.
-	fp _ self recordnum.
+	fp ← self recordnum.
 	exp eval.
 	self part: c start: fp]\gb18B
 part: type start: start | padding [
-	padding _ self padpage.
-	parts nextword _ type;
-		nextword _ start;
-		nextword _ self recordnum - start;
-		nextword _ padding.
+	padding ← self padpage.
+	parts nextword ← type;
+		nextword ← start;
+		nextword ← self recordnum - start;
+		nextword ← padding.
 	self startPage]\gb24B9b1B
-recordnum [DL positionSize: recordsize]\gb10B
+recordnum [⇑DL positionSize: recordsize]\gb10B
 skipcode: code data: s | t [
 	"called by hidePress:complete:. s is a String"
-	(t _ s length+1) < 256 [
+	(t ← s length+1) < 256⇒ [
 		"immediate, in EL"
 		self skipcontrol: t.
-		EL next _ code; append: s]
+		EL next ← code; append: s]
 	"in DL"
-	DL next _ code; append: s.
+	DL next ← code; append: s.
 	self skipcontrol: t type: SMentity]\gb23B8i10bI19Bi15I32i16I56i5I
 startEntity [
-	DLstart _ DL position.
-	ELstart _ EL wordposition.
-	boundbox _ 0 asRectangle.
-	eorigin _ 00.
-	estate all _ 1.
-	estate1 _ 0]\gb12B
+	DLstart ← DL position.
+	ELstart ← EL wordposition.
+	boundbox ← 0 asRectangle.
+	eorigin ← 0⌾0.
+	estate all ← ¬1.
+	estate◦1 ← 0]\gb12B
 startPage [
 	EL reset.
-	Pstart _ self recordnum.
+	Pstart ← self recordnum.
 	self startEntity]\gb10B
 
 Reading\gbf5 
 filin | p [
 	self open.
-	while (p _ self nextParagraph) do [
-		FilinSource _ self.
-		user print: nil p text; space].
-	FilinSource _ nil.
+	while⦂ (p ← self nextParagraph) do⦂ [
+		FilinSource ← self.
+		user print: nilⓢ p text; space].
+	FilinSource ← nil.
 	self close]\gb6B
 nextControl | command t entity [
 	"return the next skip-control information"
-	command _ nil.
-	while true do [
-		(estate and command)false [
+	command ← nil.
+	while⦂ true do⦂ [
+		(estate and⦂ command)≡false⇒ [
 			"either or both false. get next entity"
-			t _ EL next [
-				estate _ EL next viewer. command _ nil.
-				t1  SMentity ["ignore this entity" estate _ false]
-				DLstart _ (t(3 to: 6)) asStream nextNumber: 4.
-				DL position _ Pstart*recordsize + DLstart]
+			t ← EL next⇒ [
+				estate ← EL next viewer. command ← nil.
+				t◦1 ≠ SMentity⇒ ["ignore this entity" estate ← false]
+				DLstart ← (t◦(3 to: 6)) asStream nextNumber: 4.
+				DL position ← Pstart*recordsize + DLstart]
 
 			"no more entities on current part (page)"
-			self readPart []
+			self readPart⇒ []
 			"no more pages"
-			false]
+			⇑false]
 
-		entity _ estate.
-	while (command _ entity next) do [
+		entity ← estate.
+	while⦂ (command ← entity next) do⦂ [
 	"some stuff arranged by probable frequency"
 	command
-	< 0100 [
+	< 0100⇒ [
 		"show-characters-short (0-037)
 		skip-characters-short (040-077)"
 		DL skip: (command land: 037) +1];
-	= 0356 ["set-x" entity nextword];
-	= 0357 ["set-y" entity nextword];
-	< 0140 [
+	= 0356⇒ ["set-x" entity nextword];
+	= 0357⇒ ["set-y" entity nextword];
+	< 0140⇒ [
 		"show-characters-and-skip (0100-0137)"
 		DL skip: (command land: 037) +2];
-	< 0160 [
+	< 0160⇒ [
 		"set-space-x-short (0140-0147)
 		set-space-y-short  (0150-0157)"
 		"(command land: 7)*256 +" entity next];
-	< 0200 ["font" "command land: 017"];
-	= 0362 [
+	< 0200⇒ ["font" "command land: 017"];
+	= 0362⇒ [
 		"skip-control-bytes"
-		t _ entity nextword.
-		entity nextSMentity ["ignore" DL skip: t]
-		DL next: t];
-	= 0360 ["show-characters" DL skip: entity next];
-	= 0377 ["nop"];
+		t ← entity nextword.
+		entity next≠SMentity⇒ ["ignore" DL skip: t]
+		⇑DL next: t];
+	= 0360⇒ ["show-characters" DL skip: entity next];
+	= 0377⇒ ["nop"];
 
-	< 0353 [
+	< 0353⇒ [
 		"available (0200-0237)
 		spare (0240-0352)"];
-	= 0353 [
+	= 0353⇒ [
 		"skip-control-bytes-immediate"
-		entity next: entity next];
-	= 0354 ["alternative" entity skipwords: 5];
-	= 0355 ["only-on-copy" entity next];
-	= 0361 ["skip characters" DL skip: entity next];
+		⇑entity next: entity next];
+	= 0354⇒ ["alternative" entity skipwords: 5];
+	= 0355⇒ ["only-on-copy" entity next];
+	= 0361⇒ ["skip characters" DL skip: entity next];
 
-	= 0363 ["show-character-immediate" entity next];
-	< 0366 [
+	= 0363⇒ ["show-character-immediate" entity next];
+	< 0366⇒ [
 		"set-space-x (0364)
 		set-space-y (0365)" entity nextword];
-	< 0370 [
+	< 0370⇒ [
 		"reset-space (0366)
 		space (0367)" ];
-	< 0373 [
+	< 0373⇒ [
 		"set-brightness (0370)
 		set-hue (0371)
 		set-saturation (0372)" entity next];
 
-	= 0373 ["show-object" DL skipwords: entity nextword];
-	< 0376 [
+	= 0373⇒ ["show-object" DL skipwords: entity nextword];
+	< 0376⇒ [
 		"show-dots (0374)
 		show-dots-opaque (0375)"
 		DL skipwords: (entity nextNumber: 4)];
-	= 0376 ["show-rectangle" entity skipwords: 2]
+	= 0376⇒ ["show-rectangle" entity skipwords: 2]
 	]]]\gb12B23i40I74i37I226i39I27i13I73i41I25b21B11b21B59b6B30b5B34b24B64b17B15b17B68b4B38b18B98b15B36b3B19b9B15b5B30b28B43b11B35b12B27b15B37b24B30b11B10b11B41b11B10b5B26b14B10b7B10b14B35b11B48b9B10b16B61b14B
 nextParagraph | s p [
-	s _ self nextControl [
-		s _ s asStream.
-		p _ Paragraph new.
-		s next = p pressCode [p fromPress: self value: s]
-		false]
-	false]\gb14B
+	s ← self nextControl⇒ [
+		s ← s asStream.
+		p ← Paragraph new.
+		s next = p pressCode⇒ [⇑p fromPress: self value: s]
+		⇑false]
+	⇑false]\gb14B
 open | t [
 	"read the parts (and font directory?)"
 	DL readonly; "reopen?" settoend; skip: 0 - recordsize.
-	DL nextword = 27183 and DL nextword = (self recordnum + 1) [
-		t _ DL nextword.
+	DL nextword = 27183 and⦂ DL nextword = (self recordnum + 1)⇒ [
+		t ← DL nextword.
 		DL position: DL nextword size: recordsize.
-		parts _ (DL next: t*8) viewer.
+		parts ← (DL next: t*8) viewer.
 		self readPart]
 	self error: 'not a press file']\gb5B8i36I
 readPart | t [
 	"read parts until we find a printed page or end"
-	estate _ false.
-	while (t _ parts nextword) do [
-		Pstart _ parts nextword.
-		t  0 [
+	estate ← false.
+	while⦂ (t ← parts nextword) do⦂ [
+		Pstart ← parts nextword.
+		t ≠ 0⇒ [
 			"not a printed page"
 			parts skip: 4.
-			t> 0 ["font or other part"]
+			t> 0⇒ ["font or other part"]
 			"a non-standard part. let document (estate?) interpret"
-			"DL position _ Pstart*recordsize.
+			"DL position ← Pstart*recordsize.
 			estate fromPress: self name: t value: DL"]
 
 		"go to end of last record of entity list, ignoring padding"
-		t _ parts nextword "length".
-		DL position _ Pstart+t * recordsize - ((1 + parts nextword) * 2).
-		EL _ Set new vector: 50.
+		t ← parts nextword "length".
+		DL position ← Pstart+t * recordsize - ((1 + parts nextword) * 2).
+		EL ← Set new vector: 50.
 
 		"scan backwards for beginning of entity list, reading entities"
-		while (t _ DL nextword) > 0 do [
-			t < 12 [user notify: 'illegal entity']
+		while⦂ (t ← DL nextword) > 0 do⦂ [
+			t < 12⇒ [user notify: 'illegal entity']
 			DL skipwords: 0-t.
 			"read entity and trailer (last 12 words of entity)"
-			EL next _ DL next: t-12 *2.
-			EL next _ DL next: 24.
-			DL skipwords: 1 - t].
+			EL next ← DL next: t-12 *2.
+			EL next ← DL next: 24.
+			DL skipwords: ¬1 - t].
 		"now reverse:  trailer, entity (1st), ... (last)"
-		EL _ (EL asArray(EL length to: 1 by: 1)) asStream]
-	false]\gb9B8i46I96i18I56i53I89i57I24i6I102i61I108i49I88i47I
+		⇑EL ← (EL asArray◦(EL length to: 1 by: ¬1)) asStream]
+	⇑false]\gb9B8i46I96i18I56i53I89i57I24i6I102i61I108i49I88i47I
 \g
-SystemOrganization classify: PressFile under: 'Press File Support'.\g
+SystemOrganization classify: ↪PressFile under: 'Press File Support'.\g
 PressFile classInit\g
 
 "WidthTable"l15000z20000\gbf5 
@@ -767,82 +767,82 @@ Holds font parameters and width table for a Press font.  It knows how to load it
 
 Initialization\gbf5 
 classInit
-	[WidthDict _ Dictionary init.
-	tab _ 500]\gb11B
+	[WidthDict ← Dictionary init.
+	tab ← 500]\gb11B
 lookup | key font i [
-	key _ name + pointsize asString + (('' 'I' 'B' 'BI')(face+1)).
-	font _ WidthDict lookup: key [font]
+	key ← name + pointsize asString + (↪('' 'I' 'B' 'BI')◦(face+1)).
+	font ← WidthDict lookup: key⇒ [⇑font]
 	self fontfrom: (dp0 oldFile: 'Fonts.Widths') readonly.
-	for i from: (011 015 040) do
-		[i  min and i  max  [widths(i-min+1) _ 0]].
+	for⦂ i from: ↪(011 015 040) do⦂
+		[i ≥ min and⦂ i ≤ max ⇒ [widths◦(i-min+1) ← 0]].
 	WidthDict insert: key with: self.
-	self]\gb7B
+	⇑self]\gb7B
 named: name pointsize: pointsize face: face\gb
 
 Access\gbf5 
-ascent [ascent]\gb7B
-descent [descent]\gb8B
-face [face]\gb5B
-max [max]\gb4B
-min [min]\gb4B
-name [name]\gb5B
-pointsize [pointsize]\gb10B
+ascent [⇑ascent]\gb7B
+descent [⇑descent]\gb8B
+face [⇑face]\gb5B
+max [⇑max]\gb4B
+min [⇑min]\gb4B
+name [⇑name]\gb5B
+pointsize [⇑pointsize]\gb10B
 scan: strm until: width exceeds: maxw | char w [
-	while (char _ strm next) do
-		[char < min 
-			[char=040 or (char=015 or char=011)  [char, width]
+	while⦂ (char ← strm next) do⦂
+		[char < min ⇒
+			[char=040 or⦂ (char=015 or⦂ char=011) ⇒ [⇑char, width]
 			user notify: 'char too low']
-		char > max  [user notify: 'char too high']
-		(w _ widths(char+1-min)) = 0  [char, width]
-		(width _ width + w) > maxw  [true, width]
+		char > max ⇒ [user notify: 'char too high']
+		(w ← widths◦(char+1-min)) = 0 ⇒ [⇑char, width]
+		(width ← width + w) > maxw ⇒ [⇑true, width]
 		].
-	false, width]\gb38B43b1B
-space [150]\gb6B
-tab [tab]\gb4B
-tab _ t [tab _ t]\gb8B
+	⇑false, width]\gb38B43b1B
+space [⇑150]\gb6B
+tab [⇑tab]\gb4B
+tab ← t [tab ← t]\gb8B
 
 Reading FONTS.WIDTHS\gbf5 
 findfield: n on: file | IXH [
-	while [
-		IXH _ file nextword.
+	while⦂ [
+		IXH ← file nextword.
 		(IXH bits: (0 to: 3)) "type"
-			= 0  [user notify: 'field not found'];
-			 n]
-	 do
+			= 0 ⇒ [user notify: 'field not found'];
+			≠ n]
+	 do⦂
 		[file skipwords: (IXH land: 07777 "length") - 1]]\gb22B
 fontfrom: file | i code fam fmin fmax start len found w scale
 	["find code for font family"
-	file reset. fam _ ''.
-	until (fam = name) do
+	file reset. fam ← ''.
+	until⦂ (fam = name) do⦂
 		[self findfield: 1 on: file.
-		code _ file nextword.
-		fam _ file next: (len _ file next).
+		code ← file nextword.
+		fam ← file next: (len ← file next).
 		file skip: 19 - len].
 	"now search for proper face"
-	found _ false.
+	found ← false.
 	"Convert from points to micas"
-	scale _ (pointsize asFloat * 2540 / 72) asInteger.
-	until found do
+	scale ← (pointsize asFloat * 2540 / 72) asInteger.
+	until⦂ found do⦂
 		[self findfield: 4 on: file.
-		found _ [file next = code].
-		[file next  face  [found _ false]].
-		fmin _ file next.
-		fmax _ file next.
-		i _ file nextword. [i  scale and: i  0  [found _ false]].
-		file skip: 4. start _ file nextword. file skip: 4].
-	scale _ [i  0  [1 "don't need to scale"] pointsize asFloat * 254 / 7200].
-	min _ fmin. max _ fmax.
+		found ← [file next = code].
+		[file next ≠ face ⇒ [found ← false]].
+		fmin ← file next.
+		fmax ← file next.
+		i ← file nextword. [i ≠ scale and: i ≠ 0 ⇒ [found ← false]].
+		file skip: 4. start ← file nextword. file skip: 4].
+	scale ← [i ≠ 0 ⇒ [1 "don't need to scale"] pointsize asFloat * 254 / 7200].
+	min ← fmin. max ← fmax.
 	"get bb and x-tables"
-	file wordposition_ start+1.
-	descent _ 0 - (scale * file nextword) asInteger.
+	file wordposition← start+1.
+	descent ← 0 - (scale * file nextword) asInteger.
 	file nextword.
-	ascent _ (scale * file nextword) asInteger.
+	ascent ← (scale * file nextword) asInteger.
 	file nextword.
-	widths _ Vector new: (max - min + 1).
-	for i to: widths length do
-		[w _ file nextword.
-		widthsi _ [w > 0  [(scale * w) asInteger] 0]].
+	widths ← Vector new: (max - min + 1).
+	for⦂ i to: widths length do⦂
+		[w ← file nextword.
+		widths◦i ← [w > 0 ⇒ [(scale * w) asInteger] 0]].
 	file close]\gb15B49i27I167i28I18i30I350i21I61i21I
 \g
-SystemOrganization classify: WidthTable under: 'Press File Support'.\g
+SystemOrganization classify: ↪WidthTable under: 'Press File Support'.\g
 WidthTable classInit\g 

@@ -15,23 +15,23 @@ Provides a stream-like interface for printing a succession of paragraphs on a Br
 
 Initialization\gbf5 
 classInit | inch
-	[inch _ 2540.		"1 inch in micas"
-	defaultframe _
-		(0.75*inch) asInteger(1*inch) rect: (7.75*inch) asInteger(10*inch).
-	defaultleading _ 0]\gb10B23i17I
+	[inch ← 2540.		"1 inch in micas"
+	defaultframe ←
+		(0.75*inch) asInteger⌾(1*inch) rect: (7.75*inch) asInteger⌾(10*inch).
+	defaultleading ← 0]\gb10B23i17I
 init
-	[self frame _ self defaultframe.
-	self leading _ defaultleading.
-	self style _ DefaultTextStyle]\gb6B
+	[self frame ← self defaultframe.
+	self leading ← defaultleading.
+	self style ← DefaultTextStyle]\gb6B
 of: strm\gb
 
 Access to state\gbf5 
-defaultframe [defaultframe]\gb13B
-defaultleading [defaultleading]\gb15B
-frame [frame]\gb6B
-frame _ frame\gb
-leading _ leading\gb
-style _ style\gb
+defaultframe [⇑defaultframe]\gb13B
+defaultleading [⇑defaultleading]\gb15B
+frame [⇑frame]\gb6B
+frame ← frame\gb
+leading ← leading\gb
+style ← style\gb
 
 Writing\gbf5 
 print: para		"A dummy, subclasses will override"
@@ -44,73 +44,73 @@ printchanges: lis | selector class heading old mes s delFlg
 	If an element appears in the list of the form '~class message', this puts out a 
 	line causing the system to forget that method.  These come after any additons,
 	owing to the sort on Changes"
-  [lis empty [lis]
-	user displayoffwhile [
-	lis _ lis asStream.
-	old _ mes _ false.
+  [lis empty⇒ [⇑lis]
+	user displayoffwhile⦂ [
+	lis ← lis asStream.
+	old ← mes ← false.
 
-	while class do [
+	while⦂ class do⦂ [
 		"get next class, selector pair"
-		[delFlg_ false.
-		mes and (selector _ mes next) ["more of alternate form"]
-		s _ lis next [
-			s is: UniqueString [
-				class _ Smalltalk lookup: s.
-				mes _ lis next asStream.
-				selector _ mes next]
+		[delFlg← false.
+		mes and⦂ (selector ← mes next)⇒ ["more of alternate form"]
+		s ← lis next⇒ [
+			s is: UniqueString⇒ [
+				class ← Smalltalk lookup: s.
+				mes ← lis next asStream.
+				selector ← mes next]
 			"Changes format"
-			s _ s asStream.
-			[s peek=126 "~"[s next. "take it off stream" delFlg_ true]].
-			class _ Smalltalk(s upto: 040) unique.
-			selector _ s upto: 040.]
-		class _ false].
+			s ← s asStream.
+			[s peek=126 "~"⇒[s next. "take it off stream" delFlg← true]].
+			class ← Smalltalk◦(s upto: 040) unique.
+			selector ← s upto: 040.]
+		class ← false].
 
-		delFlg[self printForget: selector class: class]
+		delFlg⇒[self printForget: selector class: class]
 		"same, different or no class"
-		[old  class []
-		[old [old endCategoryOn: self; endChangesOn: self]].
-		class  false ["finished"]
+		[old ≡ class⇒ []
+		[old⇒ [old endCategoryOn: self; endChangesOn: self]].
+		class ≡ false⇒ ["finished"]
 
 		user cr; show: class title.
-		old _ class.
+		old ← class.
 		class startChangesOn: self.
-		heading _ 'As yet unclassified'].
+		heading ← 'As yet unclassified'].
 
-		classfalse []
+		class≡false⇒ []
 		user space; show: selector.
-		s _ class organization invert: (selector _ selector unique).
-		s[[s  heading[class startCategory: (heading _ s) on: self]].
+		s ← class organization invert: (selector ← selector unique).
+		s⇒[[s ≠ heading⇒[class startCategory: (heading ← s) on: self]].
 		class printMethod: selector on: self]]]]\gb18B44i22I40i20I36i200I112i29I56i22I137i14I353i8I
 printclass: class | c first [
-	class is: Vector [
-		first _ true.
-		for c from: class do [
-			[first [first _ false] self nextpage].
+	class is: Vector⇒ [
+		first ← true.
+		for⦂ c from: class do⦂ [
+			[first⇒ [first ← false] self nextpage].
 			self printclass: c]]
-	user displayoffwhile [
-		[class is: UniqueString
-			[class _ Smalltalkclass]].
+	user displayoffwhile⦂ [
+		[class is: UniqueString⇒
+			[class ← Smalltalk◦class]].
 		user cr; show: class title.
 		class paraprinton: self]]\gb18B
 printForget: selector class: class
 	"Print a line that causes a message to be forgotten"
 	[user cr; show: '~'+class title+' '+selector.
 	self print:
-		(class title + ' derstands: ' + selector + '.
+		(class title + ' derstands: ↪' + selector + '.
 ') asParagraph]\gb36B
 stamp | s t [
-	t _ user now "date and time".
-	s _ Stream default.
+	t ← user now "date and time".
+	s ← Stream default.
 	s append: '''From '; append: user version;
-		append: ' on '; print: t1;
-		append: ' at '; print: t2;
+		append: ' on '; print: t◦1;
+		append: ' at '; print: t◦2;
 		append: '.'''; cr.
 	self print: s contents asParagraph]\gb6B
 
 Closing\gbf5 
 close [strm close]\gb6B
 \g
-SystemOrganization classify: ParagraphPrinter under: 'Paragraph printing'.\g
+SystemOrganization classify: ↪ParagraphPrinter under: 'Paragraph printing'.\g
 ParagraphPrinter classInit\g
 
 "BravoPrinter"l15000z20000\gbf5 
@@ -125,30 +125,30 @@ Prints Paragraphs in Bravo format\gi
 
 Initialization\gbf5 
 init
-	[super init.  eject _ false]\gb6B
+	[super init.  eject ← false]\gb6B
 
 Writing\gbf5 
 eject
-	[strm next _ 014; cr]\gb7B
+	[strm next ← 014; cr]\gb7B
 nextpage
-	[eject [self eject] eject _ true]\gb10B
+	[eject⇒ [self eject] eject ← true]\gb10B
 print: para | l r
-	[[eject [self eject. eject _ false]].
-	strm append: para text; next_ 032.		"^Z"
-	l _ frame origin x.
-	r _ frame corner x.
-	[lself defaultframe origin x
+	[[eject⇒ [self eject. eject ← false]].
+	strm append: para text; next← 032.		"^Z"
+	l ← frame origin x.
+	r ← frame corner x.
+	[l≠self defaultframe origin x⇒
 		[strm append: 'l'; print: l]].
-	[rself defaultframe corner x
+	[r≠self defaultframe corner x⇒
 		[strm append: 'z'; print: r]].
-	[leadingself defaultleading
+	[leading≠self defaultleading⇒
 		[strm append: 'e'; print: leading]].
 
 	"any other run info and cr"
 	para bravoRuns: strm.
 	]\gb12B83i4I
 \g
-SystemOrganization classify: BravoPrinter under: 'Paragraph printing'.\g
+SystemOrganization classify: ↪BravoPrinter under: 'Paragraph printing'.\g
 
 "PressPrinter"l15000z20000\gbf5 
 Class new title: 'PressPrinter'
@@ -164,43 +164,43 @@ Prints Paragraphs in Press format\gi
 
 Initialization\gbf5 
 classInit | inch
-	[inch _ 2540.		"1 inch in micas"
-	defaultframe _
-		(1.1*inch) asInteger(1*inch) rect: (7.75*inch) asInteger(10*inch)]\gb10B
-defaultframe [defaultframe]\gb13B
-init [super init. page _ 1. ypos _ frame maxY]\gb5B
-of: strm [press _ PressFile new of: strm]\gb9B
+	[inch ← 2540.		"1 inch in micas"
+	defaultframe ←
+		(1.1*inch) asInteger⌾(1*inch) rect: (7.75*inch) asInteger⌾(10*inch)]\gb10B
+defaultframe [⇑defaultframe]\gb13B
+init [super init. page ← 1. ypos ← frame maxY]\gb5B
+of: strm [press ← PressFile new of: strm]\gb9B
 press: press\gb
 
 Writing\gbf5 
 nextpage [self nextpage: true]\gb9B
 nextpage: h | n [
 	press page.
-	page _ page+1.
-	ypos _ frame maxY.
-	h [
-		n _ page asString.
-		press setp: frame maxX+800  (ypos + 960);
+	page ← page+1.
+	ypos ← frame maxY.
+	h⇒ [
+		n ← page asString.
+		press setp: frame maxX+800 ⌾ (ypos + 960);
 			selectfont: (press fontindex: 0 style: DefaultTextStyle) - 1;
 			append: n;
 			showchars: n length]]\gb12B
 print: para [
 	self print: para in: (
-		Rectangle new origin: frame origin corner: frame maxX  ypos)]\gb12B
+		Rectangle new origin: frame origin corner: frame maxX ⌾ ypos)]\gb12B
 print: para in: rect | result oldpara [
-	[rect width = 0 or rect height = 0 [user notify: 'zero dimension']].
+	[rect width = 0 or⦂ rect height = 0⇒ [user notify: 'zero dimension']].
 	"para is a Paragraph-like object (TextImage, Form, etc.)"
-	oldpara _ para.
-	until ((result _ para presson: press in: rect) is: Integer) do [
+	oldpara ← para.
+	until⦂ ((result ← para presson: press in: rect) is: Integer) do⦂ [
 		"rest of para goes on next page"
 		self nextpage.
-		para _ result.
-		rect _ rect minX  frame minY rect: rect maxX  ypos].
+		para ← result.
+		rect ← rect minX ⌾ frame minY rect: rect maxX ⌾ ypos].
 
 	"original para can hide information. if it split across page boundaries,
 	the format may vary. other completion flags can be added later"
-	oldpara hidePress: press complete: [oldparapara [0] 1].
-	ypos _ result]\gb21B93i55I90i30I96i135I
+	oldpara hidePress: press complete: [oldpara≡para⇒ [0] 1].
+	⇑ypos ← result]\gb21B93i55I90i30I96i135I
 
 Closing\gbf5 
 close
@@ -209,5 +209,5 @@ toPrinter [press toPrinter]\gb10B
 
 Projector behavior\gbf5 
 \g
-SystemOrganization classify: PressPrinter under: 'Paragraph printing'.\g
+SystemOrganization classify: ↪PressPrinter under: 'Paragraph printing'.\g
 PressPrinter classInit\g
