@@ -802,11 +802,6 @@ inString | t
 	[t ← String new: 1. t◦1 ← self. ⇑t]\gb9B
 oneToMeAsStream		"used by for-loops"
 	[⇑Stream new of: (Interval new from: 1 to: self by: 1)]\gb17Bi19I
-unique
-[
-⇑ self inString unique.
-]
-\gb7B
 unsigned [
 	self < 0⇒ [⇑65536.0 + self asFloat]
 	⇑self asFloat]\gb9B
