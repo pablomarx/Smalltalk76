@@ -1,15 +1,15 @@
 'From Smalltalk 5.5k XM November 24 on 22 November 1980 at 2:57:08 am.'
-\g
-"Form"l15000z20000\gbf5 
+
+"Form" 
 Class new title: 'Form'
 	subclassof: Object
 	fields: 'extent bits offset figure ground'
 	declare: 'brush aurora black white aurorarunning SPARE color formmenu under reverse blankcursor over dotsetter ';
-	asFollows\gbf5 
+	asFollows 
 
-This class is a virtual bit map represented as a smalltalk String\gi
+This class is a virtual bit map represented as a smalltalk String
 
-INIT\gbf5 
+INIT 
 classInit 
 	["sets up colors and effects for BITBLT."
 	black ← 0-1.
@@ -35,57 +35,57 @@ ground
 	dotsetter height ← 1.
 	aurorarunning ← false.
 	aurora ← "Aurora new" nil.
-	]\gb12B
+	]
 close
-	[]\gb7B
+	[]
 extent: extent
 	["creates a virtual bit map with width = (extent x) and height = (extent y) with the bits all 1."
 	self extent: extent figure: 0 ground: 1 offset: (0⌾0).
 	]
-	\gb16B
+	
 extent: extent figure: figure ground: ground offset: offset
 	["creates a virtual bit map with width = (extent x) and height = (extent y) with the bits all 1."
 	bits← String new: 2*(extent y)*( ((extent x) +15) /16).
 	]
-	\gb61B
+	
 fromImage: image 
 	["creates a virtual bit map with width = (image width) and height = (image height) with the bits in image."
 	self extent: image extent.
 	bits← (image rectangle) bitsIntoString
 	]
-	\gb19B
+	
 fromrectangle: r 
 	["creates a virtual bit map with width = (r width) and height = (r height) with the bits in r."
 	self extent: r extent.
 	bits← r bitsIntoString
 	]
-	\gb19B
+	
 	fromuser  | r
 	["create a new Form whose rectangle is specified by the user. "
 	r ← Rectangle new fromuser.
 	self extent: r extent.
 	bits← r bitsIntoString
-	]\gb16B
+	]
 fromuserevenword  | r
 	["create a new Form whose rectangle is specified by the user,
 		truncated to nearest multiple of 16 (for Spruce printing). "
 	r ← Rectangle new fromuserevenword.
 	self extent: r extent.
 	bits← r bitsIntoString
-	]\gb23B
+	]
 
-PATTERN ACCESS\gbf5 
+PATTERN ACCESS 
 bits 
 	["return the string containing the bits)"
 	⇑ bits
-	]\gb7B
+	]
 bits: bits 
 	["reset the string containing the bits)"
-	]\gb13B
+	]
 black | i
 	["sets all bits in the form to black ( to ones)"
 	for⦂ i to: bits length do⦂ [ bits◦i ← 0-1]
-	]\gb6B
+	]
 black: pt 
 	["sets the bit at pt in the  form to black ( to one)"
 	(((0⌾0) ≤ pt) and⦂ (pt ≤ extent)) ⇒
@@ -96,54 +96,54 @@ black: pt
 		dotsetter desty ← pt y.
 		dotsetter fill: storing color: black
 		]
-	]\gb12B
+	]
 gray | i
 	["sets all bits in the form to gray ( to gray)"
 	for⦂ i to: bits length do⦂ [ bits◦i ← 025252]
-	]\gb5B
+	]
 white | i
 	["sets all bits in the form to white ( to zeros)"
 	for⦂ i to: bits length do⦂ [ bits◦i ← 0]
-	]\gb6B
+	]
 
-MODULE ACCESS\gbf5 
+MODULE ACCESS 
 extent
 	["return the extent (width⌾height) of the Form"
 	⇑ extent
-	]\gb8B
+	]
 figure
 	["return the figure( color assiciated with black) for the form "
 	⇑ figure
-	]\gb8B
+	]
 figure: figure 
 	["set the figure ( color assiciated with black) for the form "
-	]\gb17B
+	]
 ground 
 	["return the ground ( color assiciated with white) for the form "
 	⇑ ground
-	]\gb9B
+	]
 ground: ground 
 	["set the ground ( color assiciated with white) for the form "
-	]\gb17B
+	]
 height 
 	["return the height of the Form"
 	⇑ extent y
-	]\gb9B
-length [ ⇑ bits length]\gb7B
+	]
+length [ ⇑ bits length]
 offset 
 	["return the offset of the Form"
 	⇑ offset
-	]\gb9B
+	]
 offset: offset 
 	["set the offset of the form "
 	⇑ self
-	]\gb17B
+	]
 width 
 	["return the width of the Form"
 	⇑ extent x
-	]\gb8B
+	]
 
-FILING\gbf5 
+FILING 
 read: filename | f strip w h form stripheight leftoverlines i
 	["Reads the Form from the disk in the format width,height,bits."
 	f← (dp0 oldFile: filename).
@@ -159,7 +159,7 @@ read: filename | f strip w h form stripheight leftoverlines i
 	f close.
 	user notify: 'too many bits to be a Form'.
 	
-	]\gb15B
+	]
 write: filename
 	["Saves the Form in the format width,height,bits."
 	(dp0 file: filename)
@@ -167,9 +167,9 @@ write: filename
 		nextword← (self height);
 		append: bits;
 		close.
-	]\gb17B2i47I
+	]
 
-DISPLAY\gbf5 
+DISPLAY 
 displayat:  path effect: effect clippedBy: cliprect| r i clippedrect
 	["basic form display primitive"
 	
@@ -188,9 +188,9 @@ displayat:  path effect: effect clippedBy: cliprect| r i clippedrect
  				]
 	path is: Path ⇒ [for⦂ i to: path length do⦂ [ self displayat: path◦i
 												effect: effect clippedBy: cliprect] ]
-	]\gb51B
+	]
 
-SYSTEM\gbf5 
+SYSTEM 
 asInstance | s
 	[s ← Stream new default.
 	s nextPoint← extent.
@@ -199,13 +199,13 @@ asInstance | s
 	s nextword ← ground.
 	s nextString ← bits.
 	⇑ s contents 
-	]\gb11B
+	]
 copy | t
 	["return a copy of myself"
 	t ← Form new extent: extent.
 	t bits: bits copy.
 	⇑ t
-	]\gb5B
+	]
 fromInstance: file 
 	[
 	extent ←  file nextPoint.
@@ -214,7 +214,7 @@ fromInstance: file
 	ground ← file nextword.
 	bits ← file nextString.
 	⇑ self 
-	]\gb21B
+	]
 fromPress: press value: s | nbytes [
 	extent← s nextPoint.
 	offset← s nextPoint.
@@ -222,7 +222,7 @@ fromPress: press value: s | nbytes [
 	ground ← s nextword.
 	nbytes ← 2*(extent y)*((extent x + 15)/16).
 	(press data) skip: 0-nbytes.
-	bits ← (press data) next: nbytes]\gb26B
+	bits ← (press data) next: nbytes]
 hideData: complete | s
 	["a Form does not split across page boundaries"
 	Stream new of: (s ← String new: 12);
@@ -230,10 +230,10 @@ hideData: complete | s
 		nextPoint← offset;
 		nextword ← figure;
 		nextword ← ground.
-	⇑ s]\gb19B7i44I
+	⇑ s]
 hidePress: press complete: c [
-	press skipcode: self pressCode data: (self hideData: c)]\gb29B
-pressCode [⇑5]\gb10B
+	press skipcode: self pressCode data: (self hideData: c)]
+pressCode [⇑5]
 presson: press in: r | hs y [
 	(hs  ← press scale*self height) > r height⇒ [
 		"not enough room left on current page.
@@ -242,9 +242,9 @@ presson: press in: r | hs y [
 
 	press setp: (r origin x)⌾(y ← r corner y - hs);
 		bitmap: self bits: bits.
-	⇑y]\gb21B
+	⇑y]
 
-EDITING\gbf5 
+EDITING 
 arc: parentimage | pt1 pt2 pt3 path pt
 	["arc tool for forms."
 	BlankCursor topage1.
@@ -260,7 +260,7 @@ arc: parentimage | pt1 pt2 pt3 path pt
 					[ brush displayat: pt effect: color clippedBy: user screenrect].
 	NormalCursor topage1
 	]
-\gb17B
+
 blinkbrush: parentimage | pt 
 	["to show current position of brush in the form."
 		pt ← parentimage mp.
@@ -270,7 +270,7 @@ blinkbrush: parentimage | pt
 			effect: 2 clippedBy: user screenrect.
 	⇑ (parentimage rectangle origin)+ pt
 	]
-\gb24B
+
 edit: parentimage | pt f c file
 	["Simple Form editor for now."
 	until⦂ false do⦂ "forever for now"
@@ -331,7 +331,7 @@ edit: parentimage | pt f c file
 									] "exit back to the parentimage"
 		]
 	]
-\gb18B
+
 line: parentimage | pt1 pt2 path pt
 	["line tool for forms."
 	BlankCursor topage1.
@@ -345,7 +345,7 @@ line: parentimage | pt1 pt2 path pt
 					[ brush displayat: pt effect: color clippedBy: user screenrect].
 	NormalCursor topage1
 	]
-\gb18B
+
 newbrush: superimage |  pt rect
 	[
 	OriginCursor topage1.
@@ -363,7 +363,7 @@ newbrush: superimage |  pt rect
  	brush ← Form new fromrectangle: rect.
 	NormalCursor topage1.
 	]
-\gb21B
+
 resize: superimage |  pt f
 	[superimage boxcomp.
 	CornerCursor topage1.
@@ -384,34 +384,34 @@ resize: superimage |  pt f
  						resize ; display ; boxcomp.
 	NormalCursor topage1.
 	]
-\gb19B
+
 setfigure: parentimage | 
 	["for now just increment the figure color by 1 \ 14"
 	figure ← (figure +1 ) \ 14.
 	self displayat: (parentimage origin) effect: 0 clippedBy: user screenrect.
 ]
-\gb23B5i52I
+
 setground: parentimage | 
 	["for now just increment the ground color by 1 \ 14"
 	ground ← (ground +1 ) \ 14.
 	self displayat: (parentimage origin) effect: 0 clippedBy: user screenrect.
 ]
-\gb23B5i52I
-\g
-SystemOrganization classify: ↪Form under: 'Form Path Image'.\g
-Form classInit\g
+
+
+SystemOrganization classify: ↪Form under: 'Form Path Image'.
+Form classInit
 
-"FormSet"l15000z20000\gbf5 
+"FormSet" 
 Class new title: 'FormSet'
 	subclassof: Object
 	fields: 'space spaceorigin image strike style styleindex formindex offsettable'
 	declare: 'imageindex bitmover ';
-	asFollows\gbf5 
+	asFollows 
 
 An object for holding sets of forms.  The most conventional use will be as a repository of a set of forms typically identified as characters when seen on the display or on paper.  The forms will be ascessible by passing a one-character
-string or a number.\gi
+string or a number.
 
-ACCESS\gbf5 
+ACCESS 
 asForm: formindex	  | f
 	["returns the form indexed by formindex ."
 	self checkindex.
@@ -428,23 +428,23 @@ asForm: formindex	  | f
 	bitmover sstrike ← true.
 	bitmover copy: storing.
 	⇑ f
-	]\gb20B6i43I
+	]
 changeascentto: newascent	
 	[	"new ascent for FormSet"
 	self deltaascent: (newascent - (self ascent))
-	]\gb28B1b1Bi26I
+	]
 changedescentto: newdescent	
 	[	"new ascent for FormSet"
 	self deltadescent: (newdescent - (self descent))
-	]\gb30B1b1Bi26I
+	]
 changewidthof: formindex to: width	
 	[	"new width for form at index"
 	self checkindex. self deltawidthof: formindex by: (width - (self width))
-	]\gb37B1b1Bi31I
+	]
 classInit
 	["Just initialize the bitmover for now."
 	bitmover ← BitBlt init
-	]\gb11B1i41I22i2I
+	]
 copy: formindex	 to: pt | f
 	["copies the form indexed by formindex to pt."
 	self checkindex.
@@ -460,7 +460,7 @@ copy: formindex	 to: pt | f
 	bitmover strike ← true.
 	bitmover copy: oring.
 	⇑ self widthof: formindex
-	]\gb24B6i47I
+	]
 copy: formindex	 to: pt effect: effect | f
 	["copies the form indexed by formindex to pt."
 	self checkindex.
@@ -476,7 +476,7 @@ copy: formindex	 to: pt effect: effect | f
 	bitmover strike ← true.
 	bitmover copy: effect.
 	
-	]\gb39B6i47I
+	]
 copyrange: start to: stop from: sourceset startingat: deststart
 		| savebackground savebits i f
 	["copy a range of forms from one set to another"
@@ -497,20 +497,20 @@ copyrange: start to: stop from: sourceset startingat: deststart
 
 	savebackground bitsFromString: savebits.
 	]
-	]\gb66B32i48I
+	]
 currentformindex
 	["return index of form last touched"
 	⇑ formindex
-	]\gb18B1i37I
+	]
 currentformorigin | imageindex
 	["return index in image of form last touched"
 	 imageindex ← image find: formindex.
 	⇑ space ptofchar: imageindex.
-	]\gb19B11b2B1i45I
+	]
 from: strike
 	["Make a formset out of string in strike format"
 	self classInit. self install: strike
-	]\gb14B1i47I
+	]
 from: first to: last ascent: ascent descent: descent
 	style: style styleindex: styleindex name: name
 	["Make an empty formset."
@@ -556,20 +556,20 @@ from: first to: last ascent: ascent descent: descent
 	self updateseglength.
 	[style ≡ nil ⇒ []
 		style setfont: styleindex name: name fromstring: strike]
-	]\gb102B1i24I137i23I28i8I20i24I50i23I61i19I68i23I71i30I2i10I248i11I87i5I128i8I
+	]
 fromspace: pt to: dest
 	["get form selected from space"
 	formindex ← image ◦ ((space charofpt: pt) min: 256).
 	⇑ (self copy: formindex to: dest).
-	]\gb24B1i30I
+	]
 fromstyle: style styleindex: styleindex
 	["Make a formset out of string in strike format"
 	self classInit. self install: style fonts◦(styleindex+1)
-	]\gb41B1i47I
+	]
 height
 	["return height of fromset"
 	⇑self ascent + self descent
-	]\gb8B1i26I
+	]
 include: formindex with: form | newoffsettable newstrike i j
 	["Put a form into the formset"
 	(formindex > (self first)) and:
@@ -618,7 +618,7 @@ include: formindex with: form | newoffsettable newstrike i j
 	self install: newstrike.
 	[formindex < (self first)  ⇒ [self first: formindex] self last: formindex].
 	self replace: formindex with: form.
-	]\gb30B33i29I1042i8I56i6I8i20I61i28I377i17I
+	]
 initspaceat: spaceorigin | i run para
 	["make a space for formset viewing"
 	image ← String new: 256.
@@ -637,7 +637,7 @@ initspaceat: spaceorigin | i run para
 		((self ascent) + (self descent) * 6))
 		style: style.
 	]
-\gb25B15i34I
+
 makecu: name scale: scale
 		| f i iform bits drast srast
 	["Put out strike in Carnegie-Mellon format.
@@ -679,11 +679,11 @@ makecu: name scale: scale
 		f append: bits].
 	f close.
 	]
-	]\gb28B31i195I
+	]
 newspace
 	["let user reshape/position space"
 	space frame ← Rectangle new fromuser. self show.
-	]\gb10B1i33I
+	]
 replace: formindex with: form
 	["Replace form in set.  Check incoming form for compatibility with formset,
 	and insert form into formset."
@@ -701,34 +701,34 @@ replace: formindex with: form
 	bitmover sourcebase ← (mem ◦ 066).
 	bitmover dstrike ← true.
 	bitmover copy: storing.
-	]\gb31B1i106I158i32I
+	]
 show
 	["show all the forms in the set"
 	space outline. space show
-	]\gb6B1i31I
+	]
 space
 	["return textframe that is space of formset"
 	⇑ space 
-	]\gb7B1i43I
+	]
 spaceframe
 	["return frame of space"
 	⇑(space frame)
-	]\gb12B1i23I
+	]
 spaceorigin: spaceorigin
 	["reposition the space"
 	space erase. (space frame) origin ← spaceorigin. self show.
-	]\gb26B1i22I
+	]
 widthof: formindex
 	["return width of from at formindex"
 	⇑self width
-	]\gb20B1i35I
+	]
 
-INTERNAL\gbf5 
+INTERNAL 
 abslength
 	["Return absolute length of formset, i.e. number of forms in set
 		plus space for illegal character and its rightx"
 	⇑ ((self last) - (self first) + 3)
-	]\gb11B1i114I
+	]
 checkindex
 	["check formindex for legality and make into number if necessary"
 	[formindex is: String ⇒
@@ -737,7 +737,7 @@ checkindex
 	].
 	(formindex < (self first)) or: (formindex > (self last+1)) ⇒
 		[user notify: 'formindex out of range for this FormSet.']
-		]\gb12B1i64I
+		]
 deltaascent: delta | newstrike
 	["ascent delta"
 	[(self ascent) + delta < 0 ⇒[delta ← 0 - (self ascent)]].
@@ -760,7 +760,7 @@ deltaascent: delta | newstrike
 	self updateseglength.
 	[style ≡ nil ⇒ [ ]
 		(style maxascent) < (self ascent) ⇒ [style maxascent: (self ascent)]].
-	]\gb19B14i14I77i6I86i17I18i43I90i29I60i8I169i27I32i32I
+	]
 deltadescent: delta | newstrike somespace
 	["descent delta"
 	[(self descent) + delta < 0 ⇒ [ delta ← 0 - (self descent)]].
@@ -785,7 +785,7 @@ deltadescent: delta | newstrike somespace
 	[style ≡ nil ⇒ [ ]
 		(style maxdescent) < (self descent) ⇒
 			[style maxdescent: (self descent)]]
-	]\gb20B24i15I341i17I137i28I31i34I
+	]
 deltawidthof: index by: delta
 	| newwordwidth newoffsettable newstrike normalizedindex normalizedlast i
 	["change width of form at index"
@@ -838,20 +838,20 @@ deltawidthof: index by: delta
 	self updatemaxwidth.
 	self updateseglength. 
 	].
-	]\gb31B75i31I274i8I5i8I5i18I56i8I52i6I10i22I83i28I41i24I3i17I84i50I409i28I207i14I153i5I124i40I
+	]
 install: strike
 	["set up a new or refreshed strike"
 	[style ≡ nil ⇒ [] style fonts ◦ (styleindex + 1) ← strike].
 	offsettable ← (self wordwidth) *
 		((self ascent) + (self descent)) + 9 "header" + 1 "for 0 addressing".
-	⇑ strike]\gb17B1i34I135i8I5i18I
+	⇑ strike]
 length
 	["Return length of formset, i.e. number of forms in set"
 	⇑ ((self last) - (self first) + 1)
-	]\gb8B1i55I
+	]
 originx
 	["Return origin x  of form at formindex"
-	⇑ (strike word: (offsettable + formindex - (self first)))]\gb9B1i39I
+	⇑ (strike word: (offsettable + formindex - (self first)))]
 updatemaxwidth | newmaxwidth i
 	["update max width"
 	newmaxwidth ← 0.
@@ -862,7 +862,7 @@ updatemaxwidth | newmaxwidth i
 			(newmaxwidth
 				max: ((strike word: i+1) - (strike word: i)))].
 	self maxwidth: newmaxwidth.
-	]\gb15B18i18I
+	]
 updateseglength
 	["compute new segment length for formset"
 	strike word: 5 ←
@@ -870,77 +870,77 @@ updateseglength
 			+ ((self wordwidth) * ((self ascent) + (self descent)))	"bits"
 			+ ((self last "max") - (self first	"min") + 2)					"xtabl"
 		).
-	]\gb17B1i40I37i43I60i6I55i7I
+	]
 width
 	["Return width of form at formindex"
 	⇑ (strike word: (offsettable + (formindex - (self first)) + 1)) -
-			(strike word: (offsettable + (formindex - (self first)))) ]\gb7B1i35I
+			(strike word: (offsettable + (formindex - (self first)))) ]
 
-PARTS\gbf5 
+PARTS 
 ascent
 	["When form set treated as characters, describes distance from top of form
 	to baseline."
 	⇑(strike word: 6)
-	]\gb8B1i88I
+	]
 ascent: ascent
 	["When form set treated as characters, describes distance from top of form
 	to baseline."
 	strike word: 6 ← ascent.
-	]\gb16B1i88I
+	]
 descent
 	["When form set treated as characters, describes distance from bottom of
 	form to baseline."
 	⇑(strike word: 7)
-	]\gb9B1i91I
+	]
 descent: descent
 	["When form set treated as characters, describes distance from bottom of
 	form to baseline."
 	strike word: 7 ← descent.
-	]\gb18B1i91I
+	]
 first
 	["Heritage from the world of fonts"
-	⇑(strike word: 2)	"minimum formindex (ascii) in the strike"]\gb7B1i36I18i41I
+	⇑(strike word: 2)	"minimum formindex (ascii) in the strike"]
 first: first
 	["Heritage from the world of fonts"
 	strike word: 2 ← first.		"minimum formindex (ascii) in the strike"
-	]\gb14B1i36I25i43I
+	]
 kern
 	["When form set treated as characters, describes distance this form is
 	to intrude into space of preceding character."
 	⇑(strike word: 8)
-	]\gb6B1i119I
+	]
 last
 	["Heritage from the world of fonts"
 	⇑(strike word: 3)	"maximum formindex (ascii) in the strike"
-	]\gb6B1i36I18i43I
+	]
 last: last
 	["Heritage from the world of fonts"
 	strike word: 3 ← last.		"maximum formindex (ascii) in the strike"
-	]\gb12B1i34I26i43I
+	]
 maxwidth
 	["All forms in this set ≤ to this value"
 	⇑(strike word: 4)
-	]\gb10B1i39I
+	]
 maxwidth: maxwidth
 	["All forms in this set ≤ to this value"
 	strike word: 4 ← maxwidth.
-	]\gb20B1i39I
+	]
 segmentlength
 	["Amount of space allocated for form set - 4"
 	⇑(strike word: 5)
-	]\gb15B1i44I
+	]
 strikerightx
 	["Corner x of last form in form set"
 	⇑(strike word: (offsettable + ((self last) - (self first)) + 2)).
-	]\gb14B
+	]
 type
 	["**BEWARE -- outside world has ideas about this value."
 	⇑(strike word: 1)
-	]\gb6B1i55I
+	]
 type: type
 	["**BEWARE -- outside world has ideas about this value."
 	strike word: 1 ← type.
-	]\gb12B1i55I
+	]
 wordwidth
 	["Also know as the raster of the formset.
 	The width in alto words of the bits of the formset.  When the display of a 
@@ -950,7 +950,7 @@ wordwidth
 	so on until the height of the form is spanned."
 
 	⇑(strike word: 9)
-	]\gb11B1i386I
+	]
 wordwidth: wordwidth
 	["Also know as the raster of the formset.
 	The width in alto words of the bits of the formset.  When the display of a 
@@ -960,21 +960,21 @@ wordwidth: wordwidth
 	so on until the height of the form is spanned."
 
 	strike word: 9 ← wordwidth.
-	]\gb22B1i386I
-\g
-SystemOrganization classify: ↪FormSet under: 'Form Path Image'.\g
-FormSet classInit\g
+	]
+
+SystemOrganization classify: ↪FormSet under: 'Form Path Image'.
+FormSet classInit
 
-"Image"l15000z20000\gbf5 
+"Image" 
 Class new title: 'Image'
 	subclassof: Set
 	fields: ' origin rectangle path form superimage xgrid ygrid figure ground'
 	declare: 'aurora under black screen reverse white over aurorarunning ';
-	asFollows\gbf5 
+	asFollows 
 
-This class has not yet been commented\gi
+This class has not yet been commented
 
-INIT\gbf5 
+INIT 
 blink: form | pt 
 	["to show current gridded position of the form... returns abs position."
 		pt ← self mp.
@@ -984,7 +984,7 @@ blink: form | pt
 			effect: 2 clippedBy: user screenrect.
 	⇑ (self rectangle origin)+ pt
 	]
-\gb12B
+
 classInit
 	["sets up black and white as colors and over ,under and reverse as modes
 	also initializes the name screen as an image the size of the display"
@@ -996,29 +996,29 @@ classInit
 	screen ← Image new origin: user screenrect origin extent: user screenrect extent.
 	aurora ← "Aurora new" nil.
 	aurorarunning ← false.
-	]\gb11B
+	]
 fromuser
 	["create a new Image whose rectangle is specified by the user. "
 	rectangle ← Rectangle new fromuser.
 	self origin: (rectangle origin) rectangle: rectangle
 		path: (rectangle origin) form: (Form new fromrectangle: rectangle)
 		figure: 1 ground: 0 xgrid: 1 ygrid: 1.
-	]\gb10B
+	]
 origin: origin extent: extent 
 	["create a new Image at origin with extent (width⌾height). "
 	self origin: (origin copy)  rectangle: (Rectangle new origin: origin extent: extent)
 		 path: nil form: nil figure: 1 ground: 0 xgrid: 1 ygrid: 1
-	]\gb32B
+	]
 origin: origin rectangle: rectangle path: path form: form
 	["basic message to create a new instance."
 	self origin: origin rectangle: rectangle path: path form: form
 	figure: 1 ground: 0 xgrid: 1 ygrid: 1.
 	]
-\gb59B
+
 origin: origin rectangle: rectangle path: path form: form figure: figure ground: ground xgrid: xgrid ygrid: ygrid
 	["basic message to create a new instance."
 	self default]
-\gb115B
+
 rectanglefromuser | f pt r
 	["create a  Rectangle  specified by the user and origin and corner are gridded. "
 	r ← Rectangle new.
@@ -1034,9 +1034,9 @@ rectanglefromuser | f pt r
 		r reverse ; reverse.
 		].
 	⇑ r.
-	]\gb28B
+	]
 
-BUILDING IMAGES\gbf5 
+BUILDING IMAGES 
 add: p and: i | s
 	["add p (set or point) and i ( Image or Form ) and expand the
 		 bounding rectangle of this image."
@@ -1046,12 +1046,12 @@ add: p and: i | s
 				include: (Rectangle new origin: (p corner)+ origin extent: i size)).
 	s ← Set default. s add: p ; add: i .
 	self add: s
-	]\gb19B
+	]
 addform: f andpath: p | r
 	["add p (set or point) and f ( Form ) and expand the
 		 bounding rectangle of this image."
 	self addpath: p andform: f
-	]\gb27B
+	]
 addimage: i  | r
 	["add the Image i (as a subimage) and expand the
 		 bounding rectangle of this image."
@@ -1060,7 +1060,7 @@ addimage: i  | r
 			include:
 			(Rectangle new origin: (i origin)+ origin extent: i extent).
 	self add: i.
-	]\gb18B
+	]
 addpath: p andform: f | r
 	["add p (set or point) and f ( Form ) and expand the
 		 bounding rectangle of this image."
@@ -1072,27 +1072,27 @@ addpath: p andform: f | r
 			(Rectangle new origin: ((p corner) - (1⌾1))"+ origin" extent: f extent))).
 	self add: (Image new origin: 0⌾0 rectangle: r path: p form: f
 		figure: 1 ground: 0 xgrid: 1 ygrid: 1).
-	]\gb27B
+	]
 
-CHANGING IMAGES\gbf5 
+CHANGING IMAGES 
 appendimage: newimage after: image | i
 	["append newimage into the image after image."
 	i ← self findbyrect: image.
 	self insertI: (i+1) value: newimage.
-	]\gb35B
+	]
 comment
 	["see class Set for operations (deletion,replacement,insertion etc.) on subimages ( elements)."]
-\gb9B
+
 deleteimage: i | subimage
 	["delete the i th subimage and recompute the bounding rectangle of the Image"
 	subimage ← self◦i.
 	self deleteI: i.
 	( subimage rectangle) isWithin: rectangle⇒ [] self resize "recompute bounding rectangle"
-	]\gb27B
+	]
 deletesubimage: i 
 	["delete the ith subimage."
 	self deleteindex: i.
-	]\gb20B
+	]
 edit: superimage | blackdot pt indexofsubimage subimage
 	["eventually a general Image manipulator for now
 			just passes control to its subimages."
@@ -1123,12 +1123,12 @@ edit: superimage | blackdot pt indexofsubimage subimage
 	[form is: Form⇒ [] "origin ←  (form origin) copy." rectangle ← (form frame) copy].
 	⇑ self 
 	]
-\gb19B36b2B
+
 findbyrect: image | i
 	[
 	for⦂ i to: position do⦂
 		[(array◦i) rectangle = image rectangle ⇒ [⇑i]].
-	⇑0]\gb18B
+	⇑0]
 highlite  | r i
 	["reverse the ith subimage ."
 	for⦂ i to: position do⦂ 
@@ -1137,7 +1137,7 @@ highlite  | r i
 			extent: (self◦i) extent.
 		r comp
 		]
-	]\gb17B
+	]
 indexofsubimageat: pt | i subimage 
 	["return the index of the subimage which contains pt(relative to self origin)
 		otherwise return false."
@@ -1146,25 +1146,25 @@ indexofsubimageat: pt | i subimage
 		(subimage rectangle) has: pt⇒ [ ⇑ i]
 		]
 	⇑ false
-	]\gb37B
+	]
 indexofsubimagebelow: yvalue | i subimage 
 	["return the index of the first subimage below yvalue otherwise return false."
 	for⦂ i to: self length do⦂
 		[ ((self◦i) top ≥ yvalue) ⇒ [ ⇑ i]
 		]
 	⇑ false
-	]\gb44B
+	]
 outlinesubimage: i  | r
 	["draw an outline(reversed boarder 2 units thick) about the ith subimage ."
 	r ← Rectangle new origin: (self origin+ (self◦i) origin)
 			extent: (self◦i) extent.
 	r comp
-	]\gb25B
+	]
 replaceimage: image with: newimage | i
 	["replace image with newimage in self."
 	i ← self findbyrect: image.
 	self replaceI: i value: newimage.
-	]\gb35B
+	]
 smallestsubimageat: pt | i smallest slf sml
 	["return the index of the smallest subimage which contains pt(relative to self origin)
 		otherwise return false."
@@ -1184,20 +1184,20 @@ smallestsubimageat: pt | i smallest slf sml
 		]
 	smallest⇒[⇑ self◦smallest]
 	⇑ smallest 
-	]\gb45B422bi1BI
+	]
 subimage: i | sub s
 	["return the ith subimage."
 	sub ← (self◦i)
 	s ← Image new at: (self origin) + (sub◦1) origin. s add: (0⌾0) and: sub◦2. 
 	⇑ s
-	]\gb21B
+	]
 subimageat: pt | i 
 	["return the  subimage which contains pt (relative to self origin)
 		otherwise return false."
 	i ← self indexofsubimageat: pt.
 	i ⇒ [ ⇑ self◦ i]
 	⇑ false
-	]\gb21B
+	]
 subimageswithin: rect | image topleft fittedimage t
 	["return an image containing my subimages that are within rect, 		otherwise return false."
 	image ← Image new origin: rect origin extent: rect extent.
@@ -1216,22 +1216,22 @@ subimageswithin: rect | image topleft fittedimage t
 	for⦂ t from: image do⦂
 		[ fittedimage addimage: (t translate: (0⌾0)-topleft)].
 	⇑ fittedimage 
-	]\gb53B605bi1BI
+	]
 substitute: form1 for: form2 | i 
 	["everywhere in the imagesubstitute form1 for form2"
 	for⦂ i to: self length do⦂ [ (self◦i)◦2 ≡ form2 ⇒  [ (self◦i)◦2 ← form1]]  
-	]\gb29B
+	]
 
-DISPLAY\gbf5 
+DISPLAY 
 blink 
 	["blink the image" 
 	self display: 2.
 	self display: 2.
-	]\gb8B
+	]
 display 
 	["display all of the forms in the image on the screen "
 	self displayat: 0⌾0 effect: 0 clippedBy: user screenrect.
-	]\gb10B
+	]
 display: effect  
 	["display all of the forms in the image on the screen 
 	effect = 0 ⇒ store
@@ -1240,7 +1240,7 @@ display: effect
 	effect = 3 ⇒ and complement
 "
 	self displayat: 0⌾0 effect: effect clippedBy: user screenrect.
-	]\gb19B
+	]
 displayat: pt effect: effect clippedBy: cliprect | i 
 	["display all of the subimages in this image "
 	[nil≡ form	⇒ []
@@ -1248,7 +1248,7 @@ displayat: pt effect: effect clippedBy: cliprect | i
 	for⦂ i to: self length  do⦂
 				[ (self◦i) displayat: (pt +  origin) effect: effect clippedBy: cliprect
 				]
-	]\gb49B
+	]
 quickDisplayAt: pt scale: scal offset: delta | i rect x1 y1 x2 y2
 	["outline me and all of the subimages in this image in given scale"
 	x1← (scal*(rectangle minX + pt x) + delta x) asInteger.
@@ -1267,58 +1267,58 @@ quickDisplayAt: pt scale: scal offset: delta | i rect x1 y1 x2 y2
 		rect ← x1⌾y1 rect: x2⌾y2.
 		rect color: gray mode: oring.
 		]
-	]\gb45B
+	]
 
-MODULE ACCESS\gbf5 
+MODULE ACCESS 
 = image
 	[⇑(rectangle = (image rectangle))
-	]\gb9B
+	]
 bottom
 	["return the bottom y of the bounding rectangle of theImage."
 	⇑ rectangle corner y.
-	]\gb8B
+	]
 center
 	["return the center of the Image."
 	⇑ rectangle center.
-	]\gb8B
+	]
 contains: pt 
 	["return true if the  bounding rectangle for the Image contains pt.."
 	⇑ rectangle has: pt
-	]\gb15B
+	]
 corner
 	["return the corner of the Image."
 	⇑ rectangle corner.
-	]\gb8B
+	]
 corner← pt
 	["modify the corner of the Image."
 	 rectangle corner← pt.
-	]\gb12B
+	]
 extent 
 	["return the extent (width,height) of the Image."
 	⇑ rectangle extent
-	]\gb9B
+	]
 height
 	["return the height of the Image."
 	⇑ rectangle extent y.
-	]\gb8B
+	]
 leftside
 	["return the leftmost x of the bounding rectangle of theImage."
 	⇑ rectangle origin x.
-	]\gb10B
+	]
 origin
 	["return the origin of the image."
 	⇑ origin
-	]\gb8B
+	]
 origin: origin
-	["change the origin of the image."]\gb16B
+	["change the origin of the image."]
 rectangle 
 	["return the rectangle that bounds the Image."
 	⇑ rectangle
-	]\gb12B
+	]
 rectangle: r 
 	["redefine rectangle that bounds the Image."
 	rectangle← r
-	]\gb15B
+	]
 resize | i 
 	[" Recompute the bounding rectangle of the Image"
 	[nil≡ form	⇒ [rectangle ← Rectangle new origin: origin extent: 1⌾1]
@@ -1326,79 +1326,79 @@ resize | i
 	
 	for⦂ i to: self length do⦂
 		[ rectangle  ← rectangle include: ((self◦i) rectangle) ]
-	]\gb13B
+	]
 rightside
 	["return the rightmost x of the bounding rectangle of theImage."
 	⇑ rectangle corner x.
-	]\gb11B
+	]
 superimage
 	["return the superimage (Image containing) of this Image."
 	⇑ superimage
-	]\gb12B
+	]
 top
 	["return the top y of the bounding rectangle of theImage."
 	⇑ rectangle origin y.
-	]\gb5B
+	]
 width
 	["return the width of the Image."
 	⇑ rectangle extent x.
-	]\gb7B
+	]
 
-PATTERN ACCESS\gbf5 
+PATTERN ACCESS 
 black
 	["black out the image"
 	self color: black effect: 0.
-	]\gb7B
+	]
 boxcomp 
 	["border without disturbing the interior."
 	rectangle comp
-	]\gb10B
+	]
 color: color effect: effect 
 	["basic rectangle call to blt."
 	rectangle color: color mode: effect .
 	aurorarunning⇒	[user displayoffwhile⦂ [aurora destination: rectangle ; source: rectangle ;
 					figure: figure ; ground: ground ;  function: 002117 "AoverB" ; doit
 							]]
- ]\gb30B
+ ]
 gray
 	["gray out the image"
 	self color: gray effect: storing
-	]\gb6B
+	]
 reverse
 	["reverse  the image (black to white and white to black)"
 	self color: black effect: 2
-	]\gb9B
+	]
 white 
 	["white out the image"
 	form is: BorderedText⇒ [ (rectangle inset: (¬1⌾¬1) and: (¬1⌾¬1)) clear: 0]
 	self color: white effect: over.
-	]\gb8B
+	]
 
-TRANSFORMATIONS\gbf5 
+TRANSFORMATIONS 
 griddedpoint: pt 
-	[⇑ ((pt x)| xgrid) ⌾ ((pt y)| ygrid) ]\gb19B
+	[⇑ ((pt x)| xgrid) ⌾ ((pt y)| ygrid) ]
 normalize | delta i 
 	["recompute origin, rectangle and path so that: path origin = 0⌾0."
 	[nil ≡ path ⇒ [] delta ← (path origin) copy. path normalize. origin translate: delta]. 	for⦂ i to: self length do⦂ [ (self◦i) normalize ].
-	]\gb22B
+	]
 translate: delta 
 	["translate the origin and bounding rectangle of the Image."
 	rectangle ← rectangle translate: delta.
 	origin translate: delta.
-	]\gb19B
+	]
 translateto: pt 
 	["move the Image to pt."
 	self translate: pt - origin.
-	]\gb18B
+	]
 
-SYSTEM\gbf5 
+SYSTEM 
 copy | im i
 [
 	im ← Image new origin: origin copy rectangle: rectangle copy path: path copy form: form copy figure: figure copy ground: ground copy xgrid: xgrid copy  ygrid: ygrid copy.
 	for⦂ i to: self length do⦂ 
 		[im add: (self◦i) copy].
 	⇑ im
-]\gb5B
+]
 fromPress: press value: s | numberofsubimages i code t
 	["retrieves and builds an instance of class Image from a press file"
 	self default. 
@@ -1438,7 +1438,7 @@ fromPress: press value: s | numberofsubimages i code t
 	path ← [code = 6⇒ [Path new]; =7⇒ [Point new] false].
 	path and⦂ code = path pressCode⇒ [path fromPress: press value: s]
 	user notify: 'illegal path']
-	]\gb26B32i65I
+	]
 hideData: complete | s
 	["stores an instance of class Image on a press file. ignore complete"
 	Stream new of: (s ← String new: 24);
@@ -1452,7 +1452,7 @@ hideData: complete | s
 		nextword ← ground;
 		next ← [form≡nil ⇒ [0] 1];
 		next ← [path≡nil⇒ [0] 1].
-	⇑ s]\gb19B7i66I66i19I
+	⇑ s]
 hidePress: press complete: c [
 	c ≥ 0⇒ [
 		"called from PressPrinter print:in:"
@@ -1461,20 +1461,20 @@ hidePress: press complete: c [
 		path≡nil⇒ []
 		path hidePress: press complete: c]
 	"¬1. called from Image presson:in:"
-	press skipcode: self pressCode data: (self hideData: c)]\gb29B15i12bI22B17i12I95i16bI17B
+	press skipcode: self pressCode data: (self hideData: c)]
 kbd | 
 	[" default response for Images."
 	user kbd.
 	self reverse ; reverse.
-	]\gb8B
+	]
 mp | p
 	[" returns a gridded point relative to my rectangle."
 	p ← user mp.
 	p x← ((p x) - rectangle origin x) | xgrid. 
 	p y← ((p y) - rectangle origin y) | ygrid.
 	⇑ p
-	]\gb8B
-pressCode [⇑1]\gb10B
+	]
+pressCode [⇑1]
 presson: press in: r | yvalue t h rect [
 	self length > 0 and⦂ r height < (h ← press scale * self height)⇒ [
 		"try on next page" ⇑self]
@@ -1490,55 +1490,55 @@ presson: press in: r | yvalue t h rect [
 	rect ← r copy.
 	rect corner y ← rect corner y - (( path y)*(press scale)).
 	"form will be hidden by Image presson:in: or PressPrinter print:in:".
-	⇑form presson: press in: rect]\gb21B19b1B71i16I10b1B100i91I171i66I
+	⇑form presson: press in: rect]
 printon: strm | t [
 	strm append: 'an Image: '.
 	array is: String⇒ [strm space append: self]
-	for⦂ t from: self do⦂ [strm space print: t]]\gb14B
+	for⦂ t from: self do⦂ [strm space print: t]]
 
-ACCESS TO PARTS\gbf5 
+ACCESS TO PARTS 
 figure
 	["return the figure color (color associated with black) for this Image"
 	⇑ figure
-	]\gb8B
+	]
 figure: figure 
-	["change the figure color (color associated with black) for this Image"]\gb17B
+	["change the figure color (color associated with black) for this Image"]
 form 
 	["return the form for this Image"
 	⇑ form
-	]\gb7B
+	]
 form: form 
-	["change the form for this Image"]\gb13B
+	["change the form for this Image"]
 ground
 	["return the ground color (color associated with white) for this Image"
 	⇑ ground
-	]\gb8B
+	]
 ground: ground 
-	["change the ground color (color associated with white) for this Image"]\gb17B
-hash [⇑rectangle hash]\gb5B
+	["change the ground color (color associated with white) for this Image"]
+hash [⇑rectangle hash]
 path 
 	["return the path for this Image"
 	⇑ path
-	]\gb7B
+	]
 path: path
-	["change the path for this Image"]\gb12B
-superimage: superimage \gb
+	["change the path for this Image"]
+superimage: superimage 
 xgrid 
 	["return the x gridding module for this Image"
 	⇑ xgrid
-	]\gb8B
+	]
 xgrid: xgrid 
 	["set the x gridding module for this Image"
-	]\gb15B
+	]
 ygrid 
 	["return the y gridding module for this Image"
 	⇑ ygrid
-	]\gb8B
+	]
 ygrid: ygrid 
 	["set the y gridding module for this Image"
-	]\gb15B
+	]
 
-Fist and last\gbf5 
+Fist and last 
 close
 	| im
 	[[array≡nil
@@ -1547,32 +1547,32 @@ close
 		[im close]].
 	superimage←nil.
 	form←nil.
-	self vector: 0]\gb7B
-\g
-SystemOrganization classify: ↪Image under: 'Form Path Image'.\g
-Image classInit\g
+	self vector: 0]
+
+SystemOrganization classify: ↪Image under: 'Form Path Image'.
+Image classInit
 
-"Path"l15000z20000\gbf5 
+"Path" 
 Class new title: 'Path'
 	subclassof: Set
 	fields: ''
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-This class has not yet been commented\gi
+This class has not yet been commented
 
-INIT\gbf5 
+INIT 
 init 
 	["must be executed for each new instance."
 	self default.
-	]\gb7B
+	]
 
-BUILDING PATHS\gbf5 
+BUILDING PATHS 
 comment 
 	["see Set for these ... add:, append:, and ◦← are the main ones"
-	]\gb10B
+	]
 
-ACCESSING PATHS\gbf5 
+ACCESSING PATHS 
 pointnearestto: p | distance i nearest d
 	["return the index of the point  in the path nearest (manhatten norm) to p."
 	distance ← p dist: self◦1.
@@ -1583,15 +1583,15 @@ pointnearestto: p | distance i nearest d
 			[ nearest← i. distance ← d.]  
 		]
 	⇑ nearest
-	]\gb18B
+	]
 
-MODIFYING PATHS\gbf5 
+MODIFYING PATHS 
 deleteindex: i | r [
 	r ← array◦( i+1 to: position).
 	position ← i-1.
 	self append: r.
 	array◦(position+1) ← nil.
-	]\gb15B
+	]
 insert: pt atindex: index | r 
 	[
 	"insert pt at index in the path"
@@ -1601,9 +1601,9 @@ insert: pt atindex: index | r
 	self append: (r ◦ 1 to: index-1);
 		next ← pt;
 		append: r◦(index to: r length).
-	]\gb26B
+	]
 
-SPECIAL PATHS\gbf5 
+SPECIAL PATHS 
 addarcfrom: p1 via: p2 to: p3 | pa pb i k s
 	["Kaehler method for Flegal curve"
 	s← Path new init. 
@@ -1614,7 +1614,7 @@ addarcfrom: p1 via: p2 to: p3 | pa pb i k s
 		[s add: (pa*i/k+p1*(k-i)) + (pb*(i-1)/k+p2*(i-1)) / (k-1)]
 	s add: p3 .
 	for⦂ i to: (s length-1) do⦂ [  self addlinefrom: s◦i to: s◦(i+1) ] 
-]\gb30B16i33I134i48I
+]
 addlinefrom: p1 to: p2 | x1 y1 dx dy yinc x0 y0 cdl i
 	["for now just add points to the space at alto resolution between p1 and p2
 	inclusive"
@@ -1641,48 +1641,48 @@ addlinefrom: p1 to: p2 | x1 y1 dx dy yinc x0 y0 cdl i
 		y0 ← y0 + yinc.  
 	 cdl > dy ⇒ [cdl ← cdl - dy. x0← x0+1]
 		]. 
-	]\gb24B32i86I347i20I
+	]
 
-TRANSFORMATIONS\gbf5 
+TRANSFORMATIONS 
 + delta | i
 	[ "add delta to every point in the path"
 	⇑ (self copy) translate: delta
-	]\gb8B
+	]
 normalize | delta i
 	[ "subtract the origin of the path from every point in the path"
 	delta ← self origin.
 	for⦂ i to: self length  do⦂
 		[ self◦i ← self◦i - delta
 		]
-	]\gb10B
+	]
 scale: factor | i
 	[ "scale every point in the path by factor"
 	for⦂ i to: self length  do⦂
 		[ self◦i ← self◦i * factor
 		]
-	]\gb14B
+	]
 translate: delta | i
 	[ "add delta to every point in the path"
 	for⦂ i to: self length  do⦂
 		[ self◦i ← self◦i + delta
 		]
-	]\gb17B
+	]
 
-MEASURING\gbf5 
+MEASURING 
 corner 
 	["return the corner of the bounding rectangle that includes all the points in the path."
 	⇑ (self rectangle) corner
-	]\gb9B
+	]
 extent 
 	["return the extent of the bounding rectangle that includes all the points in the path."
-	⇑ (self rectangle) extent]\gb9B
+	⇑ (self rectangle) extent]
 height 
 	["return the height of the bounding rectangle that includes all the points in the path."
-	⇑ self size y]\gb9B
+	⇑ self size y]
 origin 
 	["return the origin of the bounding rectangle that includes all the points in the path."
 	⇑ (self rectangle) origin
-	]\gb9B
+	]
 rectangle | r  i
 	["return the bounding rectangle that includes all the points in the path."
 	r ← Rectangle new origin: self◦1 extent: 1⌾1.
@@ -1690,119 +1690,119 @@ rectangle | r  i
 		[ r ← r include: self◦i		
 		]
 	⇑ r
-	]\gb18B
+	]
 size 
 	["return the extent of the bounding rectangle that includes all the points in the path."
-	⇑ (self rectangle) extent]\gb7B
+	⇑ (self rectangle) extent]
 width 
 	["return the width of the bounding rectangle that includes all the points in the path."
-	⇑ self size x]\gb8B
+	⇑ self size x]
 
-SYSTEM\gbf5 
+SYSTEM 
 copy  | t
 	["returns a new instance of Path that is a copy "
 	t ← Path new init.
 	t append: (array◦(1 to: position)) copy.
-	⇑ t]\gb11B
-pressCode [⇑6]\gb10B
+	⇑ t]
+pressCode [⇑6]
 printon: strm | t [
 	strm append: 'a Path: '.
 	array is: String⇒ [strm space append: self]
-	for⦂ t from: self do⦂ [strm space print: t]]\gb14B
-\g
-SystemOrganization classify: ↪Path under: 'Form Path Image'.\g
+	for⦂ t from: self do⦂ [strm space print: t]]
+
+SystemOrganization classify: ↪Path under: 'Form Path Image'.
 
-"Point"l15000z20000\gbf5 
+"Point" 
 Class new title: 'Point'
 	subclassof: Object
 	fields: 'x y'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-I am an x-y pair of numbers usually designating a location on the screen\gi
+I am an x-y pair of numbers usually designating a location on the screen
 
-Initialization\gbf5 
+Initialization 
 copy 
 	[⇑ (x⌾y)
-	]\gb7B
-x: x y: y\gb
+	]
+x: x y: y
 
-Arithmetic\gbf5 
-≤ pt [⇑ x≤pt x and⦂ y≤pt y]\gb5B
-≥ pt [⇑ x≥pt x and⦂ y≥pt y]\gb5B
+Arithmetic 
+≤ pt [⇑ x≤pt x and⦂ y≤pt y]
+≥ pt [⇑ x≥pt x and⦂ y≥pt y]
 * scale
 	["Return a Point that is the product of me and scale (which is a Point or Number)"
-	⇑Point new x: (x * scale asPtX) y: (y * scale asPtY)]\gb9B1i81I
+	⇑Point new x: (x * scale asPtX) y: (y * scale asPtY)]
 + delta
 	["Return a Point that is the sum of me and delta (which is a Point or Number)"
-	⇑Point new x: (x + delta asPtX) y: (y + delta asPtY)]\gb9B1i77I
+	⇑Point new x: (x + delta asPtX) y: (y + delta asPtY)]
 - delta
 	["Return a Point that is the difference of me and delta (which is a Point or Number)"
-	⇑Point new x: (x - delta asPtX) y: (y - delta asPtY)]\gb9B1i84I
+	⇑Point new x: (x - delta asPtX) y: (y - delta asPtY)]
 / scale
 	["Return a Point that is the quotient of me and scale (which is a Point or Number)"
-	⇑Point new x: (x / scale asPtX) y: (y / scale asPtY)]\gb9B1i82I
-< pt [⇑ x<pt x and⦂ y<pt y]\gb5B
-= pt [⇑x=pt x and⦂ y=pt y]\gb5B
-> pt [⇑x>pt x and⦂ y>pt y]\gb5B
+	⇑Point new x: (x / scale asPtX) y: (y / scale asPtY)]
+< pt [⇑ x<pt x and⦂ y<pt y]
+= pt [⇑x=pt x and⦂ y=pt y]
+> pt [⇑x>pt x and⦂ y>pt y]
 abs	"absolute value of a point"
-	[	⇑Point new x: (x abs) y: (y abs)	]\gb4Bi27I
+	[	⇑Point new x: (x abs) y: (y abs)	]
 dist: pt | t	"distance (Manhattan norm) between pt and self"
 	[t ← (pt - self) abs.
-	⇑(t x) + (t y)]\gb9B4i47I
+	⇑(t x) + (t y)]
 length
-	[⇑((x asFloat*x asFloat)+(y asFloat*y asFloat)) sqrt]\gb8B
+	[⇑((x asFloat*x asFloat)+(y asFloat*y asFloat)) sqrt]
 max: t
-	[⇑Point new x: (x max: t x) y: (y max: t y)]\gb8B
+	[⇑Point new x: (x max: t x) y: (y max: t y)]
 min: t
-	[⇑Point new x: (x min: t x) y: (y min: t y)]\gb8B
+	[⇑Point new x: (x min: t x) y: (y min: t y)]
 normal | n		"unit vector rotated 90 deg clockwise"
 	[n← y asFloat neg ⌾ x asFloat.
-	⇑n/n length]\gb7B5i38I
+	⇑n/n length]
 normalize 
 	["set selt to zero"
 	self x ← 0.
 	self y ← 0.
-	]\gb12B1i18I
+	]
 translate:  delta
 	["increment self by delta"
 	x ← x + delta x.
 	y ← y + delta y.
-	]\gb19B1i25I
+	]
 | grid
-	[⇑Point new x: x|grid y: y|grid]\g
+	[⇑Point new x: x|grid y: y|grid]
 
-Conversion\gbf5 
+Conversion 
 asPoint
-	["Return self."]\gb9B1i14I
+	["Return self."]
 asPtX
-	[⇑x]\gb7B
+	[⇑x]
 asPtY
-	[⇑y ]\gb7B
+	[⇑y ]
 asRectangle
 	["Return a Rectangle with me as both origin and corner."
-	⇑self rect: self]\gb13B1i55I
-asRectCorner "pretend to be a Rectangle for Rectangle +-*/"\gb13Bi
-asRectOrigin "pretend to be a Rectangle for Rectangle +-*/"\gb13Bi
+	⇑self rect: self]
+asRectCorner "pretend to be a Rectangle for Rectangle +-*/"
+asRectOrigin "pretend to be a Rectangle for Rectangle +-*/"
 corner
-	[⇑ self+ (1⌾1)]\gb8B
+	[⇑ self+ (1⌾1)]
 extent
-	[⇑ (1⌾1)]\gb8B
+	[⇑ (1⌾1)]
 extent: p		"infix creation of rectangles"
-	[⇑Rectangle new origin: self extent: p]\gb11Bi30I
+	[⇑Rectangle new origin: self extent: p]
 height
-	[⇑ 1]\gb8B
+	[⇑ 1]
 origin
-	[⇑ self]\gb8B
+	[⇑ self]
 printon: strm 
-	[strm print: x; append: '⌾'; print: y]\gb16B
+	[strm print: x; append: '⌾'; print: y]
 rect: p		"infix creation of rectangles"
-	[⇑Rectangle new origin: self corner: p]\gb9Bi30I
+	[⇑Rectangle new origin: self corner: p]
 width
-	[⇑ 1]\gb7B
+	[⇑ 1]
 
-Access to parts\gbf5 
-hash [⇑(x lshift: 2) lxor: y]\gb5B
+Access to parts 
+hash [⇑(x lshift: 2) lxor: y]
 theta | tan theta "return the angle the point makes with origin.  right is 0; down is 90."
 	[x=0 ⇒ [y≥0 ⇒ [⇑ 90.0] ⇑ 270.0].
 
@@ -1810,38 +1810,38 @@ theta | tan theta "return the angle the point makes with origin.  right is 0; do
 	 theta ← tan arctan.
 
 	 x≥0 ⇒ [y≥0 ⇒[⇑ theta] ⇑360.0 + theta].
-	 ⇑ 180.0 + theta]\gb6B
-x	 [⇑x]\gb3B
-x ← x\gb
-y [⇑y]\gb2B
-y ← y\gb
+	 ⇑ 180.0 + theta]
+x	 [⇑x]
+x ← x
+y [⇑y]
+y ← y
 
-SYSTEM\gbf5 
+SYSTEM 
 fromPress: press value: s
-	[ x ← s nextword. y ← s nextword]\gb27B
+	[ x ← s nextword. y ← s nextword]
 hideData: complete | s
 	[Stream new of: (s ← String new: 4); nextPoint← self.
-	⇑ s]\gb19B
+	⇑ s]
 hidePress: press complete: c
-	[press skipcode: self pressCode data: (self hideData: c)]\gb30B
-pressCode [⇑7]\gb10B
-\g
-SystemOrganization classify: ↪Point under: 'Form Path Image'.\g
+	[press skipcode: self pressCode data: (self hideData: c)]
+pressCode [⇑7]
+
+SystemOrganization classify: ↪Point under: 'Form Path Image'.
 
-"Rectangle"l15000z20000\gbf5 
+"Rectangle" 
 Class new title: 'Rectangle'
 	subclassof: Object
 	fields: 'origin corner'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-I am a pair of points, usually representing a rectangular area on the screen\gi
+I am a pair of points, usually representing a rectangular area on the screen
 
-Initialization\gbf5 
+Initialization 
 copy  
 	["new rectangle"
 	⇑ (origin copy) rect: (corner copy)
-	]\gb8B
+	]
 fromuser | t
 	["Show the origin cursor until the user presses a mouse button,
 		then get my origin"
@@ -1852,7 +1852,7 @@ fromuser | t
 	t←origin.
 	CornerCursor showwhile⦂
 		[while⦂ [corner←t.  t ← user mpnext] do⦂
-			[self comp.  t ← t max: origin.  self comp]]]\gb9B6i84I50i159I
+			[self comp.  t ← t max: origin.  self comp]]]
 fromuserevenword | t
 	["Show the origin cursor until the user presses a mouse button,
 		then get my origin"
@@ -1864,21 +1864,21 @@ fromuserevenword | t
 	CornerCursor showwhile⦂
 		[while⦂ [corner ← t.  t ← user mpnext] do⦂
 			[self comp.  t ← (((t x) + 15 | 16) ⌾ t y) max: origin.  self comp]].
-	]\gb17B6i84I50i159I
-origin: origin corner: corner\gb
+	]
+origin: origin corner: corner
 origin: origin extent: extent
-	[corner ← origin+extent]\gb31B
+	[corner ← origin+extent]
 
-Aspects\gbf5 
-area [⇑(self width)*(self height)]\gb5B
-bottom [⇑corner y]\gb7B
-corner [⇑corner]\gb7B
+Aspects 
+area [⇑(self width)*(self height)]
+bottom [⇑corner y]
+corner [⇑corner]
 corners | v
 	[v← Vector new: 4.
 	v◦1← origin. v◦2← corner x⌾ origin y.
 	v◦3← corner. v◦4← origin x⌾corner y.
-	⇑v]\gb8B
-corner ← corner\gb
+	⇑v]
+corner ← corner
 edge: side "Returns one side as a number."
 	"Sides are numbered 0-3.  +1 goes counterclockwise.  lxor: 2 gets opposite side."
 	[side
@@ -1886,24 +1886,24 @@ edge: side "Returns one side as a number."
 		=1⇒["left" ⇑origin x];
 		=2⇒["bottom" ⇑corner y];
 		=3⇒["right" ⇑corner x].
-	user notify: 'Invalid side']\gb11B1i29I4i79I
+	user notify: 'Invalid side']
 extent
-	[⇑corner-origin]\gb8B
+	[⇑corner-origin]
 extent ← extent
-	[corner ← origin+extent. ⇑extent]\gb17B
-hash [⇑(origin lshift: 1) lxor: corner]\gb5B
+	[corner ← origin+extent. ⇑extent]
+hash [⇑(origin lshift: 1) lxor: corner]
 height
-	[⇑corner y - origin y]\gb8B
+	[⇑corner y - origin y]
 height ← h "change my bottom y to make my height h"
-	[corner y ← origin y + h]\gb11Bi40I
-leftside [⇑origin x]\gb9B
-maxX [⇑corner x]\gb5B
-maxY [⇑corner y]\gb5B
-minX [⇑origin x]\gb5B
-minY [⇑origin y]\gb5B
-origin [⇑origin]\gb7B
-origin ← origin\gb
-rightside [⇑corner x]\gb10B
+	[corner y ← origin y + h]
+leftside [⇑origin x]
+maxX [⇑corner x]
+maxY [⇑corner y]
+minX [⇑origin x]
+minY [⇑origin y]
+origin [⇑origin]
+origin ← origin
+rightside [⇑corner x]
 side: side "Returns one side as a rectangle."
 	"Sides are numbered 0-3.  +1 goes counterclockwise.  Xor: 2 gets opposite side."
 	[side
@@ -1911,66 +1911,66 @@ side: side "Returns one side as a rectangle."
 		=1⇒["left" ⇑origin rect: origin x⌾corner y];
 		=2⇒["bottom" ⇑origin x⌾corner y rect: corner];
 		=3⇒["right" ⇑corner x⌾origin y rect: corner].
-	user notify: 'Invalid side']\gb11Bi34I2i80I14i5I41i6I41i8I41i7I
+	user notify: 'Invalid side']
 size
-	[⇑corner-origin]\gb6B
-top [⇑origin y]\gb4B
+	[⇑corner-origin]
+top [⇑origin y]
 width
-	[⇑corner x - origin x]\gb7B
+	[⇑corner x - origin x]
 width ← w "change my right x to make my width w"
-	[corner x ← origin x + w]\gb10Bi38I
+	[corner x ← origin x + w]
 withEdge: side at: coord "Returns a rectangle with one side moved."
 	[side
 		=0⇒ [⇑origin x⌾coord rect: corner];
 		=1⇒ [⇑coord⌾origin y rect: corner];
 		=2⇒ [⇑origin rect: corner x⌾coord];
 		=3⇒ [⇑origin rect: coord⌾corner y].
-	user notify: 'Invalid side']\gb25B
+	user notify: 'Invalid side']
 withSide: side at: pt "Returns a rectangle with one side moved."
 	[side
 		=0⇒ [⇑origin x⌾pt y rect: corner];
 		=1⇒ [⇑pt x⌾origin y rect: corner];
 		=2⇒ [⇑origin rect: corner x⌾pt y];
 		=3⇒ [⇑origin rect: pt x⌾corner y].
-	user notify: 'Invalid side']\gb22Bi42I
+	user notify: 'Invalid side']
 
-Arithmetic\gbf5 
+Arithmetic 
 * scale [
 "Return a Rectangle which is the product of me and scale (which is a Rectangle, Point, or Number)"
-	⇑Rectangle new origin: origin * scale asRectOrigin corner: corner * scale asRectCorner]\gb8B2i98I
+	⇑Rectangle new origin: origin * scale asRectOrigin corner: corner * scale asRectCorner]
 + delta [
 "Return a Rectangle which is the sum of me and delta (which is a Rectangle, Point, or Number)"
-	⇑Rectangle new origin: origin + delta asRectOrigin corner: corner + delta asRectCorner]\gb8B3i94I
+	⇑Rectangle new origin: origin + delta asRectOrigin corner: corner + delta asRectCorner]
 - delta [
 "Return a Rectangle which is the difference of me and delta (which is a Rectangle, Point, or Number)"
-	⇑Rectangle new origin: origin - delta asRectOrigin corner: corner - delta asRectCorner]\gb8B2i101I
+	⇑Rectangle new origin: origin - delta asRectOrigin corner: corner - delta asRectCorner]
 / scale [
 "Return a Rectangle which is the quotient of me and scale (which is a Rectangle, Point, or Number)"
-	⇑Rectangle new origin: origin / scale asRectOrigin corner: corner / scale asRectCorner]\gb8B2i99I
+	⇑Rectangle new origin: origin / scale asRectOrigin corner: corner / scale asRectCorner]
 = r
-	[⇑origin = r origin and: corner = r corner]\gb5B
+	[⇑origin = r origin and: corner = r corner]
 center
-	[⇑origin+corner/2]\gb8B
+	[⇑origin+corner/2]
 empty
-	[⇑(origin < corner)≡false]\gb7B
-has: pt [⇑origin ≤ pt and⦂ pt < corner]\gb8B
+	[⇑(origin < corner)≡false]
+has: pt [⇑origin ≤ pt and⦂ pt < corner]
 include: r "Returns the merge with an adjacent rectangle."
-	[⇑(origin min: r origin) rect: (corner max: r corner)]\gb11Bi47I
+	[⇑(origin min: r origin) rect: (corner max: r corner)]
 inset: p1
-	[⇑origin+p1 rect: corner-p1]\gb11B
+	[⇑origin+p1 rect: corner-p1]
 inset: p1 and: p2
-	[⇑origin+p1 rect: corner-p2]\gb19B
+	[⇑origin+p1 rect: corner-p2]
 intersect: r [
 	⇑Rectangle new origin: (origin max: r origin)
-		corner: (corner min: r corner)]\gb13B
+		corner: (corner min: r corner)]
 intersects: r
-	[⇑(origin max: r origin) < (corner min: r corner)]\gb15B
+	[⇑(origin max: r origin) < (corner min: r corner)]
 isWithin: rect  "am I equal to or contained within rect"
-	[⇑origin ≥ rect origin and⦂ corner ≤ rect corner]\gb14i2B40I
+	[⇑origin ≥ rect origin and⦂ corner ≤ rect corner]
 max: rect
 	[⇑Rectangle new
 		origin: (origin min: rect origin)
-		corner: (corner max: rect corner)]\gb11B
+		corner: (corner max: rect corner)]
 minus: r | s yorg ycor		"return Vector of Rectangles comprising
 				the part of me not intersecting r "
 	["Make sure the intersection is non-empty"
@@ -1986,57 +1986,57 @@ minus: r | s yorg ycor		"return Vector of Rectangles comprising
 		[s next ← origin x⌾yorg rect: r origin x⌾ycor]].
 	[r corner x<corner x⇒
 		[s next ← r corner x⌾yorg rect: corner x⌾ycor]].
-	⇑s contents]\gb9B15i79I3i41I
+	⇑s contents]
 nearest: pt
 	[⇑((origin x max: pt x) min: corner x) ⌾
-	((origin y max: pt y) min: corner y)]\gb13B
+	((origin y max: pt y) min: corner y)]
 side: side distanceTo: pt
 	[side
 		=0⇒ [⇑pt y-origin y];
 		=1⇒ [⇑pt x-origin x];
 		=2⇒ [⇑corner y-pt y];
 		=3⇒ [⇑corner x-pt x].
-	user notify: 'Invalid side']\gb27B
+	user notify: 'Invalid side']
 sideNearest: pt | d dmin i imin
 	[dmin ← 077777.
 	for⦂ i from: (0 to: 3) do⦂
 		[dmin>(d ← self side: i distanceTo: pt) abs⇒
 			[dmin ← d.  imin ← i]].
-	⇑imin]\gb16B
+	⇑imin]
 
-Altering\gbf5 
+Altering 
 dragto: dest | v i
 	[self blt: dest mode: storing.
 	v ← dest rect: dest+self extent.
 	for⦂ i from: (self minus: v) do⦂ [i clear].
-	origin ← dest. corner ← v corner]\gb13B
+	origin ← dest. corner ← v corner]
 growby: pt
-	[corner ← corner + pt]\gb12B
-growto: corner \gb
+	[corner ← corner + pt]
+growto: corner 
 maxstretch: bound | bx by boundr selfr
 	[bx←(bound corner-origin) x. by←(bound corner-origin) y.
 	boundr←bx asFloat/by. selfr←self width asFloat/self height.
 	selfr>boundr⇒[self extent←(bx⌾(bx asFloat/selfr) asInteger)]
-		self extent←((by asFloat*selfr) asInteger⌾by)]\gb18B
+		self extent←((by asFloat*selfr) asInteger⌾by)]
 moveby: pt
-	[origin ← origin+pt. corner ← corner+pt]\gb12B
+	[origin ← origin+pt. corner ← corner+pt]
 moveto: pt
-	[corner ← corner+pt-origin. origin←pt]\gb12B
+	[corner ← corner+pt-origin. origin←pt]
 translate: pt
-	[origin ← origin+pt. corner ← corner+pt]\gb15B
+	[origin ← origin+pt. corner ← corner+pt]
 translateto: pt 
-	[self translate:  pt - origin. ]\gb18B
+	[self translate:  pt - origin. ]
 usermove 
-	[self usermove: user screenrect]\gb11B
+	[self usermove: user screenrect]
 usermove: bound | m lim
 	[lim←bound corner-self extent. self bordercomp. m←user mp.
 	while⦂ true do⦂
 		[[user redbug⇒
 			[self bordercomp; moveto: (bound origin max: ((m←user mp) min: lim)); bordercomp]].
 		while⦂ (user anybug and⦂ m=user mp) do⦂ [].
-		[user bluebug⇒[user waitnobug. ⇑self bordercomp]]]]\gb16B
+		[user bluebug⇒[user waitnobug. ⇑self bordercomp]]]]
 usersize 
-	[self usersize: user screenrect]\gb11B
+	[self usersize: user screenrect]
 usersize: bound | m lim
 	[[self origin≡nil⇒[origin←user mp. self extent←16]].
 	self bordercomp. m←user mp.
@@ -2047,15 +2047,15 @@ usersize: bound | m lim
 		[user yellowbug⇒[self bordercomp.
 				corner←m←(user mp min: bound corner) max: origin. self bordercomp]].
 		while⦂ (user anybug and⦂ m=user mp) do⦂ [].
-		[user bluebug⇒[user waitnobug. ⇑self bordercomp]]]]\gb16B
+		[user bluebug⇒[user waitnobug. ⇑self bordercomp]]]]
 
-Conversion\gbf5 
+Conversion 
 asRectangle
-	["Return self."]\gb13B1i14I
+	["Return self."]
 asRectCorner
-	[⇑corner ]\gb14B
+	[⇑corner ]
 asRectOrigin
-	[⇑origin ]\gb14B
+	[⇑origin ]
 bitsFromStream: strm | rec s [
 	rec ← origin rect: origin + (self width ⌾ (16 min: self height)).
 	s← String new: rec bitStringLength.
@@ -2064,11 +2064,11 @@ bitsFromStream: strm | rec s [
 	rec minY < corner y⇒
 		[rec corner y← corner y.
 		s← nil. s← String new: rec bitStringLength.
-		strm into: s.  rec bitsFromString: s]]\gb21B
+		strm into: s.  rec bitsFromString: s]]
 bitsFromString: str
 	["default stores bits onto display"
-	self bitsFromString: str mode: storing]\gb21B1i34I
-bitsFromString: str mode: mode [user croak] primitive: 52\gb31B
+	self bitsFromString: str mode: storing]
+bitsFromString: str mode: mode [user croak] primitive: 52
 bitsFromString: str mode: mode clippedBy: clipRect
 		| destRect 
 	["Load the screen bits within my area from those stored in str.
@@ -2083,15 +2083,15 @@ bitsFromString: str mode: mode clippedBy: clipRect
 	extent←destRect extent;
 	sourceraster←corner x-origin x+15/16;
 	source←destRect origin-origin;
-	sourcebase ← str ; copy: mode]\gb53B15i57u3U7u8U64u8IU
+	sourcebase ← str ; copy: mode]
 bitsIntoString | str [
 	str ← String new: self bitStringLength.
 	self  bitsIntoString: str mode: storing.
-	⇑str]\gb15B
+	⇑str]
 bitsIntoString: str
 	["default stores bits into the string"
-	self bitsIntoString: str mode: storing]\gb21B1i37I
-bitsIntoString: str mode: mode [user croak] primitive: 51\gb31B
+	self bitsIntoString: str mode: storing]
+bitsIntoString: str mode: mode [user croak] primitive: 51
 bitsIntoString: str mode: mode clippedBy: clipRect
 		| sourceRect 
 	["Store the screen bits within my area into str.  If clipRect is not nil,
@@ -2106,7 +2106,7 @@ bitsIntoString: str mode: mode clippedBy: clipRect
 	sourcebase←mem◦066;
 	sourceraster←user screenrect width/16|2;
 	source←sourceRect origin;
-	destbase ← str ; copy: mode]\gb53B17i42u3U6u8U65u8U36u3IU
+	destbase ← str ; copy: mode]
 bitsOntoStream: strm | rec s [
 	rec ← origin rect: origin + (self width ⌾ (16 min: self height)).
 	s← (String new: rec bitStringLength) all←0.
@@ -2115,24 +2115,24 @@ bitsOntoStream: strm | rec s [
 		strm append: s].
 	rec minY < corner y⇒
 		[rec bitsIntoString: s.  strm append:
-			s◦(1 to: s length/rec height*(corner y-rec minY))]]\gb21B
+			s◦(1 to: s length/rec height*(corner y-rec minY))]]
 bitStringLength | extent [
 	extent ← corner - origin.
-	⇑ 2 * extent y* (extent x +15/16)]\gb16B
-hardcopy: pf [self hardcopy: pf thickness: 2]\gb13B
+	⇑ 2 * extent y* (extent x +15/16)]
+hardcopy: pf [self hardcopy: pf thickness: 2]
 hardcopy: pf thickness: th | r [
-	for⦂ r from: ((self inset: 0-th) minus: self) do⦂ [pf showrect: r color: 0]]\gb27B
+	for⦂ r from: ((self inset: 0-th) minus: self) do⦂ [pf showrect: r color: 0]]
 printon: strm 
-	[strm print: origin; append: ' rect: '; print: corner]\gb16B
+	[strm print: origin; append: ' rect: '; print: corner]
 
-Image\gbf5 
+Image 
 blowup: at by: scale | z dest
 	[dest ← Rectangle new origin: at extent: self extent*scale.
 		[(dest has: origin) or: (dest has: corner) ⇒
 			[z ← self bitsIntoString. dest outline.
 			self moveto: dest origin. self bitsFromString: z]
 		dest outline].
-	self blowup: at by: scale spacing: 1]\gb21B
+	self blowup: at by: scale spacing: 1]
 blowup: at by: scale spacing: spacing
 		| extent z inc sinc slice width height dest i j spread
 	[extent ← self extent.
@@ -2161,8 +2161,8 @@ blowup: at by: scale spacing: spacing
 		z ← 0⌾1.					"flip to do vertical"
 		width ← extent y. height ← (scale*extent) x⌾0.
 		spread ← (scale-spacing) y]
-	]\gb40B290i27I198i13I180i20I159i15I51i21I
-blt: dest mode: mode [user croak] primitive: 47\gb21B
+	]
+blt: dest mode: mode [user croak] primitive: 47
 blt: dest mode: mode clippedBy: clipRect
 		| destRect clippedSource
 	["Copy the screen bits within my area to the rectangle whose
@@ -2182,9 +2182,9 @@ blt: dest mode: mode clippedBy: clipRect
 		sourcebase←mem◦066;
 		sourceraster←user screenrect width/16|2;
 		source←clippedSource;
-		copy: mode]\gb43B28i71u4U44u8U83u8IU151i43I
-bltcomp: dest mode: mode [user croak] primitive: 48\gb25B
-brush: dest mode: mode color: color [user croak] primitive: 49\gb36B
+		copy: mode]
+bltcomp: dest mode: mode [user croak] primitive: 48
+brush: dest mode: mode color: color [user croak] primitive: 49
 brush: dest mode: mode color: color clippedBy: clipRect
 		| destRect clippedSource
 	["Brush the screen bits within my area to the rectangle whose
@@ -2205,16 +2205,16 @@ brush: dest mode: mode color: color clippedBy: clipRect
 		sourcebase←mem◦066;
 		sourceraster←user screenrect width/16|2;
 		source←clippedSource;
-		paint: mode]\gb58B28i72u4U44u8U84u8IU151i43I
+		paint: mode]
 clear		"default is backround"
-	[self color: background mode: storing]\gb7Bi22I
+	[self color: background mode: storing]
 clear: color
-	[self color: color mode: storing]\gb14B
-color: color mode: mode [user croak] primitive: 50\gb24B
+	[self color: color mode: storing]
+color: color mode: mode [user croak] primitive: 50
 comp
-	[self color: black mode: xoring]\gb6B
+	[self color: black mode: xoring]
 comp: color
-	[self color: color mode: xoring]\gb13B
+	[self color: color mode: xoring]
 fillin: color mode: mode | T bits p s dirs i which		"Rectangle new fromuser fillin: gray"
 	[T ← Turtle init.
 	p← origin + (self width⌾0).
@@ -2234,10 +2234,10 @@ fillin: color mode: mode | T bits p s dirs i which		"Rectangle new fromuser fill
 			[s blt: dirs◦(which+i)+p mode: oring]		"smear seed around"
  		self blt: p mode: erasing]]		"then clip to outline"
 	s brush: origin mode: mode color: color.		"paint it in"
-	s bitsFromString: bits]		"restore background to s"\gb25B
-flash [self comp; comp]\gb6B
+	s bitsFromString: bits]		"restore background to s"
+flash [self comp; comp]
 reverse
-	[self color: black mode: xoring]\gb9B
+	[self color: black mode: xoring]
 rotate		"(0⌾0 rect: 128⌾128) rotate."
 		| size maskr spt mpt tpt data temp atab btab i unit
 	[size ← self extent x. spt ← size⌾size.		"size must be a power of 2"
@@ -2265,41 +2265,41 @@ rotate		"(0⌾0 rect: 128⌾128) rotate."
 		maskr blt: (0⌾unit)+mpt mode: erasing.
 		maskr blt: (unit⌾0)+mpt mode: erasing.
 		maskr blt: (unit*2⌾0)+mpt mode: oring.
-		maskr blt: (0⌾(2*unit))+mpt mode: oring]]\gb8B
+		maskr blt: (0⌾(2*unit))+mpt mode: oring]]
 
-Border\gbf5 
+Border 
 border: thick color: color	"paints a border withoud disturbing interior"
 	[(Rectangle new
 		origin: origin-(thick⌾thick) corner: (corner x+thick)⌾origin y)
 	clear: color;
 	moveto: (origin x-thick)⌾corner y; clear: color;
 	origin ← corner x⌾(origin y-thick); clear: color;
-	moveto: origin-(thick⌾thick); clear: color]\gb27Bi45I
+	moveto: origin-(thick⌾thick); clear: color]
 boxcomp	"paints a border withoud disturbing interior"
 	[(Rectangle new
 		origin: origin-(2⌾2) corner: (corner x+2)⌾origin y)
 	color: black mode: xoring;
 	moveto: (origin x-2)⌾corner y; color: black mode: xoring;
 	origin ← corner x⌾(origin y-2); color: black mode: xoring;
-	moveto: origin-(2⌾2); color: black mode: xoring]\gb8Bi45I
+	moveto: origin-(2⌾2); color: black mode: xoring]
 outline 	"default border is two thick"
-	[self outline: 2]\gb9Bi29I
+	[self outline: 2]
 outline: thick | t
 	[t ← (¬1⌾¬1)*thick.
-	(self inset: t) clear: black.  self clear: white]\gb15B
-\g
-SystemOrganization classify: ↪Rectangle under: 'Form Path Image'.\g
+	(self inset: t) clear: black.  self clear: white]
+
+SystemOrganization classify: ↪Rectangle under: 'Form Path Image'.
 
-"TextImage"l15000z20000\gbf5 
+"TextImage" 
 Class new title: 'TextImage'
 	subclassof: Textframe
 	fields: 'c1 c2 begintypein superimage figure ground'
 	declare: 'cut esc paste aurora Scrap scrap bs Deletion aurorarunning paragraphmenu ctlw ';
-	asFollows\gbf5 
+	asFollows 
 
-This class has not yet been commented\gi
+This class has not yet been commented
 
-INIT\gbf5 
+INIT 
 classInit 
 [
 	bs ← 8. ctlw ← 145. esc ← 160. cut ← 173. paste ← 158.
@@ -2317,19 +2317,19 @@ ground
 	aurora ← "Aurora new" nil.
 	aurorarunning ← false.
 ]
-\gb11B
+
 close
-	[superimage←nil]\gb7B
+	[superimage←nil]
 paragraph: para frame: frame style: style
 	[
 	self paragraph: para frame: frame style: style figure: 1 ground: 0
-	]\gb43B
+	]
 paragraph: para frame: frame style: style figure: figure ground: ground
 	[
 	[nil≡ para ⇒ [ para ← nullString ]].
 	c1 ← c2 ← begintypein← 1.
 	self para: para frame: frame style: style
-	]\gb73B
+	]
 text: t width: w | run r
 	[
 	c1 ← c2 ← begintypein← 1.
@@ -2337,14 +2337,14 @@ text: t width: w | run r
 	r ← Rectangle new origin: 0⌾0 extent: w⌾(DefaultTextStyle lineheight+2).
 	self paragraph: (Paragraph new text: t runs: run  alignment: 2) frame: r style: DefaultTextStyle.
 
- ]\gb26B
+ ]
 
-EDITING\gbf5 
+EDITING 
 align
 	[para alignment ← ↪(1 2 4 0 0)◦(1+para alignment).
 	self show.
 	self reversefrom: c1 to: c2.
-	]\gb7B
+	]
 checklooks | t val mask [
 	"see ParagraphEditor checklooks.
 	substitute c1 for loc1, c2 for loc2, oldEntity for oldpara, entity for para"
@@ -2364,12 +2364,12 @@ checklooks | t val mask [
 		val<0⇒[mask← 0-val.  val← 0]		"reset emphasis"
 		val>0 and⦂ val<16⇒[mask← val]	"set emphasis"
 		mask← 0360].				"set font"
-	para maskrun: c1 to: c2-1 under: mask to: val]\gb11B
+	para maskrun: c1 to: c2-1 under: mask to: val]
 copyselection 
 	["copy the current selection and store it in the Scrap."
 	Scrap ← para copy: c1 to: c2-1.
 	]
-\gb16B
+
 cut 
 	["cut out the current selection and redisplay the paragraph."
 	Scrap ← para copy: c1 to: c2-1.
@@ -2380,7 +2380,7 @@ cut
 	self show.
 	self reversefrom: c1 to: c2.	"show new selection"
 	]
-\gb6B
+
 edit: superimage | pt charindex
 	[
 	"eventually a general paragraph manipulator for now just a hack."
@@ -2409,14 +2409,14 @@ edit: superimage | pt charindex
 								⇑self.] "and exit back to the document"
 		]
 	
-	]\gb17B
+	]
 fintype
 	[begintypein⇒
 		[	[begintypein<c1⇒
 				[Scrap ← para copy: begintypein to: c1-1.
 				c1 ← begintypein]].
 		begintypein ← false]
-	⇑false]\gb9B
+	⇑false]
 fit| t 
 	["make the bounding rectangle of the TextImage contain all the textwhile not changing the width of the TextImage."
 	self white.
@@ -2424,7 +2424,7 @@ fit| t
 	t ← self rectofchar: (para length+1).
 	frame extent← (frame width)⌾((t corner y) - (frame origin y)).
 	self show. frame border: 1 color: ¬1. self reversefrom: c1 to: c2.
-]\gb3B7i115I
+]
 kbd | more char  "key struck on the keyboard"
 	[c1<c2 and⦂ self checklooks⇒[⇑ self show reversefrom: c1 to: c2]
 	more ← Set new string: 16.
@@ -2450,7 +2450,7 @@ kbd | more char  "key struck on the keyboard"
 		"just a normal character"
 	more next← char].
 		para replace: c1 to: c2-1 by:  more. c2 ← c1 + more length. c1 ← c2.
-	self show. self reversefrom: c1 to: c2]\gb4B587i23I
+	self show. self reversefrom: c1 to: c2]
 paste 
 	["paste the Scrap over the current selection and redisplay the paragraph."
 	self fintype.
@@ -2460,7 +2460,7 @@ paste
 	self show.
 	self reversefrom: c1 to: c2.	"highlight new selection"
 	]
-\gb8B
+
 resize | t pt xgrid ygrid
 	["Show the origin cursor until the user presses a mouse button,
 		then get my origin"
@@ -2480,23 +2480,23 @@ resize | t pt xgrid ygrid
 			]
 	NormalCursor topage1.
 	self show. frame boxcomp. self reversefrom: c1 to: c2.
-]\gb7B21i85I1i56I
+]
 setfigure | 
 	["for now just increment the figure color by 1 \ 14"
 	figure ← (figure +1 ) \ 14.
 	self displayat: (self frame origin) effect: 0 clippedBy: user screenrect.
-]\gb10B5i52I
+]
 setground | 
 	["for now just increment the figure color by 1 \ 14"
 	ground ← (ground +1 ) \ 14.
 	self displayat: (self frame origin) effect: 0 clippedBy: user screenrect.
-]\gb10B5i52I
+]
 white 
 	["white out the image"
 	(frame inset: (¬2⌾¬2)) clear: 0.
-	]\gb8B
+	]
 
-SELECTION\gbf5 
+SELECTION 
 complementfrom: hair1 to: hair2 | temprect
 ["Complement the screen dots corresponding to the lines and part-lines of the paragraph between hair1 inclusive and hair2 exclusive.  If hair1 = hair2, this is a no-op.  If hair1 > hair2, they are reversed. This complementing happens in three parts, A, B, and C, between points 1 and 2, according to the following illustration:
 					1AAA
@@ -2519,12 +2519,12 @@ unless there is just one line involved, as in:
 	(((hair1 origin rect: (temprect maxX ⌾ temprect minY)) intersect: frame) intersect: window)  comp.
 	((temprect intersect: frame) intersect: window)  comp.
 	((((temprect minX ⌾ temprect maxY) rect: hair2 corner) intersect: frame) intersect: window)  comp.
-	]\gb32B
+	]
 reversefrom: char1 to: char2| h1 h2
 ["Complement the dots corresponding to the the lines and part-lines of the paragraph between the left edge of char1 and the left edge of char2.  If char1 = char2, this is sort of a no-op.  If char1 > char2, this is undefined."
 	self ptofchar: char1. h1 ← reply1 rect: reply2.
  	[char2=char1⇒[h2 ← h1+ (1⌾0)] self ptofchar: char2. h2 ← reply1 rect: reply2.].
-	self complementfrom: h1 to: h2]\gb28B
+	self complementfrom: h1 to: h2]
 select: pt | h1 h2 c h drag2 selection
 	[
 	"draw out and record ( c1 and c2) a selection"
@@ -2547,35 +2547,35 @@ select: pt | h1 h2 c h drag2 selection
 			self complementfrom: h1 to: (h2 ← h1 + (1⌾0))]].
 	drag2⇒ []
 	"get rid of extra line in backwards select"
-	self complementfrom: h2 - (1⌾0) to: h2]\gb11B
+	self complementfrom: h2 - (1⌾0) to: h2]
 
-SYSTEM\gbf5 
+SYSTEM 
 copy | t
 	[
 	t ←  TextImage new paragraph: para copy frame: (frame copy) style: style copy.
 	t c1← c1 ; c2← c2 ; begintypein ← begintypein.
 	⇑ t
-	]\gb10B
+	]
 fromPress: press value: s [
 	"frame set by Image"
 	para ← Paragraph new fromPress: press value: s.
 	figure ← s nextword.
 	self paragraph: para frame: frame style: DefaultTextStyle
-		figure: figure ground: s nextword]\gb26B1b2B1i18I
+		figure: figure ground: s nextword]
 hideData: complete | s p [ 
 	p ← para hideData: complete.
 	Stream new of: (s ← String new: p length+4);
 		append: p;
 		nextword ← figure;
 		nextword ← ground.
-	⇑s]\gb19B
+	⇑s]
 hidePress: press complete: c [
-	press skipcode: self pressCode data: (self hideData: c)]\gb29B
-pressCode [⇑4]\gb10B
+	press skipcode: self pressCode data: (self hideData: c)]
+pressCode [⇑4]
 presson: press in: r 
 	[
 	⇑ para presson: press in: r.
-	]\gb23B
+	]
 show | lastvisible
 	["display text and expand the frame in y to include all of
 		the text if the textimage is too small"
@@ -2585,34 +2585,34 @@ show | lastvisible
 		[frame corner y← lastvisible corner y.
 			super show.
 		]
-	]\gb7B11b2B
+	]
 
-ACCESS TO PARTS\gbf5 
-begintypein← begintypein \gb
-c1← c1 \gb
-c2← c2 \gb
+ACCESS TO PARTS 
+begintypein← begintypein 
+c1← c1 
+c2← c2 
 figure 
 	["return the figure color (color associated with black) for this TextImage"
 	⇑ figure
-	]\gb9B
+	]
 figure: figure 
-	["change the figure color (color associated with black) for this TextImage"]\gb17B
+	["change the figure color (color associated with black) for this TextImage"]
 ground 
 	["return the ground color (color associated with white) for this TextImage"
 	⇑ ground
-	]\gb9B
+	]
 ground: ground 
-	["change the ground color (color associated with white) for this TextImage"]\gb17B
+	["change the ground color (color associated with white) for this TextImage"]
 leftflush
-	[ (self para) flushleft]\gb11B
+	[ (self para) flushleft]
 rectangle
 	["Return rectangle (frame of Textframe) for compatibility with Image calls -- 
 		needed in findbyrect: in Document"
-	⇑frame]\gb11B
+	⇑frame]
 text
-	[⇑ self para text]\gb6B
+	[⇑ self para text]
 
-DISPLAY\gbf5 
+DISPLAY 
 displayat: pt effect: effect clippedBy: cliprect | clippedrect
 	["display text "
 	super displayat: pt effect: effect clippedBy: cliprect.
@@ -2624,7 +2624,7 @@ displayat: pt effect: effect clippedBy: cliprect | clippedrect
 						 doit; function: 0 ; doit.
 						]
 				]
-	]\gb64B
-\g
-SystemOrganization classify: ↪TextImage under: 'Form Path Image'.\g
-TextImage classInit\g 
+	]
+
+SystemOrganization classify: ↪TextImage under: 'Form Path Image'.
+TextImage classInit 

@@ -1,18 +1,18 @@
 'From Smalltalk 5.5k XM November 24 on 22 November 1980 at 2:57:08 am.'
-\g
-"Cursor"l15000z20000\gbf5 
+
+"Cursor" 
 Class new title: 'Cursor'
 	subclassof: Object
 	fields: 'bitstr offset'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-I am a 16 x 16 dot matrix suitable for use as the Alto hardware cursor\gi
+I am a 16 x 16 dot matrix suitable for use as the Alto hardware cursor
 
-Initialization\gbf5 
-fromString: bitstr [self fromString: bitstr offset: 0⌾0]\gb19B
-fromString: bitstr offset: offset\gb
-fromtext: str [self fromtext: str offset: 0⌾0]\gb14B
+Initialization 
+fromString: bitstr [self fromString: bitstr offset: 0⌾0]
+fromString: bitstr offset: offset
+fromtext: str [self fromtext: str offset: 0⌾0]
 fromtext: str offset: offset | i s n c [
 	"Not great, but compatible with printon."
 	bitstr ← String new: 32.
@@ -21,61 +21,61 @@ fromtext: str offset: offset | i s n c [
 		[n ← 0.
 		while⦂ ((c ← s next)=060 or⦂ c=061) do⦂
 			[n ← (n lshift: 1)+(c-060)].
-		bitstr word: i ← n]]\gb29B13i41I
-offset: offset\gb
+		bitstr word: i ← n]]
+offset: offset
 
-Hardware cursor\gbf5 
+Hardware cursor 
 frompage1		"load this cursor from the hardware locations"
 	[bitstr ← String new: 32.
-	BitBlt new forCursor; sourcebase← 0431; destbase ← bitstr; copy: storing]\gb11Bi46I
+	BitBlt new forCursor; sourcebase← 0431; destbase ← bitstr; copy: storing]
 
-Conversion\gbf5 
+Conversion 
 hardcopy: pf ["use current cursor position"
-	self hardcopy: pf at: user mp - offset]\gb13B
+	self hardcopy: pf at: user mp - offset]
 hardcopy: pf at: loc | rect [
 	"print cursor image at some point location into a presssfile"
 	rect ← loc extent: 16⌾16.
-	pf setp: (pf transrect: rect) origin; bitmap: rect bits: bitstr]\gb21B
+	pf setp: (pf transrect: rect) origin; bitmap: rect bits: bitstr]
 printon: strm | i
 	[strm append: 'Cursor new fromtext: '''.
 	for⦂ i to: 16 do⦂
 		[strm cr.
 		(bitstr word: i) printon: strm base: 2]
-	strm append: ''' offset: '; print: offset; append: '.']\gb14B
+	strm append: ''' offset: '; print: offset; append: '.']
 
-Aspects\gbf5 
-offset [⇑offset]\gb7B
+Aspects 
+offset [⇑offset]
 
-Showing\gbf5 
+Showing 
 show	 [
 	"copy this cursor into the page 1 hardware locations"
 	BitBlt new forCursor; destbase← 0431; sourcebase ← bitstr; copy: storing.
 	user currentCursor: self
 
 	"the following statement will copy back if we ever need to"
-	"BitBlt new forCursor; sourcebase← 0431; destbase ← bitstr; copy: storing"]\gb6B3i55I
+	"BitBlt new forCursor; sourcebase← 0431; destbase ← bitstr; copy: storing"]
 showwhile⦂ expr | oldcursor value [
 	oldcursor ← user currentCursor.
 	self show.
 	value ← expr eval.
 	oldcursor show.
-	⇑value]\gb16B
+	⇑value]
 
-Compatibility\gbf5 
-topage1	[self show]\gb8B
-\g
-SystemOrganization classify: ↪Cursor under: 'Graphical Objects'.\g
+Compatibility 
+topage1	[self show]
+
+SystemOrganization classify: ↪Cursor under: 'Graphical Objects'.
 
-"HalfToner"l15000z20000\gbf5 
+"HalfToner" 
 Class new title: 'HalfToner'
 	subclassof: Object
 	fields: 'lines pixelsPerLine black white errorString rect vect inpix outpix nlines npix strm inset'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-This class converts ais image files to screen bits\gi
+This class converts ais image files to screen bits
 
-AIS to Bits\gbf5 
+AIS to Bits 
 decode: str using: s | i j k x cascadeRight cascadeDiag val error r msk masks
 	["Change 8-bit grey from str filling s"
 	 masks←↪(128 64 32 16 8 4 2 1).
@@ -97,7 +97,7 @@ decode: str using: s | i j k x cascadeRight cascadeDiag val error r msk masks
 			[(msk←msk+1)>8⇒[msk←1. j←j+1. s◦j←0] ].
 			x←x+inpix. k←k+1].
 		x←x-outpix].
-	⇑s]  primitive: 109\gb21B60i37I226i13I56i13I246b2B
+	⇑s]  primitive: 109
 doFile | str i s2 r y skipsum
 	[str←String new: pixelsPerLine.
 	r←0⌾0 rect: (pixelsPerLine*outpix/inpix)⌾1. r moveto: rect origin copy.
@@ -115,7 +115,7 @@ doFile | str i s2 r y skipsum
 			[i←i+1. y←y-outpix.
 			while⦂ (y≥0 and⦂ i≤lines) do⦂ [i←i+1. y←y-outpix. skipsum←skipsum+npix] ]
 			skipsum←skipsum-npix] ]. "not next line"
-	strm close]\gb7B250i10I78i12I34i41I202i12I129i15I
+	strm close]
 intoPress: p file: f | outrect "Creates an external file reference"
 	[outrect←p transrect: rect.
 	p setp: (outrect origin); dots⦂
@@ -128,7 +128,7 @@ intoPress: p file: f | outrect "Creates an external file reference"
 "
 	|p. p←dp0 pressfile: 'pix.press'.
 	p pictureinit. (HalfToner new test) intoPress: p file: 'Rolfup.AIS'. p close.
-"\gb21B10i36I81i14I40i32I
+"
 setup | i r1 r2 inset done"set up default paramsHalfToner new doFile."
 	[user print: 'Black? (0-255)'. black ← user read asVector◦1.
 	 user print: 'White? (0-255)'. white ← user read asVector◦1.
@@ -156,13 +156,13 @@ setup | i r1 r2 inset done"set up default paramsHalfToner new doFile."
 	 errorString ← String new: pixelsPerLine*outpix / inpix+1.
 	 for⦂ i to: errorString length do⦂ [errorString◦i ← 0].
 	 ⇑inset "return inset"
-	]\gb26B
+	]
 
-Init/Access\gbf5 
-nlines [⇑nlines]\gb7B1b7B
-npix [⇑npix]\gb5B1b5B
-rect [⇑rect]\gb5B1b5B
-rect←rect\gb
+Init/Access 
+nlines [⇑nlines]
+npix [⇑npix]
+rect [⇑rect]
+rect←rect
 setup: strm | inrect croprect
 	[strm readonly.
 	(strm word: 2)≠1024 or⦂ (strm word: 9)≠8⇒[user notify: 'bad file']
@@ -178,8 +178,8 @@ setup: strm | inrect croprect
 		["blowup" inpix←32. outpix←(32*rect width/pixelsPerLine)]
 		"shrink" outpix←32. inpix←(32*pixelsPerLine/rect width)].
 	errorString←String new: pixelsPerLine*outpix/inpix+2.
-	errorString all←0]\gb12B277i12I276i8I51i8I
-strm [⇑strm]\gb5B1b5B
+	errorString all←0]
+strm [⇑strm]
 test | files
 	[files←(dp0 filesMatching: '*.ais.') sort.
 	files empty⇒[user notify: 'no .ais files on disk']
@@ -187,85 +187,85 @@ test | files
 	rect←Rectangle new usersize. self setup: strm; doFile]
 "
 HalfToner new test.
-"\gb5B
-\g
-SystemOrganization classify: ↪HalfToner under: 'Graphical Objects'.\g
+"
+
+SystemOrganization classify: ↪HalfToner under: 'Graphical Objects'.
 
-"Turtle"l15000z20000\gbf5 
+"Turtle" 
 Class new title: 'Turtle'
 	subclassof: Object
 	fields: 'pen ink width dir x xf y yf frame'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 Turtles can crawl around the screen drawing and printing at any angle.
-Dont forget to send them the message init before any drawing commands.\gi
+Dont forget to send them the message init before any drawing commands.
 
-Initialization\gbf5 
+Initialization 
 erase
-	[frame clear: white]\gb7B
-frame [⇑frame]\gb6B
-frame: frame\gb
+	[frame clear: white]
+frame [⇑frame]
+frame: frame
 init
 	[pen ← width ← 1.
 	x← y← xf← yf← 0.
 	frame ← user screenrect.
-	self black; home]\gb6B
+	self black; home]
 
-Pen Control\gbf5 
-black [ink ← black]\gb6B
-color: ignored  "Only implemented for PressTurtle"\gb16B
-ink: ink\gb
-pen: pen\gb
+Pen Control 
+black [ink ← black]
+color: ignored  "Only implemented for PressTurtle"
+ink: ink
+pen: pen
 pendn
-	[pen ← 1]\gb7B
+	[pen ← 1]
 penup
-	[pen ← 0]\gb7B
-white [ink ← white]\gb6B
-width [⇑width]\gb6B
-width: width\gb
-xor [ink ← 2]\gb4B
+	[pen ← 0]
+white [ink ← white]
+width [⇑width]
+width: width
+xor [ink ← 2]
 
-Drawing\gbf5 
-fillIn⦂ expr [⇑expr eval]  "Only implemented for PressTurtle"\gb13B
-go: length [user croak] primitive: 53\gb11B
+Drawing 
+fillIn⦂ expr [⇑expr eval]  "Only implemented for PressTurtle"
+go: length [user croak] primitive: 53
 goto: pt
 	[pt x is: Integer⇒[user croak]
-	self goto: pt x asInteger⌾pt y asInteger] primitive: 54\gb10B
+	self goto: pt x asInteger⌾pt y asInteger] primitive: 54
 home		
-	[self up; place: frame center-frame origin. xf← yf← 0100000]\gb8B
-place [⇑x⌾y]\gb6B
+	[self up; place: frame center-frame origin. xf← yf← 0100000]
+place [⇑x⌾y]
 place: pt | p
-	[p← pen. pen← 0. self goto: pt. pen← p]\gb10B3b2B
+	[p← pen. pen← 0. self goto: pt. pen← p]
 pointAt: pt | diff "change direction so turtle points at pt."
 	[diff ← (pt - (self place)).
 	 dir ← ((diff theta) asInteger)]
 
-\gb12B
+
 stretchto: pt | t old
 	[t ← Turtle init frame: frame. old ← x⌾y. 
-	t xor; place: old; goto: pt; place: old; goto: pt]\gb14B
+	t xor; place: old; goto: pt; place: old; goto: pt]
 turn: angle
-	[dir← dir+angle\360]\gb13B
+	[dir← dir+angle\360]
 up	 [dir ← 270]		"Point toward top of screen"
-\gb4B12b1Bi28bI
 
-Text\gbf5 
+
+Text 
 put: char font: font		"char=ascii Integer, font=font bits (String)"
-	[user croak] primitive: 56\gb20i2B45bI2B
+	[user croak] primitive: 56
 show: str font: font | a f		"str=text (String), font=font number (0-9)"
 	[f← DefaultTextStyle fonts◦(font+1).
 	for⦂ a from: str do⦂
-		[self put: a font: f]]\gb21B7i43I
+		[self put: a font: f]]
 
-Examples\gbf5 
+Examples 
 dragon: n
 	[n=0⇒[self go: 10]
 	n>0⇒[self dragon: n-1; turn: 90; dragon: 1-n]
 			self dragon: ¬1-n; turn: ¬90; dragon: 1+n]
 "
 Turtle init dragon: 8
-"\gb11B
+"
 filberts: order side: s | i n2
 	[n2← 1 lshift: order-1.
 	self penup; go: 0-n2*s; pendn.
@@ -279,7 +279,7 @@ Turtle init erase filberts: 3 side: 10.
 
 user displayoffwhile⦂
 	[PressTurtle new init: 'try.press'; filberts: 4 side: 10; close].
-"\gb24B
+"
 hilbert: n side: s | a m
 	[n=0⇒[self turn: 180]
 	[n>0⇒[a←90. m←n-1] a←¬90. m←n+1].
@@ -291,7 +291,7 @@ hilbert: n side: s | a m
 "
 Turtle init hilbert: 3 side: 4
 "
-\gb19B
+
 hilberts: n | i s
 	[self penup; go: 128; pendn.
 	for⦂ i to: n do⦂
@@ -303,7 +303,7 @@ Turtle init erase hilberts: 5.
 
 user displayoffwhile⦂
 	[PressTurtle new init: 'try2.press'; hilberts: 4; close].
-"\gb12B
+"
 mandala: npoints diameter: d | l points i j
 	[l← (3.14*d/npoints) asInteger.
 	self home; penup; turn: ¬90; go: d/2; turn: 90; go: 0-l/2.
@@ -321,7 +321,7 @@ Turtle init mandala: 30 diameter: 400
 
 user displayoffwhile⦂
 	[PressTurtle new init: 'try.press'; mandala: 30 diameter: 500; close.]
-"\gb29B
+"
 spiral: n angle: a | i
 	[for⦂ i to: n do⦂
 		[self color: i*2\256; go: i; turn: a]]
@@ -331,56 +331,56 @@ spiral: n angle: a | i
  user displayoffwhile⦂ [(PressTurtle new init: 'try.press')
 		spiral: 403 angle: 89;
 		home; spiral: 403 angle: ¬89; close.]
- "\gb19B
-\g
-SystemOrganization classify: ↪Turtle under: 'Graphical Objects'.\g
+ "
+
+SystemOrganization classify: ↪Turtle under: 'Graphical Objects'.
 
-"PressTurtle"l15000z20000\gbf5 
+"PressTurtle" 
 Class new title: 'PressTurtle'
 	subclassof: Turtle
 	fields: 'file fplace fdir filling'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 I work with Pressfile to print high resolution pictures.
 All inputs can be floating point for high resolution.
-Complexity is limited to about 2k lines until multiple entity lists\gi
+Complexity is limited to about 2k lines until multiple entity lists
 
-Initialization\gbf5 
-close [file page. file close]\gb6B
+Initialization 
+close [file page. file close]
 init: name 
 	[file ← (dp0 pressfile: name).
 	filling← false.
 	file pictureinit. self black.
-	super init]\gb13B
+	super init]
 initwithfile: name 
 	[file ← name.
 	filling← false.
 	self black.
-	super init]\gb21B
+	super init]
 
-Pen Control\gbf5 
+Pen Control 
 black 
-	[file brightness: 0. super black]\gb8B
-blue [self color: 160]\gb5B
-color: h [file hue: h; brightness: 255; saturation: 255]\gb9B
-cyan [self color: 120]\gb5B
-green [self color: 80]\gb6B
-magenta [self color: 200]\gb8B
-place [⇑fplace]\gb6B
-red [self color: 0]\gb4B
-up [dir← 270. fdir← 270.0]\gb3B
+	[file brightness: 0. super black]
+blue [self color: 160]
+color: h [file hue: h; brightness: 255; saturation: 255]
+cyan [self color: 120]
+green [self color: 80]
+magenta [self color: 200]
+place [⇑fplace]
+red [self color: 0]
+up [dir← 270. fdir← 270.0]
 white 
 	[file brightness: 255.
 	file saturation: 0.
-	super white]\gb8B
-yellow [self color: 40]\gb7B
+	super white]
+yellow [self color: 40]
 
-Drawing\gbf5 
+Drawing 
 fillIn⦂ expr		"Code in expr must describe a closed figure"
 	[filling← true.
 	file object⦂ expr eval atScreen: fplace.
-	filling← false]\gb14Bi44bI2B
+	filling← false]
 go: dist | old
 	[self goto: fplace + 
 		(([fdir\90.0=0.0⇒		"optimize horiz and vert lines"
@@ -388,13 +388,13 @@ go: dist | old
 						=1⇒[0.0⌾1.0];
 						=2⇒[¬1.0⌾0.0];
 						=3⇒[0.0⌾¬1.0]]
-		fdir asRadians asDirection])*dist)]\gb9B5b2B
+		fdir asRadians asDirection])*dist)]
 goto: p | old
 	[old← fplace.
 	fplace ← p x asFloat ⌾ p y asFloat.
 	super goto: fplace x round ⌾ fplace y round.
 	filling⇒[file objectGotoScreen: fplace pen: pen]
-	pen=1⇒[file drawlinefromscreen: old to: fplace width: 0.46875*width]]\gb8B5b2B
-turn: angle [fdir← fdir+angle\360.0]\gb12B
-\g
-SystemOrganization classify: ↪PressTurtle under: 'Graphical Objects'.\g 
+	pen=1⇒[file drawlinefromscreen: old to: fplace width: 0.46875*width]]
+turn: angle [fdir← fdir+angle\360.0]
+
+SystemOrganization classify: ↪PressTurtle under: 'Graphical Objects'. 

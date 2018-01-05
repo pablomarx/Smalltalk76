@@ -1,15 +1,15 @@
 'From Smalltalk 5.5k XM November 24 on 22 November 1980 at 2:57:08 am.'
-\g
-"FontWindow"l15000z20000\gbf5 
+
+"FontWindow" 
 Class new title: 'FontWindow'
 	subclassof: Object
 	fields: 'frame font fontht fontraster fontxtabl bitsetter char charx charwid charstr altostyle fontnumber clearframe scale boxer'
 	declare: 'fontmenu ';
-	asFollows\gbf5 
+	asFollows 
 
-I am a window that displays one blown up character at a time of a strike-format font\gi
+I am a window that displays one blown up character at a time of a strike-format font
 
-Help\gbf5 
+Help 
 help
 ["
 **sysFontWindow is declared in the Smalltalk dictionary, and bound to the font window displayed on the screen of most system releases -- intended to provide an easy way to play around with the font editor.
@@ -37,9 +37,9 @@ help
 	sysFontWindow setchar: 046.
 	sysFontWindow setwidth: 5.	**Absolute--for char in window. 
 	Useful for characters of zero width.**
-"]\gb5B1i1067I
+"]
 
-Initialization\gbf5 
+Initialization 
 altostyle: altostyle fontnumber: fontnumber at: origin
 	[		"set up an instance"
 	[fontmenu≡nil⇒[self init]].
@@ -50,16 +50,16 @@ altostyle: altostyle fontnumber: fontnumber at: origin
 	frame ← Rectangle  new origin: origin  extent:  scale ⌾ 0.
 	clearframe ← Rectangle  new origin: origin  extent:  scale ⌾ 0.
 	self setfont: altostyle fonts◦fontnumber.
-	]\gb56B3i20I
+	]
 classInit
 	[fontmenu ← Menu new string:
 'strike
 set width
 debug
 move
-close']\gb11B
+close']
 
-Scheduler\gbf5 
+Scheduler 
 eachtime							"while active"
 	[clearframe has: user mp⇒
 		[user redbug ⇒
@@ -82,16 +82,16 @@ eachtime							"while active"
 			[char ← user kbd. self setchar: char]
 		]
 	user anybug⇒[⇑false]
-	]\gb15Bi14I87i16I62i16I59i39I32i16I84i17I68i17I108i17I
+	]
  firsttime						"upon entry"
 	[
 	clearframe has: user mp⇒[self show]
 	⇑false
-	]\gb16Bi12I
+	]
 lasttime						"upon exit"
-	[]\gb14Bi11I
+	[]
 
-Editing\gbf5 
+Editing 
 setascent: ascentdelta | updatedfont ascent
 	[								 "ascent delta"
 	ascent ← font word: 6.
@@ -111,7 +111,7 @@ setascent: ascentdelta | updatedfont ascent
 	updatedfont word: 6 ← ascent + ascentdelta.	"reset ascent word in font"
 	self setfont: updatedfont.					"updatedfont now font of interest"
 	self updateseglength: font raster: fontraster.
-	]\gb23B32i14I167i6I27i17I18i43I87i29I104i8I121i27I33i35I
+	]
 setbit: bitpoint color: color		"turn bits on, off"
 								| x y
 	[
@@ -125,7 +125,7 @@ setbit: bitpoint color: color		"turn bits on, off"
 	bitsetter destx ← charx + x.
 	bitsetter desty ← y.
 	bitsetter destbase ← font; dstrike← true.  "lock font and get core ptr"
-	bitsetter fill: storing color: color.						"turn bit on/off in font"]\gb31Bi19I256i27I43i22I97i28I45i25I
+	bitsetter fill: storing color: color.						"turn bit on/off in font"]
 setchar: char
 	[
 	charstr◦1 ←  char.
@@ -140,7 +140,7 @@ setchar: char
 		frame inset: ¬2 ⌾ ¬2							"for clearing everything including outline"
 		and: (charwid - (charwid * scale + 2)) ⌾ (fontht - (fontht * scale + 2)).
 	self show.
-	]\gb15B158i19I195i43I
+	]
 setdescent: descentdelta | updatedfont descent space
 	[								"descent delta"
 	descent ← font word: 7.
@@ -159,7 +159,7 @@ setdescent: descentdelta | updatedfont descent space
 		descent + descentdelta.	"reset descent word in font"
 	self setfont: updatedfont.	"updatedfont now font of interest"
 	self updateseglength: font raster: fontraster.
-	]\gb25B38i15I499i28I29i35I
+	]
 setfont: font
 	[
 	altostyle fonts ◦ fontnumber ← font.
@@ -168,7 +168,7 @@ setfont: font
 	fontxtabl ← fontraster * fontht + 9 "header" + 1 "for 0 addressing".
 	bitsetter width ←  1. bitsetter height ← 1.
 	self setchar: charstr◦1.
-	]\gb15B113i18I38i8I5i18I
+	]
 setwidth | newextentx outlineframe
 	[						"get new size"
 	outlineframe ← clearframe inset: 1 ⌾ 1 and: 0 ⌾ 1.
@@ -186,7 +186,7 @@ setwidth | newextentx outlineframe
 		].
 		outlineframe border: 2 color: black.
 		self setwidth: newextentx / scale.
-	]\gb9B34i14I
+	]
 setwidth: delta
 	| fontrightx newraster newxtabl newmaxwidth updatedfont i
 
@@ -241,16 +241,16 @@ setwidth: delta
 	self updateseglength: font raster: fontraster.
 	self updatemaxwidth.
 	].
-	]\gb17B67i17I276i8I5i18I60i8I23i6I9i22I61i28I39i24I2i17I52i39I368i45I124i28I160i14I84i5I118i37I30i33I
+	]
 
-Image\gbf5 
+Image 
 frame
 	[clearframe clear.
 	frame moveto:
 	(OriginCursor showwhile⦂
 		[user waitbug⇒[user mp]]).
 	self setchar: char.
-	]\gb7B
+	]
 show |									"refresh window"
 					tempframe showrun showpara
 	[
@@ -260,19 +260,19 @@ show |									"refresh window"
 	tempframe ← Textframe new para: showpara frame: frame style: altostyle.
 	tempframe show.
 	frame blowup: (frame origin) by: scale.
-	]\gb5B10i16I
+	]
 
-Strike format\gbf5 
+Strike format 
 appendxtable: thefont
 	[										"put fontⓢxtable on end of a grown/shrunk font"
 	thefont ← thefont concat: font ◦ ((fontxtabl * 2 - 1) to: font length).
 	⇑thefont.
-	]\gb23B11i47I
+	]
 cufixup |  "Carnegie-Mellon fixup for scale compatibility"
 	[boxer extent ← (scale-1)⌾(scale-1).
 	frame extent ← scale⌾0.
 	clearframe extent ← scale⌾0.
-	]\gb8B3i47I
+	]
 makecu: name scale: cuscale  "Put out font in Carnegie-Mellon format"
 		| f svscale svchar  bitwidth i bitmover bits
 	[f ← dp0 file: name + '.cu.'.
@@ -300,7 +300,7 @@ makecu: name scale: cuscale  "Put out font in Carnegie-Mellon format"
 		bits all ← 0.
 		bitmover copy: storing.
 		f append: bits].
-	f close. scale ← svscale. self cufixup. bits unlock. self setchar: svchar]\gb29Bi40I
+	f close. scale ← svscale. self cufixup. bits unlock. self setchar: svchar]
 newfont: fontht maxcharwidth: maxcharwidth min: min max: max ascent: ascent kern: kern
 	| raster i x
 	[XeqCursor showwhile⦂
@@ -328,17 +328,17 @@ newfont: fontht maxcharwidth: maxcharwidth min: min max: max ascent: ascent kern
 			[font word: i ← x. x ← x+maxcharwidth].					"table of left x"
 		].
 	⇑font.
-	]\gb88B191i34I34i16I34i16I41i16I55i16I37i21I42i21I35i16I37i32I61i17I45i27I89i25I155i17I
+	]
 strike | i	showstr "Put a strike of font into dialogue window"
 	[showstr ← String new: 128. for⦂ i to: 128 do⦂ [showstr◦i ←i].
-	user clearshow: showstr]\gb7B12i43I
+	user clearshow: showstr]
 updatemaxwidth | newmaxwidth i
 	[										"update max width"
 	newmaxwidth ← 0.
 	for⦂ i from: (fontxtabl to: fontxtabl + ((font word: 3) - (font word: 2) + 1) by: 1) do⦂
 				[newmaxwidth ← (newmaxwidth max: ((font word: i+1) - (font word: i)))].
 	font word: 4 ← newmaxwidth.
-	]\gb15B28i18I
+	]
 updateseglength: newfont raster: newraster
 	[								"compute new segment length for a font"
 	newfont word: 5 ←	(5												"length, ascent, descent, kern, and raster"
@@ -346,21 +346,21 @@ updateseglength: newfont raster: newraster
 								+ ((font word: 3 "max") -
 										(font word: 2"min") + 2)		"xtabl"
 							).
-	]\gb44B9i39I34i43I36i6I26i5I27i5I8i7I
-\g
-SystemOrganization classify: ↪FontWindow under: 'Windows'.\g
-FontWindow classInit\g
+	]
+
+SystemOrganization classify: ↪FontWindow under: 'Windows'.
+FontWindow classInit
 
-"Window"l15000z20000\gbf5 
+"Window" 
 Class new title: 'Window'
 	subclassof: Object
 	fields: 'frame collapsed titlepara growing exitflag '
 	declare: 'titlerun border titleloc titleframe windowmenu ';
-	asFollows\gbf5 
+	asFollows 
 
-This is a superclass for presenting windows on the screen.  Besides outlining and scheduling the frame, it includes the distribution of user events which will someday be driven by interrupts.\gi
+This is a superclass for presenting windows on the screen.  Besides outlining and scheduling the frame, it includes the distribution of user events which will someday be driven by interrupts.
 
-Initialization\gbf5 
+Initialization 
 classInit		"Window classInit"
 	[border ← 2⌾2.
 	titleframe ← Textframe new para: nil frame: nil.
@@ -373,11 +373,11 @@ frame
 close
 print
 printbits
-']\gb11B18b2B
+']
 reset
-	[exitflag←true. growing←false] \gb7B
+	[exitflag←true. growing←false] 
 
-Scheduling\gbf5 
+Scheduling 
 eachtime
 	[frame has: user mp⇒
 		[user kbck⇒[⇑self kbd]
@@ -388,16 +388,16 @@ eachtime
 		user anykeys⇒[⇑self keyset]]
 	self outside⇒[]
 	user anybug⇒[frame has: user mp⇒[] ⇑false]
-	user kbck⇒[user kbd. frame flash] "flush typing outside"]\gb10B288i22I
+	user kbck⇒[user kbd. frame flash] "flush typing outside"]
 firsttime
-	[frame has: user mp⇒ [self reset.  ⇑self enter] ⇑false]\gb11B
+	[frame has: user mp⇒ [self reset.  ⇑self enter] ⇑false]
 lasttime
-	[self leave. ⇑exitflag]\gb10B
-schedule [user restartup: self]\gb9B
+	[self leave. ⇑exitflag]
+schedule [user restartup: self]
 
-Framing\gbf5 
+Framing 
 clearTitle: color
-	[(titleframe window inset: ¬2⌾¬2) clear: color]\gb19B
+	[(titleframe window inset: ¬2⌾¬2) clear: color]
 editTitle | pared w
 	[pared← ParagraphEditor new para: titlepara frame: nil.
 	pared formerly: false; fixframe: titleframe window+(1⌾2).
@@ -407,10 +407,10 @@ editTitle | pared w
 		user redbug⇒[w has: user mp⇒[pared selecting]]
 		user yellowbug⇒[w has: user mp⇒[w flash]]].
 	titlepara← pared contents.
-	self showtitle]\gb10B
+	self showtitle]
 erase
 	[(frame inset: ¬2⌾¬2) clear.
-	self clearTitle: background]\gb7B
+	self clearTitle: background]
 fixedwidthfromuser: width | a b oldframe [
 	user waitnobug.
 	[frame≡nil⇒[] self aboutToFrame; erase].
@@ -424,14 +424,14 @@ fixedwidthfromuser: width | a b oldframe [
 			self frame: (frame ← self fixframe: (frame growto: a));
 				moveFrom: oldframe]].
 	growing ← false.
-	self takeCursor]\gb26B
-fixframe: f [⇑Rectangle new origin: f origin extent: (f extent max: 32⌾32)]\gb12B
+	self takeCursor]
+fixframe: f [⇑Rectangle new origin: f origin extent: (f extent max: 32⌾32)]
 frame 
-	[ ⇑ frame ]\gb8B
+	[ ⇑ frame ]
 frame: f
-	[frame ← self fixframe: f]\gb10B
+	[frame ← self fixframe: f]
 moveFrom: oldframe
-	[(oldframe inset: ¬2) clear. self show]\gb20B
+	[(oldframe inset: ¬2) clear. self show]
 newframe
 	| a oldframe
 	[user waitnobug; restoredisplay.
@@ -452,26 +452,26 @@ newframe
 			frame outline]].
 	self frame: frame.
 	growing ← false.
-	self takeCursor]\gb10B
+	self takeCursor]
 outline
 	["Clear and outline me."
-	frame outline]\gb9B1i23I
+	frame outline]
 show [
 	self outline.
 	growing⇒[]
-	self showtitle]\gb5B
+	self showtitle]
 showtitle
 	[[titlepara≡nil⇒
 		[titlepara← Paragraph new text: self title runs: titlerun alignment: 0]].
-	titleframe put: titlepara at: frame origin+titleloc; outline]\gb11B
+	titleframe put: titlepara at: frame origin+titleloc; outline]
 takeCursor
 	["Move the cursor to my center."
-	user cursorloc ← frame center]\gb12B1i31I
-title [⇑'Untitled']\gb6B
+	user cursorloc ← frame center]
+title [⇑'Untitled']
 
-Default Event responses\gbf5 
+Default Event responses 
 aboutToFrame
-	["My frame is about to change.  I dont care."]\gb14B1i44I
+	["My frame is about to change.  I dont care."]
 bluebug
 	[windowmenu bug
 		=1⇒[⇑exitflag ← false];
@@ -479,59 +479,59 @@ bluebug
 		=3⇒[self close. self erase.
 			user unschedule: self. ⇑false];
 		=4⇒[self hardcopy];
-		=5⇒[self print]]\gb9B
-close []\gb6B
-enter [self show]\gb6B
-hardcopy [frame flash]\gb9B
-kbd [user kbd. frame flash]\gb4B
-keyset [frame flash]\gb7B
-leave []\gb6B
+		=5⇒[self print]]
+close []
+enter [self show]
+hardcopy [frame flash]
+kbd [user kbd. frame flash]
+keyset [frame flash]
+leave []
 outside [titleframe window has: user mp⇒
 		[user anybug⇒[self editTitle] ⇑false]
-	⇑false]\gb8B
+	⇑false]
 print
 	[(dp0 pressfile: (self title + '.press.') asFileName)
-		screenout: frame scale: PressScale; toPrinter]\gb7B
+		screenout: frame scale: PressScale; toPrinter]
 redbug
-	[frame flash]\gb8B
+	[frame flash]
 yellowbug
-	[frame flash]\gb11B
-\g
-SystemOrganization classify: ↪Window under: 'Windows'.\g
-Window classInit\g
+	[frame flash]
+
+SystemOrganization classify: ↪Window under: 'Windows'.
+Window classInit
 
-"PanedWindow"l15000z20000\gbf5 
+"PanedWindow" 
 Class new title: 'PanedWindow'
 	subclassof: Window
 	fields: 'panes templates title'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-A paned window is a Window that has subwindows (panes) that are awakened and resized in unison. The instance variable templates is a set of Rectangles for the frames of the panes normalized such that the whole PanedWindow is a frame of 0⌾0 rect: 36⌾36.\gi
+A paned window is a Window that has subwindows (panes) that are awakened and resized in unison. The instance variable templates is a set of Rectangles for the frames of the panes normalized such that the whole PanedWindow is a frame of 0⌾0 rect: 36⌾36.
 
-Initialization\gbf5 
+Initialization 
 title: title with: panes at: templates | pane
 "The instance variable templates is a set of Rectangles for the frames of the panes normalized such that the whole PanedWindow is a frame of 0⌾0 rect: 36⌾36."
 	[self reset.
-	for⦂ pane from: panes do⦂ [pane init]]\gb39B
+	for⦂ pane from: panes do⦂ [pane init]]
 
-Window protocol\gbf5 
+Window protocol 
 close | pane
-	[for⦂ pane from: panes do⦂ [pane close]]\gb6B
+	[for⦂ pane from: panes do⦂ [pane close]]
 eachtime | pane
 	[frame has: user mp⇒
 		[user bluebug⇒[⇑self bluebug]
 		for⦂ pane from: panes do⦂ [pane startup]]
 	self outside⇒[]
 	user anybug⇒[frame has: user mp⇒[] ⇑false]
-	user kbck⇒[user kbd. frame flash] "flush typing outside"]\gb9B201i22I
+	user kbck⇒[user kbd. frame flash] "flush typing outside"]
 enter | pane
 	[super show.
-	for⦂ pane from: panes do⦂ [pane windowenter]]\gb6B
+	for⦂ pane from: panes do⦂ [pane windowenter]]
 erase
-	[self titlerect clear. super erase]\gb7B
+	[self titlerect clear. super erase]
 fixframe: f
-	[⇑Rectangle new origin: f origin extent: (f extent max: 160⌾80)]\gb13B
+	[⇑Rectangle new origin: f origin extent: (f extent max: 160⌾80)]
 frame: frame "(Re)initialize my frame, and tell my panes their locations."
 		| templateStream template pane orig ext
 	[templateStream ← templates asStream.
@@ -539,12 +539,12 @@ frame: frame "(Re)initialize my frame, and tell my panes their locations."
 	for⦂ pane from: panes do⦂
 		["It would be nice to have parallel fors as in MLISP."
 		template ← templateStream next.
-		pane frame ← (template*ext /36 + orig) inset: 1]]\gb13Bi61I156i53I
+		pane frame ← (template*ext /36 + orig) inset: 1]]
 hardcopy | p
 	[user displayoffwhile⦂ [
 	p ← dp0 pressfile: (self title+'.press') asFileName.
 	self hardcopy: p.
-	p close; toPrinter]]\gb9B
+	p close; toPrinter]]
 hardcopy: pf | pane [
 	self hardcopyTitle: pf.
 
@@ -555,7 +555,7 @@ hardcopy: pf | pane [
 	for⦂ pane from: panes do⦂ [pane hardcopy: pf].
 
 	"print cursor if it's inside"
-	frame has: user mp⇒ [user currentCursor hardcopy: pf]]\gb13B
+	frame has: user mp⇒ [user currentCursor hardcopy: pf]]
 hardcopyTitle: pf [
 	"refresh title (since it's a class var)"
 	self showtitle.
@@ -566,55 +566,55 @@ hardcopyTitle: pf [
 	"print title text (make frame larger)"
 	titleframe para presson: pf in: (pf transrect: (
 		titleframe frame origin rect: titleframe frame corner + (999 ⌾ 2)))
-		style: titleframe style]\gb18B
+		style: titleframe style]
 kbd | pane
-	[(pane ← self pickedpane)⇒ [⇑pane kbd]]\gb4B
+	[(pane ← self pickedpane)⇒ [⇑pane kbd]]
 keyset | pane
-	[(pane ← self pickedpane)⇒ [⇑pane keyset]]\gb7B
+	[(pane ← self pickedpane)⇒ [⇑pane keyset]]
 leave | pane
-	[for⦂ pane from: panes do⦂ [pane windowleave]]\gb6B
+	[for⦂ pane from: panes do⦂ [pane windowleave]]
 pickedpane | pane
 	[for⦂ pane from: panes do⦂ [pane picked⇒ [⇑pane]]
-	frame flash. ⇑false]\gb11B
+	frame flash. ⇑false]
 redbug | pane
-	[(pane ← self pickedpane)⇒ [⇑pane redbug]]\gb7B
+	[(pane ← self pickedpane)⇒ [⇑pane redbug]]
 show | pane
 	[super show.
-	for⦂ pane from: panes do⦂ [pane outline]]\gb5B
+	for⦂ pane from: panes do⦂ [pane outline]]
 takeCursor
-	[(panes◦1) takeCursor]\gb12B
+	[(panes◦1) takeCursor]
 title
-	[⇑title]\gb7B
+	[⇑title]
 yellowbug | pane
-	[(pane ← self pickedpane)⇒ [⇑pane yellowbug]]\gb10B
+	[(pane ← self pickedpane)⇒ [⇑pane yellowbug]]
 
-Pane services\gbf5 
+Pane services 
 vanish
-	[self close; erase. user unschedule: self.]\gb8B
+	[self close; erase. user unschedule: self.]
 
-Private\gbf5 
+Private 
 titlerect
-	[⇑frame origin - (2 ⌾ (DefaultTextStyle lineheight + 4)) rect: (frame corner x⌾frame origin y) + (2⌾0)]\gb11B
-\g
-SystemOrganization classify: ↪PanedWindow under: 'Windows'.\g
+	[⇑frame origin - (2 ⌾ (DefaultTextStyle lineheight + 4)) rect: (frame corner x⌾frame origin y) + (2⌾0)]
+
+SystemOrganization classify: ↪PanedWindow under: 'Windows'.
 
-"BrowseWindow"l15000z20000\gbf5 
+"BrowseWindow" 
 Class new title: 'BrowseWindow'
 	subclassof: PanedWindow
 	fields: ''
 	declare: 'stdTemplates ';
-	asFollows\gbf5 
+	asFollows 
 
 I am a five-paned window to browse through classes.  My panes are...
 	system pane: categories of classes in the system
 	class pane: classes in the selected category
 	organization pane: categories of methods in the selected class
 	selector pane: method selectors in the selected category
-	code pane: source code of the selected method, if any, else other useful info\gi
+	code pane: source code of the selected method, if any, else other useful info
 
-Initialization\gbf5 
+Initialization 
 classInit
-	[stdTemplates ← (0⌾0 rect: 10⌾14), (10⌾0 rect: 18⌾14), (18⌾0 rect: 28⌾14), (28⌾0 rect: 36⌾14), (0⌾14 rect: 36⌾36)]\gb11B
+	[stdTemplates ← (0⌾0 rect: 10⌾14), (10⌾0 rect: 18⌾14), (18⌾0 rect: 28⌾14), (28⌾0 rect: 36⌾14), (0⌾14 rect: 36⌾36)]
 default 	"Let the user draw a five-paned window to browse through classes."
 		| systemPane classPane orgPane selectorPane codePane
 	["Create the panes."
@@ -631,51 +631,51 @@ default 	"Let the user draw a five-paned window to browse through classes."
 	orgPane from: classPane to: selectorPane. selectorPane from: orgPane to: codePane.
 	codePane from: selectorPane.	
 	"Display them."
-	systemPane update]\gb9Bi66I58i19I151i15I132i20I184i15I
-\g
-SystemOrganization classify: ↪BrowseWindow under: 'Windows'.\g
-BrowseWindow classInit\g
+	systemPane update]
+
+SystemOrganization classify: ↪BrowseWindow under: 'Windows'.
+BrowseWindow classInit
 
-"CodeWindow"l15000z20000\gbf5 
+"CodeWindow" 
 Class new title: 'CodeWindow'
 	subclassof: PanedWindow
 	fields: ''
 	declare: 'stdTemplates ';
-	asFollows\gbf5 
+	asFollows 
 
-I am a paned window with a code pane to edit a method or a file.\gi
+I am a paned window with a code pane to edit a method or a file.
 
-Initialization\gbf5 
+Initialization 
 class: class selector: selector para: para formerly: oldpara | codePane
 	[codePane ← CodePane new class: class selector: selector para: nil.
 	self title: class title+ ' ' + selector with: codePane inVector at: stdTemplates.
 	self newframe; show.
-	codePane showing: para; formerly: oldpara; from: codePane]\gb61B
+	codePane showing: para; formerly: oldpara; from: codePane]
 classInit
-	[stdTemplates ← (0⌾0 rect: 36⌾36) inVector]\gb11B
-editTitle [titleframe window flash]\gb10B
+	[stdTemplates ← (0⌾0 rect: 36⌾36) inVector]
+editTitle [titleframe window flash]
 file: file | filePane
 	[filePane ← FilePane new file: file.
 	self title: file name with: filePane inVector at: stdTemplates.
 	self newframe; show.
-	filePane showing: file contents asParagraph; from: filePane]\gb11B
-hardcopy: p | pane [for⦂ pane from: panes do⦂ [pane hardcopy: p]]\gb12B
-\g
-SystemOrganization classify: ↪CodeWindow under: 'Windows'.\g
-CodeWindow classInit\g
+	filePane showing: file contents asParagraph; from: filePane]
+hardcopy: p | pane [for⦂ pane from: panes do⦂ [pane hardcopy: p]]
+
+SystemOrganization classify: ↪CodeWindow under: 'Windows'.
+CodeWindow classInit
 
-"InspectWindow"l15000z20000\gbf5 
+"InspectWindow" 
 Class new title: 'InspectWindow'
 	subclassof: PanedWindow
 	fields: 'variables'
 	declare: 'stdTemplates ';
-	asFollows\gbf5 
+	asFollows 
 
-I am a paned window with a variable pane that displays the fields of an object and a code pane to display their values and to evaluate in their context.\gi
+I am a paned window with a variable pane that displays the fields of an object and a code pane to display their values and to evaluate in their context.
 
-Initialization\gbf5 
+Initialization 
 classInit
-	[stdTemplates ← (0⌾0 rect: 12⌾36), (12⌾0 rect: 36⌾36)]\gb11B
+	[stdTemplates ← (0⌾0 rect: 12⌾36), (12⌾0 rect: 36⌾36)]
 of: object | instanceVarPane instanceValuePane safeVec n
 	[instanceVarPane ← VariablePane new. instanceValuePane ← CodePane new.
 	self title: object class title
@@ -689,7 +689,7 @@ of: object | instanceVarPane instanceValuePane safeVec n
 				[self identifier: n]]
 		object class fieldNamesInto: self].
 	safeVec ← Vector new: 2. safeVec all ← object.
-	instanceVarPane names: (↪(self) concat: variables contents) values: safeVec wrt: false]\gb11B
+	instanceVarPane names: (↪(self) concat: variables contents) values: safeVec wrt: false]
 show: object | fixedframe instanceVarPane instanceValuePane safeVec n
 	[instanceVarPane ← VariablePane new. instanceValuePane ← CodePane new.
 	fixedframe ← 400⌾450 rect: 600⌾565.
@@ -704,33 +704,33 @@ show: object | fixedframe instanceVarPane instanceValuePane safeVec n
 				[self identifier: n]]
 		object class fieldNamesInto: self].
 	safeVec ← Vector new: 2. safeVec all ← object.
-	instanceVarPane names: (↪(self) concat: variables contents) values: safeVec wrt: false]\gb13B
+	instanceVarPane names: (↪(self) concat: variables contents) values: safeVec wrt: false]
 
-Private\gbf5 
-comment: s		"called by of: via Class fieldNamesInto"\gb12B1i38I
-contents	"called by of: via Class fieldNamesInto"\gb9B1i38I
+Private 
+comment: s		"called by of: via Class fieldNamesInto"
+contents	"called by of: via Class fieldNamesInto"
 identifier: s		"called by of: via Class fieldNamesInto"
-	[variables next ← s]\gb15B1i38I
-separator: c		"called by of: via Class fieldNamesInto"\gb14B1i38I
-trailer: s	"called by of: via Class fieldNamesInto"\gb11B1i38I
-\g
-SystemOrganization classify: ↪InspectWindow under: 'Windows'.\g
-InspectWindow classInit\g
+	[variables next ← s]
+separator: c		"called by of: via Class fieldNamesInto"
+trailer: s	"called by of: via Class fieldNamesInto"
+
+SystemOrganization classify: ↪InspectWindow under: 'Windows'.
+InspectWindow classInit
 
-"NotifyWindow"l15000z20000\gbf5 
+"NotifyWindow" 
 Class new title: 'NotifyWindow'
 	subclassof: PanedWindow
 	fields: 'enoughpanes'
 	declare: 'bigTemplates smallFrame smallTemplates ';
-	asFollows\gbf5 
+	asFollows 
 
-I am a paned window with one or six panes that display the context of an error or breakpoint.\gi
+I am a paned window with one or six panes that display the context of an error or breakpoint.
 
-Initialization\gbf5 
+Initialization 
 classInit
 	[smallTemplates ← (0⌾0 rect: 36⌾36) inVector.
 	bigTemplates ← (0⌾0 rect: 12⌾18), (12⌾0 rect: 36⌾18), (0⌾18 rect: 12⌾27), (12⌾18 rect: 36⌾27), (0⌾27 rect: 12⌾36), (12⌾27 rect: 36⌾36).
-	smallFrame ← 204⌾366 rect: 404⌾402]\gb11B
+	smallFrame ← 204⌾366 rect: 404⌾402]
 of: titleString level: level interrupt: flag | stackPane
 	[NotifyFlag ← false.
 	stackPane ← StackPane new.
@@ -742,7 +742,7 @@ of: titleString level: level interrupt: flag | stackPane
 	self frame: (self fixframe: smallFrame); show.
 	stackPane context: false at: level instance: false code: false;
 		interrupt: flag.
-	stackPane of: (Top◦level) inVector. NotifyFlag ← true]\gb45B
+	stackPane of: (Top◦level) inVector. NotifyFlag ← true]
 of: titleString stack: stack interrupt: flag | stackPane
 	[NotifyFlag ← false.
 	stackPane ← StackPane new.
@@ -753,11 +753,11 @@ of: titleString stack: stack interrupt: flag | stackPane
 		(user screenrect center-(smallFrame extent/2))].
 	self frame: (self fixframe: smallFrame); show.
 	stackPane context: false instance: false code: false; interrupt: flag.
-	stackPane of: stack inVector. NotifyFlag ← true]\gb45B
+	stackPane of: stack inVector. NotifyFlag ← true]
 
-Window protocol\gbf5 
+Window protocol 
 aboutToFrame
-	[enoughpanes ← panes length = 6. super aboutToFrame]\gb14B
+	[enoughpanes ← panes length = 6. super aboutToFrame]
 enter | stackPane codePane contextVarPane contextValuePane instanceVarPane instanceValuePane
 	[enoughpanes⇒ [super enter]
 	NotifyFlag ← false.
@@ -775,66 +775,66 @@ enter | stackPane codePane contextVarPane contextValuePane instanceVarPane insta
 	codePane from: stackPane.
 	contextVarPane to: contextValuePane. contextValuePane from: contextVarPane.
 	instanceVarPane to: instanceValuePane. instanceValuePane from: instanceVarPane.
-	stackPane select: 0; deselected; fill. enoughpanes ← NotifyFlag ← true]\gb6B138i34I189i30I167i27I
-\g
-SystemOrganization classify: ↪NotifyWindow under: 'Windows'.\g
-NotifyWindow classInit\g
+	stackPane select: 0; deselected; fill. enoughpanes ← NotifyFlag ← true]
+
+SystemOrganization classify: ↪NotifyWindow under: 'Windows'.
+NotifyWindow classInit
 
-"ProjectWindow"l15000z20000\gbf5 
+"ProjectWindow" 
 Class new title: 'ProjectWindow'
 	subclassof: Window
 	fields: 'userview parent changes'
 	declare: 'actionMenu ';
-	asFollows\gbf5 
+	asFollows 
 
-A ProjectWindow represents its userview as a window to provide access to many UserViews, each for a different "project".  Besides the state in the userview, they also carry their own hashset for changes, so that such changes can be maintained on a per-project basis.  parent specifies another ProjectWindow to which control is given when the user leaves the current userview\gi
+A ProjectWindow represents its userview as a window to provide access to many UserViews, each for a different "project".  Besides the state in the userview, they also carry their own hashset for changes, so that such changes can be maintained on a per-project basis.  parent specifies another ProjectWindow to which control is given when the user leaves the current userview
 
-Changing views\gbf5 
+Changing views 
 install		"Establish this project and its userview as the current screen view"
 	[Changes← changes.
 	(user← userview) install.
 	self putTitle.
-	user restart]\gb9B1i66I1b2B
+	user restart]
 putTitle
 	[ [titlepara≡nil⇒[titlepara← 'Top View' asParagraph allBold]].
 	titleframe put: titlepara
 		centered: user screenrect extent x/3⌾8.
-	titleframe outline]\gb10B
+	titleframe outline]
 runParent		"leave this view by installing the one above"
-	[parent install]\gb11B1i43I
+	[parent install]
 
-Window behavior\gbf5 
+Window behavior 
 close		"break circular links"
-	[userview← parent← nil]\gb7B
+	[userview← parent← nil]
 yellowbug
-	[actionMenu bug=1⇒[self install]]\gb11B
+	[actionMenu bug=1⇒[self install]]
 
-Initialization\gbf5 
+Initialization 
 classInit
-	[actionMenu ← Menu new string: 'enter']\gb11B
+	[actionMenu ← Menu new string: 'enter']
 init		"a new window"
 	[self userview: (user copyIn: self)
 		changes: HashSet init
 		parent: user projectWindow.
-	self newframe; show]\gb6B
-userview: userview changes: changes parent: parent		"load state"\gb52B
-\g
-SystemOrganization classify: ↪ProjectWindow under: 'Windows'.\g
-ProjectWindow classInit\g
+	self newframe; show]
+userview: userview changes: changes parent: parent		"load state"
+
+SystemOrganization classify: ↪ProjectWindow under: 'Windows'.
+ProjectWindow classInit
 
-"SyntaxWindow"l15000z20000\gbf5 
+"SyntaxWindow" 
 Class new title: 'SyntaxWindow'
 	subclassof: PanedWindow
 	fields: ''
 	declare: 'stdFrame stdTemplates ';
-	asFollows\gbf5 
+	asFollows 
 
-I am a paned window with a stack pane and a code pane to report errors during non-interactive compilations, e.g., filin, ⓢ, understands.\gi
+I am a paned window with a stack pane and a code pane to report errors during non-interactive compilations, e.g., filin, ⓢ, understands.
 
-Initialization\gbf5 
+Initialization 
 classInit
 	[stdTemplates ← (0⌾0 rect: 12⌾36), (12⌾0 rect: 36⌾36).
-	stdFrame ← 60⌾320 rect: 570⌾500]\gb11B
+	stdFrame ← 60⌾320 rect: 570⌾500]
 of: errorString at: position in: stream for: class from: context | stackPane codePane
 	[stackPane ← StackPane new.
 	codePane ← CodePane new class: class selector: nil para: nil.
@@ -844,7 +844,7 @@ of: errorString at: position in: stream for: class from: context | stackPane cod
 	stackPane context: false instance: false code: codePane.
 	stackPane of: context inVector.
 	codePane showing: stream asArray.
-	codePane from: stackPane; notify: errorString at: position in: stream]\gb65B
-\g
-SystemOrganization classify: ↪SyntaxWindow under: 'Windows'.\g
-SyntaxWindow classInit\g 
+	codePane from: stackPane; notify: errorString at: position in: stream]
+
+SystemOrganization classify: ↪SyntaxWindow under: 'Windows'.
+SyntaxWindow classInit 

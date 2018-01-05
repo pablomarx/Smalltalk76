@@ -1,19 +1,19 @@
 'From Smalltalk 5.5k XM November 24 on 22 November 1980 at 2:57:08 am.'
-\g
-"ILFile"l15000z20000\gbf5 
+
+"ILFile" 
 Class new title: 'ILFile'
 	subclassof: File
 	fields: ''
 	declare: '';
 	sharing: ILFilePool;
-	asFollows\gbf5 
+	asFollows 
 
-An IFS file accessed through the Leaf protocol, 12/79\gi
+An IFS file accessed through the Leaf protocol, 12/79
 
-Dictionary\gbf5 
-entryClass [⇑ILFilePage]\gb11B
+Dictionary 
+entryClass [⇑ILFilePage]
 
-File\gbf5 
+File 
 classInit | i sym names ["ILFile classInit."
 
 	ILFilePool declare: ↪NotFound as: '207'.
@@ -45,15 +45,15 @@ classInit | i sym names ["ILFile classInit."
 		for⦂ sym from: names next do⦂ [
 			ILFilePool declare: sym as: i.
 			i ← i+1]]]
-\gb10B
-close ["ignore errors if file was readonly" self close: [type = read⇒ [false] 'close']]\gb6B
+
+close ["ignore errors if file was readonly" self close: [type = read⇒ [false] 'close']]
 close: e | p ["close file, possibly ignoring errors"
 	"for next open"
 	type ← read.
 	"shorten header block to first 2 words: command&length,  file handle"
 	p ← self newPage.
 	p length: ¬6.
-	self doCommand: Close page: p error: e]\gb9B
+	self doCommand: Close page: p error: e]
 doCommand: com page: page error: e | in ecode [
 	page command: com.
 	while⦂ true do⦂ [
@@ -85,13 +85,13 @@ doCommand: com page: page error: e | in ecode [
 		error ← [ecode⇒ [e⇒ [self errorString: ecode] ecode asString]
 			directory directory + ' not responding'].
 		e⇒ [self error: e "proceeding tries again"]
-		⇑false]]\gb35B
+		⇑false]]
 endFile: page [
 	"make sure we can write"
 	self writeMode: page.
 	"update length. this will end file with this page"
 	lastpn ← page pageNumber.
-	⇑self Write: page]\gb14B
+	⇑self Write: page]
 errorString: errorCode | ef ename errorString notfound dollar cr [
 	[errorCode is: String⇒ [
 		errorString ← errorCode.
@@ -130,15 +130,15 @@ $$nn	some message
 		errorString ← notfound].
 
 	ef close.
-	⇑errorString]\gb23B
-findLastPage ["already known from open" ⇑lastpn]\gb13B
-open "do nothing. lastpn set by ILFileDirectory Find:"\gb5B27b21B
+	⇑errorString]
+findLastPage ["already known from open" ⇑lastpn]
+open "do nothing. lastpn set by ILFileDirectory Find:"
 Read: page [
 	page pageNumber > lastpn⇒ ["no page" ⇑false]
 	"don't extend beyond eof. length of page is 0, but request is for 512 bytes"
 	page mode: NoExtend; header: 5 ← 512 "self dataLength".
-	⇑self doCommand: Read page: page error: 'Read:']\gb11B
-release [self close: false]\gb8B
+	⇑self doCommand: Read page: page error: 'Read:']
+release [self close: false]
 Write: page | pn [
 	(pn ← page pageNumber) > (lastpn+1)⇒ [self error: 'illegal page number']
 
@@ -150,7 +150,7 @@ Write: page | pn [
 
 	"file possibly extended"
 	[pn = (lastpn+1)⇒ [lastpn ← pn]].
-	⇑page]\gb12B
+	⇑page]
 writeMode: page [
 	"make sure we can write on file"
 	type = write⇒ []
@@ -161,38 +161,38 @@ writeMode: page [
 	directory Find: self⇒ [
 		"file handle changed"
 		page serialNumber: serialNumber]
-	self error: 'file failed to reopen']\gb16B
+	self error: 'file failed to reopen']
 
-IFS\gbf5 
-allocatePage [⇑directory allocatePage]\gb13B
-\g
-SystemOrganization classify: ↪ILFile under: 'IFS File System'.\g
-ILFile classInit\g
+IFS 
+allocatePage [⇑directory allocatePage]
+
+SystemOrganization classify: ↪ILFile under: 'IFS File System'.
+ILFile classInit
 
-"ILFileDirectory"l15000z20000\gbf5 
+"ILFileDirectory" 
 Class new title: 'ILFileDirectory'
 	subclassof: FileDirectory
 	fields: 'userName userPassword isocket'
 	declare: '';
 	sharing: ILFilePool;
-	asFollows\gbf5 
+	asFollows 
 
-IFS directory, 12/79\gi
+IFS directory, 12/79
 
-Dictionary\gbf5 
+Dictionary 
 Delete: file ["delete a file (highest version)
 	shorten header block to 2 words: command&length,  file handle"
-	(file newPage) length: ¬6; doCommand: Delete error: 'Delete:']\gb13B
-entryClass [⇑ILFile]\gb11B
+	(file newPage) length: ¬6; doCommand: Delete error: 'Delete:']
+entryClass [⇑ILFile]
 Find: file [
 	"since there can be many readers but only one writer, default mode is for
 	read only. writing will cause file to be closed and reopened for writing"
-	⇑self openFile: file mode: [file type = write⇒ [WriteOld] ReadOld]]\gb11B
+	⇑self openFile: file mode: [file type = write⇒ [WriteOld] ReadOld]]
 Insert: file [
 	file type: write.
 	self openFile: file mode: CreateNew⇒ [⇑file]
-	file error: 'Insert: cannot create']\gb13B
-obsolete [⇑isocket ≡ nil]\gb9B
+	file error: 'Insert: cannot create']
+obsolete [⇑isocket ≡ nil]
 open | page [
 	isocket ≡ nil "self obsolete"⇒ [
 		[isocket ← ILSocket new hostName: directory "name of IFS/Leaf server"⇒ []
@@ -210,7 +210,7 @@ open | page [
 		page doCommand: Reset error: false⇒ []
 		isocket ← nil.
 		user notify: 'open (reset)'
-	]]\gb5B
+	]]
 release [
 	self obsolete⇒ []
 	"shorten header block to 0 words.
@@ -218,16 +218,16 @@ release [
 	(self newPage) length: ¬10; doCommand: Quit error: false.
 
 	isocket close.
-	isocket ← nil]\gb8B
-versionNumbers [⇑true]\gb15B
+	isocket ← nil]
+versionNumbers [⇑true]
 
-IFS\gbf5 
+IFS 
 allocatePage [
 	[isocket≡nil⇒ [self open]].
 	"return a packet to be used by ILFilePage"
-	⇑isocket freePacket]\gb13B
-name: userName password: userPassword\gb
-noAck ["an optimization for intense ether activity" isocket noAck]\gb6B
+	⇑isocket freePacket]
+name: userName password: userPassword
+noAck ["an optimization for intense ether activity" isocket noAck]
 openFile: file mode: m | page [
 	"open bit modes
 	read
@@ -267,35 +267,35 @@ openFile: file mode: m | page [
 
 	file error = NotFound⇒ [⇑false]
 	⇑file error: 'open ' + (file errorString: file error)
-]\gb23B
-socket [⇑isocket]\gb7B
+]
+socket [⇑isocket]
 userName [
 	userName ≡ nil or⦂ userName empty⇒ [⇑super userName]
-	⇑userName]\gb9B
+	⇑userName]
 userPassword [
 	userPassword ≡ nil or⦂ userPassword empty⇒ [⇑super userPassword]
-	⇑userPassword]\gb13B
-\g
-SystemOrganization classify: ↪ILFileDirectory under: 'IFS File System'.\g
+	⇑userPassword]
+
+SystemOrganization classify: ↪ILFileDirectory under: 'IFS File System'.
 
-"ILFilePage"l15000z20000\gbf5 
+"ILFilePage" 
 Class new title: 'ILFilePage'
 	subclassof: EtherFilePage
 	fields: ''
 	declare: '';
 	sharing: ILFilePool;
-	asFollows\gbf5 
+	asFollows 
 
 12/79, SAW.
 Format of header is generally (for read/write)
 1 operation (5 bits opcode, 1 bits request/answer, 10 bits inclusive byte length of block
 2 file handle
 3&4 byte address (mode in high 5 bits)
-5 byte length\gi
+5 byte length
 
-FilePage\gbf5 
-headerLength [⇑34 "4+20+10"]\gb13B
-length ["valid for read or write" ⇑self header: 5]\gb7B
+FilePage 
+headerLength [⇑34 "4+20+10"]
+length ["valid for read or write" ⇑self header: 5]
 length: len [
 	"10 bytes in a normal header block. ILParameterBlock can change things.
 	also negative lengths can shorten it and change pupLength"
@@ -305,25 +305,25 @@ length: len [
 	"number of data bytes to read/write"
 	self header: 5 ← len.
 	"set pupLength"
-	super length: len]\gb12B
+	super length: len]
 pageNumber [
 	"extract page number from 27-bit byte address. ignore high 5 mode bits.
 	dividing byte adress (which may be a LargeInteger) by self dataLength (512)
 	is the correct but slow way to do this. byte address 0 = page 1"
 	⇑(((self header: 3) land: 03777) * 0200 "lshift: 7, maybe large") +
-		((self header: 4) lshift: ¬9) + 1]\gb11B
+		((self header: 4) lshift: ¬9) + 1]
 pageNumber: pn ["inverse of pageNumber. set 5 mode bits to 0"
 	pn ← pn-1.
 	self header: 3 ← pn / 0200 "lshift: ¬7, except for large pn".
-	self header: 4 ← pn lshift: 9]\gb15B13b10B
+	self header: 4 ← pn lshift: 9]
 serialNumber | sn [
 	sn ← String new: 4.
 	sn◦1 ← sn◦2 ← 0.
 	sn word: 2 ← self header: 2.
-	⇑sn]\gb13B
-serialNumber: sn [self header: 2 ← sn word: 2]\gb17B
+	⇑sn]
+serialNumber: sn [self header: 2 ← sn word: 2]
 
-IFS\gbf5 
+IFS 
 command: com [
 	"operation word (header 1)
 		0-4
@@ -341,7 +341,7 @@ command: com [
 
 	"left half pupID1"
 	page◦11 ← [
-		com = Reset⇒ [OpenConnection]; = Quit⇒ [DestroyConnection] Data]]\gb13B
+		com = Reset⇒ [OpenConnection]; = Quit⇒ [DestroyConnection] Data]]
 mode: m [
 	"current meaning of 5 read/write bits (from high to low):
 		0-1
@@ -355,59 +355,59 @@ mode: m [
 			0 undefined"
 
 	"m is a byte which is already shifted"
-	page◦29 ← (page◦29 land: 7) + m]\gb8B4i234I
-\g
-SystemOrganization classify: ↪ILFilePage under: 'IFS File System'.\g
+	page◦29 ← (page◦29 land: 7) + m]
+
+SystemOrganization classify: ↪ILFilePage under: 'IFS File System'.
 
-"ILParameterBlock"l15000z20000\gbf5 
+"ILParameterBlock" 
 Class new title: 'ILParameterBlock'
 	subclassof: Object
 	fields: 'packet position'
 	declare: '';
 	sharing: ILFilePool;
-	asFollows\gbf5 
+	asFollows 
 
-for passing parameters to IFS. primarily used by ILFileDirectory open & openFile:\gi
+for passing parameters to IFS. primarily used by ILFileDirectory open & openFile:
 
-Initialization\gbf5 
+Initialization 
 packet ← packet [
 	"default is an empty (data) packet, except first header word"
-	self position: 26]\gb16B
+	self position: 26]
 
-Changing values\gbf5 
+Changing values 
 nextString ← s | strm [
 	strm ← packet pupString asStream.
 	strm skip: position; nextword ← s length; append: s; padNext ← 0.
-	self position: strm position]\gb15B
+	self position: strm position]
 nextword ← w | strm [
 	strm ← packet pupString asStream.
 	strm skip: position; nextword ← w.
-	self position: strm position]\gb13B
+	self position: strm position]
 position: position [
 	"changing length of data in packet"
 	packet pupLength ← position - 2.
 	"set inclusive byte length in first command word; rest set later"
-	packet word: 13 ← position - 24]\gb19B
-\g
-SystemOrganization classify: ↪ILParameterBlock under: 'IFS File System'.\g
+	packet word: 13 ← position - 24]
+
+SystemOrganization classify: ↪ILParameterBlock under: 'IFS File System'.
 
-"ILSocket"l15000z20000\gbf5 
+"ILSocket" 
 Class new title: 'ILSocket'
 	subclassof: RetransmitSocket
 	fields: 'seqNum outPac result abortTransfer outAck'
 	declare: '';
 	sharing: ILFilePool;
-	asFollows\gbf5 
+	asFollows 
 
-for communicating with a Leaf socket on an IFS server, 12/79\gi
+for communicating with a Leaf socket on an IFS server, 12/79
 
-Socket\gbf5 
+Socket 
 net: n host: h ["usually called by hostName:"
 	seqNum ← 0.
 	super net: n host: h soc: 043 asInt32.
 	self retransmit: 8 every: [n = NETNUM⇒ ["same net" 400] 1800].
-	self setAck]\gb15B20b9B
-noAck ["if acknowledgements are not needed" outAck ← false]\gb6B
+	self setAck]
+noAck ["if acknowledgements are not needed" outAck ← false]
 sendPacket: outPac | nseq [
 	"send a packet, wait for result, and acknowledge.
 	RetransmitSocket setAddressesAndComplete: sets timer
@@ -445,14 +445,14 @@ sendPacket: outPac | nseq [
 	[result⇒ [
 		seqNum ← nseq.
 		outAck⇒ ["send ack" self completePup: outAck]]].
-	⇑result]\gb19B61b41B13b20B19b19B874b11B19b10B
+	⇑result]
 setAck ["create acknowledgement packet"
 	outAck ← self freePacket.
 	outAck pupType ← LeafType.
 	outAck dataString ← ''.
 	"control code"
 	outAck◦11 ← Ack.
-	self setAddresses: outAck]\gb7B
+	self setAddresses: outAck]
 socProcess: Ipac [
 	"check if this is a packet we want. normally left half of pupID1 = Data (0).
 	in case of DestroyConnection, control code might be Dallying (10)"
@@ -463,7 +463,7 @@ socProcess: Ipac [
 		result ← Ipac]
 
 	"recycle packet"
-	self freePacket: Ipac]\gb17B
+	self freePacket: Ipac]
 timerFired [
 	"timer has fired -- retransmit or abort"
 
@@ -472,6 +472,6 @@ timerFired [
 	self timerOn⇒ ["retransmit" self completePup: outPac]
 
 	"abort"
-	abortTransfer ← true]\gb11B
-\g
-SystemOrganization classify: ↪ILSocket under: 'IFS File System'.\g 
+	abortTransfer ← true]
+
+SystemOrganization classify: ↪ILSocket under: 'IFS File System'. 

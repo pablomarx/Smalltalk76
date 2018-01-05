@@ -1,16 +1,16 @@
 'From Smalltalk 5.5k XM November 24 on 22 November 1980 at 2:57:08 am.'
-\g
-"Decompiler"l15000z20000\gbf5 
+
+"Decompiler" 
 Class new title: 'Decompiler'
 	subclassof: Object
 	fields: 'method temps instvars literals stack isReference literalNames'
 	declare: 'breakPC highlight ';
 	sharing: ByteCodes;
-	asFollows\gbf5 
+	asFollows 
 
-This class has not yet been commented\gi
+This class has not yet been commented
 
-Initialization\gbf5 
+Initialization 
 decompile: sel class: class | strm block ignore p
 	[method ← class method: sel.
 	method length<8⇒[⇑self quickCode: sel class: class]
@@ -25,12 +25,12 @@ decompile: sel class: class | strm block ignore p
 	strm crtab: 1.
 	block printon: strm indent: 1 precedence: 0 forValue: false decompiler: self.
 	[(p←method word: 1)≠0⇒[strm append: ' primitive: '; print: p]].
-	⇑strm contents asParagraph makeBoldPattern]\gb28B
-findPC: x [breakPC← x. highlight← 1 to: 1]\gb10B
-highlight [⇑highlight]\gb10B
-highlight: x [⇑highlight← x]\gb13B
+	⇑strm contents asParagraph makeBoldPattern]
+findPC: x [breakPC← x. highlight← 1 to: 1]
+highlight [⇑highlight]
+highlight: x [⇑highlight← x]
 
-Symbols\gbf5 
+Symbols 
 initSymbols: class | i lit env
 	["Init temps with made-up names"
 	temps ← Vector new: method◦5.
@@ -46,28 +46,28 @@ initSymbols: class | i lit env
 			[lit is: UniqueString⇒[lit]
 			lit is: ObjectReference⇒[self invertRef: lit environment: env]
 			lit≡FieldReference⇒['']
-			lit asString]]]\gb19B15i29I
+			lit asString]]]
 instvar: i
-	[⇑instvars◦(i-codeLoadField+1)]\gb12B
+	[⇑instvars◦(i-codeLoadField+1)]
 invertRef: ref environment: env | table n
 	[for⦂ table from: env do⦂
 		[n←table invertRef: ref⇒[⇑n]].
-	⇑'unknown']\gb32B
+	⇑'unknown']
 literal: i | index lit str
 	[index ← i-codeLoadLit+1.
 	lit ← literals◦index.  str ← literalNames◦index.
 	lit is: ObjectReference⇒[⇑str]
 	(lit is: UniqueString) or⦂ (lit is: Vector)⇒[⇑'↪' + str]
-	⇑str]\gb11B
+	⇑str]
 literalIndirect: i
-	[⇑literalNames◦(i-codeLoadLitInd+1)]\gb20B
+	[⇑literalNames◦(i-codeLoadLitInd+1)]
 selector: i 
 	[i>166 and⦂ i<208⇒[⇑SpecialOops◦(i-166)]
-	⇑literalNames◦(i-codeSendLit+1)]\gb14B
+	⇑literalNames◦(i-codeSendLit+1)]
 temp: i
-	[⇑temps◦(i-codeLoadTemp+1)]\gb9B
+	[⇑temps◦(i-codeLoadTemp+1)]
 
-Byte Interpretation\gbf5 
+Byte Interpretation 
 block: start to: end pc⦂ pc hasValue⦂ v
 		| block code byte j stackPos t
 	["Decompile the method from start to end into a ParsedBlock and return the
@@ -98,7 +98,7 @@ block: start to: end pc⦂ pc hasValue⦂ v
 	"pretend that returns jump to end of method"
 	[block returns or⦂ (block◦block position) returns⇒
 		[pc value← method length+1]].
-	⇑block]\gb42B
+	⇑block]
 checkForRemoteCode: jump code: code block: block | m ignore t j b
 "Check if this is a jump around remote code."
 	[jump>code limit⇒[⇑false]
@@ -116,7 +116,7 @@ checkForRemoteCode: jump code: code block: block | m ignore t j b
 	b ← self block: code position+1 to: jump-4
 		pc⦂ ignore hasValue⦂ ignore.
 	stack next← ParsedRemote new expr: b.
-	code position← jump-1]\gb49B18i43I31i36u5U22I303i27I
+	code position← jump-1]
 conditionalJump: elseStart code: code block: block
 		| cond ifExpr thenExpr elseExpr thenJump elseJump ignore newBlock
 			hasValue last
@@ -167,7 +167,7 @@ conditionalJump: elseStart code: code block: block
 	(thenJump+1=method length and⦂ method◦thenJump=toLoadSelf)⇒
 		[block next← cond]
 	newBlock←ParsedBlock default.  newBlock next← cond.
-	block next← newBlock]\gb53B198i54I44i35I257i3u8U45I126i19I174i21I343i20I91i196I94i233I
+	block next← newBlock]
 controlByte: byte code: code block: block | var t strm
 	[byte=toSmashPop⇒
 		[var ← self makeLoad: code next code: code.
@@ -199,7 +199,7 @@ controlByte: byte code: code block: block | var t strm
 	byte=toSuper⇒
 		[stack pop.  "delete ref to self"
 		stack next← byte]
-	user notify: 'unknown control byte']\gb42B158i112I302i31I150i17I207i18I
+	user notify: 'unknown control byte']
 jumpByte: byte code: code block: block | offset j
 "If this is an unconditional jump, return the position in the method to which it jumps.  If this is a conditional jump forward, parse a conditional statement.  Conditional jumps backward are not produced by the current compiler."
 	[byte<0230⇒["short unconditional jump forward"
@@ -219,7 +219,7 @@ jumpByte: byte code: code block: block | offset j
 		self conditionalJump: byte-0254*256+offset+code position+1
 			code: code block: block.
 		⇑code position+1]
-	user notify: 'not a jump byte']\gb39B12i227I16i32I45i30I110i23I259i29I
+	user notify: 'not a jump byte']
 loadByte: byte code: code | t lit
 	[t ← self makeLoad: byte code: code.
 	t≥codeLoadLit and⦂ t<codeLoadLitInd⇒
@@ -229,7 +229,7 @@ loadByte: byte code: code | t lit
 		lit is: ObjectReference⇒
 			[stack next← ParsedObjectReference new var: t]
 		stack next← t]
-	stack next← t]\gb26B
+	stack next← t]
 loop: jumpBack whileExpr: whileExpr doExpr: doExpr code: code block: block
 doSize: doSize
 		| n b ignore
@@ -239,7 +239,7 @@ doSize: doSize
 	"discard unwanted statements from block"
 	block skip: 1-b position.
 	block next← ParsedLoop new 
-		whileExpr: [b position=1⇒[whileExpr] b] doExpr: doExpr]\gb92B16i246I100i38I
+		whileExpr: [b position=1⇒[whileExpr] b] doExpr: doExpr]
 makeLoad: byte code: code | offset
 	["check for extended loads"
 	byte≥0210 and⦂ byte≤0213⇒
@@ -250,7 +250,7 @@ makeLoad: byte code: code | offset
 		0213 - extended literal indirect"
 		offset←256*(byte-0207).
 		⇑code next+offset]
-	 ⇑byte asCompilerCode]\gb26B12i24I33i134I
+	 ⇑byte asCompilerCode]
 remoteReference: code | i obj offset var
 	[i ← stack pop.
 	offset ← [i≤124⇒[↪(0 1 2 10)◦(i-120)] literals◦(i-codeLoadLit+1)].
@@ -259,7 +259,7 @@ remoteReference: code | i obj offset var
 	var ← [obj=toLoadTempframe⇒[codeLoadTemp+offset-1]
 				obj=toLoadSelf⇒[codeLoadField+offset-1]
 			user notify: 'bad remote reference'].
-	stack next← ParsedFieldReference new var: var]\gb22B139i5u3U1u14U1I
+	stack next← ParsedFieldReference new var: var]
 selectorByte: byte code: code at: p | op sel i nArgs args rcvr
 	["check for extended selector codes"
 	op ← [byte=toSendLitLong⇒[code next+codeSendLit] byte asCompilerCode].
@@ -273,9 +273,9 @@ selectorByte: byte code: code at: p | op sel i nArgs args rcvr
 	 for⦂ i from: nArgs to: 1 by: ¬1 do⦂
 		[args◦i ← stack pop]].
 	stack next← ParsedMessage new rcvr: rcvr op: op args: args.
-	p=breakPC⇒[stack last hasPC]]\gb36B
+	p=breakPC⇒[stack last hasPC]]
 
-Macros\gbf5 
+Macros 
 convertMacros: block sel: sel | macros compilerTemps vec loc i
 	["replace statement patterns with corresponding macros when possible"
 	macros ← (Vector new: 10) asStream.
@@ -292,9 +292,9 @@ convertMacros: block sel: sel | macros compilerTemps vec loc i
 		vec◦i insertMacro: vec◦(i+1) decompiler: self].
 	"set names of compiler temps to empty string"
 	for⦂ i to: temps length do⦂
-		[compilerTemps◦i≡true⇒[temps◦i ← '']]]\gb30B36i66I41i117I160i67I138i43I
+		[compilerTemps◦i≡true⇒[temps◦i ← '']]]
 
-Printing\gbf5 
+Printing 
 printPattern: sel on: strm | i n keywords
 	[n←sel numArgs.
 	[n=0⇒[strm append: sel; space  "unary"]
@@ -303,7 +303,7 @@ printPattern: sel on: strm | i n keywords
 		[strm append: keywords◦i; space; append: temps◦i; space]].
 	n=(method◦5)⇒[]
 	strm append: '| '.   "temps beyond args"
-	for⦂ i from: n+1 to: method◦5 do⦂ [strm append: temps◦i; space]]\gb27B65i5I162i17I
+	for⦂ i from: n+1 to: method◦5 do⦂ [strm append: temps◦i; space]]
 quickCode: sel class: class | t strm
 	[method length=2⇒[⇑sel asParagraph makeBoldPattern]
 	method length=5⇒
@@ -311,27 +311,27 @@ quickCode: sel class: class | t strm
 		strm ← Stream default.
 		strm append: sel; append: ' [⇑'; append: class instvars◦(t+1); append: ']'.
 		⇑strm contents asParagraph makeBoldPattern]
-	⇑'undeciperable method' asParagraph]\gb28B
-\g
-SystemOrganization classify: ↪Decompiler under: 'Compiler'.\g
+	⇑'undeciperable method' asParagraph]
+
+SystemOrganization classify: ↪Decompiler under: 'Compiler'.
 
-"Generator"l15000z20000\gbf5 
+"Generator" 
 Class new title: 'Generator'
 	subclassof: Object
 	fields: 'literals nTemps maxTemp local environment parser supered root requestor sourceStream sourceParagraph'
 	declare: '';
 	sharing: ByteCodes;
-	asFollows\gbf5 
+	asFollows 
 
-I generate code parsed by parser.  The symbol tables I use are local and environment.  The run-time needs of the code are recorded in literals, nTemps, and maxTemp.  If a message was passed to super, then supered is true.  I remember my root context to abort in case of error.\gi
+I generate code parsed by parser.  The symbol tables I use are local and environment.  The run-time needs of the code are recorded in literals, nTemps, and maxTemp.  If a message was passed to super, then supered is true.  I remember my root context to abort in case of error.
 
-Services\gbf5 
+Services 
 compile: sourceParagraph in: class under: category notifying: requestor | selector
 	[user displayoffwhile⦂
 		[sourceStream ← sourceParagraph asStream.
 		selector ← self compileIn: class⇒
 			[class organization classify: selector under: category]].
-	⇑selector]\gb72B
+	⇑selector]
 evaluate: sourceStream in: context to: receiver notifying: requestor
 		| method nvars value tframe
 	[method ← user displayoffwhile⦂ [self evaluateIn: context to: receiver].
@@ -342,9 +342,9 @@ evaluate: sourceStream in: context to: receiver notifying: requestor
 		value ← context interpret: method with: tframe.
 		tframe◦(1 to: nvars) copyto: context tempframe.
 		⇑value]
-	⇑Context new have: receiver interpret: method]\gb71B130i53I28i49I
+	⇑Context new have: receiver interpret: method]
 
-Errors\gbf5 
+Errors 
 abortWith: errorString | mySender
 	[[WhatFlag⇒ [user notify: errorString]].
 	mySender ← thisContext swapSender: root sender.
@@ -352,15 +352,15 @@ abortWith: errorString | mySender
 	mySender release. mySender ← nil.
 	user restoredisplay.
 	⇑requestor notify: errorString at: sourceStream position in: sourceStream]
-"Parser notify"\gb23B285i
+"Parser notify"
 notify: errorString
 	[parser notify: errorString]
-"ParsedObjectReference remote"\gb21B29i
+"ParsedObjectReference remote"
 terminate
 	[root ← nil]
-"Parser terminate"\gb11B13i
+"Parser terminate"
 
-Code generation\gbf5 
+Code generation 
 compileIn: class
 		| block method nargs selector primitive
 	[parser ← Parser new. root ← thisContext. parser from: sourceStream to: self.
@@ -378,7 +378,7 @@ compileIn: class
 			sourceStream asArray] backpointers: nil.
 	[HuhFlag⇒ [Huh←nil. Huh ← (self decompile: method onto: Stream default) contents. HuhFlag←false]].
 	⇑selector]
-"compile"\gb19B344i19I423i
+"compile"
 decompile: method onto: s
 	[method length<6⇒
 		[s append: 'Quick code: '; append: method asBytes. ⇑s]
@@ -389,7 +389,7 @@ decompile: method onto: s
 	[(method◦2) > 0⇒ [s append: ' primitive: '; print: method◦2; append: ';']].
 	s print: method length; append: ' bytes total.'; cr.
 	method◦2 = 40⇒ [⇑s]
-	⇑self decompileBytes: method onto: s]\gb27B
+	⇑self decompileBytes: method onto: s]
 decompileBytes: method onto: s
 		| dict x i c m t
 	[dict ← Dictionary new init: 64.
@@ -414,7 +414,7 @@ decompileBytes: method onto: s
 		 t < toLongJmp⇒ [] t ≥ 0260⇒ []
 		 s print: t\8 -4 *256 + m next; space].
 	s cr.
-	⇑s]\gb33B
+	⇑s]
 evaluateIn: context to: receiver
 		| block method class nvars
 	[ "If context is false, receiver will evaluate in top level"
@@ -434,7 +434,7 @@ evaluateIn: context to: receiver
 	root ← true. "to signify success"
 	nTemps ← nvars.
 	⇑method]
-"evaluate"\gb35B30i58I269i37I147i20I158i20I28i
+"evaluate"
 generate: block in: class
 		| header method code lit stack
 	[[(lit ← literals find: nil)>0⇒ [literals ← (literals◦(1 to: lit-1)) copy]].
@@ -451,38 +451,38 @@ generate: block in: class
 	[stack position≠1⇒ [user notify: 'Compiler stack discrepancy']].
 	[code position≠method length⇒ [user notify: 'Compiler code size discrepancy']].
 	method◦3 ← maxTemp + stack length.
-	⇑method] "compile|evaluate"\gb28B715i
+	⇑method] "compile|evaluate"
 
-Parse tree\gbf5 
+Parse tree 
 assignment: var expr: expr
 	[⇑ParsedAssignment new var: var expr: expr]
-"Parser expression"\gb28B44i
+"Parser expression"
 block
 	[⇑ParsedBlock default]
-"Parser primary|Parser alternatives"\gb7B23i
+"Parser primary|Parser alternatives"
 evalKeyword: arg
 	[⇑arg]
-"Parser keywordMessage"\gb18B7i
+"Parser keywordMessage"
 ifExpr: ifExpr thenExpr: thenExpr elseExpr: elseExpr
 	[⇑ParsedConditional new ifExpr: ifExpr thenExpr: thenExpr elseExpr: elseExpr]
-"ifthen...|Parser alternatives"\gb54B78i
+"ifthen...|Parser alternatives"
 keywordMessage: rcvr selector: sel args: args
 	[sel='and⦂'⇒
 		[⇑ParsedConjunct new left: rcvr right: args local];
 	  = 'or⦂'⇒
 		[⇑ParsedDisjunct new left: rcvr right: args local]
 	⇑self rcvr: rcvr selector: sel args: (args remote: self)]
-"Parser keywordMessage"\gb47B191i
+"Parser keywordMessage"
 noEvalKeyword: arg
 	[⇑arg asRemoteCode: self]
-"Parser keywordMessage"\gb20B26i
+"Parser keywordMessage"
 nullStatement: block
 	[block next ← toLoadNil. ⇑block]
-"ifthen|Parser statements"\gb22B33i
+"ifthen|Parser statements"
 rcvr: rcvr selector: sel args: args
 	[[rcvr≡toSuper⇒ [supered←true]].
 	⇑ParsedMessage new rcvr: rcvr op: (self encodeSel: sel) args: args]
-"loop|keywordMessage|Parser binaryMessage|Parser unaryMessage"\gb37B102i
+"loop|keywordMessage|Parser binaryMessage|Parser unaryMessage"
 receivingVar: expr | rcvr var "who in expr is cascade recipient"
 	[rcvr ← expr emittedReceiver⇒
 		[var ← rcvr emittedVariable⇒ [⇑var]
@@ -490,7 +490,7 @@ receivingVar: expr | rcvr var "who in expr is cascade recipient"
 		expr emittedReceiver ← ParsedAssignment new var: var expr: rcvr.
 		⇑var]
 	parser notify: 'MAY ONLY FOLLOW A MESSAGE']
-"Parser cascade"\gb19B11i34I92i41I121i
+"Parser cascade"
 variable: name
 		| var global ref unq
 	[var ← local lookup: name⇒ [⇑var]
@@ -504,9 +504,9 @@ variable: name
 	unq ← name unique.
 	Undeclared declare: unq.
 	⇑codeLoadLitInd + (self litIndex: (Undeclared ref: unq))]
-"Parser expression|Parser primary"\gb17B460i
+"Parser expression|Parser primary"
 
-Macros\gbf5 
+Macros 
 for: var from: startMinus1 to: stop do: ritual on: block | temp
 	[temp ← self newTempForMacro.
 	"temp←stop. var←startMinus1. while⦂ temp≥(var ← 1+var) do⦂ ritual"
@@ -518,7 +518,7 @@ for: var from: startMinus1 to: stop do: ritual on: block | temp
 					(ParsedAssignment new var: var
 						expr: (ParsedMessage new rcvr: toLoad1 op: toPlus args: var)))
 			doExpr: ritual]
-"for...todoargs"\gb57B39i66I328i
+"for...todoargs"
 forfromdo: block args: args | var sequence ritual strm
 	[var ← (args◦1) local. sequence ← args◦2. ritual ← (args◦3) local.
 	strm ← self newTempForMacro.
@@ -530,32 +530,32 @@ forfromdo: block args: args | var sequence ritual strm
 				(ParsedAssignment new var: var
 					expr: (ParsedMessage new rcvr: strm op: toNext args: false))
 			doExpr: ritual]
-"macro (perform)"\gb28B126i63I276i
+"macro (perform)"
 forfromtobydo: block args: args
 	["for⦂ var from: (start to: stop by: step) do⦂ ritual"
 	args◦2 ← self rcvr: args◦2 selector: 'to:by:' args: (args◦(3 to: 4)) copy.
 	self forfromdo: block args: (args◦↪(1 2 5)) copy]
-"macro (perform)"\gb33B1i53I128i
+"macro (perform)"
 forfromtodo: block args: args
 	[self for: (args◦1) local
 		from: (ParsedMessage new rcvr: args◦2 op: toMinus args: toLoad1)
 		to: args◦3
 		do: (args◦4) local
 		on: block]
-"macro (perform)"\gb31B140i
+"macro (perform)"
 fortodo: block args: args
 	[self for: (args◦1) local
 		from: toLoad0
 		to: args◦2
 		do: (args◦3) local
 		on: block]
-"macro (perform)"\gb27B89i
+"macro (perform)"
 ifthen: block args: args
 	[block next ← self ifExpr: (args◦1) local thenExpr: (args◦2) local elseExpr: (self nullStatement: ParsedBlock default)]
-"macro (perform)"\gb26B120i
+"macro (perform)"
 ifthenelse: block args: args
 	[block next ← self ifExpr: (args◦1) local thenExpr: (args◦2) local elseExpr: (args◦3) local]
-"macro (perform)"\gb30B93i
+"macro (perform)"
 macro: block selector: sel args: args
 		| special
 	[special ← inLineMsgs lookup: sel⇒
@@ -563,22 +563,22 @@ macro: block selector: sel args: args
 	Context canunderstand: sel unique⇒
 		[block next ← self rcvr: toLoadThisCtxt selector: sel args: (args remote: self)]
 	⇑false]
-"Parser keywordMessage"\gb40B223i
+"Parser keywordMessage"
 untildo: block args: args
 	[block next ← ParsedLoop new whileExpr: (ParsedNegation new rcvr: (args◦1) local op: toEq args: toLoadFalse) doExpr: (args◦2) local]
-"macro (perform)"\gb27B133i
+"macro (perform)"
 whiledo: block args: args
 	[block next ← ParsedLoop new whileExpr: (args◦1) local doExpr: (args◦2) local]
-"macro (perform)"\gb27B79i
+"macro (perform)"
 
-Table maintenance\gbf5 
+Table maintenance 
 balance
 	[⇑nTemps]
-"Parser cascade"\gb9B10i
+"Parser cascade"
 comment: s
-"Class fieldNamesInto"\gb11Bi
+"Class fieldNamesInto"
 contents
-"Class fieldNamesInto"\gb9Bi
+"Class fieldNamesInto"
 declaration: block name: name asArg: asArg
 		| permVar tempVar
 	[tempVar ← self newTemp.
@@ -587,15 +587,15 @@ declaration: block name: name asArg: asArg
 			[block next ← ParsedAssignment new var: permVar expr: tempVar]
 		parser notify: 'NAME ALREADY IN USE']
 	local insert: name with: tempVar]
-"Parser declaration|temporaries"\gb45B248i
+"Parser declaration|temporaries"
 encodeSel: sel
 		| code
 	[code ← stdSelectors lookup: sel⇒ [⇑code]
 	⇑codeSendLit+ (self litIndex: [sel class≡Integer⇒ [UST1◦(sel+1)] sel unique])]
-"rcvr|ParsedFieldReference remote|ParsedRemote remote"\gb17B130i
+"rcvr|ParsedFieldReference remote|ParsedRemote remote"
 identifier: s
 	[local insert: s with: (nTemps ← nTemps + 1)]
-"Class fieldNamesInto"\gb15B46i
+"Class fieldNamesInto"
 initSymbols: class | s
 	[environment ← class wholeEnvironment, Smalltalk.
 	local ← Dictionary new copyfrom: stdPrimaries.
@@ -603,81 +603,81 @@ initSymbols: class | s
 	for⦂ s from: class instvars do⦂
 		[local insert: s with: (nTemps ← nTemps + 1)].
 	nTemps ← maxTemp ← 0. literals ← Vector new: 123. supered ← false]
-"compile|evaluate"\gb24B158b2B115i
+"compile|evaluate"
 juggle | oldTemps
 	[oldTemps ← maxTemp. maxTemp ← nTemps. ⇑oldTemps]
-"Parser macro"\gb7B62i
+"Parser macro"
 literal: x  | i
 	[[x class≡Integer⇒ [0≠(i←↪(¬1 0 1 2 10) find: x)⇒ [⇑toLoadConst+i-1]]].
 	⇑codeLoadLit + (self litIndex: x)]
-"Parser primary|ParsedFieldReference remote"\gb12B113i
+"Parser primary|ParsedFieldReference remote"
 litIndex: oop  | i t
 	[for⦂ i to: 123 do⦂
 		[(t ← literals◦i)≡nil⇒ [literals◦i←oop. ⇑i-1]
 		t class≡oop class⇒ [t sameAs: oop⇒ [⇑i-1]]].
 	parser notify: 'MORE THAN 123 LITERALS REFERENCED']
-"encodeSel|literal"\gb15B175i
+"encodeSel|literal"
 newTemp
 	[(nTemps ← nTemps+1) > maxTemp and⦂ (maxTemp ← nTemps) > 256⇒
 		[parser notify: 'MORE THAN 256 TEMPS REQUIRED']
 	⇑codeLoadTemp + nTemps-1]
-"receivingVar|declaration"\gb9B139i
+"receivingVar|declaration"
 newTempForMacro "juggle arranged that maxTemp are needed by args of macro"
 	[nTemps ← maxTemp. ⇑self newTemp]
-"forfromdo|forfromtodo"\gb16Bi58I36i
+"forfromdo|forfromtodo"
 separator: c
-"Class fieldNamesInto"\gb13Bi
+"Class fieldNamesInto"
 trailer: s
-"Class fieldNamesInto"\gb11Bi
+"Class fieldNamesInto"
 unbalance: nTemps
-"Parser cascade"\gb18Bi
+"Parser cascade"
 unjuggle: oldTemps
 	[maxTemp ← oldTemps max: maxTemp]
-"Parser macro"\gb20B34i
-\g
-SystemOrganization classify: ↪Generator under: 'Compiler'.\g
+"Parser macro"
+
+SystemOrganization classify: ↪Generator under: 'Compiler'.
 
-"ParsedAssignment"l15000z20000\gbf5 
+"ParsedAssignment" 
 Class new title: 'ParsedAssignment'
 	subclassof: Object
 	fields: 'var expr elide'
 	declare: '';
 	sharing: ByteCodes;
-	asFollows\gbf5 
+	asFollows 
 
-I am a node in a compiler parse tree.  I represent an assignment of an expression to a variable.\gi
+I am a node in a compiler parse tree.  I represent an assignment of an expression to a variable.
 
-Initialization\gbf5 
-var: var expr: expr\gb
+Initialization 
+var: var expr: expr
 
-Code generation\gbf5 
+Code generation 
 emitForEffect: code on: stack
 	[expr emitForValue: code on: stack. stack pop: 1.
 	elide⇒ ["var begins the next statement" code next ← toSmash]
 	code next ← toSmashPop.
-	var emitBytes: code]\gb31B59i31I
+	var emitBytes: code]
 emitForValue: code on: stack
 	[expr emitForValue: code on: stack.
 	code next ← toSmash.
-	var emitBytes: code]\gb30B
+	var emitBytes: code]
 emittedVariable
-	[⇑var]\gb17B
+	[⇑var]
 firstPush
-	[⇑expr firstPush]\gb11B
+	[⇑expr firstPush]
 sizeForEffect: nextPush
-	[⇑expr sizeForValue + 1 + [elide ← nextPush≡var⇒ [0] var sizeForValue]]\gb25B
+	[⇑expr sizeForValue + 1 + [elide ← nextPush≡var⇒ [0] var sizeForValue]]
 sizeForValue
-	[⇑expr sizeForValue + 1 + var sizeForValue]\gb14B
+	[⇑expr sizeForValue + 1 + var sizeForValue]
 
-Miscellaneous\gbf5 
+Miscellaneous 
 printon: s
-	[s append: '('; print: var; append: '←'; print: expr; append: ')']\gb12B
+	[s append: '('; print: var; append: '←'; print: expr; append: ')']
 
-Decompiling\gbf5 
-expr [⇑expr]\gb5B
+Decompiling 
+expr [⇑expr]
 findMacros: macros compilerTemps: compilerTemps
 	[var findMacros: macros compilerTemps: compilerTemps.
-	expr findMacros: macros compilerTemps: compilerTemps]\gb49B
+	expr findMacros: macros compilerTemps: compilerTemps]
 isForFromInit: loop | cond b nextMess
 	["return true if I could be the first initialization statement for a 
 		for⦂ from: loop."
@@ -689,7 +689,7 @@ isForFromInit: loop | cond b nextMess
 	nextMess ← (b◦1) expr.
 	nextMess isnt: ParsedMessage⇒[⇑false]
 	nextMess rcvr≠var or⦂ nextMess op≠toNext⇒[⇑false]
-	⇑true]	\gb20B21i70u10U6I
+	⇑true]	
 isForFromToInit: start loop: loop | b incr test
 	["return true if I could be the first initialization statement for a 
 		for⦂ to: do⦂ or a for⦂ from: to: do⦂ loop"
@@ -710,7 +710,7 @@ isForFromToInit: start loop: loop | b incr test
 	test ← b◦2.
 	test isnt: ParsedMessage⇒[⇑false]
 	(test rcvr≠var or⦂ test op≠toGeq) or⦂ test args≠incr var⇒[⇑false]
-	⇑true]\gb34B17i70u12U6u18U5I4i65I203i82I
+	⇑true]
 printon: strm indent: level precedence: p forValue: v decompiler: decompiler
 	[ [p>1⇒[strm append: '(']].
 	var printon: strm indent: level precedence: 1
@@ -718,82 +718,82 @@ printon: strm indent: level precedence: p forValue: v decompiler: decompiler
 	strm append: ' ← '.
 	expr printon: strm indent: level+2 precedence: 1
 			forValue: true decompiler: decompiler.
-	p>1⇒[strm append: ')']]\gb78B
-var [⇑var]\gb4B
-\g
-SystemOrganization classify: ↪ParsedAssignment under: 'Compiler'.\g
+	p>1⇒[strm append: ')']]
+var [⇑var]
+
+SystemOrganization classify: ↪ParsedAssignment under: 'Compiler'.
 
-"ParsedBlock"l15000z20000\gbf5 
+"ParsedBlock" 
 Class new title: 'ParsedBlock'
 	subclassof: Stream
 	fields: 'returns'
 	declare: '';
 	sharing: ByteCodes;
-	asFollows\gbf5 
+	asFollows 
 
-I am a stream to collect the statements of a block and then to become a node in a compiler parse tree.\gi
+I am a stream to collect the statements of a block and then to become a node in a compiler parse tree.
 
-Initialization\gbf5 
+Initialization 
 default
-	[limit ← 1. array ← Vector new: 1. position ← 0. returns ← false]\gb9B
+	[limit ← 1. array ← Vector new: 1. position ← 0. returns ← false]
 doesReturn
-	[returns ← true]\gb12B
+	[returns ← true]
 mustReturn: fromMethod
 	[returns⇒ []
 	[fromMethod⇒
 		[position>0 and⦂ (array◦position) emitsLoad⇒ [array◦position ← toLoadSelf] self next ← toLoadSelf]].
-	self doesReturn]\gb24B
+	self doesReturn]
 
-Code generation\gbf5 
+Code generation 
 emitForEffect: code on: stack
 	[returns⇒ [self emitForValue: code on: stack. stack pop: 1]
 	self emitExceptLast: code on: stack.
-	(array◦position) emitForEffect: code on: stack]\gb31B
+	(array◦position) emitForEffect: code on: stack]
 emitForValue: code on: stack
 	[self emitExceptLast: code on: stack.
 	(array◦position) emitForValue: code on: stack.
-	returns⇒ [code next ← toReturn]]\gb30B
+	returns⇒ [code next ← toReturn]]
 firstPush
-	[⇑(array◦1) firstPush]\gb11B
+	[⇑(array◦1) firstPush]
 sizeForEffect: nextPush
 	[returns⇒ [⇑self sizeForValue]
-	⇑self sizeExceptLast + ((array◦position) sizeForEffect: nextPush)]\gb25B
+	⇑self sizeExceptLast + ((array◦position) sizeForEffect: nextPush)]
 sizeForTruth: trueSkip falsity: falseSkip
 	[returns⇒ [⇑self sizeForValue]
-	⇑self sizeExceptLast + (array◦position sizeForTruth: trueSkip falsity: falseSkip)]\gb43B
+	⇑self sizeExceptLast + (array◦position sizeForTruth: trueSkip falsity: falseSkip)]
 sizeForValue
-	[⇑self sizeExceptLast + (array◦position) sizeForValue + [returns⇒ [1] 0]]\gb14B
+	[⇑self sizeExceptLast + (array◦position) sizeForValue + [returns⇒ [1] 0]]
 
-Miscellaneous\gbf5 
+Miscellaneous 
 printon: s | i
 	[s append: '['.
 	for⦂ i to: position-1 do⦂ [s print: (array◦i); append: '. '].
 	[returns⇒ [s append: '⇑']].
 	[position>0⇒ [s print: (array◦position)]].
-	s append: ']']\gb11B
+	s append: ']']
 quickCode | t v
 	[position=1 and⦂ (returns and⦂ (v←array◦1) emitsLoad)⇒
 		[v=toLoadSelf⇒ [t ← String new: 2. t◦1←0; ◦2←1. ⇑t]
 		v isField⇒
 			[t ← String new: 5. t◦1←0; ◦2←40; ◦3←0; ◦4←0; ◦5←v. ⇑t]
 		⇑false]
-	⇑false]\gb10B
+	⇑false]
 returns
-	[⇑returns]\gb9B
+	[⇑returns]
 
-Private\gbf5 
+Private 
 emitExceptLast: code on: stack
 		| i
-	[for⦂ i to: position-1 do⦂ [(array◦i) emitForEffect: code on: stack]]\gb33B
+	[for⦂ i to: position-1 do⦂ [(array◦i) emitForEffect: code on: stack]]
 sizeExceptLast
 		| i next nextPush size
 	[size ← 0. next ← array◦position.
 	for⦂ i to: position-1 do⦂
 		[nextPush ← next firstPush. next ← array◦(position-i).
 		size ← size + (next sizeForEffect: nextPush)].
-	⇑size]\gb17B
+	⇑size]
 
-Decompiling\gbf5 
+Decompiling 
 findMacros: macros compilerTemps: compilerTemps | i s t
 "Look for for statements.  If one of my statements is the init statement for a for, append myself and the index of that statement to the stream macros.  Mark its compiler-generated temp.  If the temp is subsequently used before being re-assigned, the pattern can't be a for after all, and will be deleted from macros."
 	[for⦂ i to: position do⦂
@@ -816,7 +816,7 @@ findMacros: macros compilerTemps: compilerTemps | i s t
 			s expr findMacros: macros compilerTemps: compilerTemps.
 			(array◦(i+1)) doExpr findMacros: macros compilerTemps: compilerTemps.
 			i ← i+1]
-		s findMacros: macros compilerTemps: compilerTemps]]\gb48B9i9u3U66u3U62u6U120u3U37u6U1I134i6u3IU222i28I
+		s findMacros: macros compilerTemps: compilerTemps]]
 insertMacro: loc decompiler: decompiler | macro n i
 	["create a parsed for loop, and replace the old statements by it"
 	macro ← ParsedForLoop new block: self loc: loc decompiler: decompiler.
@@ -824,7 +824,7 @@ insertMacro: loc decompiler: decompiler | macro n i
 	n ← macro nStatements.
 	for⦂ i from: loc+n to: position do⦂
 		[array◦(i-n+1) ← array◦i].
-	position ← position-n+1]\gb40B15i62I
+	position ← position-n+1]
 printon: strm indent: level precedence: p forValue: v decompiler: decompiler | i
 	["ignore precedence, since the block is enclosed in brackets"
 	position=0⇒[strm append: '[]' ]
@@ -836,66 +836,66 @@ printon: strm indent: level precedence: p forValue: v decompiler: decompiler | i
 	 [returns⇒[strm append: '⇑']].
 	array◦position printon: strm indent: level precedence: 0
 		forValue: (returns or⦂ v) decompiler: decompiler.
-	strm append: ']' ]\gb77B7i58I
+	strm append: ']' ]
 
-As yet unclassified\gbf5 
+As yet unclassified 
 emitForTruth: trueSkip falsity: falseSkip into: code on: stack
 	[returns⇒ [self emitForValue: code on: stack]
 	self emitExceptLast: code on: stack.
-	(array◦position) emitForTruth: trueSkip falsity: falseSkip into: code on: stack]\gb64B
-\g
-SystemOrganization classify: ↪ParsedBlock under: 'Compiler'.\g
+	(array◦position) emitForTruth: trueSkip falsity: falseSkip into: code on: stack]
+
+SystemOrganization classify: ↪ParsedBlock under: 'Compiler'.
 
-"ParsedConditional"l15000z20000\gbf5 
+"ParsedConditional" 
 Class new title: 'ParsedConditional'
 	subclassof: Object
 	fields: 'ifExpr thenExpr elseExpr thenSize elseSize jmpSize'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-I am a node in a compiler parse tree.  I represent a condition and two alternatives.\gi
+I am a node in a compiler parse tree.  I represent a condition and two alternatives.
 
-Initialization\gbf5 
-ifExpr: ifExpr thenExpr: thenExpr elseExpr: elseExpr\gb
+Initialization 
+ifExpr: ifExpr thenExpr: thenExpr elseExpr: elseExpr
 
-Code generation\gbf5 
+Code generation 
 emitForEffect: code on: stack
 	[ifExpr emitForValue: code on: stack.
 	thenSize emitBfp: code on: stack.
 	thenExpr emitForEffect: code on: stack.
 	[jmpSize>0⇒ [elseSize emitJmp: code on: stack]].
-	elseExpr emitForEffect: code on: stack]\gb31B
+	elseExpr emitForEffect: code on: stack]
 emitForValue: code on: stack
 	[ifExpr emitForValue: code on: stack.
 	thenSize emitBfp: code on: stack.
 	thenExpr emitForValue: code on: stack.
 	stack pop: 1.
 	[jmpSize>0⇒ [elseSize emitJmp: code on: stack]].
-	elseExpr emitForValue: code on: stack]\gb30B
+	elseExpr emitForValue: code on: stack]
 firstPush
-	[⇑ifExpr firstPush]\gb11B
+	[⇑ifExpr firstPush]
 sizeForEffect: nextPush
 	[elseSize ← elseExpr sizeForEffect: nextPush.
 	jmpSize ← [thenExpr returns⇒ [0] elseSize jmpSize].
 	thenSize ← (thenExpr sizeForEffect: ¬1) + jmpSize.
-	⇑ifExpr sizeForValue + thenSize bfpSize + thenSize + elseSize]\gb25B
+	⇑ifExpr sizeForValue + thenSize bfpSize + thenSize + elseSize]
 sizeForValue
 	[elseSize ← elseExpr sizeForValue.
 	jmpSize ← [thenExpr returns⇒ [0] elseSize jmpSize].
 	thenSize ← thenExpr sizeForValue + jmpSize.
-	⇑ifExpr sizeForValue + thenSize bfpSize + thenSize + elseSize]\gb14B
+	⇑ifExpr sizeForValue + thenSize bfpSize + thenSize + elseSize]
 
-Miscellaneous\gbf5 
+Miscellaneous 
 printon: s
-	[s append: 'if⦂ '; print: ifExpr; append: 'then⦂ '; print: thenExpr; append: 'else⦂ '; print: elseExpr]\gb12B
+	[s append: 'if⦂ '; print: ifExpr; append: 'then⦂ '; print: thenExpr; append: 'else⦂ '; print: elseExpr]
 returns
-	[⇑thenExpr returns and⦂ elseExpr returns]\gb9B
+	[⇑thenExpr returns and⦂ elseExpr returns]
 
-Decompiling\gbf5 
+Decompiling 
 findMacros: macros compilerTemps: compilerTemps
 	[ifExpr findMacros: macros compilerTemps: compilerTemps.
 	thenExpr findMacros: macros compilerTemps: compilerTemps.
-	elseExpr findMacros: macros compilerTemps: compilerTemps]\gb49B
+	elseExpr findMacros: macros compilerTemps: compilerTemps]
 printon: strm indent: level precedence: p forValue: v decompiler: decompiler
 		| pos char
 	[ifExpr printon: strm indent: level precedence: 0 
@@ -911,61 +911,61 @@ printon: strm indent: level precedence: p forValue: v decompiler: decompiler
 	pos←strm position.  char←strm pop.
 	elseExpr printon: strm indent: level precedence: 0 
 		forValue: v decompiler: decompiler.
-	strm skip: ¬1.  strm◦pos←char]\gb79B385i42I
-\g
-SystemOrganization classify: ↪ParsedConditional under: 'Compiler'.\g
+	strm skip: ¬1.  strm◦pos←char]
+
+SystemOrganization classify: ↪ParsedConditional under: 'Compiler'.
 
-"ParsedConjunct"l15000z20000\gbf5 
+"ParsedConjunct" 
 Class new title: 'ParsedConjunct'
 	subclassof: Object
 	fields: 'left right rightSize'
 	declare: '';
 	sharing: ByteCodes;
-	asFollows\gbf5 
+	asFollows 
 
-I am a node in a compiler parse tree.  I represent (left and⦂ right) and try to optimize the code generation thereof.\gi
+I am a node in a compiler parse tree.  I represent (left and⦂ right) and try to optimize the code generation thereof.
 
-Initialization\gbf5 
-left: left right: right\gb
+Initialization 
+left: left right: right
 
-Code generation\gbf5 
+Code generation 
 emitForEffect: code on: stack
 	[left emitForValue: code on: stack.
 	rightSize emitBfp: code on: stack.
-	right emitForEffect: code on: stack]\gb31B
+	right emitForEffect: code on: stack]
 emitForTruth: trueSkip falsity: falseSkip into: code on: stack
 	[left emitForTruth: 0 falsity: rightSize+falseSkip into: code on: stack.
 	right emitForTruth: trueSkip falsity: falseSkip into: code on: stack]
-\gb64B
+
 emitForValue: code on: stack
 	[left emitForValue: code on: stack.
 	rightSize emitBfp: code on: stack.
 	right emitForValue: code on: stack.
 	1 emitJmp: code on: stack.
-	code next ← toLoadFalse]\gb30B
+	code next ← toLoadFalse]
 firstPush
-	[⇑left firstPush]\gb11B
+	[⇑left firstPush]
 sizeForEffect: nextPush
 	[rightSize ← right sizeForEffect: ¬1.
-	⇑left sizeForValue + rightSize bfpSize + rightSize]\gb25B
+	⇑left sizeForValue + rightSize bfpSize + rightSize]
 sizeForTruth: trueSkip falsity: falseSkip
 	[rightSize ← right sizeForTruth: trueSkip falsity: falseSkip.
-	⇑(left sizeForTruth: 0 falsity: rightSize+falseSkip) + rightSize]\gb43B
+	⇑(left sizeForTruth: 0 falsity: rightSize+falseSkip) + rightSize]
 sizeForValue
 	[rightSize ← right sizeForValue + 1.
-	⇑left sizeForValue + rightSize bfpSize + rightSize + 1]\gb14B
+	⇑left sizeForValue + rightSize bfpSize + rightSize + 1]
 
-Miscellaneous\gbf5 
+Miscellaneous 
 emittedReceiver
-	[⇑left]\gb17B
-emittedReceiver ← left\gb
+	[⇑left]
+emittedReceiver ← left
 printon: s
-	[s append: '('; print: left; append:  ' and⦂ '; print: right; append: ')']\gb12B
+	[s append: '('; print: left; append:  ' and⦂ '; print: right; append: ')']
 
-Decompiling\gbf5 
+Decompiling 
 findMacros: macros compilerTemps: compilerTemps
 	[left findMacros: macros compilerTemps: compilerTemps.
-	right findMacros: macros compilerTemps: compilerTemps]\gb49B
+	right findMacros: macros compilerTemps: compilerTemps]
 printon: strm indent: level precedence: p forValue: v decompiler: decompiler
 	[ [p≥2⇒[strm append: '(']].
 	left printon: strm indent: level precedence: 2
@@ -973,61 +973,61 @@ printon: strm indent: level precedence: p forValue: v decompiler: decompiler
 	strm append: ' and⦂ '.
 	right printon: strm indent: level precedence: 2
 		forValue: v decompiler: decompiler.
-	p≥2⇒[strm append: ')']]\gb78B
-\g
-SystemOrganization classify: ↪ParsedConjunct under: 'Compiler'.\g
+	p≥2⇒[strm append: ')']]
+
+SystemOrganization classify: ↪ParsedConjunct under: 'Compiler'.
 
-"ParsedDisjunct"l15000z20000\gbf5 
+"ParsedDisjunct" 
 Class new title: 'ParsedDisjunct'
 	subclassof: Object
 	fields: 'left right rightSize'
 	declare: '';
 	sharing: ByteCodes;
-	asFollows\gbf5 
+	asFollows 
 
-I am a node in a compiler parse tree.  I represent (left or⦂ right) and try to optimize the code generation thereof.\gi
+I am a node in a compiler parse tree.  I represent (left or⦂ right) and try to optimize the code generation thereof.
 
-Initialization\gbf5 
-left: left right: right\gb
+Initialization 
+left: left right: right
 
-Code generation\gbf5 
+Code generation 
 emitForEffect: code on: stack
 	[left emitForValue: code on: stack.
 	rightSize jmpSize emitBfp: code on: stack.
 	rightSize emitJmp: code on: stack.
-	right emitForEffect: code on: stack]\gb31B
+	right emitForEffect: code on: stack]
 emitForTruth: trueSkip falsity: falseSkip into: code on: stack
 	[left emitForTruth: rightSize+trueSkip falsity: 0 into: code on: stack.
-	right emitForTruth: trueSkip falsity: falseSkip into: code on: stack]\gb64B
+	right emitForTruth: trueSkip falsity: falseSkip into: code on: stack]
 emitForValue: code on: stack
 	[left emitForValue: code on: stack.
 	(1 + rightSize jmpSize) emitBfp: code on: stack.
 	code next ← toLoadTrue.
 	rightSize emitJmp: code on: stack.
-	right emitForValue: code on: stack]\gb30B
+	right emitForValue: code on: stack]
 firstPush
-	[⇑left firstPush]\gb11B
+	[⇑left firstPush]
 sizeForEffect: nextPush
 	[rightSize ← right sizeForEffect: ¬1.
-	⇑left sizeForValue + 1 + rightSize jmpSize + rightSize]\gb25B
+	⇑left sizeForValue + 1 + rightSize jmpSize + rightSize]
 sizeForTruth: trueSkip falsity: falseSkip
 	[rightSize ← right sizeForTruth: trueSkip falsity: falseSkip.
-	⇑(left sizeForTruth: rightSize+trueSkip falsity: 0) + rightSize]\gb43B
+	⇑(left sizeForTruth: rightSize+trueSkip falsity: 0) + rightSize]
 sizeForValue
 	[rightSize ← right sizeForValue.
-	⇑left sizeForValue + 2 + rightSize jmpSize + rightSize]\gb14B
+	⇑left sizeForValue + 2 + rightSize jmpSize + rightSize]
 
-Miscellaneous\gbf5 
+Miscellaneous 
 emittedReceiver
-	[⇑left]\gb17B
-emittedReceiver ← left\gb
+	[⇑left]
+emittedReceiver ← left
 printon: s
-	[s append: '('; print: left; append: ' or⦂ '; print: right; append: ')']\gb12B
+	[s append: '('; print: left; append: ' or⦂ '; print: right; append: ')']
 
-Decompiling\gbf5 
+Decompiling 
 findMacros: macros compilerTemps: compilerTemps
 	[left findMacros: macros compilerTemps: compilerTemps.
-	right findMacros: macros compilerTemps: compilerTemps]\gb49B
+	right findMacros: macros compilerTemps: compilerTemps]
 printon: strm indent: level precedence: p forValue: v decompiler: decompiler
 	[ [p≥2⇒[strm append: '(']].
 	left printon: strm indent: level precedence: 2
@@ -1035,64 +1035,64 @@ printon: strm indent: level precedence: p forValue: v decompiler: decompiler
 	strm append: ' or⦂ '.
 	right printon: strm indent: level precedence: 2
 		forValue: v decompiler: decompiler.
-	p≥2⇒[strm append: ')']]\gb78B
-\g
-SystemOrganization classify: ↪ParsedDisjunct under: 'Compiler'.\g
+	p≥2⇒[strm append: ')']]
+
+SystemOrganization classify: ↪ParsedDisjunct under: 'Compiler'.
 
-"ParsedFieldReference"l15000z20000\gbf5 
+"ParsedFieldReference" 
 Class new title: 'ParsedFieldReference'
 	subclassof: Object
 	fields: 'var toLoadVar toLoadFieldReference toObjectOffset'
 	declare: '';
 	sharing: ByteCodes;
-	asFollows\gbf5 
+	asFollows 
 
-I am a node in a compiler parse tree.  I represent a remote argument which is a reference to a method or instance variable.\gi
+I am a node in a compiler parse tree.  I represent a remote argument which is a reference to a method or instance variable.
 
-Initialization\gbf5 
-var: var\gb
+Initialization 
+var: var
 
-Code generation\gbf5 
+Code generation 
 emitForValue: code on: stack
 	[([var isField⇒ [toLoadSelf] toLoadTempframe]) emitForValue: code on: stack.
 	toLoadVar emitForValue: code on: stack.
 	toLoadFieldReference emitForValue: code on: stack.
 	code next ← toNew. toObjectOffset emitBytes: code..
-	stack pop: 2]\gb30B
+	stack pop: 2]
 local
-	[⇑var]\gb7B
+	[⇑var]
 remote: generator
 	[toLoadVar ← generator literal: (var land: 0177)+1.
 	toLoadFieldReference ← generator literal: FieldReference.
-	toObjectOffset ← generator encodeSel: ↪object:offset:]\gb19B
+	toObjectOffset ← generator encodeSel: ↪object:offset:]
 sizeForValue
 	[⇑ 2 + toLoadVar sizeForValue +
-		toLoadFieldReference sizeForValue + toObjectOffset sizeForValue]\gb14B
+		toLoadFieldReference sizeForValue + toObjectOffset sizeForValue]
 
-Miscellaneous\gbf5 
+Miscellaneous 
 printon: s
-	[s append: 'FLD=> '; print: var]\gb12B
+	[s append: 'FLD=> '; print: var]
 
-Decompiling\gbf5 
+Decompiling 
 findMacros: macros compilerTemps: compilerTemps
-	[var findMacros: macros compilerTemps: compilerTemps]\gb49B
+	[var findMacros: macros compilerTemps: compilerTemps]
 printon: strm indent: level precedence: p forValue: v decompiler: decompiler
 	[var printon: strm indent: level precedence: p
-			forValue: true decompiler: decompiler]\gb78B
-\g
-SystemOrganization classify: ↪ParsedFieldReference under: 'Compiler'.\g
+			forValue: true decompiler: decompiler]
+
+SystemOrganization classify: ↪ParsedFieldReference under: 'Compiler'.
 
-"ParsedForLoop"l15000z20000\gbf5 
+"ParsedForLoop" 
 Class new title: 'ParsedForLoop'
 	subclassof: Object
 	fields: 'var source start stop step doExpr nStatements'
 	declare: '';
 	sharing: ByteCodes;
-	asFollows\gbf5 
+	asFollows 
 
-I represent a for loop.  I am used only by the decompiler, not the compiler.\gi
+I represent a for loop.  I am used only by the decompiler, not the compiler.
 
-Decompiling\gbf5 
+Decompiling 
 block: block loc: loc decompiler: decompiler | init1 init2 loop s
 	["loc should point to the initialization statement for a for loop in block"
 	init1 ← block◦loc.
@@ -1113,10 +1113,10 @@ block: block loc: loc decompiler: decompiler | init1 init2 loop s
 	var ← init2 var.
 	start ← [init2 expr≡toLoad0	⇒[toLoad1] init2 expr rcvr].
 	stop ← init1 expr.  step ← toLoad1.
-	doExpr ← loop doExpr]\gb45B24i55u3U14I149i58I166i28u5U28u5U19u3U11I
+	doExpr ← loop doExpr]
 nStatements
 	["return the number of statements in my expanded form"
-	⇑nStatements]\gb13B2i51I
+	⇑nStatements]
 printon: strm indent: level precedence: p forValue: v decompiler: decompiler
 	[source≡nil⇒
 		[strm append: 'for⦂ '.
@@ -1143,53 +1143,53 @@ printon: strm indent: level precedence: p forValue: v decompiler: decompiler
 		forValue: true decompiler: decompiler.
 	strm append: ' do⦂'; crtab: level+1.
 	doExpr printon: strm indent: level+1 precedence: 0 
-		forValue: false decompiler: decompiler]\gb78B657i18I
-\g
-SystemOrganization classify: ↪ParsedForLoop under: 'Compiler'.\g
+		forValue: false decompiler: decompiler]
+
+SystemOrganization classify: ↪ParsedForLoop under: 'Compiler'.
 
-"ParsedLoop"l15000z20000\gbf5 
+"ParsedLoop" 
 Class new title: 'ParsedLoop'
 	subclassof: Object
 	fields: 'whileExpr doExpr whileSize doSize'
 	declare: '';
 	sharing: ByteCodes;
-	asFollows\gbf5 
+	asFollows 
 
-I am a node in a compiler parse tree.  I represent that part of an in-line loop statement that can be expressed in the while-do form.\gi
+I am a node in a compiler parse tree.  I represent that part of an in-line loop statement that can be expressed in the while-do form.
 
-Initialization\gbf5 
-whileExpr: whileExpr doExpr: doExpr\gb
+Initialization 
+whileExpr: whileExpr doExpr: doExpr
 
-Code generation\gbf5 
+Code generation 
 emitForEffect: code on: stack
 	["optimization removed to make things easier for decompiler --
 	whileExpr emitForTruth: 0 falsity: doSize into: code on: stack."
 	whileExpr emitForValue: code on: stack.
 	doSize emitBfp: code on: stack.
 	doExpr emitForEffect: code on: stack.
-	0 - doSize - whileSize - doSize jmpSize emitJmp: code on: stack]\gb31B2i125I
+	0 - doSize - whileSize - doSize jmpSize emitJmp: code on: stack]
 emitForValue: code on: stack
 	[self emitForEffect: code on: stack.
-	toLoadNil emitForValue: code on: stack]\gb30B
+	toLoadNil emitForValue: code on: stack]
 firstPush
-	[⇑whileExpr firstPush]\gb11B
+	[⇑whileExpr firstPush]
 sizeForEffect: nextPush
 	[doSize ← (doExpr sizeForEffect: ¬1) + 2.
 	"whileSize ← whileExpr sizeForTruth: 0 falsity: doSize."
 	whileSize ← whileExpr  sizeForValue.
-	⇑whileSize + doSize + doSize jmpSize]\gb25B44i54I
+	⇑whileSize + doSize + doSize jmpSize]
 sizeForValue
-	[⇑(self sizeForEffect: ¬1) + 1]\gb14B
+	[⇑(self sizeForEffect: ¬1) + 1]
 
-Miscellaneous\gbf5 
+Miscellaneous 
 printon: s
-	[s append: 'while⦂ '; print: whileExpr; append: 'do⦂ '; print: doExpr]\gb12B
+	[s append: 'while⦂ '; print: whileExpr; append: 'do⦂ '; print: doExpr]
 
-Decompiling\gbf5 
-doExpr [⇑doExpr]\gb7B
+Decompiling 
+doExpr [⇑doExpr]
 findMacros: macros compilerTemps: compilerTemps
 	[whileExpr findMacros: macros compilerTemps: compilerTemps.
-	doExpr findMacros: macros compilerTemps: compilerTemps]\gb49B
+	doExpr findMacros: macros compilerTemps: compilerTemps]
 printon: strm indent: level precedence: p forValue: v decompiler: decompiler
 	[[whileExpr is: ParsedNegation⇒
 		[strm append: 'until⦂ '.
@@ -1200,62 +1200,62 @@ printon: strm indent: level precedence: p forValue: v decompiler: decompiler
 		forValue: true decompiler: decompiler].
 	strm append: ' do⦂'; crtab: level+1.
 	doExpr printon: strm indent: level+1 precedence: 0 
-		forValue: false decompiler: decompiler]\gb78B
-whileExpr [⇑whileExpr]\gb10B
-\g
-SystemOrganization classify: ↪ParsedLoop under: 'Compiler'.\g
+		forValue: false decompiler: decompiler]
+whileExpr [⇑whileExpr]
+
+SystemOrganization classify: ↪ParsedLoop under: 'Compiler'.
 
-"ParsedMessage"l15000z20000\gbf5 
+"ParsedMessage" 
 Class new title: 'ParsedMessage'
 	subclassof: Object
 	fields: 'rcvr op args "false if no args, Vector if many args" hasPC'
 	declare: '';
 	sharing: ByteCodes;
-	asFollows\gbf5 
+	asFollows 
 
-I am a node in a compiler parse tree.  I represent an expression consisting of a receiver (rcvr), a selector byte code (op), and an argument list (args) which is false for no arguments, a vector of parse trees for 2 or more arguments, or the argument parse tree for one argument.\gi
+I am a node in a compiler parse tree.  I represent an expression consisting of a receiver (rcvr), a selector byte code (op), and an argument list (args) which is false for no arguments, a vector of parse trees for 2 or more arguments, or the argument parse tree for one argument.
 
-Initialization\gbf5 
-hasPC [hasPC← true]\gb6B
+Initialization 
+hasPC [hasPC← true]
 rcvr: rcvr op: op args: args
 	[hasPC← false.
 	op=toEq and⦂ ((toLoadFalse≡rcvr) or⦂ (toLoadFalse≡args))⇒
-		[⇑ParsedNegation new rcvr: rcvr op: op args: args]]\gb30B
+		[⇑ParsedNegation new rcvr: rcvr op: op args: args]]
 
-Code generation\gbf5 
+Code generation 
 emitForEffect: code on: stack
-	[self emitForValue: code on: stack. code next ← toPop. stack pop: 1]\gb31B
+	[self emitForValue: code on: stack. code next ← toPop. stack pop: 1]
 emitForValue: code on: stack
 	[args emitForValue: code on: stack.
 	rcvr emitForValue: code on: stack.
 	[rcvr≡toSuper⇒ [code next←rcvr]].
-	op emitBytes: code. args argsOff: stack]\gb30B
+	op emitBytes: code. args argsOff: stack]
 firstPush
-	[⇑([args⇒ [args] rcvr]) firstPush]\gb11B
+	[⇑([args⇒ [args] rcvr]) firstPush]
 sizeForEffect: nextPush
-	[⇑self sizeForValue+1]\gb25B
+	[⇑self sizeForValue+1]
 sizeForValue
-	[⇑args sizeForValue + rcvr sizeForValue + op sizeForValue + [rcvr≡toSuper⇒ [1] 0]]\gb14B
+	[⇑args sizeForValue + rcvr sizeForValue + op sizeForValue + [rcvr≡toSuper⇒ [1] 0]]
 
-Miscellaneous\gbf5 
-args [⇑args]\gb5B
-args←args\gb
+Miscellaneous 
+args [⇑args]
+args←args
 emittedReceiver
-	[⇑rcvr]\gb17B
-emittedReceiver ← rcvr\gb
-op [⇑op]\gb3B
+	[⇑rcvr]
+emittedReceiver ← rcvr
+op [⇑op]
 printon: s
 	[s append: '('; print: rcvr; space; print: op.
 	[args⇒ [s space; print: args]].
-	s append: ')']\gb12B
-rcvr [⇑rcvr]\gb5B
+	s append: ')']
+rcvr [⇑rcvr]
 
-Decompiling\gbf5 
+Decompiling 
 findMacros: macros compilerTemps: compilerTemps | vec a
 	[vec ← [args≡nil⇒[↪()] args is: Vector⇒[args] args inVector].
 	for⦂ a from: vec do⦂
 		[a findMacros: macros compilerTemps: compilerTemps].
-	rcvr findMacros: macros compilerTemps: compilerTemps]\gb48B
+	rcvr findMacros: macros compilerTemps: compilerTemps]
 printon: strm indent: level precedence: p forValue: v decompiler: decompiler
 		| sel keywords i parens myP vec char1
 	[sel ← decompiler selector: op.
@@ -1275,151 +1275,151 @@ printon: strm indent: level precedence: p forValue: v decompiler: decompiler
 				precedence: [myP=3⇒[4] myP]
 				forValue: true decompiler: decompiler]].
 	[hasPC⇒[decompiler highlight: (char1+1 to: strm position+1)]].
-	parens⇒[strm append: ')']]\gb79B
-\g
-SystemOrganization classify: ↪ParsedMessage under: 'Compiler'.\g
+	parens⇒[strm append: ')']]
+
+SystemOrganization classify: ↪ParsedMessage under: 'Compiler'.
 
-"ParsedNegation"l15000z20000\gbf5 
+"ParsedNegation" 
 Class new title: 'ParsedNegation'
 	subclassof: ParsedMessage
 	fields: ''
 	declare: '';
 	sharing: ByteCodes;
-	asFollows\gbf5 
+	asFollows 
 
-I am a node in a compiler parse tree.  I am a parsed messsage in which the selector is ≡ and one of the participants is false.\gi
+I am a node in a compiler parse tree.  I am a parsed messsage in which the selector is ≡ and one of the participants is false.
 
-Initialization\gbf5 
-rcvr: rcvr op: op args: args\gb
+Initialization 
+rcvr: rcvr op: op args: args
 
-Code generation\gbf5 
+Code generation 
 emitForTruth: trueSkip falsity: falseSkip into: code on: stack
-	[([toLoadFalse≡rcvr⇒ [args] rcvr]) emitForTruth: falseSkip falsity: trueSkip into: code on: stack]\gb64B
+	[([toLoadFalse≡rcvr⇒ [args] rcvr]) emitForTruth: falseSkip falsity: trueSkip into: code on: stack]
 sizeForTruth: trueSkip falsity: falseSkip
-	[⇑([toLoadFalse≡rcvr⇒ [args] rcvr]) sizeForTruth: falseSkip falsity: trueSkip]\gb43B
+	[⇑([toLoadFalse≡rcvr⇒ [args] rcvr]) sizeForTruth: falseSkip falsity: trueSkip]
 
-Miscellaneous\gbf5 
-negated [toLoadFalse≡rcvr⇒[⇑args] ⇑rcvr]\gb8B
+Miscellaneous 
+negated [toLoadFalse≡rcvr⇒[⇑args] ⇑rcvr]
 printon: s
-	[s append: '(negation)'. super printon: s]\gb12B
-\g
-SystemOrganization classify: ↪ParsedNegation under: 'Compiler'.\g
+	[s append: '(negation)'. super printon: s]
+
+SystemOrganization classify: ↪ParsedNegation under: 'Compiler'.
 
-"ParsedObjectReference"l15000z20000\gbf5 
+"ParsedObjectReference" 
 Class new title: 'ParsedObjectReference'
 	subclassof: Object
 	fields: 'var'
 	declare: '';
 	sharing: ByteCodes;
-	asFollows\gbf5 
+	asFollows 
 
-I am a node in a compiler parse tree.  I represent a remote argument which is a reference to a class or pool variable.\gi
+I am a node in a compiler parse tree.  I represent a remote argument which is a reference to a class or pool variable.
 
-Initialization\gbf5 
-var: var\gb
+Initialization 
+var: var
 
-Code generation\gbf5 
+Code generation 
 emitForValue: code on: stack  "Turn literal indirect into literal direct"
-	[(var-256) emitForValue: code on: stack]\gb30Bi43bI2B
+	[(var-256) emitForValue: code on: stack]
 local
-	[⇑var]\gb7B
-remote: generator\gb
+	[⇑var]
+remote: generator
 sizeForValue
-	[⇑(var-256) sizeForValue]\gb14B
+	[⇑(var-256) sizeForValue]
 
-Miscellaneous\gbf5 
+Miscellaneous 
 printon: s
-	[s append: 'OBJ=> '; print: var]\gb12B
+	[s append: 'OBJ=> '; print: var]
 
-Decompiling\gbf5 
+Decompiling 
 findMacros: macros compilerTemps: compilerTemps
-	[var findMacros: macros compilerTemps: compilerTemps]\gb49B
+	[var findMacros: macros compilerTemps: compilerTemps]
 printon: strm indent: level precedence: p forValue: v decompiler: decompiler
-	[strm append: (decompiler literal: var)]\gb78B
-\g
-SystemOrganization classify: ↪ParsedObjectReference under: 'Compiler'.\g
+	[strm append: (decompiler literal: var)]
+
+SystemOrganization classify: ↪ParsedObjectReference under: 'Compiler'.
 
-"ParsedRemote"l15000z20000\gbf5 
+"ParsedRemote" 
 Class new title: 'ParsedRemote'
 	subclassof: Object
 	fields: 'expr esize toRemoteCopy'
 	declare: '';
 	sharing: ByteCodes;
-	asFollows\gbf5 
+	asFollows 
 
-I am a node in a compiler parse tree.  I represent an argument that is to be passed unevaluated.\gi
+I am a node in a compiler parse tree.  I represent an argument that is to be passed unevaluated.
 
-Initialization\gbf5 
-expr: expr\gb
+Initialization 
+expr: expr
 
-Code generation\gbf5 
+Code generation 
 emitForValue: code on: stack
 	[toLoadThisCtxt emitForValue: code on: stack.
 	toRemoteCopy emitBytes: code.
 	code emitLong: toLongJmp by: esize.
 	expr emitForValue: code on: stack.
 	code next ← toEnd. stack pop: 1.
-	(0-esize) emitJmp: code on: stack]\gb30B
+	(0-esize) emitJmp: code on: stack]
 local
-	[⇑expr]\gb7B
+	[⇑expr]
 remote: generator
-	[toRemoteCopy ← generator encodeSel: ↪remoteCopy]\gb19B
+	[toRemoteCopy ← generator encodeSel: ↪remoteCopy]
 sizeForValue
 	[esize ← expr sizeForValue + 3.
-	⇑esize + toRemoteCopy sizeForValue + 3]\gb14B
+	⇑esize + toRemoteCopy sizeForValue + 3]
 
-Miscellaneous\gbf5 
+Miscellaneous 
 printon: s
-	[s append: '⦂'; print: expr]\gb12B
+	[s append: '⦂'; print: expr]
 
-Decompiling\gbf5 
+Decompiling 
 findMacros: macros compilerTemps: compilerTemps
-	[expr findMacros: macros compilerTemps: compilerTemps]\gb49B
+	[expr findMacros: macros compilerTemps: compilerTemps]
 printon: strm indent: level precedence: p forValue: v decompiler: decompiler
 	[[(expr is: ParsedBlock) and⦂ 
 			(expr position>1 or⦂ (expr◦1 is: ParsedConditional))⇒
 		[strm crtab: level+1]].
 	expr printon: strm indent: level+1 precedence: p
-			forValue: true decompiler: decompiler]\gb78B
-\g
-SystemOrganization classify: ↪ParsedRemote under: 'Compiler'.\g
+			forValue: true decompiler: decompiler]
+
+SystemOrganization classify: ↪ParsedRemote under: 'Compiler'.
 
-"Parser"l15000z20000\gbf5 
+"Parser" 
 Class new title: 'Parser'
 	subclassof: Object
 	fields: 'source dest oppositeCourt type token mark keep'
 	declare: '';
 	sharing: TokenCodes;
-	asFollows\gbf5 
+	asFollows 
 
-I parse tokens from source (a stream).  I report each parse node to dest (e.g., a code generator).  When an error occurs, I back up source to mark and notify dest.  I have two kinds of methods, token suppliers and token consumers, which coroutine with each other.  The coroutine that is not in control is suspended in the context, oppositeCourt.  Token suppliers are driven by an instance of class Reader that scans source and classifies each token by type.  Token consumers analyze the syntax and report it to dest.  The variable "keep" is no longer used.\gi
+I parse tokens from source (a stream).  I report each parse node to dest (e.g., a code generator).  When an error occurs, I back up source to mark and notify dest.  I have two kinds of methods, token suppliers and token consumers, which coroutine with each other.  The coroutine that is not in control is suspended in the context, oppositeCourt.  Token suppliers are driven by an instance of class Reader that scans source and classifies each token by type.  Token consumers analyze the syntax and report it to dest.  The variable "keep" is no longer used.
 
-Initialization\gbf5 
+Initialization 
 from: source to: dest
 	[oppositeCourt ← thisContext.
 	mark ← source position. type ← 1.
 	(Reader new of: source) readInto: self]
-"Generator compile|Generator evaluate"\gb23B106i
+"Generator compile|Generator evaluate"
 
-Token suppliers\gbf5 
+Token suppliers 
 comment: s
-	[mark ← source position]\gb12B
+	[mark ← source position]
 contents
 	[type ← 0. mark ← source position + 1.
 	thisContext sender ← nil.
-	while⦂ true do⦂ [self resume. self notify: 'MORE EXPECTED']]\gb10B
+	while⦂ true do⦂ [self resume. self notify: 'MORE EXPECTED']]
 float: i fraction: f exp: e
 	[token ← (i+'.'+f+'e'+e) asFloat.
-	type ← aNumber. self resume]\gb29B
+	type ← aNumber. self resume]
 identifier: token
-	[type ← aWord. self resume]\gb19B
+	[type ← aWord. self resume]
 integer: s
 	[token ← s asInteger.
-	type ← aNumber. self resume]\gb12B
+	type ← aNumber. self resume]
 keyword: token
-	[type ← aKeyword. self resume]\gb16B
+	[type ← aKeyword. self resume]
 leftparen
-	[type ← aLeftPar. self resume]\gb11B
+	[type ← aLeftPar. self resume]
 onechar: token
 	[type ←
 		[token=056⇒ [aPeriod];
@@ -1431,18 +1431,18 @@ onechar: token
 			=073⇒ [aSemicolon];
 			=017⇒ [aHand]
 		aBinary].
-	self resume]\gb16B
+	self resume]
 otheratom: token
-	[type ← aGibberish. self resume]\gb18B
+	[type ← aGibberish. self resume]
 rightparen
-	[type ← aRightPar. self resume]\gb12B
-separator: c\gb
+	[type ← aRightPar. self resume]
+separator: c
 string: token
-	[type ← aString. self resume]\gb15B
+	[type ← aString. self resume]
 trailer: s
-	[mark ← source position]\gb12B
+	[mark ← source position]
 
-Method syntax\gbf5 
+Method syntax 
 body: block  | p  "return the primitive number, or 0"
 	[type=aLeftBrack⇒
 		[self block: block.
@@ -1451,12 +1451,12 @@ body: block  | p  "return the primitive number, or 0"
 			self notify: 'EXPECTED A NUMBER']
 		⇑0]
 	⇑0]
-"Generator compile"\gb13B5i35I193i
+"Generator compile"
 declaration: block
 	[type≠aWord⇒ [self notify: 'EXPECTED AN ARGUMENT NAME']
 	dest declaration: block name: token asArg: true.
 	self advance]
-"pattern"\gb20B121i
+"pattern"
 pattern: block
 		| selector
 	[selector ← Stream default.
@@ -1469,15 +1469,15 @@ pattern: block
 	[type=aLeftArrow⇒
 		[selector append: '←'. self advance; declaration: block]].
 	⇑selector contents unique]
-"Generator compile|Context variableNamesInto"\gb17B434i
+"Generator compile|Context variableNamesInto"
 temporaries: block
 	[type=aBinary and⦂ token=0174⇒ "|"
 		[self advance.
 		while⦂ type=aWord do⦂
 			[dest declaration: block name: token asArg: false. self advance]]]
-"Generator compile|Context variableNamesInto"\gb20B31i3I112i
+"Generator compile|Context variableNamesInto"
 
-Statement syntax\gbf5 
+Statement syntax 
 alternatives: ifExpr "⇒ [..] ..."
 		| thenExpr elseExpr
 	[self advance.
@@ -1485,12 +1485,12 @@ alternatives: ifExpr "⇒ [..] ..."
 	thenExpr ← self block: dest block. elseExpr ← dest block.
 	[type=aSemicolon⇒ [self cascade: elseExpr after: ifExpr] self statements: elseExpr].
 	⇑dest ifExpr: ifExpr thenExpr: thenExpr elseExpr: elseExpr]
-"cascade"\gb21Bi12I299i
+"cascade"
 block: block
 	[self advance; statements: block.
 	type=aRightBrack⇒ [self advance. ⇑block]
 	self notify: 'PERIOD OR RIGHT BRACKET WAS EXPECTED']
-"body|alternatives|expression|keywordMessage|binaryMessage"\gb14B130i
+"body|alternatives|expression|keywordMessage|binaryMessage"
 cascade: block after: expr  | val var oldTemps
 	[var ← dest receivingVar: expr.
 	oldTemps ← dest balance.
@@ -1502,18 +1502,18 @@ cascade: block after: expr  | val var oldTemps
 			[block next ← self alternatives: val. dest unbalance: oldTemps. ⇑self]
 		block next ← val].
 	dest unbalance: oldTemps]
-"statement|alternatives"\gb28B340i
+"statement|alternatives"
 loopStmt: block  | oldMark
 	[oldMark ← mark. self keywordMessage: false loop: block⇒ [⇑self]
 	mark ← oldMark. self notify: 'UNKNOWN CONTROL MESSAGE']
-"statement"\gb17B133i
+"statement"
 macro: block  | oldMark oldTemps val
 	[oldMark ← mark. oldTemps ← dest juggle.
 	val ← self keywordMessage: false macro: block.
 	dest unjuggle: oldTemps.
 	val⇒ [⇑block]
 	mark ← oldMark. self notify: 'UNKNOWN CONTROL MESSAGE']
-"statement"\gb14B211i
+"statement"
 statement: block | expr
 	[type=aReturnArrow⇒
 			[self advance. block next ← self expression. block doesReturn.
@@ -1525,14 +1525,14 @@ statement: block | expr
 	type=aCondArrow⇒ [block next ← self alternatives: expr]
 	block next ← expr.
 	type=aSemicolon⇒ [self cascade: block after: expr]]
-"statements"\gb17B307i30I156i
+"statements"
 statements: block
 	[self statement: block.
 	while⦂ type=aPeriod do⦂
 		[self advance. self statement: block]]
-"alternatives|block|Generator evaluate"\gb19B90i
+"alternatives|block|Generator evaluate"
 
-Expression syntax\gbf5 
+Expression syntax 
 binaryMessage: rcvr assign: assign "binarySelector ..."
 		| sel args
 	[sel ← token. self advance.
@@ -1542,7 +1542,7 @@ binaryMessage: rcvr assign: assign "binarySelector ..."
 		args ← [(Vector new: 2)◦1←args; ◦2←self expression; itself].
 		sel ← [(String new: 2)◦1←sel; ◦2←0137"←"; itself]]].
 	⇑dest rcvr: rcvr selector: sel args: args]
-"term|messageChain"\gb35Bi20I258i3I57i
+"term|messageChain"
 expression
 		| var
 	[type=aLeftBrack⇒ [⇑self block: dest block];
@@ -1552,13 +1552,13 @@ expression
 	type≠aLeftArrow⇒ [⇑self messageChain: var]
 	"It is a variable assignment" self advance.
 	⇑dest assignment: var expr: self expression]
-"unaryMessage|binaryMessage|keywordMessage|statement|subExpression"\gb13B140i32I88i29I61i
+"unaryMessage|binaryMessage|keywordMessage|statement|subExpression"
 factor
 		| expr
 	[expr ← self primary.
 	while⦂ type=aWord do⦂ [expr ← self unaryMessage: expr assign: false].
 	⇑expr]
-"term|binaryMessage"\gb9B109i
+"term|binaryMessage"
 keywordMessage: rcvr macro: block "keyword ..."
 		| sel args arg
 	[sel ← Stream default. args ← (Vector new: 4) asStream.
@@ -1570,26 +1570,26 @@ keywordMessage: rcvr macro: block "keyword ..."
 	sel ← sel contents. args ← [args position=1⇒ [args last] args contents].
 	block⇒ [⇑dest macro: block selector: sel args: args]
 	⇑dest keywordMessage: rcvr selector: sel args: args]
-"macro|messageChain"\gb34Bi13I542i
+"macro|messageChain"
 messageChain: rcvr
 	[while⦂ type=aWord do⦂ [rcvr ← self unaryMessage: rcvr assign: true].
 	while⦂ type=aBinary do⦂ [rcvr ← self binaryMessage: rcvr assign: true].
 	[type = aKeyword⇒ [rcvr ← self keywordMessage: rcvr macro: false]].
 	⇑rcvr]
-"cascade|expression"\gb20B220i
+"cascade|expression"
 term  | rcvr
 	[rcvr ← self factor.
 	while⦂ type=aBinary do⦂ [rcvr ← self binaryMessage: rcvr assign: false].
 	⇑rcvr]
-"keywordMessage"\gb6B111i
+"keywordMessage"
 unaryMessage: rcvr assign: assign "word ..."
 		| sel args
 	[sel ← token. self advance.
 	args ←	[assign and⦂ type=aLeftArrow⇒ [sel ← sel + '←'. self advance; expression] false].
 	⇑dest rcvr: rcvr selector: sel args: args]
-"factor|messageChain"\gb34Bi10I177i
+"factor|messageChain"
 
-Primary syntax\gbf5 
+Primary syntax 
 literal "A Vector, UniqueString, String, or Number"
 		| t oldMark
 	[type
@@ -1599,7 +1599,7 @@ literal "A Vector, UniqueString, String, or Number"
 			mark ← oldMark. self notify: 'UNMATCHED']
 	t ← [type≥aKeyword⇒ [token unique]; ≤aBinary⇒ [UST1◦(token+1)] token].
 	self advance. ⇑t]
-"primary|read"\gb8Bi43I258i
+"primary|read"
 primary
 		| t
 	[type
@@ -1611,65 +1611,65 @@ primary
 			type=aRightPar or⦂ type=0⇒ [self notify: 'EXPECTED LITERAL']
 			⇑dest literal: self literal]
 	self notify: 'OBJECT EXPECTED']
-"factor|expression"\gb10B371i
+"factor|expression"
 read "A sequence of literals"
 		| s
 	[s ← (Vector new: 10) asStream.
 	until⦂ (type=aRightPar or⦂ type=0) do⦂ [s next ← self literal].
 	⇑s contents]
-"literal"\gb5Bi24I119i
+"literal"
 subExpression "(...)"
 		| expr
 	[self advance. expr ← self expression.
 	type=aRightPar⇒ [self advance. ⇑expr]
 	self notify: 'NOT EXPECTED IN A (SUBEXPRESSION)']
-"primary"\gb14Bi7I140i
+"primary"
 
-Suspension\gbf5 
+Suspension 
 advance "Switch from the parser to the reader to obtain another token."
 	[mark ← source position- [type>aBinary⇒ [1] 0].
-	oppositeCourt ← thisContext swapSender: oppositeCourt]\gb8Bi63I
+	oppositeCourt ← thisContext swapSender: oppositeCourt]
 mustBeDone
 	[type=0⇒ [self terminate] self notify: 'UNEXPECTED CONSTRUCT']
-"Generator compile|Generator evaluate"\gb12B63i
+"Generator compile|Generator evaluate"
 notify: errorString | delims
 	[source skip: mark - source position.
 	delims ← ↪(011 012  014 015 040).
 	while⦂ (delims has: source peek) do⦂ [source next].
 	[source myend≡false⇒ [source skip: 1]].
-	dest abortWith: errorString]\gb20B
+	dest abortWith: errorString]
 resume "The reader has supplied another token; resume the parser."
-	[oppositeCourt ← thisContext swapSender: oppositeCourt]\gb7Bi59I
+	[oppositeCourt ← thisContext swapSender: oppositeCourt]
 terminate
 	[[dest≡nil⇒ [] dest terminate. dest ← nil].
 	[oppositeCourt≡nil⇒ [] oppositeCourt release. oppositeCourt ← nil]]
-"mustBeDone|Generator abortWith|Context variableNamesInto"\gb11B113i
-\g
-SystemOrganization classify: ↪Parser under: 'Compiler'.\g
+"mustBeDone|Generator abortWith|Context variableNamesInto"
+
+SystemOrganization classify: ↪Parser under: 'Compiler'.
 
-"ParseStack"l15000z20000\gbf5 
+"ParseStack" 
 Class new title: 'ParseStack'
 	subclassof: Object
 	fields: 'position length'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-I keep track of the current and high position of the stack that will be needed by code being compiled.\gi
+I keep track of the current and high position of the stack that will be needed by code being compiled.
 
-Initialization\gbf5 
+Initialization 
 init
-	[length ← position ← 0]\gb6B
+	[length ← position ← 0]
 
-Changes\gbf5 
+Changes 
 pop: n
-	[(position ← position - n) < 0⇒ [user notify: 'Parse stack underflow']]\gb8B
+	[(position ← position - n) < 0⇒ [user notify: 'Parse stack underflow']]
 push: n
-	[(position ← position + n) > length⇒ [length ← position]]\gb9B
+	[(position ← position + n) > length⇒ [length ← position]]
 
-Results\gbf5 
+Results 
 length
-	[⇑length]\gb8B
+	[⇑length]
 position
-	[⇑position]\gb10B
-\g
-SystemOrganization classify: ↪ParseStack under: 'Compiler'.\g
+	[⇑position]
+
+SystemOrganization classify: ↪ParseStack under: 'Compiler'.

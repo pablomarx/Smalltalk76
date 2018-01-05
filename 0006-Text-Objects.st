@@ -1,46 +1,46 @@
 'From Smalltalk 5.5k XM November 24 on 22 November 1980 at 2:57:08 am.'
-\g
-"Dispframe"l15000z20000\gbf5 
+
+"Dispframe" 
 Class new title: 'Dispframe'
 	subclassof: Stream
 	fields: 'text'
 	declare: 'prompt doit ';
-	asFollows\gbf5 
+	asFollows 
 
-I am a dialog window\gi
+I am a dialog window
 
-Initialization\gbf5 
-classInit [prompt ← ''◦1. doit ← ''◦1]\gb10B
+Initialization 
+classInit [prompt ← ''◦1. doit ← ''◦1]
 frame ← r
-	[text para: nil frame: r]\gb11B
+	[text para: nil frame: r]
 init
 	[text ← Textframe new.
-	self of: (String new: 16)]\gb6B
+	self of: (String new: 16)]
 rect: r
-	[self init; frame ← r; clear]\gb9B
+	[self init; frame ← r; clear]
 
-Scheduler\gbf5 
+Scheduler 
 eachtime | t
 	[text window has: user mp⇒
 		[user kbck⇒[t← self kbd⇒
 			[ [t≡nil⇒[] self space; print: nilⓢ t].
 				self prompt]]
 		 user bluebug⇒ [⇑false]]
-	user anybug⇒[⇑false]]\gb9B
+	user anybug⇒[⇑false]]
 firsttime
 	[text window has: user mp⇒
 		[self outline; prompt]
-	⇑false]\gb11B
+	⇑false]
 lasttime
 	[ [self last=prompt⇒[self skip: ¬2; show]].
-	⇑user bluebug≡false]\gb10B
-leave\gb
+	⇑user bluebug≡false]
+leave
 
-Dialog\gbf5 
+Dialog 
 ev | t
 	[while⦂ [self cr. t ← self request: ''] do⦂
 		[self space; print: nil ⓢt]
-	⇑false]\gb3B
+	⇑false]
 kbd | n t	"false if user pauses, nil if ctrl-d, all input since prompt if "
 	[while⦂ user kbck do⦂
 		[t ← user kbd.
@@ -53,22 +53,22 @@ kbd | n t	"false if user pauses, nil if ctrl-d, all input since prompt if "
 				while⦂ (position>0 and: self last tokenish) do⦂ [self skip: ¬1]];
 		=151⇒[self reset; prompt] 	"ctl-x clears frame"
 		self next ← t]
-	self show. ⇑false]\gb4B6i66I86i16I44i11I159i12I46i26I100i20I
-prompt [self cr; next← prompt; show]\gb7B
+	self show. ⇑false]
+prompt [self cr; next← prompt; show]
 read | t		"false if ctrl-d, all input since prompt if "
 	[self next← prompt; show.
 	until⦂ [user kbck⇒[t← self kbd] false] do⦂ []
-	t≡nil⇒[⇑false] ⇑t]\gb5B3i48I
+	t≡nil⇒[⇑false] ⇑t]
 request: s		"false if ctrl-d, all input since prompt if "
-	[self append: s. ⇑self read]\gb10i2B46bI2B
+	[self append: s. ⇑self read]
 
-Image\gbf5 
+Image 
 clear
-	[self reset. self show]\gb7B
+	[self reset. self show]
 moveto: pt
-	[(text window inset: ¬2⌾¬2) dragto: pt-(¬2⌾¬2)]\gb12B
+	[(text window inset: ¬2⌾¬2) dragto: pt-(¬2⌾¬2)]
 outline
-	[text window outline: 2]\gb9B
+	[text window outline: 2]
 show | t [
 	text show: self contents.
 	until⦂ text lastshown≥ position do⦂ [
@@ -78,23 +78,23 @@ show | t [
 		position ← 0.
 		self append: t.
 		"self dequeue: (text scrolln: 1).
-		text show: self contents"]]\gb5B5b2B
+		text show: self contents"]]
 
-Access to Parts\gbf5 
+Access to Parts 
 frame
-	[⇑text frame]\gb7B
+	[⇑text frame]
 text
-	[⇑text]\gb6B
-\g
-SystemOrganization classify: ↪Dispframe under: 'Text Objects'.\g
-Dispframe classInit\g
+	[⇑text]
+
+SystemOrganization classify: ↪Dispframe under: 'Text Objects'.
+Dispframe classInit
 
-"Paragraph"l15000z20000\gbf5 
+"Paragraph" 
 Class new title: 'Paragraph'
 	subclassof: Array
 	fields: 'text runs alignment'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 Paragraphs implement pretty text.
 	text is a String of the ascii characters.
@@ -103,28 +103,28 @@ Paragraphs implement pretty text.
 		odd byte is run length (≤255)
 		following byte is 16*format number +
 			1*bold 2*italic 4*underline 8*strikeout
-		longer runs are made from several of length 255.\gi
+		longer runs are made from several of length 255.
 
-Initialization of parts\gbf5 
-copy [⇑self class new text: text runs: runs alignment: alignment]\gb5B
+Initialization of parts 
+copy [⇑self class new text: text runs: runs alignment: alignment]
 text: text
-	[alignment ← 0]\gb12B
-text: text alignment: alignment\gb
-text: text runs: runs alignment: alignment\gb
+	[alignment ← 0]
+text: text alignment: alignment
+text: text runs: runs alignment: alignment
 
-Normal access\gbf5 
-◦x [⇑text◦x]\gb3B
-asParagraph [⇑self]\gb12B
-asStream [⇑text asStream]\gb9B
-asVector [⇑text asVector]\gb9B
+Normal access 
+◦x [⇑text◦x]
+asParagraph [⇑self]
+asStream [⇑text asStream]
+asVector [⇑text asVector]
 copy: a to: b		"Return a copied subrange of this paragraph"
 	[⇑self class new
 			text: (text copy: a to: b)
 			runs: (self run: a to: b)
-			alignment: alignment]\gb15B1i42I
+			alignment: alignment]
 findString: str startingAt: start
-	[⇑text findString: str startingAt: start]\gb35B
-length [⇑text length]\gb7B
+	[⇑text findString: str startingAt: start]
+length [⇑text length]
 replace: a to: b by: c   ["alters self - doesnt copy"
 	[runs≡nil and⦂ (c isnt: self class)⇒[]
 	runs ← self runcat: (self run: 1 to: a-1)
@@ -133,33 +133,33 @@ replace: a to: b by: c   ["alters self - doesnt copy"
 				runs empty⇒[0]
 				runs◦((self runfind: b)◦1+1)]]
 		and: (self run: b+1 to: text length)].
-	text ← text replace: a to: b by: [c is: self class⇒[c text] c]]\gb25B1i27I
+	text ← text replace: a to: b by: [c is: self class⇒[c text] c]]
 subst: x for: y "runs are not supported yet here"
-	[⇑text subst: x for: y]\gb16Bi33I
-text [⇑text]\gb5B
-textStyle [⇑DefaultTextStyle]\gb10B
+	[⇑text subst: x for: y]
+text [⇑text]
+textStyle [⇑DefaultTextStyle]
 
-Text alignment\gbf5 
-alignment [⇑alignment]\gb10B
-alignment ← alignment\gb
-center [alignment ← 2]\gb7B
-flushleft [alignment ← 0]\gb10B
-flushright [alignment ← 4]\gb11B
-justify [alignment ← 1]\gb8B
+Text alignment 
+alignment [⇑alignment]
+alignment ← alignment
+center [alignment ← 2]
+flushleft [alignment ← 0]
+flushright [alignment ← 4]
+justify [alignment ← 1]
 
-Manipulation of format runs\gbf5 
-allBold [self maskrunsunder: 1 to: 1]\gb8B
+Manipulation of format runs 
+allBold [self maskrunsunder: 1 to: 1]
 allFont: n [
 	[n is: String⇒ [n ← (self textStyle fontnames find: n) - 1]].
-	self maskrunsunder: 0360 to: n*16]\gb11B
-allItalic [self maskrunsunder: 2 to: 2]\gb10B
+	self maskrunsunder: 0360 to: n*16]
+allItalic [self maskrunsunder: 2 to: 2]
 makeBoldPattern | s i c
 	[s ← text asStream.  i← 0.
 	until⦂ [c← s next⇒		" scan to bracket, bar or comment "
 					[c=91⇒[true]; =124⇒[true]; =34⇒[true]; =25⇒[true] false]
 			true]			"end"
 		do⦂ [i← i+1].
-	self maskrun: 1 to: i under: 1 to: 1]\gb16B57i35I74i5I
+	self maskrun: 1 to: i under: 1 to: 1]
 makerun: len val: val		"Make up a solid run of value val"
 		| str i
 	[len=0⇒[⇑nullString]
@@ -168,15 +168,15 @@ makerun: len val: val		"Make up a solid run of value val"
 		str◦i ← [len>255⇒[255] len].
 		str◦(i+1) ← val.
 		len ← len-255].
-	⇑str]\gb23Bi34I
+	⇑str]
 maskrun: i to: j under: m to: val "Alter my runs so that the bits selected by m become val."
 		| r k		"Maybe merge this with mergestyle"
 	[r ← self run: i to: j.
 	for⦂ k from: 2 to: r length by: 2 do⦂
 		[r◦k ← (r◦k land: 0377-m) + val].
-	runs ← self runcat: (self run: 1 to: i-1) and: r and: (self run: j+1 to: text length)]\gb34Bi58I10i34I
+	runs ← self runcat: (self run: 1 to: i-1) and: r and: (self run: j+1 to: text length)]
 maskrunsunder: m to: val
-	[self maskrun: 1 to: text length under: m to: val]\gb26B
+	[self maskrun: 1 to: text length under: m to: val]
 run: a to: b | c		"subrange of run"
 	[a>b⇒[⇑nullString]
 	runs≡nil⇒[⇑self makerun: 1+b-a val: 0]
@@ -187,7 +187,7 @@ run: a to: b | c		"subrange of run"
 		[c◦1 ← 1+ (b◦2)-(a◦2)]
 	c◦1 ← 1+(runs◦(a◦1))- (a◦2).			"trim the end lengths"
 	c◦(c length-1) ← b◦2].
-	⇑c]\gb13B5i17I137i18I73i22I
+	⇑c]
 runcat: r1 and: r2 and: r3 | i r olen len oc c nr [
 	"concatenate and compact 3 runs"
 	nr ← Stream new of: (String new: 30).
@@ -209,18 +209,18 @@ runcat: r1 and: r2 and: r3 | i r olen len oc c nr [
 	[oc⇒ [
 		"leftovers"
 		nr next ← olen; next ← oc]].
-	⇑nr contents]\gb27B27i30I200i36I136i15I41i9I
-runcat: x to: y [⇑self runcat: x and: y and: '']\gb16B
+	⇑nr contents]
+runcat: x to: y [⇑self runcat: x and: y and: '']
 runfind: index | run	t	"index into run"
 	[run←1.
 	while⦂ (t ← index - (runs◦run)) > 0 do⦂
 		[index ← t. run ← run+2].
-	⇑run,index]\gb15B8i16I
+	⇑run,index]
 runs		"return runs or default if none"
 	[runs≡nil⇒[⇑self makerun: text length val: 0]
-	⇑runs]\gb6Bi32I
+	⇑runs]
 
-Bravo conversions\gbf5 
+Bravo conversions 
 applyBravo: s at: i to: j	| v ch t bslash cr [
 	"Alter runs of characters i through j according to trailer.
 	see Ibis<Bravo>Trailer.Memo for further info.
@@ -264,7 +264,7 @@ applyBravo: s at: i to: j	| v ch t bslash cr [
 			v ← s integerScan.
 			t=1⇒ [self maskrun: i to: j under: 0360 to: (v lshift: 4)]]
 		]
-	]\gb26B21b1Bi170I4i239I114i7I172i164I47i10I231i17I
+	]
 bravoRuns: s "Encode the runs in a Bravo paragraph trailer onto a Stream"
 		| i old len dif new bit bits
 	["assume Ctrl-Z is already there"
@@ -285,7 +285,7 @@ bravoRuns: s "Encode the runs in a Bravo paragraph trailer onto a Stream"
 		len ← runs◦i.
 		]
 	].
-	s cr]\gb13Bi60I278i12I187i13I
+	s cr]
 fromBravo "Find Bravo trailers and return a copy of self with them applied"
 		| newpara newtext loc i j
 	[newpara ← self copy.
@@ -295,14 +295,14 @@ fromBravo "Find Bravo trailers and return a copy of self with them applied"
 		newpara applyBravo: newtext◦(i+1 to: i+j) at: loc to: i-1.
 		newpara replace: i to: [i+j=newtext length⇒[i+j] i+j-1] by: ''.
 		loc ← i+1]
-	⇑newpara]\gb10Bi65I
+	⇑newpara]
 toBravo | s [
 	s ← (String new: text length*2) asStream.
 	s append: text; next ← 032.
 	self bravoRuns: s.
-	⇑s contents asParagraph]\gb8B
+	⇑s contents asParagraph]
 
-Press printing\gbf5 
+Press printing 
 fromPress: press value: s | len x [
 	[s next=0⇒ [
 		"text is in DL"
@@ -315,7 +315,7 @@ fromPress: press value: s | len x [
 	text ← s nextString].
 	runs ← s nextString.
 	alignment ← s next.
-	runs empty⇒ [runs ← nil]]\gb26B27i13I25i51I26i25I12i7I
+	runs empty⇒ [runs ← nil]]
 hideData: complete | s [
 	s ← Stream new of: (String new: 150).
 	s next ← complete.
@@ -323,12 +323,12 @@ hideData: complete | s [
 
 	s nextString← [runs≡nil⇒ [nullString] runs];
 		next← alignment.
-	⇑s contents]\gb19B
+	⇑s contents]
 hidePress: press complete: c [
 	"not called by Form-Path-Image, but probably by Class printout"
-	press skipcode: self pressCode data: (self hideData: c)]\gb29B4i61I
-pressCode [⇑99]\gb10B
-presson: press in: r [⇑self presson: press in: r style: self textStyle]\gb21B
+	press skipcode: self pressCode data: (self hideData: c)]
+pressCode [⇑99]
+presson: press in: r [⇑self presson: press in: r style: self textStyle]
 presson: press in: r style: style | char pos s3 y chop [
 	"Output paragraph inside rectangle (page coordinates)"
 
@@ -359,31 +359,31 @@ presson: press in: r style: style | char pos s3 y chop [
 		press append: text.
 		⇑y]
 	press append: text◦(1 to: pos).
-	⇑self copy: pos + 1 to: text length]\gb34B24i54I167i26I234i62I148i43I118i43I4i30I
+	⇑self copy: pos + 1 to: text length]
 
-Filing\gbf5 
+Filing 
 readFrom: file [
 	text ← file nextString.
 	runs ← file nextString.
 	alignment ← file next.
-	runs empty⇒ [runs ← nil]]\gb15B
+	runs empty⇒ [runs ← nil]]
 storeOn: file [
 	file nextString ← text.
 	[runs≡nil⇒ [file next ← 0] file nextString ← runs].
-	file next ← alignment]\gb14B
-\g
-SystemOrganization classify: ↪Paragraph under: 'Text Objects'.\g
+	file next ← alignment]
+
+SystemOrganization classify: ↪Paragraph under: 'Text Objects'.
 
-"Reader"l15000z20000\gbf5 
+"Reader" 
 Class new title: 'Reader'
 	subclassof: Object
 	fields: 'source collector token nextchar typetbl '
 	declare: 'typetable ';
-	asFollows\gbf5 
+	asFollows 
 
-Converts a string to tokens.  The collector defines what to do for each kind of token: see TokenCollector and Compressor for examples.  (P. Deutsch)\gi
+Converts a string to tokens.  The collector defines what to do for each kind of token: see TokenCollector and Compressor for examples.  (P. Deutsch)
 
-Initialization\gbf5 
+Initialization 
 classInit | strm type first last i "Initialize the type and mask tables"
 	[typetable← String new: 256.
 	strm← Stream new of: ↪(
@@ -406,16 +406,16 @@ classInit | strm type first last i "Initialize the type and mask tables"
 		for⦂ i from: (first+1 to: last+1) do⦂
 			[typetable◦i← type]
 		]
-	]\gb10B25i37I68i14I30i30I14i8I23i19I36i24I3i22I25i21I14i14I14i12I14i21I15i6I15i22I
+	]
 of: s
 	[typetbl← typetable.
 	token← Stream default.
 	source← s asStream.
-	self step]\gb7B
+	self step]
 
-Main reader\gbf5 
+Main reader 
 read
-	[⇑self readInto: TokenCollector default]\gb6B
+	[⇑self readInto: TokenCollector default]
 readatom: ncolons | type s
 	[token reset.
 	while⦂ [token next← nextchar.
@@ -430,7 +430,7 @@ readatom: ncolons | type s
 	s◦s length=072⇒[collector keyword: s];
 		=03⇒[collector keyword: s].
 	collector otheratom: s. "Colon wasn't last character"
-	]\gb18B287i14I96i29I
+	]
 readInto: collector | x 
 	[while⦂  nextchar  do⦂
 		[x← typetbl◦(nextchar+1).
@@ -451,7 +451,7 @@ readInto: collector | x
 		=10⇒ [⇑collector contents];
 		=3⇒ [self readatom: 1]
 		]
-	⇑collector contents]\gb20B59i50I
+	⇑collector contents]
 readnum | val d e
 	[val← self rdint: 025.
 	nextchar=056⇒		"check for decimal point"
@@ -463,9 +463,9 @@ readnum | val d e
 			[self step.  e← self rdint: 025]
 		e← ''].
 		collector float: val fraction: d exp: e]
- 	collector integer: val]\gb8B50i25I114i19I22i15I20i24I
+ 	collector integer: val]
 
-Internal readers\gbf5 
+Internal readers 
 rdint: char "Read an integer, allow char as first char"
 	[token reset.
 	[nextchar=char⇒[token next← char. self step]].
@@ -473,9 +473,9 @@ rdint: char "Read an integer, allow char as first char"
 		[nextchar<060⇒[⇑token contents]
 		nextchar>071⇒[⇑token contents]
 		token next← nextchar. nextchar← source next].
-	⇑token contents]\gb12Bi43I
+	⇑token contents]
 step
-	[nextchar← source next]\gb6B
+	[nextchar← source next]
 upto: char | start "Knows about doubled ' in strings"
 	[start← source position.
 	token reset.
@@ -485,113 +485,113 @@ upto: char | start "Knows about doubled ' in strings"
 		token next← nextchar].
 	"Ran off end, back up."
 	source skip: start - 1 - source position.
-	⇑true]\gb11B8i34I180i23I
-\g
-SystemOrganization classify: ↪Reader under: 'Text Objects'.\g
-Reader classInit\g
+	⇑true]
+
+SystemOrganization classify: ↪Reader under: 'Text Objects'.
+Reader classInit
 
-"RemoteParagraph"l15000z20000\gbf5 
+"RemoteParagraph" 
 Class new title: 'RemoteParagraph'
 	subclassof: Object
 	fields: 'file hipos lowpos'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 These instances refer to text stored on a file, typically residing on a remote
 machine and accessed via the ether.  The representation has been chosen for
 compactness, and the bias of ¬1000 keeps the two parts of the position in the
-range of small integers (¬1024 to 1022) to reduce allocation and paging of objects.\gi
+range of small integers (¬1024 to 1022) to reduce allocation and paging of objects.
 
-As yet unclassified\gbf5 
+As yet unclassified 
 asParagraph [
 	file position ← self position.
-	⇑Paragraph new readFrom: file]\gb12B1b2B
-asString [⇑self asParagraph text]\gb9B
+	⇑Paragraph new readFrom: file]
+asString [⇑self asParagraph text]
 fromParagraph: p [
 	"write me (only once!) on file"
 	self position ← file position.
-	p storeOn: file]\gb17B4i29I
-fromString: s [self fromParagraph: s asParagraph]\gb14B
-on: file	"Refer me to a specific file"\gb9B
-position [⇑(hipos+1000)*2000 + (lowpos+1000)]\gb9B
+	p storeOn: file]
+fromString: s [self fromParagraph: s asParagraph]
+on: file	"Refer me to a specific file"
+position [⇑(hipos+1000)*2000 + (lowpos+1000)]
 position← p
 	[p ← p intdiv: 2000.
 	hipos← (p◦1) asInteger -1000.
-	lowpos← (p◦2) asInteger -1000]\gb13B
-\g
-SystemOrganization classify: ↪RemoteParagraph under: 'Text Objects'.\g
+	lowpos← (p◦2) asInteger -1000]
+
+SystemOrganization classify: ↪RemoteParagraph under: 'Text Objects'.
 
-"Textframe"l15000z20000\gbf5 
+"Textframe" 
 Class new title: 'Textframe'
 	subclassof: Object
 	fields: 'frame para style reply1 reply2 window'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-I display a paragraph on the screen in a frame clipped by a window\gi
+I display a paragraph on the screen in a frame clipped by a window
 
-Initialization\gbf5 
+Initialization 
 para: para frame: frame
 	[window←frame.
 	reply1←reply2←0.
-	style←DefaultTextStyle]\gb25B
+	style←DefaultTextStyle]
 para: para frame: frame style: style
 	[window←frame.
-	reply1←reply2←0]\gb38B
-style: style\gb
+	reply1←reply2←0]
+style: style
 
-Scheduling\gbf5 
+Scheduling 
 aboutToFrame
-	["My frame is about to change.  I dont care."]\gb14B1i44I
+	["My frame is about to change.  I dont care."]
 takeCursor
 	["Move the cursor to the center of my window."
-	user cursorloc ← window center]\gb12B1i45I
+	user cursorloc ← window center]
 
-Image\gbf5 
+Image 
 asForm: pt | char ul ur f
 		"put bits of character into a form -- when Form package in system"
 	[char ← self charofpt: pt. ul ← reply1.
 	self ptofchar: char + 1. ur ← reply1.
 	f ← Form new size: ur x - ul x by: reply2 y - reply1 y.
-	f translate: ul; scale: 1. ⇑f ]\gb11B17i66I
+	f translate: ul; scale: 1. ⇑f ]
 comp
-	[window comp]\gb6B
+	[window comp]
 copyto: path effect: effect | i oldmode		"show clipped inside rect"
 	[  
 	path is: Point ⇒
 		[oldmode ← style mode. style mode: effect. window translateto: path. self show. style mode: oldmode.]
 	path is: Path ⇒ [for⦂ i to: path length do⦂ [ self copyto: path◦i effect: effect] ]
-	]\gb28B13i26I
-corner [⇑frame corner]\gb7B
+	]
+corner [⇑frame corner]
 displayat: path effect: effect clippedBy: cliprect| i oldmode 		"show clipped inside rect"
 	[  
 	path is: Point ⇒
 		[oldmode ← style mode. style mode: effect. frame translateto: path. window ← cliprect. self show. style mode: oldmode.  ]
 	path is: Path ⇒ [for⦂ i to: path length do⦂ [ self displayat: path◦i effect: effect] ]
-	]\gb50B14i26I
+	]
 erase
-	[(window inset: (¬2⌾¬2)) clear]\gb7B
-extent [⇑frame extent]\gb7B
-frame [⇑frame]\gb6B
+	[(window inset: (¬2⌾¬2)) clear]
+extent [⇑frame extent]
+frame [⇑frame]
 frame ← frame
 	["Change my frame and window."
 	window ← frame.
-	]\gb15B1i29I
-height [⇑frame height]\gb7B
-origin [⇑frame origin]\gb7B
+	]
+height [⇑frame height]
+origin [⇑frame origin]
 outline
-	[window border: 2 color: black]\gb9B
-para [⇑para]\gb5B
+	[window border: 2 color: black]
+para [⇑para]
 showin: rect | old		"show clipped inside rect"
-	[old ← window. window ← rect. self show. window ← old]\gb13B7i26I
-size [⇑frame extent]\gb5B
-style [⇑style]\gb6B
-width [⇑frame width]\gb6B
-window [⇑window]\gb7B
+	[old ← window. window ← rect. self show. window ← old]
+size [⇑frame extent]
+style [⇑style]
+width [⇑frame width]
+window [⇑window]
 
-Text\gbf5 
-charnearpt: pt [user croak] primitive: 58\gb15B
-charofpt: pt [user croak] primitive: 58\gb13B
+Text 
+charnearpt: pt [user croak] primitive: 58
+charofpt: pt [user croak] primitive: 58
 dopressjst: pt
 	["For building justified lines in Press Format files
 
@@ -604,16 +604,16 @@ dopressjst: pt
 				user will have to back up in string to find last printing character
 				(at least non-space, cr, or tab)"
 
-	user croak] primitive: 64\gb16B1i304I
+	user croak] primitive: 64
 findmaxx: char
 	[char is: Integer⇒[user croak]
-	self findmaxx: char asInteger] primitive: 63\gb16B
+	self findmaxx: char asInteger] primitive: 63
 lastshown
-	[⇑reply1]\gb11B
+	[⇑reply1]
 lineheight
-	[⇑style lineheight]\gb12B
+	[⇑style lineheight]
 maxx: char
-	[self findmaxx: char. ⇑ reply1]\gb12B
+	[self findmaxx: char. ⇑ reply1]
 measuretext: startx to: stopx string: string from: first to: last font: font
 	["Returns character index of character immediately following character
 		causing exception condition.
@@ -626,13 +626,13 @@ measuretext: startx to: stopx string: string from: first to: last font: font
 
 		Reply2	=	Leftx of character causing exception condition."
 
-	user croak] primitive: 103\gb78B
+	user croak] primitive: 103
 ptofchar: char
-	[self selectchar: char. ⇑reply1]\gb16B
+	[self selectchar: char. ⇑reply1]
 ptofpt: pt
-	[self charnearpt: pt. ⇑reply1]\gb12B
+	[self charnearpt: pt. ⇑reply1]
 put: para at: pt
-	[self put: para at: pt centered: false]\gb18B
+	[self put: para at: pt centered: false]
 put: para at: pt centered: center
 	[para ← para asParagraph.
 	window ← frame ← pt rect: 1000⌾1000.
@@ -640,26 +640,26 @@ put: para at: pt centered: center
 	window growto: reply2 + (4⌾0).
 	[center⇒ [window moveby: pt-window center]].
 	window ← window inset: ¬3⌾¬2.
-	window clear: white. self show]\gb35B
+	window clear: white. self show]
 put: para at: pt maxextent: maxextent
 	[para ← para asParagraph.
 	window ← frame ← Rectangle new origin: pt extent: maxextent.
 	self findmaxx: para length+1.
 	window growto: reply2.
 	window ← window inset: ¬3⌾¬2.
-	window clear: white. self show]\gb39B
+	window clear: white. self show]
 put: para centered: pt
-	[self put: para at: pt centered: true]\gb24B
+	[self put: para at: pt centered: true]
 rectofchar: char
-	[self selectchar: char. ⇑reply1 rect: reply2]\gb18B
+	[self selectchar: char. ⇑reply1 rect: reply2]
 scrolln: n
-	[⇑self charofpt: frame corner x ⌾ (frame origin y+(n*style lineheight))]\gb12B
+	[⇑self charofpt: frame corner x ⌾ (frame origin y+(n*style lineheight))]
 selectchar: char
 	[char is: Integer⇒[user croak]
-	self selectchar: char asInteger] primitive: 59\gb18B
-show [user croak] primitive: 57\gb5B
+	self selectchar: char asInteger] primitive: 59
+show [user croak] primitive: 57
 show: para
-	[para ← para asParagraph. self show]\gb12B
+	[para ← para asParagraph. self show]
 showline: first to: last lastx: lastx spaces: spaces trailingspaces: trailingspaces startrun: startrun firstrunlength: firstrunlength
 	["For use in conjunction with measuretext primitive.
 
@@ -678,18 +678,18 @@ showline: first to: last lastx: lastx spaces: spaces trailingspaces: trailingspa
 		maxascent and maxdescent in style must be nonnil to avoid a croak."
 
 
-	user croak] primitive: 104\gb135B30b11B26b5B9b4B35b5B7b6B7b5B24b4B31b4B5b6B47b6B81b4B58b6B9b14B31b8B73b14B48b8B68b8B39b9B5b10B4b5B
+	user croak] primitive: 104
 
-Conversion\gbf5 
+Conversion 
 makeParagraph ["simulate ListPane for hardcopy"
-	para≡nil⇒ [para ← 'NIL !' asParagraph]]\gb14B2i30I
+	para≡nil⇒ [para ← 'NIL !' asParagraph]]
 
-Printing\gbf5 
+Printing 
 hardcopy | pf [user displayoffwhile⦂ [
 	pf ← dp0 pressfile: 'frame.press'.
 	window hardcopy: pf.
 	self hardcopy: pf.
-	pf close; toPrinter]]\gb9B
+	pf close; toPrinter]]
 hardcopy: pf | r first last lasty len parag left right top bottom [
 	[para≡nil⇒ [self makeParagraph]].
 	parag ← para asParagraph.
@@ -716,56 +716,56 @@ hardcopy: pf | r first last lasty len parag left right top bottom [
 		lasty ← lasty + r height.
 		(parag copy: first to: last) presson: pf in:
 			(pf transrect: (left ⌾ (r minY) rect: right ⌾ lasty)) style: style.
-		first ← last+1]]\gb13B687i71I
-\g
-SystemOrganization classify: ↪Textframe under: 'Text Objects'.\g
+		first ← last+1]]
+
+SystemOrganization classify: ↪Textframe under: 'Text Objects'.
 
-"ParagraphEditor"l15000z20000\gbf5 
+"ParagraphEditor" 
 Class new title: 'ParagraphEditor'
 	subclassof: TextImage
 	fields: 'oldEntity sel'
 	declare: 'on off ';
-	asFollows\gbf5 
+	asFollows 
 
-This version of ParagraphEditor (for use in CodePanes) is based on TextImage\gi
+This version of ParagraphEditor (for use in CodePanes) is based on TextImage
 
-Scheduling\gbf5 
+Scheduling 
 enter [
 	begintypein ← false.
-	self show; select]\gb6B
-leave [self complement: off]\gb6B
+	self show; select]
+leave [self complement: off]
 
-Editing\gbf5 
+Editing 
 again  | many
 	[many← user leftShiftKey.
 	[self fintype⇒ [Scrap ← Scrap text. self select]].
 	many⇒[while⦂ self againOnce do⦂ []]
-	self againOnce⇒[] frame flash]\gb7B
+	self againOnce⇒[] frame flash]
 againOnce  | t
 	[t ← para findString: Deletion startingAt: c2.
 	t=0⇒ [⇑false]
 	self unselect.
 	c1 ← t.
 	c2 ← c1 + Deletion length.
-	self replace: Scrap; selectAndScroll]\gb11B
-copy [Scrap ← self selection]\gb5B
-cut [self fintype; replace: nullString; complement. Scrap ← Deletion]\gb4B
-paste [self fintype; replace: Scrap; selectAndScroll]\gb6B
-realign [self align. sel ← on]\gb8B
-undo [self fintype; replace: Deletion; complement]\gb5B
+	self replace: Scrap; selectAndScroll]
+copy [Scrap ← self selection]
+cut [self fintype; replace: nullString; complement. Scrap ← Deletion]
+paste [self fintype; replace: Scrap; selectAndScroll]
+realign [self align. sel ← on]
+undo [self fintype; replace: Deletion; complement]
 
-Public Messages\gbf5 
-contents [⇑para]\gb9B
-Deletion ← s [Deletion ← s]\gb13B
+Public Messages 
+contents [⇑para]
+Deletion ← s [Deletion ← s]
 fixframe: f | dy  [
 	dy ← [frame≡nil⇒ [0] self frameoffset].
 	window ← f copy.
 	frame ← Rectangle new origin: window origin + (2⌾dy)
 		 extent: window width-4 ⌾ 9999.
-	⇑window]\gb12B
-formerly [⇑oldEntity]\gb9B
-formerly: oldEntity\gb
-frame← f [self fixframe: f]\gb9B
+	⇑window]
+formerly [⇑oldEntity]
+formerly: oldEntity
+frame← f [self fixframe: f]
 kbd | more char "key struck on the keyboard"
 	[c1<c2 and⦂ self checklooks⇒[⇑self show complement]
 	more ← Set new string: 16.
@@ -793,9 +793,9 @@ kbd | more char "key struck on the keyboard"
 	more next← char].
 	self replace: more.
 	c1 ← c2.
-	self selectAndScroll]\gb4B237i9I254i24I196i23I132i23I
-keyset\gb
-Scrap ← s [Scrap ← s]\gb10B
+	self selectAndScroll]
+keyset
+Scrap ← s [Scrap ← s]
 scrollby: n | oldw [
 	n ← (n * self lineheight) max: self frameoffset.
 	frame moveby: 0⌾(0-n).
@@ -808,17 +808,17 @@ scrollby: n | oldw [
 	[n<0⇒ [window corner y ← window origin y - n]
 	window origin y ← window corner y - n].
 	self show; select.
-	window ← oldw]\gb12B129i34I
+	window ← oldw]
 scrollPos | t [
 	t ← self height - self lineheight.
 	t=0⇒ [⇑0.0]
-	⇑0.0 - self frameoffset / t]\gb10B
-scrollTo: f [self scrollUp: self frameoffset + (f* self height) - 4]\gb12B
-scrollUp: n [self scrollby: n/self lineheight]\gb12B
+	⇑0.0 - self frameoffset / t]
+scrollTo: f [self scrollUp: self frameoffset + (f* self height) - 4]
+scrollUp: n [self scrollby: n/self lineheight]
 select: t [
 	self complement: off.
 	c1 ← c2 ← t.
-	self selectAndScroll]\gb10B
+	self selectAndScroll]
 selectAndScroll | l dy c1y [
 	l ← self lineheight.
 	self select.
@@ -826,7 +826,7 @@ selectAndScroll | l dy c1y [
 	dy ← c1y - window minY.
 	[dy ≥ 0⇒ [
 		dy ← c1y + l - 1 - window maxY max: 0]].
-	dy≠ 0⇒ [self scrollby: (dy abs+l-1) / l * dy sign]]\gb16B
+	dy≠ 0⇒ [self scrollby: (dy abs+l-1) / l * dy sign]]
 selecting | pt t [
 	t ← self charofpt: (pt ← user mp).
 	self complement: off; fintype.
@@ -835,14 +835,14 @@ selecting | pt t [
 			do⦂ [].		"wait for unclick or drawing selection"
 		user redbug≡false⇒[self selectword; select. ⇑true]]].
 	sel ← on.
-	⇑super select: pt]\gb10B
-selection [para text empty⇒ [⇑para copy] ⇑para copy: c1 to: c2-1]\gb10B
-selectionAsStream [⇑Stream new of: para text from: c1 to: c2-1]\gb18B
-show [self primshow. sel ← off]\gb5B
-typing [self kbd]\gb7B
-unselect [self complement: off]\gb9B
+	⇑super select: pt]
+selection [para text empty⇒ [⇑para copy] ⇑para copy: c1 to: c2-1]
+selectionAsStream [⇑Stream new of: para text from: c1 to: c2-1]
+show [self primshow. sel ← off]
+typing [self kbd]
+unselect [self complement: off]
 
-Private\gbf5 
+Private 
 checklooks | t val mask [
 	t ← ↪(166 150 137 151   230 214 201 215
 		135 159 144 143 128 127 129 131 180 149
@@ -862,38 +862,38 @@ checklooks | t val mask [
 		val<0⇒[mask← 0-val.  val← 0]		"reset emphasis"
 		val>0 and⦂ val<16⇒[mask← val]	"set emphasis"
 		mask← 0360].				"set font"
-	para maskrun: c1 to: c2-1 under: mask to: val]\gb11B
-classInit [on ← 1. off ← 0]\gb10B
-complement [self complement: on]\gb11B
+	para maskrun: c1 to: c2-1 under: mask to: val]
+classInit [on ← 1. off ← 0]
+complement [self complement: on]
 complement: nsel [
 	nsel = sel⇒ ["already that way"]
 	nsel = on and⦂ (user rawkbck or⦂ user redbug)⇒ ["slippage"]
 	sel ← nsel.
-	self reversefrom: c1 to: c2]\gb17B
+	self reversefrom: c1 to: c2]
 frameoffset [
 	"a useful number"
-	⇑frame minY - window minY]\gb12B
+	⇑frame minY - window minY]
 height [
 	self selectchar: para length+1.
-	⇑reply2 y - frame minY]\gb7B
-primshow [user croak] primitive: 57\gb9B
+	⇑reply2 y - frame minY]
+primshow [user croak] primitive: 57
 replace: t [
 	[oldEntity⇒ [] oldEntity ← para. para ← para copy].
 	[begintypein⇒ [] Deletion ← self selection].
 	para replace: c1 to: c2-1 by: t.
 	c2 ← c1 + t length.
-	self show]\gb11B
-select [self selectIn: nil]\gb7B
+	self show]
+select [self selectIn: nil]
 selectIn: w [
 	sel ← off.
 	[c1≡nil⇒ [c1 ← c2 ← 1]].
-	self complement: on]\gb12B
-selectRange [⇑c1 to: c2-1]\gb12B
+	self complement: on]
+selectRange [⇑c1 to: c2-1]
 selectRange: r [
 	"self complement: off"
 	c1 ← r start.
 	c2 ← r stop
-	"self complement: on"]\gb15B
+	"self complement: on"]
 selectword | a b dir t level open close s slen
 [
 "Select bracketed or word range, as a result of double-bug."
@@ -924,12 +924,12 @@ selectword | a b dir t level open close s slen
 				level← 0]]
 	[level≠0⇒[t← t+dir]].
 	dir=1⇒[c2← t min: slen+1] c1← t+1
-]\gb11B39i58I189i13I36i18I40i14I34i17I24i26I91i12I33i13I32i22I71i10I
-\g
-SystemOrganization classify: ↪ParagraphEditor under: 'Text Objects'.\g
-ParagraphEditor classInit\g
+]
+
+SystemOrganization classify: ↪ParagraphEditor under: 'Text Objects'.
+ParagraphEditor classInit
 
-"TextStyle"l15000z20000\gbf5 
+"TextStyle" 
 Class new title: 'TextStyle'
 	subclassof: Object
 	fields: 'fonts "<Vector of Strings or Integers> which are the fonts.
@@ -942,162 +942,162 @@ Class new title: 'TextStyle'
 		mode "<Integer> =0 for normal, =4 for white-on-black"
 		fontnames "<Vector of Strings> corresponding to the fonts"'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-I am a specification of how to display a paragraph.  I include a font set, a tab spacing, a space size, etc.  If I do not specify ascent and descent from the baseline, then each line displayed will adjust to its tallest characters.\gi
+I am a specification of how to display a paragraph.  I include a font set, a tab spacing, a space size, etc.  If I do not specify ascent and descent from the baseline, then each line displayed will adjust to its tallest characters.
 
-Initialization\gbf5 
+Initialization 
 default
 	[tabandspace ← mode ← 0. self mode: 0; tab: 20; space: 5.
 	fonts ← Vector new: 16. fontnames ← Vector new: 16.
 	self setfont: 0 name: 'CREAM10'.	"Put default font in font 0"
-	]\gb9B145i28I
+	]
 mode
-	[⇑ mode]\gb6B
-mode: mode\gb
+	[⇑ mode]
+mode: mode
 space
-	[⇑ (tabandspace land: 0377)]\gb7B
+	[⇑ (tabandspace land: 0377)]
 space: t
-	[tabandspace ← (tabandspace land: 0177400) + (t land: 0377)]\gb10B
+	[tabandspace ← (tabandspace land: 0177400) + (t land: 0377)]
 tab
-	[⇑ ((tabandspace land: 0177400) lshift: ¬8)]\gb5B
+	[⇑ ((tabandspace land: 0177400) lshift: ¬8)]
 tab: t
-	[tabandspace ← (tabandspace land: 0377) + (t lshift: 8)]\gb8B
+	[tabandspace ← (tabandspace land: 0377) + (t lshift: 8)]
 
-Fonts\gbf5 
+Fonts 
 fontfamily: n | s char
 	["return the family name taken out of fontnames"
 	s ← Stream default.
 	for⦂ char from: fontnames ◦ n do⦂
 		[char isletter⇒ [s next ← char]
-		⇑s contents]]\gb14B11i47I
-fontnames [⇑fontnames]\gb10B
-fonts [⇑fonts]\gb6B
+		⇑s contents]]
+fontnames [⇑fontnames]
+fonts [⇑fonts]
 fontsize: n | s c size
 	["return size from fontname"
 	size ← 0. s ← (fontnames ◦ n) asStream.
 	while⦂ (c ← s next) isletter do⦂ [].
 	while⦂ [size ← size*10 + (c - 060). c ← s next] do⦂ [].
-	⇑size]\gb12B13i27I
+	⇑size]
 setfont: n fromfile: name
-	[self setfont: n name: name fromstring: (dp0 oldFile: name + '.strike.') contents]\gb27B
+	[self setfont: n name: name fromstring: (dp0 oldFile: name + '.strike.') contents]
 setfont: n name: name | ucn
 	[FontDict has: (ucn← name asUppercase)⇒
 		[self setfont: n name: ucn fromstring: FontDict◦ucn]
-	self setfont: n fromfile: name]\gb22B5b2B
+	self setfont: n fromfile: name]
 setfont: n name: name fromstring: string
 		"Should update maxascent, maxdescent"
 	[fontnames◦(n+1) ← name asUppercase.
 	fonts◦(n+1) ← string.
-	FontDict insert: fontnames◦(n+1) with: string]\gb43Bi37bI2B
+	FontDict insert: fontnames◦(n+1) with: string]
 setoffsetfont: n from: m by: d
-	[fonts◦n ← m + [d<0⇒ [0200] 0] + (d lshift: 8)]\gb32B
+	[fonts◦n ← m + [d<0⇒ [0200] 0] + (d lshift: 8)]
 writeset: styleindex
-	[self writeset: styleindex as: fontnames◦(styleindex+1)]\gb22B
+	[self writeset: styleindex as: fontnames◦(styleindex+1)]
 writeset: styleindex as: name	
 	["write out a formset on name with strike extention"
 	name ← name + '.strike.'.
 	(dp0 file: name) append: fonts◦ (styleindex+1) ; close.
-	]\gb32B1i51I
+	]
 
-Access\gbf5 
+Access 
 heightofset: styleindex
 	["Return height of formset in style"
 	⇑(fonts◦(styleindex+1) word: 6) +
-		(fonts◦(styleindex+1) word: 7)]\gb25B1i35I
+		(fonts◦(styleindex+1) word: 7)]
 lineheight
 	[((maxascent ≡ nil) or: (maxdescent ≡ nil)) ⇒
 	[⇑((fonts◦1) word: 6) + ((fonts◦1) word: 7)]
-	⇑maxascent+maxdescent]\gb12B
+	⇑maxascent+maxdescent]
 maxascent
-	[⇑ maxascent ]\gb11B
-maxascent: maxascent\gb
+	[⇑ maxascent ]
+maxascent: maxascent
 maxdescent
-	[ ⇑ maxdescent ]\gb12B
-maxdescent: maxdescent\gb
+	[ ⇑ maxdescent ]
+maxdescent: maxdescent
 maxwidthofset: styleindex
 	["Return maximum width of formset in style"
-	⇑(fonts◦(styleindex+1) word: 4)]\gb27B1i42I
+	⇑(fonts◦(styleindex+1) word: 4)]
 nameofset: styleindex
 	["Return name of formset in style"
-	⇑(fontnames◦(styleindex+1))]\gb23B1i33I
+	⇑(fontnames◦(styleindex+1))]
 strikeofset: styleindex
 	["Return strike of formset in style"
-	⇑(fonts◦(styleindex+1))]\gb25B1i35I
-\g
-SystemOrganization classify: ↪TextStyle under: 'Text Objects'.\g
+	⇑(fonts◦(styleindex+1))]
+
+SystemOrganization classify: ↪TextStyle under: 'Text Objects'.
 
-"TokenCollector"l15000z20000\gbf5 
+"TokenCollector" 
 Class new title: 'TokenCollector'
 	subclassof: Object
 	fields: 'sink parenstack'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 Provides standard token-collecting behavior for Reader .
-See Reader-readInto: for more insight.  (P. Deutsch)\gi
+See Reader-readInto: for more insight.  (P. Deutsch)
 
-Initialization\gbf5 
+Initialization 
 default
-	[self to: (Vector new: 20)]\gb9B
+	[self to: (Vector new: 20)]
 to: v "Initialize"
 	[sink← v asStream.
-	parenstack← (Vector new: 5) asStream]\gb6Bi12I
+	parenstack← (Vector new: 5) asStream]
 
-Finalization\gbf5 
+Finalization 
 contents "Close all parentheses first"
 	[until⦂ parenstack empty do⦂ [self rightparen].
-	⇑sink contents]\gb9Bi29I
-next← obj [sink next← obj]		"subclasses can override easily"\gb10B
+	⇑sink contents]
+next← obj [sink next← obj]		"subclasses can override easily"
 notify: errorString
-	[user notify: errorString]\gb21B
+	[user notify: errorString]
 
-Constructors\gbf5 
-comment: s\gb
+Constructors 
+comment: s
 float: i fraction: f exp: e
-	[self next← (i+'.'+f+'e'+e) asFloat]\gb29B
+	[self next← (i+'.'+f+'e'+e) asFloat]
 identifier: s
-	[self next← s unique]\gb15B
+	[self next← s unique]
 integer: s
-	[self next← s asInteger]\gb12B
+	[self next← s asInteger]
 keyword: s
-	[self next← s unique]\gb12B
+	[self next← s unique]
 leftparen
 	[parenstack next← sink.
-	sink← (Vector new: 10) asStream]\gb11B
+	sink← (Vector new: 10) asStream]
 onechar: c | x
-	[x← String new: 1. x◦1← c. self next← x unique]\gb11B
+	[x← String new: 1. x◦1← c. self next← x unique]
 otheratom: s
-	[self next← s unique]\gb14B
+	[self next← s unique]
 rightparen
 	[parenstack empty⇒[] "Error will be caught elsewhere"
 	parenstack last next← sink contents.
-	sink← parenstack pop]\gb12B21i32I
-separator: c\gb
+	sink← parenstack pop]
+separator: c
 string: s
-	[self next← s]\gb11B
-trailer: s\gb
-\g
-SystemOrganization classify: ↪TokenCollector under: 'Text Objects'.\g
+	[self next← s]
+trailer: s
+
+SystemOrganization classify: ↪TokenCollector under: 'Text Objects'.
 
-"FieldNameCollector"l15000z20000\gbf5 
+"FieldNameCollector" 
 Class new title: 'FieldNameCollector'
 	subclassof: TokenCollector
 	fields: ''
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 This class collects identifiers as Strings (not UniqueStrings)
 for scanning of class field names (Class.instvars)
-by the compiler(Generator) and debugger(VariablePane)\gi
+by the compiler(Generator) and debugger(VariablePane)
 
-Valid fields\gbf5 
-identifier: s [sink next← s]\gb14B
+Valid fields 
+identifier: s [sink next← s]
 
-Invalid fields\gbf5 
-leftparen [self next← '('] "just for error message"\gb10B
+Invalid fields 
+leftparen [self next← '('] "just for error message"
 next← value
-	[user notify: 'Invalid field name: '+value asString]\gb13B
-rightparen [self next← ')'] "just for error message"\gb11B
-\g
-SystemOrganization classify: ↪FieldNameCollector under: 'Text Objects'.\g
+	[user notify: 'Invalid field name: '+value asString]
+rightparen [self next← ')'] "just for error message"
+
+SystemOrganization classify: ↪FieldNameCollector under: 'Text Objects'.

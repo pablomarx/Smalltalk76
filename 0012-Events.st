@@ -1,11 +1,11 @@
 'From Smalltalk 5.5k XM November 24 on 22 November 1980 at 2:57:08 am.'
-\g
-"EventQueue"l15000z20000\gbf5 
+
+"EventQueue" 
 Class new title: 'EventQueue'
 	subclassof: Queue
 	fields: 'primitivequeue readwriteelapsed time'
 	declare: 'read elapsed write ';
-	asFollows\gbf5 
+	asFollows 
 
 The EventQueue (Events) is a subclass of class Queue.  It contains a regular queue which is filled from a block of memory (currently 128 words long), updated during the 60HZ interrupt.  This block of memory is called the primitivequeue, and is unpacked into the regular queue when events are available upon receiving the message peek or next.  The fundamental difference between peek and next is that next dequeues the current event and peek does not.  Furthermore peek will return false when the queue is empty, and next, when the queue is empty, will create a time elapsed event and return that.  An event will be of class UserEvent as created by the primitiveDequeue and next  messages. The machine code thinks of events as a 4-word structure as follows:
 
@@ -29,9 +29,9 @@ Word 2:			Time (sixtieths of a second since last event).
 Word 3:			Cursor x coordinate (UserView htab accounted for).
 
 Word 4:			Cursor y coordinate (UserView vtab accounted for)..
-\gi
 
-Initialization\gbf5 
+
+Initialization 
 init					 "sets up system wide event queue -- only one from the present"
 	["***BEWARE, USED ONLY AT TIME OF SYSTEM GENERATION***"
 	primitivequeue ← CoreLocs new base: (mem◦0114) length: (mem◦0115).
@@ -39,11 +39,11 @@ init					 "sets up system wide event queue -- only one from the present"
 	read ← 0. write ← 1. elapsed ← 2.	"offsets of read, write and elapsed pointers"
 	time ← 0.									"start time at 0"
 	super of: (Vector new: 4). 			"initialize Smalltalk queue"
-	]\gb10Bi62I3i54I159i45I20i17I32i28I
+	]
 
-Public Access\gbf5 
+Public Access 
 elapsedtime [⇑readwriteelapsed◦elapsed] "return elapsed time"
-\gb12B28i21I
+
 next | event elapsedtime "return event from queue unless both queues empty,  when return null event"
 	[event ← self dequeue ⇒ [⇑event]					"Queue not empty?"
 	event ← self primitiveDequeue ⇒ [⇑event]		"primitivequeue not empty?"
@@ -56,20 +56,20 @@ next | event elapsedtime "return event from queue unless both queues empty,  whe
 		elapsed:		elapsedtime	"1-32767 sixtieths of a sec -- since last event"
 		time:			(time + elapsedtime) asSmall			"time since timer reset"
 	]
-\gb5B20i75I39i18I44i27I62i30I18i9I18i9I17i40I18i25I25i48I42i24I
+
 peek | event "unless both queues empty, return event from queue, but dont dequeue"
 	[event ← super peek ⇒[ ⇑event]
 	event ← self primitiveDequeue ⇒ [⇑self next ← event]
 	⇑false	]
-\gb5B8i69I
-reset "for the present, just reset time to 0"
-	[time ← 0]\gb6Bi39I
-time [⇑time]			 "return time"
-\gb5B11i13I
-time ← time			 "reset time"
-\gb15Bi12I
 
-Private\gbf5 
+reset "for the present, just reset time to 0"
+	[time ← 0]
+time [⇑time]			 "return time"
+
+time ← time			 "reset time"
+
+
+Private 
 primitiveDequeue | rp tands nrp event elapsedtime
 		"unless empty, return event from primitivequeue"
 		[(readwriteelapsed◦read) = (readwriteelapsed◦write) ⇒ 			[⇑false].				"primitivequeue empty?"
@@ -89,16 +89,16 @@ primitiveDequeue | rp tands nrp event elapsedtime
 		[nrp ≥ (primitivequeue length) ⇒ [nrp ← 1]].	"Wrap-around?"
 		readwriteelapsed◦read ← nrp.							"bump read pointer"
 		⇑event															"Return event"
-	]\gb17B
-\g
-SystemOrganization classify: ↪EventQueue under: 'Events'.\g
+	]
+
+SystemOrganization classify: ↪EventQueue under: 'Events'.
 
-"MessageTally"l15000z20000\gbf5 
+"MessageTally" 
 Class new title: 'MessageTally'
 	subclassof: Object
 	fields: 'class method tally rcvrs'
 	declare: 'timer ';
-	asFollows\gbf5 
+	asFollows 
 
 The following statement analyzes the evaluation of 'user restore'.  It checks every 10 sixtieths of a second to see what method is being executed.  It prints the analysis on file 'restore.spy'.
 	spy every: 10; on⦂ [user restore]; report: 'restore.spy'; close.
@@ -129,19 +129,19 @@ Different cutoffs can be specified for each table.  To cut off Leaves at 7.5 per
 	mt report: 'filename.spy' cutoff: 7.5,3
 A cutoff of 100 or greater suppresses printing of that table completely.  To output to a specified stream, use the message 'fullprinton:cutoff:'.
 
-To release the storage occupied by the tally tree, use the message 'close'.\gi
+To release the storage occupied by the tally tree, use the message 'close'.
 
-Public Tallying\gbf5 
+Public Tallying 
 abort
-	[timer is: Timer⇒ [timer disable]]\gb7B
+	[timer is: Timer⇒ [timer disable]]
 classInit
-	[Smalltalk define: ↪spy as: (MessageTally new every: 10)]\gb11B
+	[Smalltalk define: ↪spy as: (MessageTally new every: 10)]
 close "release storage"
-	[class ← method ← tally ← rcvrs ← nil]\gb6Bi17I
+	[class ← method ← tally ← rcvrs ← nil]
 every: sixtieths	  "Create a spy that samples with the specified period"
-	[self abort. timer ← Timer new for: sixtieths action⦂ [self tally: Top◦1. timer reset]]\gb19Bi53I
+	[self abort. timer ← Timer new for: sixtieths action⦂ [self tally: Top◦1. timer reset]]
 from: context  "Create a tallier from the specified root"
-	[self class: context receiver class method: context method]\gb15Bi42I
+	[self class: context receiver class method: context method]
 moreon⦂ remote | val  "Spy on the specified evaluation without resetting"
 	["use as follows:
 eachtime  
@@ -150,18 +150,18 @@ eachtime
 	]"
 	class ← remote receiver class.
 	method ← remote method. 
-	timer reset. val ← remote eval. timer disable. ⇑val]\gb15B7i51I20b12B
+	timer reset. val ← remote eval. timer disable. ⇑val]
 on⦂ remote | val  "Spy on the specified evaluation"
-	[self from: remote. timer reset. val ← remote eval. timer disable. ⇑val]\gb11B7i33I
+	[self from: remote. timer reset. val ← remote eval. timer disable. ⇑val]
 reset
 	["reset stats"
-	tally ← 0. rcvrs ← Vector new: 0]\gb7B
+	tally ← 0. rcvrs ← Vector new: 0]
 tally: context | root  "Explicitly tally the specified context and its stack"
 	[context method≡method⇒ [⇑self bump]
 	(root ← context sender)≡nil⇒[⇑self bump tallyPath: context]
-	⇑(self tally: root) tallyPath: context]\gb15B8i54I
+	⇑(self tally: root) tallyPath: context]
 
-Public Reporting\gbf5 
+Public Reporting 
 fullprinton: s cutoff: pct | set mt i t
 	[user displayoffwhile⦂
 		[s print: tally; append: ' tallies'; cr. tally=0⇒ []
@@ -174,119 +174,119 @@ fullprinton: s cutoff: pct | set mt i t
 		[pct◦2<100⇒
 			[s append: '**Tree**'; cr. t ← ((pct◦2)*(tally-1)/100) asInteger.
 			self treeprinton: s tab: 0 total: tally over: t. s next←12; cr]].
-		s skip: ¬2]]\gb27B
+		s skip: ¬2]]
 printon: s
-	[class≡nil⇒ [super printon: s] self printon: s total: 100]\gb12B
+	[class≡nil⇒ [super printon: s] self printon: s total: 100]
 report: filename
-	[self report: filename cutoff: 2]\gb18B
+	[self report: filename cutoff: 2]
 report: filename cutoff: pct | f  "pct=(leaves,roots,tree) or one number for all"
 	[f ← dp0 file: filename. f append: filename; space.
-	self fullprinton: f cutoff: pct. f close]\gb29B5i47I
+	self fullprinton: f cutoff: pct. f close]
 
-Private Tallying\gbf5 
+Private Tallying 
 bump
-	[tally ← tally+1]\gb6B
+	[tally ← tally+1]
 tallyPath: context | m path mt c
 	[m ← context method. path←false.
 	for⦂ mt from: rcvrs do⦂ [mt method≡m⇒ [path←mt]].
 	[path≡false⇒
 		[path ← MessageTally new class: context receiver class method: m. rcvrs ← rcvrs, path]].
-	⇑path bump]\gb19B
+	⇑path bump]
 
-Private Reporting\gbf5 
+Private Reporting 
 < mt
-	[⇑tally > mt tally]\gb6B
+	[⇑tally > mt tally]
 = mt
-	[⇑mt method≡method]\gb6B
+	[⇑mt method≡method]
 > mt
-	[⇑tally < mt tally]\gb6B
+	[⇑tally < mt tally]
 breakdown | n b mt
 	[b ← rcvrs. b≡nil or⦂ b length=0⇒ [⇑↪()]
 	n ← tally. for⦂ mt from: b do⦂ [n ← n - mt tally].
 	[n>0⇒ [b ← b, [MessageTally new class: class method: method; primitives: n]]].
-	⇑b]\gb10B
+	⇑b]
 bump: n
-	[tally ← tally+n]\gb9B
+	[tally ← tally+n]
 cumprinton: s from: set total: total over: threshold | mt
 	[for⦂ mt from: set contents sort do⦂
-		[mt tally>threshold⇒ [mt printon: s total: total. s cr] ⇑self]]\gb53B
+		[mt tally>threshold⇒ [mt printon: s total: total. s cr] ⇑self]]
 hash
-	[⇑method asOop]\gb6B
+	[⇑method asOop]
 into: set | mt i
 	[[i ← set find: self⇒ [mt ← set objects◦i]
 	set insert: (mt ← MessageTally new class: class method: method)].
-	mt bump: tally]\gb10B
+	mt bump: tally]
 leaves: ldict | b mt
-	[b ← self breakdown. b length=0⇒ [self into: ldict] for⦂ mt from: b do⦂ [mt leaves: ldict]]\gb14B
+	[b ← self breakdown. b length=0⇒ [self into: ldict] for⦂ mt from: b do⦂ [mt leaves: ldict]]
 primitives: tally
-	[rcvrs ← nil]\gb19B
+	[rcvrs ← nil]
 printon: s total: total | i v
 	[v ← (0.0+tally/total*1000.0+0.5) asInteger asString. i ← v length.
 	s append: '  '◦(i to: 2); append: v◦(1 to: i-1); append: '.'; next←v◦i; space.
 	rcvrs≡nil⇒ [s append: 'primitives']
-	class describe: method on: s]\gb24B
+	class describe: method on: s]
 tally
-	[⇑tally]\gb7B
+	[⇑tally]
 treeprinton: s tab: tab total: total over: threshold | i mt
 	[tally≤threshold⇒ []
 	[tab>0⇒ [for⦂ i to: tab-1 do⦂ [s append: '  |']. self printon: s total: total. s cr]].
 	for⦂ mt from: self breakdown sort do⦂
-		[mt treeprinton: s tab: tab+1 total: total over: threshold]]\gb53B
+		[mt treeprinton: s tab: tab+1 total: total over: threshold]]
 
-Private Common\gbf5 
+Private Common 
 class: class method: method
-	[tally ← 0. rcvrs ← Vector new: 0]\gb29B
+	[tally ← 0. rcvrs ← Vector new: 0]
 method
-	[⇑method]\gb8B
-\g
-SystemOrganization classify: ↪MessageTally under: 'Events'.\g
-MessageTally classInit\g
+	[⇑method]
+
+SystemOrganization classify: ↪MessageTally under: 'Events'.
+MessageTally classInit
 
-"PriorityInterrupt"l15000z20000\gbf5 
+"PriorityInterrupt" 
 Class new title: 'PriorityInterrupt'
 	subclassof: Object
 	fields: 'scheduler priority'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-PriorityInterrupts fill the need for (sched, level) pairs.  Most messages are simply passed on to the scheduler with the priority as an argument\gi
+PriorityInterrupts fill the need for (sched, level) pairs.  Most messages are simply passed on to the scheduler with the priority as an argument
 
-Initialization\gbf5 
-from: scheduler at: priority\gb
+Initialization 
+from: scheduler at: priority
 
-Level numbers\gbf5 
+Level numbers 
 + arg
-	[⇑priority + arg]\gb7B
+	[⇑priority + arg]
 
-Scheduling\gbf5 
+Scheduling 
 deepsleep
-	[scheduler deepsleep: priority]\gb11B
+	[scheduler deepsleep: priority]
 disable
-	[scheduler disable: priority]\gb9B
+	[scheduler disable: priority]
 enable
-	[scheduler enable: priority]\gb8B
+	[scheduler enable: priority]
 reset
-	[scheduler reset: priority]\gb7B
+	[scheduler reset: priority]
 restart
-	[scheduler restart: priority]\gb9B
+	[scheduler restart: priority]
 run: newContext
-	[scheduler run: newContext at: priority] primitive: 87\gb17B
+	[scheduler run: newContext at: priority] primitive: 87
 sleep
-	[scheduler sleep: priority]\gb7B
+	[scheduler sleep: priority]
 swap: newContext
 	 with: fieldReference
 	[scheduler
 		swap: newContext
 		at: priority
-		with: fieldReference] primitive: 88\gb41B
+		with: fieldReference] primitive: 88
 terminate
-	[scheduler terminate: priority]\gb11B
+	[scheduler terminate: priority]
 wakeup
-	[scheduler wakeup: priority]\gb8B
-\g
-SystemOrganization classify: ↪PriorityInterrupt under: 'Events'.\g
+	[scheduler wakeup: priority]
+
+SystemOrganization classify: ↪PriorityInterrupt under: 'Events'.
 
-"PriorityScheduler"l15000z20000\gbf5 
+"PriorityScheduler" 
 Class new title: 'PriorityScheduler'
 	subclassof: Object
 	fields: '	sourceIndirect
@@ -309,14 +309,14 @@ Class new title: 'PriorityScheduler'
 			"<Integer> priorities which have processes installed"'
 	declare: 'TimeInt CtlCDisp UserInt GRODSK CtlShftEscInt CtlCInt ';
 	sharing: BitMasks;
-	asFollows\gbf5 
+	asFollows 
 
-The underlying machine has a pointer to the top-level scheduler (Top), so that physical interrupts can also cause interrupts in Smalltalk.  This they do by calling their own copy of wakeup and reselect.  This copy is also invoked (primitive 65) when reselect is sent to the top-level scheduler, since its source is the virtual machine itself.\gi
+The underlying machine has a pointer to the top-level scheduler (Top), so that physical interrupts can also cause interrupts in Smalltalk.  This they do by calling their own copy of wakeup and reselect.  This copy is also invoked (primitive 65) when reselect is sent to the top-level scheduler, since its source is the virtual machine itself.
 
-Initialization\gbf5 
+Initialization 
 ◦ priority
-	[⇑suspendedContexts◦priority]\gb12B
-currentPriority [⇑currentPriority]\gb16B
+	[⇑suspendedContexts◦priority]
+currentPriority [⇑currentPriority]
 fromSource: sourceIndirect
 	["Initialize a scheduler having 16 spaces for processes"
 	 suspendedContexts ← Vector new: 16.
@@ -325,11 +325,11 @@ fromSource: sourceIndirect
 	 awakePriorities ← 0.
 	 interruptedPriorities ← 0.
 	 usedPriorities ← 0.
-	 currentPriority ← 0.]\gb28B1i55I
+	 currentPriority ← 0.]
 replaceUser: stack
-	[UserInt run: stack]\gb20B
+	[UserInt run: stack]
 
-Install and Terminate\gbf5 
+Install and Terminate 
 install⦂ newContext above: priority | i
 	["Install a process in the next empty level above <priority> which is initialized from <newContext> (a remote Context). If there is no empty level above that priority, tell the user and return false"
 	 newContext sender ← nil.
@@ -341,7 +341,7 @@ install⦂ newContext above: priority | i
 	 user show:
 		'PriorityScheduler unable to install above level '
 			+priority asString
-			+'. false returned'. ⇑false]\gb36B6i198I
+			+'. false returned'. ⇑false]
 install⦂ newContext at: priority
 	["Install a process at level <priority> which is initialized from <newContext> (a remote Context). If there is already a process at that priority, tell the user and return false"
 	 newContext sender ← nil.
@@ -352,13 +352,13 @@ install⦂ newContext at: priority
 	 user show:
 		'PriorityScheduler unable to install at level '
 			+priority asString
-			+'. false returned'. ⇑false]\gb34B1i177I
+			+'. false returned'. ⇑false]
 run: newContext
 		 at: priority
 	["replace the process at <priority> with <newContext>. If that is the currently running priority, abandon what is running and start from <newContext>"
 	 priority = currentPriority⇒
 		[sourceIndirect run: newContext]
-	 suspendedContexts◦priority ← newContext]\gb33B1i149I
+	 suspendedContexts◦priority ← newContext]
 swap: newContext
 		 at: priority
 		 with: fieldReference
@@ -368,7 +368,7 @@ swap: newContext
 			swap: newContext
 			with: fieldReference]
 	 fieldReference value← suspendedContexts◦priority.
-	 suspendedContexts◦priority ← newContext]\gb58B1i125I
+	 suspendedContexts◦priority ← newContext]
 terminate: priority
 	["Remove a process from the scheduler, allowing that level to be reused"
 	 enabledPriorities ← enabledPriorities land: bitoff◦priority.
@@ -378,24 +378,24 @@ terminate: priority
 	 awakePriorities ← awakePriorities land: bitoff◦priority.
 	 interruptedPriorities ← interruptedPriorities land: bitoff◦priority.
 	 usedPriorities ← usedPriorities land: bitoff◦priority.
-	 self reselect]\gb21B1i71I
+	 self reselect]
 
-Enable and Disable\gbf5 
+Enable and Disable 
 disable: priority
 	["Prevent the process at <priority> from being activated by a wakeup. Turn off the corresponding bit in enabledPriorities and check if that changes who should run"
 	 enabledPriorities ← enabledPriorities land: bitoff◦priority.
-	self reselect]\gb19B1i162I
+	self reselect]
 enable: priority
 	["Allow the process at <priority> to be activated by a wakeup. Turn on the corresponding bit in enabledPriorities and check if that changes who should run"
 	 enabledPriorities ← enabledPriorities lor: biton◦priority.
-	 self reselect]\gb18B1i154I
+	 self reselect]
 
-Wakeup and Sleep\gbf5 
+Wakeup and Sleep 
 deepsleep: priority
 	["Request the process at <priority> to cease running and ignore any new wakeups. Turn off the corresponding bit in awakePriorities and interruptedPriorities and check if that changes who should run"
 	 awakePriorities ← awakePriorities land: bitoff◦priority.
 	 interruptedPriorities ← interruptedPriorities land: bitoff◦priority.
-	 self reselect]\gb21B1i197I
+	 self reselect]
 errorReset
 	["There has been an error. Initialize the state of the process that was running.
 	  If it was not the user process (priority 1), request it to cease running and
@@ -403,7 +403,7 @@ errorReset
 	 currentPriority=1⇒[self init: currentPriority]
 	 awakePriorities ← awakePriorities land: bitoff◦currentPriority.
 	 enabledPriorities ← enabledPriorities land: bitoff◦currentPriority.
-	 self init: currentPriority]\gb12B1i209I
+	 self init: currentPriority]
 reselect
 		 | newPriority oldPriority newContext tempenabled tempinterrupts
 	["Switch to the highest priority enabled process"
@@ -422,36 +422,36 @@ reselect
 	 sourceIndirect
 		swap: newContext
 		with: (suspendedContexts ref: oldPriority)]
-	primitive: 65\gb12B66i48I
+	primitive: 65
 reset: priority
 	["Initialize the state of the process at <priority> and request it to cease running"
 	 awakePriorities ← awakePriorities land: bitoff◦priority.
-	 self init: priority]\gb17B1i83I
+	 self init: priority]
 resetCurrent
 	["Initialize the state of the process that is running. If it is not the
 	  user process (priority 1), request it to cease running"
 	 currentPriority=1⇒[self init: currentPriority]
 	 awakePriorities ← awakePriorities land: bitoff◦currentPriority.
-	 self init: currentPriority]\gb14B1i129I
+	 self init: currentPriority]
 restart: priority
 	["Initialize the state of a suspended process and request it to run"
 	 interruptedPriorities ← interruptedPriorities lor: biton◦priority.
-	 self init: priority]\gb19B1i67I
+	 self init: priority]
 sleep: priority
 	["Request the process at <priority> to cease running, if a new wakeup has arrived the process will be reawakened. Turn off the corresponding bit in awakePriorities and check if that changes who should run"
 	 awakePriorities ← awakePriorities land: bitoff◦priority.
-	 self reselect]\gb17B1i204I
+	 self reselect]
 wakeup: priority
 	["Request the process at <priority> to run. Turn on the corresponding bit in interruptedPriorities and check if that changes who should run"
 	 interruptedPriorities ← interruptedPriorities lor: biton◦priority.
-	 self reselect]\gb18B1i139I
+	 self reselect]
 
-Top level\gbf5 
+Top level 
 init1
 	[UserInt ← Top
 		install⦂ [user restart]
 		at: 1.
-	 UserInt enable wakeup]\gb7B
+	 UserInt enable wakeup]
 init11	" Top terminate: 11; init11. "
 	[GRODSK ← Top
 		install⦂
@@ -463,7 +463,7 @@ Just a moment...'.
 				user show: '  Done.'; cr].
 			GRODSK deepsleep]
 		at: 11.
-	GRODSK enable]\gb7B30b2B
+	GRODSK enable]
 init8 | nw
 	[CtlCInt ← Top
 		install⦂
@@ -475,39 +475,39 @@ init8 | nw
 			 	UserInt restart]].
 			CtlCInt sleep]
 		at: 8.
-	 CtlCInt enable]\gb6B
+	 CtlCInt enable]
 init9  "Top terminate: 9; init9."
 	[CtlShftEscInt ← Top
 		install⦂ [spy abort. user restoredisplay. 
 			[user buttons=7⇒["dont release possible garbage"] (Top◦1) releaseFully].
 			UserInt restart. CtlShftEscInt sleep]
 		at: 9.
-	 CtlShftEscInt enable]\gb7B26b2B
+	 CtlShftEscInt enable]
 initsched
 	[Top ← self fromSource: (PriorityInterrupt new).
 	 self init1.
 	 self init11.
 	 self init8.
 	 self init9.
-	 Top top]\gb11B
+	 Top top]
 top
 	["Make this scheduler the top level one. It will receive all physical (non-Smalltalk) interrupts"
 	 enabledPriorities ← enabledPriorities lor: biton◦1.
 	 awakePriorities ← awakePriorities lor: biton◦1.
-	 currentPriority ← 1] primitive: 61\gb5B1i96I
+	 currentPriority ← 1] primitive: 61
 
-Critical sections\gbf5 
+Critical sections 
 critical⦂ expr| t v
 	["Execute <expr> without allowing it to be interrupted"
 	 t ← self disable.
 	 v ← expr eval.
 	 enabledPriorities ← t.
-	 self reselect. ⇑v]\gb14B8i54I
+	 self reselect. ⇑v]
 
-Private\gbf5 
+Private 
 disable | t
 	["This message should deffinitely be protected. Zero all the enabled flags and return the previous value of them"
-	 t ← enabledPriorities. enabledPriorities ← 0. ⇑t] primitive: 66\gb8B6i112I
+	 t ← enabledPriorities. enabledPriorities ← 0. ⇑t] primitive: 66
 init: priority
 		 | newPriority oldPriority newContext tempenabled tempinterrupts
 	["This message should be protected. It is used by reset: and restart: to actually switch suspended processes"
@@ -531,14 +531,14 @@ init: priority
 		[sourceIndirect run: newContext]
 	 sourceIndirect
 		swap: newContext
-		with: (suspendedContexts ref: oldPriority)]\gb18B66i108I
+		with: (suspendedContexts ref: oldPriority)]
 INSTALL⦂ newContext AT: priority
 	["This message should be protected, it is used by install:at: and install:above: to do the actual initialization of the process"
 	 newContext sender ← nil.
 	 usedPriorities ← usedPriorities lor: biton◦priority.
 	 initialContexts◦priority ← newContext.
 	 suspendedContexts◦priority ← newContext cleancopy.
-	 ⇑PriorityInterrupt new from: self at: priority]\gb34B1i127I
+	 ⇑PriorityInterrupt new from: self at: priority]
 printon: s | i b2 j
 	[super printon: s.
 	for⦂ i to: 5 do⦂
@@ -548,13 +548,13 @@ printon: s | i b2 j
 		for⦂ j to: 16-b2 length do⦂ [s next← '0'◦1].
 		s append: b2; space;
 			append: ↪('used' 'enabled' 'awake' 'interrupted' 'current')◦i]
-	]\gb11B
+	]
 
-Reclamation\gbf5 
-\g
-SystemOrganization classify: ↪PriorityScheduler under: 'Events'.\g
+Reclamation 
+
+SystemOrganization classify: ↪PriorityScheduler under: 'Events'.
 
-"Timer"l15000z20000\gbf5 
+"Timer" 
 Class new title: 'Timer'
 	subclassof: Object
 	fields: '	activeTime	"how long this Timer will be the active one"
@@ -563,30 +563,30 @@ Class new title: 'Timer'
 				delay			"how long between setting and firing"
 				action		"what happens when this timer fires"'
 	declare: 'currentTimer timerActions ';
-	asFollows\gbf5 
+	asFollows 
 
-A Timer is an object which causes an action after an interval of time. The time interval is measured in units of a sixtieth of a second from when the instance was initialized with the message <for: {time interval} action⦂ [{code for action}]>. When the interval is over the Timer fires by placing the action on a queue to be evaluated before processing at the user level continues. There is no need to mantain a name for a Timer while it is active, but a named timer may be disabled or reused. The Timers waiting to fire form a doubly linked list whose first link is referred to by the class variable currentTimer. Each Timer knows how long it should run after the preceding Timer has fired\gi
+A Timer is an object which causes an action after an interval of time. The time interval is measured in units of a sixtieth of a second from when the instance was initialized with the message <for: {time interval} action⦂ [{code for action}]>. When the interval is over the Timer fires by placing the action on a queue to be evaluated before processing at the user level continues. There is no need to mantain a name for a Timer while it is active, but a named timer may be disabled or reused. The Timers waiting to fire form a doubly linked list whose first link is referred to by the class variable currentTimer. Each Timer knows how long it should run after the preceding Timer has fired
 
-Initialization\gbf5 
+Initialization 
 classInit	"Initialize the processes used by the Timers"
 	[timerActions ← Queue new of: (Vector new: 4).
 	 self init16.
-	 self init12]\gb10Bi45I
+	 self init12]
 for: delay action⦂ action
-	["Initialize a new Timer"]\gb27B1i24I
+	["Initialize a new Timer"]
 init12 | nextAction	"Initialize the process which evals Timer actions"
 	[Top install⦂
 		[while⦂ true do⦂
 			[while⦂ (nextAction ← timerActions next) do⦂
 				[nextAction eval].
 			 Top sleep: 12]] at: 12.
-	 Top enable: 12]\gb7B13i50I
+	 Top enable: 12]
 init16	"Initialize the process wakened by a Timer timing out"
 	[Top install⦂
 		[while⦂ true do⦂
 			[currentTimer fire.
 			 Top sleep: 16]] at: 16.
-	 Top enable: 16]\gb7Bi54I
+	 Top enable: 16]
 reset | nextTimeout foundit
 	["Set up this Timer to add <action> to the Queue of remote Contexts to be evaled after an interval of <delay> sixtieths of a second. Find the proper place in the doubly linked list and calculate the amount of time to run after the preceeding timer fires"
 	 Top critical⦂ 
@@ -600,36 +600,36 @@ reset | nextTimeout foundit
 			 lastTimer ← nextTimer.
 			 nextTimer ← lastTimer nexttimer].
 		 [nextTimer≡nil⇒[] nextTimer insertlast: self].
-		 lastTimer≡nil⇒[self startup] lastTimer insertnext: self]]\gb6B24i253I
+		 lastTimer≡nil⇒[self startup] lastTimer insertnext: self]]
 
-List Behavior\gbf5 
+List Behavior 
 deletelast
 	["Delete the Timer before this one. When deleting a Timer, the activeTime of the Timer after it must be increased by its activeTime"
 	 activeTime ← activeTime + lastTimer activetime.
-	 (lastTimer ← lastTimer lasttimer)≡nil⇒[self startup]]\gb12B1i131I
+	 (lastTimer ← lastTimer lasttimer)≡nil⇒[self startup]]
 deletenext
 	["Delete the Timer after this one"
-	 nextTimer ← nextTimer nexttimer]\gb12B1i33I
+	 nextTimer ← nextTimer nexttimer]
 insertlast: lastTimer
 	["Insert a new Timer before this one. When inserting a Timer in front of another, the activeTime of the later one must be reduced so it is the amount of time after the new Timers firing"
-	 activeTime ← self activetime - lastTimer activetime]\gb23B1i185I
-insertnext: nextTimer\gb
+	 activeTime ← self activetime - lastTimer activetime]
+insertnext: nextTimer
 lasttimer
-	[⇑lastTimer]\gb11B
+	[⇑lastTimer]
 nexttimer
-	[⇑nextTimer]\gb11B
-release [lastTimer ← nil. nextTimer ← nil. action ← nil]\gb8B
+	[⇑nextTimer]
+release [lastTimer ← nil. nextTimer ← nil. action ← nil]
 
-Timing Behavior\gbf5 
+Timing Behavior 
 activetime
 	["If this is the current Timer return the time until it fires, otherwise return activeTime"
-	 ⇑activeTime] primitive: 96\gb12B1i90I
+	 ⇑activeTime] primitive: 96
 disable	"Remove this timer from the list"
 	[Top critical⦂
 		[[self≡currentTimer and⦂ nextTimer≡nil⇒[self shutoff. Top deepsleep: 16]].
 		 [lastTimer≡nil⇒[] lastTimer deletenext].
 		 [nextTimer≡nil⇒[] nextTimer deletelast].
-		 activeTime ← nil. lastTimer ← nil. nextTimer ← nil]]\gb8Bi33I
+		 activeTime ← nil. lastTimer ← nil. nextTimer ← nil]]
 fire	"Time is up, add the action to the Queue to be evaled"
 	[timerActions next← action.
 	 Top wakeup: 12.
@@ -637,52 +637,52 @@ fire	"Time is up, add the action to the Queue to be evaled"
 	 lastTimer ← nil.
 	 nextTimer≡nil⇒[self shutoff]
 	 nextTimer startup.
-	 nextTimer ← nil]\gb5Bi54I
+	 nextTimer ← nil]
 primstartup
 		"this message informs the virtual machine that this is the next Timer to fire"
-	[] primitive: 95\gb14Bi78I
+	[] primitive: 95
 shutoff
 	["this message informs the virtual machine and class Timer that there are no more Timers to fire"
-	 currentTimer ← nil] primitive: 97\gb9B1i96I
+	 currentTimer ← nil] primitive: 97
 startup
 	["make this the next Timer to fire"
 	 lastTimer ← nil.
 	 currentTimer ← self.
-	 self primstartup]\gb9B1i34I
-\g
-SystemOrganization classify: ↪Timer under: 'Events'.\g
-Timer classInit\g
+	 self primstartup]
+
+SystemOrganization classify: ↪Timer under: 'Events'.
+Timer classInit
 
-"UserEvent"l15000z20000\gbf5 
+"UserEvent" 
 Class new title: 'UserEvent'
 	subclassof: Point
 	fields: 'type stroke elapsed time'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-This class is used by the Events queue (updated in the 60HZ interrupt routine) to package up and return an event every time the queue is popped.  The class provides easy access to various parts of the event.  Users may create their own events by pushing onto the Events queue, which is why the Initialization here is classified as private.\gi
+This class is used by the Events queue (updated in the 60HZ interrupt routine) to package up and return an event every time the queue is popped.  The class provides easy access to various parts of the event.  Users may create their own events by pushing onto the Events queue, which is why the Initialization here is classified as private.
 
-Initialization\gbf5 
+Initialization 
 x: x y: y type: type stroke: stroke elapsed: elapsed time: time 
 	"make an event, usually called from EventQueue"
-\gb66Bi47I
 
-Public Access\gbf5 
+
+Public Access 
 elapsed "return an event stroke"
 	["1 - 32767 sixtieths of second since previous non-time-elapsed event recorded"
-	⇑elapsed]\gb8Bi24I3i78I
+	⇑elapsed]
 isKbdDown
 	["if stroke a down stroke and not keyset or mouse button, return it,
 		otherwise return false"
-	type ≠ 1 ⇒ [⇑false] ⇑stroke > 16]\gb11B
+	type ≠ 1 ⇒ [⇑false] ⇑stroke > 16]
 stroke "return an event stroke"
 	["0-2 = top,middle,bottom mouse buttons, 3-7 = keyset left to right, 8-255 = keyboard"
-	⇑stroke]\gb7Bi24I3i85I
+	⇑stroke]
 time "return an event stroke"
 	["1 - 32767 sixtieths of second since Events time reset"
-	⇑time]\gb5Bi24I3i55I
+	⇑time]
 type "return event type"
 	["2 = upstroke event, 1 = downstroke event, 0 = time-elapsed event"
-	⇑type]\gb5Bi19I3i66I
-\g
-SystemOrganization classify: ↪UserEvent under: 'Events'.\g 
+	⇑type]
+
+SystemOrganization classify: ↪UserEvent under: 'Events'. 

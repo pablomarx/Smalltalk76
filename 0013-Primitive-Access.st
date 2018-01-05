@@ -1,71 +1,71 @@
 'From Smalltalk 5.5k XM November 24 on 22 November 1980 at 2:57:08 am.'
-\g
-"BitBlt"l15000z20000\gbf5 
+
+"BitBlt" 
 Class new title: 'BitBlt'
 	subclassof: Object
 	fields: 'function color destbase destraster destx desty
 			width height sourcebase sourceraster sourcex sourcey
 			sstrike dstrike '
 	declare: 'pageOneCursor ';
-	asFollows\gbf5 
+	asFollows 
 
-BitBlt copies bits from one rectangle to another in core.  x, y, width and height are in bits, raster is in words, and base is a core address.  Mode is storing, oring, xoring or erasing.  If source or destination is a Smalltalk object, then you have to lock it, as in copyToString, below.  The primitive does no bounds checking, so watch out.\gi
+BitBlt copies bits from one rectangle to another in core.  x, y, width and height are in bits, raster is in words, and base is a core address.  Mode is storing, oring, xoring or erasing.  If source or destination is a Smalltalk object, then you have to lock it, as in copyToString, below.  The primitive does no bounds checking, so watch out.
 
-Access to Parts\gbf5 
-color  [⇑color]\gb7B
-color ← color\gb
-destbase  [⇑destbase]\gb10B
-destbase ← destbase\gb
-destraster  [⇑destraster]\gb12B
-destraster ← destraster\gb
-destx  [⇑destx]\gb7B
-destx ← destx\gb
-desty  [⇑desty]\gb7B
-desty ← desty\gb
-dest ← pt [destx← pt x.  desty ← pt y]\gb10B
+Access to Parts 
+color  [⇑color]
+color ← color
+destbase  [⇑destbase]
+destbase ← destbase
+destraster  [⇑destraster]
+destraster ← destraster
+destx  [⇑destx]
+destx ← destx
+desty  [⇑desty]
+desty ← desty
+dest ← pt [destx← pt x.  desty ← pt y]
 dstrike [⇑dstrike]
-\gb8B
-dstrike ← dstrike
-\gb
-extent ← pt [width ← pt x.  height ← pt y]\gb12B
-function  [⇑function]\gb10B
-function ← function\gb
-height  [⇑height]\gb8B
-height ← height\gb
-sourcebase  [⇑sourcebase]\gb12B
-sourcebase ← sourcebase\gb
-sourceraster  [⇑sourceraster]\gb14B
-sourceraster ← sourceraster\gb
-sourcex  [⇑sourcex]\gb9B
-sourcex ← sourcex\gb
-sourcey  [⇑sourcey]\gb9B
-sourcey ← sourcey\gb
-source ← pt [sourcex← pt x.  sourcey ← pt y]\gb12B
-sstrike [⇑sstrike]
-\gb8B
-sstrike ← sstrike
-\gb
-width  [⇑width]\gb7B
-width ← width\gb
 
-Setup\gbf5 
+dstrike ← dstrike
+
+extent ← pt [width ← pt x.  height ← pt y]
+function  [⇑function]
+function ← function
+height  [⇑height]
+height ← height
+sourcebase  [⇑sourcebase]
+sourcebase ← sourcebase
+sourceraster  [⇑sourceraster]
+sourceraster ← sourceraster
+sourcex  [⇑sourcex]
+sourcex ← sourcex
+sourcey  [⇑sourcey]
+sourcey ← sourcey
+source ← pt [sourcex← pt x.  sourcey ← pt y]
+sstrike [⇑sstrike]
+
+sstrike ← sstrike
+
+width  [⇑width]
+width ← width
+
+Setup 
 classInit 
 	[pageOneCursor ← 0431. "location of hardware cursor"
-	]\gb12B
+	]
 forCursor
 	[function← color← 0.
 	destbase← sourcebase← 0431.
 	width← height← 16. destraster← sourceraster← 1.
 	destx← desty← sourcex← sourcey← 0. sstrike ← dstrike ← false
-	]\gb11B
+	]
 init 
 	[function ← color ← destbase ← destraster ← destx ← desty ← width ←
 	height ← sourcebase ← sourceraster ← sourcex ← sourcey ← 0. sstrike ← dstrike ← false
-	]\gb7B
+	]
 
-Operations\gbf5 
+Operations 
 callBLT
-	[user croak]  primitive: 33\gb9B
+	[user croak]  primitive: 33
 checksandcall | destlocked sourcelocked	
 	["checks if either base a string and/or strike and locks accordingly"
 		function ← function land: 017.		"set up function to add XM stuff"
@@ -91,15 +91,15 @@ checksandcall | destlocked sourcelocked
 	self callBLT.
 	[destlocked ≡ nil ⇒ [] destbase ← destlocked unlock].
 	[sourcelocked ≡ nil ⇒ [] sourcebase ← sourcelocked unlock].
-	]\gb14B29i68I35i33I187i15I65i42I1i50I156i15I67i44I1i50I
+	]
 copy: mode 
-	[function ← mode land: 3. self checksandcall]\gb13B
+	[function ← mode land: 3. self checksandcall]
 copycomp: mode 
-	[function ← 4 + (mode land: 3). self checksandcall]\gb17B
+	[function ← 4 + (mode land: 3). self checksandcall]
 fill: mode color: color 
-	[function ← 12 + (mode land: 3). self checksandcall]\gb26B
+	[function ← 12 + (mode land: 3). self checksandcall]
 paint: mode 
-	[function ← 8 + (mode land: 3). self checksandcall]\gb14B
+	[function ← 8 + (mode land: 3). self checksandcall]
 stringCopy: deststring from: start to: stop with: replacement from: rstart to: rstop
 	["copies equal subranges from one string to another.
 	works for BitBlt parameters up to 4096. maybe too much set up for short strings.
@@ -132,7 +132,7 @@ stringCopy: deststring from: start to: stop with: replacement from: rstart to: r
 	deststring◦1 ← deststring◦1.
 	deststring unlock.
 	⇑deststring
-	]\gb86B157b28B
+	]
 stringReplace: deststring with: sourcestring from: start to: stop and: replacement from: rstart to: rstop | slock [
 	"works for BitBlt parameters less than 4096. replaces a subrange of a string.
 	called only by String replace:to:by:from:to:.  concatenates into deststring:
@@ -180,32 +180,32 @@ stringReplace: deststring with: sourcestring from: start to: stop and: replaceme
 	deststring◦1 ← deststring◦1.
 	sourcestring unlock. deststring unlock.
 	⇑deststring
-	]\gb106B105b29B
-\g
-SystemOrganization classify: ↪BitBlt under: 'Primitive Access'.\g
-BitBlt classInit\g
+	]
+
+SystemOrganization classify: ↪BitBlt under: 'Primitive Access'.
+BitBlt classInit
 
-"CoreLocs"l15000z20000\gbf5 
+"CoreLocs" 
 Class new title: 'CoreLocs'
 	subclassof: Array
 	fields: 'base length'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-I am an array mapping a section of Alto memory\gi
+I am an array mapping a section of Alto memory
 
-Initialization\gbf5 
-base: base length: length\gb
+Initialization 
+base: base length: length
 
-Reading and Writing\gbf5 
-◦ x [x isLarge⇒[⇑self◦(x asSmall)] user croak] primitive: 42\gb4B
-◦ x ← val [x isLarge⇒[⇑self◦(x asSmall) ← val] user croak] primitive: 43\gb10B
-base [⇑base]\gb5B
-length [⇑length]\gb7B
-\g
-SystemOrganization classify: ↪CoreLocs under: 'Primitive Access'.\g
+Reading and Writing 
+◦ x [x isLarge⇒[⇑self◦(x asSmall)] user croak] primitive: 42
+◦ x ← val [x isLarge⇒[⇑self◦(x asSmall) ← val] user croak] primitive: 43
+base [⇑base]
+length [⇑length]
+
+SystemOrganization classify: ↪CoreLocs under: 'Primitive Access'.
 
-"VirtualMemory"l15000z20000\gbf5 
+"VirtualMemory" 
 Class new title: 'VirtualMemory'
 	subclassof: Object
 	fields: 'map "Pclass Map"
@@ -217,45 +217,45 @@ Class new title: 'VirtualMemory'
 		zadd   "file info"
 		vmemfile "file for vmem" '
 	declare: 'ZHB RCI PIN zfused zfree zjmpt pmint num00 pmend ZN zflen pmatm zlong PCL ZVPN CPT BSC ISC ZJMP zend ';
-	asFollows\gbf5 
+	asFollows 
 
-A model of the OOZE virtual memory\gi
+A model of the OOZE virtual memory
 
-Pclass Map\gbf5 
+Pclass Map 
 CPT: oop | poma
 	[poma ← 2*(oop field: PCL) +1.
-	⇑map◦poma field: CPT]\gb9B
+	⇑map◦poma field: CPT]
 freelist: object  | a
 	["one-order index into freelists."
 	object class is: Class ⇒[⇑1]
 	a ← self ISC: object asOop.
-	a < 024 ⇒[⇑1+a] ⇑1+ a-013]\gb18B6i33I
+	a < 024 ⇒[⇑1+a] ⇑1+ a-013]
 freelistOffset: len "offset of freelist for this length in a variable length class"
 	[⇑Class instsize + [len < 9 ⇒[len] (len-1) log2 + 6]]
-\gb20Bi63I
+
 highpm0: oop gets: val | poma
 	[premap◦pmatm ← premap◦pmatm min: (oop field: PIN ← 0).
 	poma ← 2*(oop field: PCL) +1.
-	map◦poma ← val]\gb23B
+	map◦poma ← val]
 highPM: oop | pcl a
 	[pcl ← oop field: PCL.
 	a ← premap◦pmatm field: PCL.
 	pcl < a ⇒[⇑false]
-	⇑map◦(2*pcl +1)]\gb12B
+	⇑map◦(2*pcl +1)]
 ISC: oop | poma
 	[poma ← 2*(oop field: PCL) +1.
-	⇑map◦poma field: ISC]\gb9B
+	⇑map◦poma field: ISC]
 lowPM: oop | pcl a
 	[pcl ← oop field: PCL.
 	a ← premap◦pmend field: PCL.
 	pcl ≥ a ⇒[⇑false]
-	⇑map◦(2*pcl +1)]\gb11B
+	⇑map◦(2*pcl +1)]
 newHighPM← pm0 | pcl a
 	[a ← premap◦pmatm.
 	premap◦pmatm ← (a ← a-0200).
 	pcl ← a field: PCL.
 	map◦(2*pcl +1) ← pm0.
-	⇑a]\gb15B
+	⇑a]
 newLowPM← pm0 | poma a
 	[map◦1 = pm0 ⇒["reserved pclasses for Class"
 		map◦3 = 0 ⇒[map◦3 ← pm0. ⇑0200]
@@ -267,9 +267,9 @@ newLowPM← pm0 | poma a
 	map◦poma ≠ 0 ⇒["skip over already filled"
 		⇑self newLowPM← pm0]
 	map◦poma ← pm0.
-	⇑a]\gb14B25i29I72i13I90i26I
+	⇑a]
 newZN: oop 
-	[self ZN: oop gets: self newZone]\gb13B
+	[self ZN: oop gets: self newZone]
 pclassesOf: cls | i clsoop n z p "find pclasses of this class (in order of ZHB)"
 	["ignore small integers and nil"
 	p ← (Vector new: 1) asStream.
@@ -282,7 +282,7 @@ pclassesOf: cls | i clsoop n z p "find pclasses of this class (in order of ZHB)"
 	n ← p copy.
 	for⦂ i to: z length do⦂
 		[n◦(z◦i +1) ← p◦i].
-	⇑n]\gb16B17i47I3i31I
+	⇑n]
 pclassesOf: cls length: len | i clsoop n z p isc pm0 "find pclasses of this class and length (in order of ZHB)"
 	["ignore small integers and nil"
 	p ← (Vector new: 1) asStream.
@@ -297,24 +297,24 @@ pclassesOf: cls length: len | i clsoop n z p isc pm0 "find pclasses of this clas
 	n ← p copy.
 	for⦂ i to: z length do⦂
 		[n◦(z◦i +1) ← p◦i].
-	⇑n]\gb28B25i58I3i31I
-pmatm [⇑premap◦pmatm]\gb6B
+	⇑n]
+pmatm [⇑premap◦pmatm]
 ZHB: oop | poma
 	[poma ← 2*(oop field: PCL) +1.
-	⇑map◦(1+poma) field: ZHB]\gb9B
+	⇑map◦(1+poma) field: ZHB]
 ZHB: oop gets: val | poma i
 	[poma ← 2*(oop field: PCL) +1.
 	i ← map◦(1+poma).
-	map◦(1+poma) ← (i field: ZHB ← val)]\gb19B
+	map◦(1+poma) ← (i field: ZHB ← val)]
 ZN: oop | poma
 	[poma ← 2*(oop field: PCL) +1.
-	⇑map◦(1+poma) field: ZN]\gb8B
+	⇑map◦(1+poma) field: ZN]
 ZN: oop gets: val | poma i
 	[poma ← 2*(oop field: PCL) +1.
 	i ← map◦(1+poma).
-	map◦(1+poma) ← (i field: ZN ← val)]\gb18B
+	map◦(1+poma) ← (i field: ZN ← val)]
 
-Writing and Reading\gbf5 
+Writing and Reading 
 obwiz: oop | poma pm0 pm1 isc bsc i len zz pin zhb
 	["find (zn, zp, zw, dlen)"
 	zz ← Vector new: 4.
@@ -337,19 +337,19 @@ obwiz: oop | poma pm0 pm1 isc bsc i len zz pin zhb
 	zz◦2 "zp" ← zz◦2 + (zz◦3 field: 136 "highbyte").
 	zz◦3 "zw" ← zz◦3 field: 128 "lowbyte".
 	zz◦1 ← pm1 field: ZN.
-	⇑zz]\gb11B42i25I327i13I25i17I2i30I30i4I39i4I98i4I27i10I9i4I19i9I
+	⇑zz]
 readin: oop | zinfo
 	[zinfo ← self obwiz: oop.
-	⇑self read: zinfo◦4 at: zinfo]\gb12B
-systemNoHistory [] primitive: 82\gb16B
+	⇑self read: zinfo◦4 at: zinfo]
+systemNoHistory [] primitive: 82
 writeout: oop with: image | zinfo
 	[zinfo ← self obwiz: oop.
 	[zinfo◦4 ≥ (image length /2) ⇒[]
 		user notify: 'bad image length'].
 	self write: image at: zinfo
-	]\gb26B
+	]
 
-Init\gbf5 
+Init 
 AComment
 	["VirtualMemory models the Pclass Map of Ooze.
 	Vmem is one with CoreLocs on real system.
@@ -370,7 +370,7 @@ AComment
 	zfree is 1-order in fake, core addr in this.
 	zlong = 512.
 	zend is not used (0 fake, core addr in this) 
-	"]\gb10B1i670I
+	"]
 fakevmem: vmemfile
 	["this instance is a model of a new vmem, which is built on another file"
 	self init.
@@ -383,7 +383,7 @@ fakevmem: vmemfile
 	zip all ← 0.
 	zadd ← (1, 1).  "zfused, zflen"
 	vmemfile readwrite.
-	Smalltalk define: ↪Pmap as: self]\gb20B1i72I91i28I26i20I65i15I
+	Smalltalk define: ↪Pmap as: self]
 init  "common to both real and fake vmem"
 	["field descriptors and indicies in tables"
 	num00 ← 1. pmint ← 2. pmatm ← 3. pmend ← 4.
@@ -394,8 +394,8 @@ init  "common to both real and fake vmem"
 	zfree ← 1. zlong ← 2. zend ← 3.
 	zfused ← 1. zflen ← 2.
 	zjmpt ← (603, 570, 471, 410, 353, 300, 253, 
-		210, 169, 132, 101, 72, 49, 30, 13)]\gb6Bi35bI2B1i42I
-premap [⇑premap] "array of limits in Pclass Map"\gb7B10i
+		210, 169, 132, 101, 72, 49, 30, 13)]
+premap [⇑premap] "array of limits in Pclass Map"
 thisvmem | c m "create Vmem, a VirtualMemory viewing this very system"
 	[c ← self specialLocs.
 	map ← CoreLocs new base: c◦2 -1 length: 1025.
@@ -416,10 +416,10 @@ thisvmem | c m "create Vmem, a VirtualMemory viewing this very system"
 		stackptr: m◦5 -1.
 	SpecialOops◦1 ← Object md method: ↪error.
 	FirstContextOop ← FirstContext asOop.
-	SpecialOopsOop ← SpecialOops asOop]\gb9B
+	SpecialOopsOop ← SpecialOops asOop]
 
-Vmem Writing\gbf5 
-afterBirth [MethodKeeperKeeper ← nil]\gb11B
+Vmem Writing 
+afterBirth [MethodKeeperKeeper ← nil]
 giveBirth | pm0 vm "initialize map for early pclasses"
 	[self preBirth.
 	"small Integer, 16 pclasses, oops 0174000-0177777"
@@ -439,13 +439,13 @@ giveBirth | pm0 vm "initialize map for early pclasses"
 		(vm object: false) map ≠ 02000 ⇒[user notify: 'bad false oop']
 	"set pointer back to oops skipped over"
 		Pmap premap ◦ pmend ← 01000
-	]\gb10B9i35I19i50I31i30I52i20I61i19I32i27I35i36I33i21I46i38I67i39I
+	]
 giveBirth2 | vm
 	[vm ← Vmapper new.
 	vm object: (Smalltalk ref: ↪FirstContext).
 	FirstContextOop ← (vm readin word: 2). "new oop of FirstContext"
 	vm reset; object: (Smalltalk ref: ↪SpecialOops).
-	SpecialOopsOop ← (vm readin word: 2). "new oop of SpecialOops"]\gb11B109i25I90i24I
+	SpecialOopsOop ← (vm readin word: 2). "new oop of SpecialOops"]
 giveBirth3 | vm p ["create a new Small.boot
 	Write out all objects rooted at Smalltalk.
 	Do not write the stack (rooted in R76, the current context).
@@ -491,7 +491,7 @@ giveBirth3 | vm p ["create a new Small.boot
 	"rename files so that new file is small.boot"
 	(Vmem file) file rename: 'oldsmall.boot'.
 	(Pmap file) file rename: 'small.boot'.
-	]\gb11B8i133I30i377I245i19I317i48I140i23I29i10I9i5I
+	]
 mapPM | c i v rci ctrans  "convert to new RCI"
 	[ctrans ← (Vmapper new) classtrans.
 	for⦂ c from: (1 to: 1023 by: 2) do⦂
@@ -500,10 +500,10 @@ mapPM | c i v rci ctrans  "convert to new RCI"
 		(v ← ctrans lookup: rci) ⇒
 			[map◦c ← (i field: RCI ← v◦1)]
 		user notify: 'class not mapped']
-	]\gb6B20i20I
+	]
 preBirth | v
 	[MethodKeeperKeeper ← MessageDict new.
-	MethodKeeperKeeper init: (v ← MethodKeeper contents) length *2; holdMethods: v]\gb9B
+	MethodKeeperKeeper init: (v ← MethodKeeper contents) length *2; holdMethods: v]
 ramwrite: source | s "write 8 pages of ram image into small.boot" [
 	s ← source name.
 	source readonly.
@@ -528,9 +528,9 @@ ramwrite: source | s "write 8 pages of ram image into small.boot" [
 	vmemfile settopage: 0400 char: 0; readwrite; next: 4096 from: s.
 	s close.
 	self ≡ Vmem ⇒[vmemfile readonly "does flush"]
-	vmemfile flush]\gb17B4i43I107i13I22i29I22i36I209i28I53i39I112i10I
+	vmemfile flush]
 
-Surgery\gbf5 
+Surgery 
 dynaLocs: guide | l locs keys v i "Surgery - add core location and value pairs to guide dictionary to test after flush"
 	[l ← self specialLocs.
 	locs ← (premap base +pmend, (l◦11 -1), (l◦12 -2), (l◦4 +1)).
@@ -538,7 +538,7 @@ dynaLocs: guide | l locs keys v i "Surgery - add core location and value pairs t
 	for⦂ i from: 1 to: keys length do⦂
 		[v ← locs◦i, (mem◦(locs◦i)).
 		guide insert: keys◦i with: v].
-	(guide lookup: ↪loxtest)◦2 ← ¬1]\gb16B
+	(guide lookup: ↪loxtest)◦2 ← ¬1]
 runLocs: f | guide i v locs keys offsets "Surgery - create dictionary of locations of key system tables in Smalltalk.run"
 	[i ← f name.
 	(v ← f directory oldFile: (i◦(1 to: i length-5) concat: '.syms.')) readonly.
@@ -559,7 +559,7 @@ runLocs: f | guide i v locs keys offsets "Surgery - create dictionary of locatio
 	v ← (guide lookup: ↪ziprun) copy.
 	v◦2 ← v◦2 +(¬3 *2).  "offset ¬4 total"
 	guide insert: ↪preziprun with: v.
-	⇑guide]\gb11B
+	⇑guide]
 specialLocs [] primitive: 84
 "returns a vector containing the core addresses of:
 	1 ROTBASE (the Resident Object Table)
@@ -575,7 +575,7 @@ specialLocs [] primitive: 84
 	11 BACPUR (a code label)
 	12 ZADD (.-2 has #pages req'd, .-1 has #pages in boot file; add 264 for real file length)
 	13 SAFID (loc of file id (5-word block) for the .boot file)
-"\gb12B
+"
 staticTest: guide on: f | l locs offsets values names i v "Surgery - test known static constants in thisvmem and in smalltalk.run"
 	[offsets ← (pmint, 2, 0, 0).
 	values ← (0174000, 01244, 96, 031415).
@@ -592,7 +592,7 @@ staticTest: guide on: f | l locs offsets values names i v "Surgery - test known 
 		for⦂ i from: 1 to: locs length do⦂
 			[values◦i ≠ (mem◦(locs◦i +(offsets◦i)))⇒
 			[user notify: 'bad system loc']]]
-	]\gb24B
+	]
 surgery: f | guide Etemp i v keys [
 	"write virtual memory tables into Smalltalk.run using Smalltalk.syms.
 	user displayoffwhile⦂ [Vmem ramwrite: (dp0 oldFile: 'byterp.mb')].
@@ -624,7 +624,7 @@ surgery: f | guide Etemp i v keys [
 		Events ← Etemp.
 		vmemfile close.
 		user quit]
-	]\gb11B27i69I652i22I
+	]
 symsFind: strs on: f1 | f2 S N L offset val str j i "find initial values of SRELs in smalltalk.syms"
 	["S is start of string space (words)
 	N is start of symbol table "
@@ -648,8 +648,8 @@ symsFind: strs on: f1 | f2 S N L offset val str j i "find initial values of SREL
 	for⦂ j to: strs length do⦂
 		[(strs◦j) class ≡ String ⇒
 			[user notify: 'symbol not found']].
-	⇑strs]\gb22B
-systemVmemOut [] primitive: 83\gb14B
+	⇑strs]
+systemVmemOut [] primitive: 83
 tablewrt: guide on: f | i v vfile "copy tables from self to .run file"
 	[v ← guide lookup: ↪premaprun.
 	f settopage: v◦1 char: v◦2 +(2*pmatm).
@@ -681,9 +681,9 @@ tablewrt: guide on: f | i v vfile "copy tables from self to .run file"
 	v ← guide lookup: ↪safid.
 	f settopage: v◦1 char: v◦2 + (2*1).
 	f append: vfile serialNumber; skip: 4; nextword ← (vfile read: 1) address.
-	]\gb22B349i13I3i2I130i10I423b2B
+	]
 
-Zone Pages\gbf5 
+Zone Pages 
 cover: zz | pp zrp lpir zjmp vpn olpir
 	[pp ← zz◦2 + 1. "zp 1-order"
 	lpir ← 1. olpir ← 0. zrp ← zz◦1 *2 +1.
@@ -697,15 +697,15 @@ cover: zz | pp zrp lpir zjmp vpn olpir
 	vpn ← (zip◦zrp field: ZVPN) +pp -(olpir +1).
 	0 = vpn ⇒[user notify: 'pclass has no zone']
 	vpn ← vpn + 0407.
-	vmemfile settopage: vpn char: zz◦3 *2]\gb10B
-file [⇑vmemfile]\gb5B
+	vmemfile settopage: vpn char: zz◦3 *2]
+file [⇑vmemfile]
 getpages: i | vpn
 	[[zadd◦zflen < (zadd◦zfused + i) ⇒
 		[zadd◦zflen ← zadd◦zflen + (i max: 20).
 		vmemfile settopage: zadd◦zflen + 0407 char: 0]].
 	vpn ← zadd◦zfused.
 	zadd◦zfused ← vpn+i.
-	⇑vpn]\gb12B
+	⇑vpn]
 newZone | zrp
 	[zip is: Vector ⇒[
 	zrp ← prezip◦zfree.
@@ -714,8 +714,8 @@ newZone | zrp
 		zrp ← zrp+2].
 	prezip◦zfree ← 2+zrp.
 	zip◦zrp ← self getpages: 1.
-	⇑zrp/2]]\gb8B
-pagesUsed [⇑zadd◦zfused]\gb10B
+	⇑zrp/2]]
+pagesUsed [⇑zadd◦zfused]
 read: len at: zz | i str
 	[i ← 256 - (zz◦3) "zw" min: len.
 	self cover: zz.
@@ -723,7 +723,7 @@ read: len at: zz | i str
 	i=len ⇒[⇑str]
 	zz◦2 ← zz◦2 +1. "zp"
 	zz◦3 ← 0. "zw"
-	⇑str concat: (self read: len-i at: zz)]\gb17B
+	⇑str concat: (self read: len-i at: zz)]
 run: n after: zrp | i j
 	[for⦂ i to: 15 do⦂ 
 		[j ← zjmpt◦i +zrp -1 \ (prezip◦zlong) +1.
@@ -731,14 +731,14 @@ run: n after: zrp | i j
 			[zip◦zrp ← zip◦zrp field: ZJMP ← i.
 			zip◦j ← self getpages: n. ⇑zrp]
 		].
-	user notify: 'new zip is full']\gb18B
+	user notify: 'new zip is full']
 write: str at: zz | i len
 	[len ← str length /2.
 	i ← 256 - (zz◦3) "zw" min: len.
 	i = len ⇒[
 		self cover: zz.
 		vmemfile append: str]
-	self write: str from: 1 at: zz]\gb18B
+	self write: str from: 1 at: zz]
 write: str from: pos at: zz | i len
 	[len ← str length +1 -pos.  "bytes yet to write"
 	i ← len min: (256 - (zz◦3) "zw")*2.  "bytes in page"
@@ -747,20 +747,20 @@ write: str from: pos at: zz | i len
 	i=len ⇒[]
 	zz◦2 ← zz◦2 +1. "zp"
 	zz◦3 ← 0. "zw"
-	self write: str from: i+pos at: zz]\gb28B
-\g
-SystemOrganization classify: ↪VirtualMemory under: 'Primitive Access'.\g
+	self write: str from: i+pos at: zz]
+
+SystemOrganization classify: ↪VirtualMemory under: 'Primitive Access'.
 
-"Vmapper"l15000z20000\gbf5 
+"Vmapper" 
 Class new title: 'Vmapper'
 	subclassof: Object
 	fields: 'object oop noop image'
 	declare: 'classtrans PCL mapqueue clamp stopcount USTableOop mrefs arefs count UseOldUniqueStrings ';
-	asFollows\gbf5 
+	asFollows 
 
-This class has not yet been commented\gi
+This class has not yet been commented
 
-Mapping\gbf5 
+Mapping 
 map | i
 	[(i ← mrefs lookup: oop) ⇒[i◦1 ← i◦1 -1. ⇑i◦2]
 	[user kbck ⇒ [user kbd; ev] self bump].
@@ -777,7 +777,7 @@ map | i
 	= VirtualMemory ⇒[⇑self mapVmem]; "avoid recursion in writing"
 	"put any fixed octave class here"
 	= Object ⇒[⇑self mapObject]
-	⇑self mapNormal]\gb4B451i28I36i28I2i33I
+	⇑self mapNormal]
 mapClass | nlen oadd i refs vm j
 	[clamp find: object ⇒[⇑¬1 "don't write this class"]
 	nlen ← 1 + object class instsize. "refct + normal fields"
@@ -796,7 +796,7 @@ mapClass | nlen oadd i refs vm j
 		[vm ← Vmapper new object: (object instfield: j-1-oadd).
 		image word: j ← vm map].
 	self writeout.
-	⇑noop]\gb9B112i23I279i23I
+	⇑noop]
 mapFloat | refs i
 	[image ← String new: 8.
 	noop ← self newoop.
@@ -805,7 +805,7 @@ mapFloat | refs i
 	image word: 1 ← refs-2.
 	for⦂ i to: 3 do⦂ [image word: (i+1) ← object instfield: i].
 	self writeout.
-	⇑noop]\gb9B85i23I
+	⇑noop]
 mapHashObs  | nlen oadd i refs vm trans ob
 	[nlen ← object length. "in words"
 	oadd ← [nlen≤8⇒[0]1].
@@ -823,7 +823,7 @@ mapHashObs  | nlen oadd i refs vm trans ob
 		[vm ← ob◦(i-1-oadd).  "integer noops"
 		vm ≡ nil ⇒[] image word: i ← vm].
 	self writeout.
-	⇑noop, trans values]\gb12B55i10I104i17I257i24I62i15I
+	⇑noop, trans values]
 mapHashSet | nlen i refs vm perm  "all subclass on HashSet except Mdict"
 	[mrefs asOop = oop ⇒[⇑¬1] "do not map"
 	arefs asOop = oop ⇒[⇑¬1] "do not map"
@@ -841,7 +841,7 @@ mapHashSet | nlen i refs vm perm  "all subclass on HashSet except Mdict"
 		[vm ← Vmapper new object: (object instfield: i-1).
 		image word: i ← (vm mapHashVals: perm)].
 	self writeout.
-	⇑noop]\gb11B23i38I28i12I27i12I38i16I81i23I141i13I37i28I
+	⇑noop]
 mapHashVals: perm | nlen oadd i refs vm  "values vec of dictionary"
 	[oop = ¬1 ⇒[⇑¬1]
 	nlen ← object length. "in words"
@@ -860,7 +860,7 @@ mapHashVals: perm | nlen oadd i refs vm  "values vec of dictionary"
 		[(vm ← Vmapper new) object: object◦ (i-1-oadd).
 		image word: i ← vm map].
 	self writeout.
-	⇑noop]\gb18B23i26I42i10I104i17I
+	⇑noop]
 mapInteger | refs
 	[¬02000 ≤ object and: object < 01777 ⇒
 		[⇑oop "small integer"]
@@ -871,7 +871,7 @@ mapInteger | refs
 	image word: 1 ← refs-2.
 	image word: 2 ← object.
 	self writeout.
-	⇑noop]\gb11B55i15I77i23I
+	⇑noop]
 mapMdict | i refs vm perm  " maps MessageDict instance "
 	[image ← String new: 12.
 	noop ← self newoop.
@@ -887,7 +887,7 @@ mapMdict | i refs vm perm  " maps MessageDict instance "
 		i = 3 ⇒[image word: 3 ← (vm mapMethodVec: perm)]
 		image word: i ← (vm mapHashVals: perm)].
 	self writeout.
-	⇑noop]\gb9B18i29I78i23I143i13I37i28I
+	⇑noop]
 mapMethod | nlen oadd refs i a vm b
 	[oop = ¬1 ⇒[⇑¬1]
 	nlen ← object length. "in bytes!!"
@@ -910,7 +910,7 @@ mapMethod | nlen oadd refs i a vm b
 			image word: (i+1+oadd) ← vm map].
 		image◦(a+b to: nlen) ← object◦(b+1 to: object length)].
 	self writeout.
-	⇑noop]\gb10B67i12I109i17I
+	⇑noop]
 mapMethodVec: perm | nlen oadd i refs vm
 	[oop = ¬1 ⇒[⇑¬1]
 	nlen ← object length. "in words"
@@ -929,7 +929,7 @@ mapMethodVec: perm | nlen oadd i refs vm
 		[(vm ← Vmapper new) object: object◦ (i-1-oadd).
 		image word: i ← vm mapMethod].
 	self writeout.
-	⇑noop]\gb19B63i10I104i17I
+	⇑noop]
 mapNormal | nlen i refs vm oadd "all fixed, pointer type classes"
 	[clamp find: object class ⇒[⇑¬1 "don't write the instance"]
 	nlen ← object class instsize.
@@ -945,7 +945,7 @@ mapNormal | nlen i refs vm oadd "all fixed, pointer type classes"
 		[vm ← Vmapper new object: (object instfield: i-oadd-1).
 		image word: i ← vm map].
 	self writeout.
-	⇑noop]\gb10B22i33I219i23I
+	⇑noop]
 mapObject | refs  "nil, false, true"
 	[object≡nil ⇒
 		[mrefs insert: ¬1 with: (500, ¬1). "for speed of
@@ -958,7 +958,7 @@ mapObject | refs  "nil, false, true"
 		mrefs insert: oop with: (refs-2, noop)].
 	image word: 1 ← refs -2.
 	self writeout.
-	⇑noop]\gb10B8i18I53i51I141i23I
+	⇑noop]
 mapString | nlen oadd refs
 	[nlen ← object length. "in bytes!!"
 	oadd ← [nlen≤8⇒[0]1].
@@ -971,7 +971,7 @@ mapString | nlen oadd refs
 	[oadd=1⇒[image word: 2 ← object length]].
 	image◦((2*oadd +3) to: nlen) ← object.
 	self writeout.
-	⇑noop]\gb10B41i12I132i23I
+	⇑noop]
 mapUniqueString | nlen oadd refs
 	[[UseOldUniqueStrings ⇒[self UniStroop. noop ← oop]
 		(refs ← arefs lookup: oop) ⇒[⇑refs]
@@ -985,7 +985,7 @@ mapUniqueString | nlen oadd refs
 	[oadd=1⇒[image word: 2 ← object length]].
 	image◦((2*oadd +3) to: nlen) ← object.
 	self writeout.
-	⇑noop]\gb16B186i12I
+	⇑noop]
 mapVector | nlen oadd i refs vm
 	[[UseOldUniqueStrings ⇒[] USTableOop = oop ⇒[⇑¬1]
 		"do not map since new atom Oops"]. 
@@ -1002,7 +1002,7 @@ mapVector | nlen oadd i refs vm
 		[vm ← Vmapper new object: (object◦ (i-1-oadd)).
 		image word: i ← vm map].
 	self writeout.
-	⇑noop]\gb10B75i32I27i10I127i23I
+	⇑noop]
 mapVmem | nlen i refs vm  "VirtualMemory, Vmem and Pmap"
 	[nlen ← 1 + (object class instsize). "refct + fields"
 	image ← String new: 2*nlen.
@@ -1013,7 +1013,7 @@ mapVmem | nlen i refs vm  "VirtualMemory, Vmem and Pmap"
 	for⦂ i from: (2 to: nlen) do⦂ 
 		[image word: i ← ¬1]. "Vmem needed for purgealittle"
 	self writeout.
-	⇑noop]\gb8B
+	⇑noop]
 permHashSet | ob i bb nili vm   "gets new atoms, returns dict of objects and permutation"
 	[bb ← Dictionary new init: object length.
 	i ← 1. while⦂ (object◦i ≡ nil and: i ≠ object length) do⦂ [i ← i+1].
@@ -1033,9 +1033,9 @@ permHashSet | ob i bb nili vm   "gets new atoms, returns dict of objects and per
 	ob ← bb values.
 	for⦂ i to: ob length do⦂
 		[ob◦i ← i].
-	⇑bb]\gb12B20i57I
+	⇑bb]
 
-Writing Out\gbf5 
+Writing Out 
 method: sel | v str a j i   "object is a class. find this method and construct vmapper"
 	[(v ← classtrans lookup: oop) ≡ false ⇒[user notify: 'object not a class']
 	str ← Pmap readin: v◦1. "class image"
@@ -1047,7 +1047,7 @@ method: sel | v str a j i   "object is a class. find this method and construct v
 	i ← Pmap readin: (i word: 1+2). "methods vector image"
 	v ← Vmapper new object: (object md method: sel).
 	v noop: (i word: (j/2)). v readin.
-	⇑v]\gb12B16i59I102i13I47i13I36i22I44i10I105i22I
+	⇑v]
 newoop | v a i indx o "see if classtrans can help find new oop"
 	[(v ← classtrans lookup: (i ← object class) asOop) ⇒
 		[indx ← 1 + (Vmem freelist: object).
@@ -1061,7 +1061,7 @@ newoop | v a i indx o "see if classtrans can help find new oop"
 	 a ← [i is: Class ⇒[1] 20].
 	 v ← Vector new: a+1.
 	 classtrans insert: (object class) asOop with: v.
-	 ⇑self newoop]\gb7B15i41I128i20I78i24I
+	 ⇑self newoop]
 newpcl: n | a pm0
 	["object class = Foo ⇒[an exception]"
 	pm0 ← Vmem lowPM: oop.
@@ -1070,24 +1070,24 @@ newpcl: n | a pm0
 	n=¬1 ⇒[Pmap newZN: a. Pmap ZHB: a gets: 0. ⇑a]
 	Pmap ZN: a gets: (Pmap ZN: n).
 	Pmap ZHB: a gets: 1 + (Pmap ZHB: n).
-	⇑a]\gb10B10i36I
+	⇑a]
 nextfree: n | a
 	[n≡nil ⇒[n ← self newpcl: ¬1.
 		⇑(n, (n+1))]
 	n\0200 = 0177 ⇒[a ← self newpcl: n.
 		⇑(n, a)]
-	⇑(n, (n+1))]\gb12B
+	⇑(n, (n+1))]
 object: object
-	[oop ← object asOop]\gb16B
+	[oop ← object asOop]
 readin | v  "read object off vmemfile and return image"
 	[[noop ≡ nil ⇒[(v ← mrefs lookup: oop) ⇒[noop ← v◦2] 
 		user notify: 'can not find new oop']].
-	⇑image ← Pmap readin: noop]\gb7B5i43I
+	⇑image ← Pmap readin: noop]
 writeout
 	["write image of object on file"
-	Pmap writeout: noop with: image]\gb10B1i31I
+	Pmap writeout: noop with: image]
 
-Init and Exceptions\gbf5 
+Init and Exceptions 
 Acomment
 	["Vmapper writes objects out.
 	watch out for abnormally high refcts.
@@ -1119,7 +1119,7 @@ Acomment
 		(Speed only below)
 	permHashSet - test objects		-force fail on test
 	Now above done by setting UseOldUniqueStrings in giveBirth3.
-	"]\gb10B1i1135I
+	"]
 arefsRectify | i ustable vm "create USTable and write out"
 	[UseOldUniqueStrings ⇒[⇑nil "dont create if using old atoms"]
 	ustable ← Vector new: USTable length.
@@ -1134,13 +1134,13 @@ arefsRectify | i ustable vm "create USTable and write out"
 	vm object: ustable.
 	self reset; object: (Smalltalk ref: ↪USTable); readin.
 	image word: 2 ← vm map. "ref new table"
-	self writeout; reset]\gb13B15i30I30i32I391i15I
+	self writeout; reset]
 bump  "count objects mapped, print"
 	[count ← count + 1.
 	count\ 100 = 0 ⇒[user clearshow: count asString; space;
 		show: oop base8; cr.
 		count = stopcount ⇒[user ev; show: stopcount asOop base8]]
-	]\gb6Bi29I
+	]
 freelistRectify | i v  "fix bad atom freelist"
 	[[UseOldUniqueStrings ⇒[] ⇑nil].  "dont rectify if new atom names created"
 	for⦂ i from: (Vmem pmatm to: 0174000 - 0200 by: 0200) do⦂
@@ -1148,7 +1148,7 @@ freelistRectify | i v  "fix bad atom freelist"
 	v ← classtrans lookup: 0602.
 	for⦂ i from: (2 to: 21) do⦂ [v◦i ≡ nil ⇒[]
 		v◦i ← v◦i + 1]
-	]\gb16B7i23I36i40I
+	]
 init   "set up class variables"
 	[PCL ← 151.
 	classtrans ← Dictionary new init: 32.
@@ -1160,7 +1160,7 @@ init   "set up class variables"
 	"clamp insertall: (ClassA, ClassB, ClassC...).""ones to get rid of"
 	USTableOop ← USTable asOop.
 	"override this in VirtualMemory giveBirth3"
-	UseOldUniqueStrings ← true]\gb7Bi24I148i13I132i43I
+	UseOldUniqueStrings ← true]
 mrefsRectify | v zz
 	[for⦂ v from: mrefs values do⦂
 		[v ≡ nil ⇒[]
@@ -1171,9 +1171,9 @@ mrefsRectify | v zz
 		image word: 1 ← (image word: 1) - (v◦1).
 		Pmap writeout: v◦2 with: image.
 		self reset]
-	]\gb13B66i10I15i17I27i6I33i9I
-noop: noop "give it noop for readin"\gb11Bi
-reset [noop ← image ← nil]\gb6B
+	]
+noop: noop "give it noop for readin"
+reset [noop ← image ← nil]
 touchoop | v a i indx "claim pclass, zone, classtrans"
 	[(v ← classtrans lookup: (object class) asOop) ⇒
 		[indx ← 1 +(Vmem freelist: object).
@@ -1182,7 +1182,7 @@ touchoop | v a i indx "claim pclass, zone, classtrans"
 	 i ← [object class is: Class ⇒[1] 20].
 	 v ← Vector new: i+1.
 	 classtrans insert: (object class) asOop with: v.
-	 ⇑self touchoop]\gb9B13i32I134i13I
+	 ⇑self touchoop]
 UniStroop | pm0 v indx
 	["Unique Strings must get same oop and pclass"
 	v ← classtrans lookup: 0602.
@@ -1197,8 +1197,8 @@ UniStroop | pm0 v indx
 		v◦indx ← oop]
 	Pmap ZN: oop gets: (Pmap ZN: v◦indx).
 	v◦indx ← oop min: v◦indx
-	]\gb10B15i45I112i27I
-UseOldUniqueStrings: a [UseOldUniqueStrings ← a] "true if do not want atoms remapped"\gb23B26i
+	]
+UseOldUniqueStrings: a [UseOldUniqueStrings ← a] "true if do not want atoms remapped"
 writefreelists | v oadd i nlen str
 	[self freelistRectify.
 	nlen ← 1 + Class instsize. oadd ← 1.
@@ -1217,28 +1217,28 @@ writefreelists | v oadd i nlen str
 			image word: (i+nlen+oadd) ← v◦(1+i).
 			Pmap writeout: v◦(1+i) with: str] ].
 		Pmap writeout: v◦1 with: image].
-	self reset]\gb15B141i21I81i6I23i9I81i25I
+	self reset]
 
-As yet unclassified\gbf5 
+As yet unclassified 
 Addons
 	[(dp0 file: 'VmapperAdd.st') filout: ↪(
-	)]\gb8B
+	)]
 arefs  "dictionary of UniqueString oops and noops"
-	[⇑arefs]\gb7Bi43I
-classtrans [⇑classtrans]\gb11B
-image [⇑image]\gb6B
+	[⇑arefs]
+classtrans [⇑classtrans]
+image [⇑image]
 mrefs "dictionary of multiple refct oops"
-	[⇑mrefs]\gb6Bi35I
-noop [⇑noop]\gb5B
-object [⇑object]\gb7B
-oop [⇑oop]\gb4B
+	[⇑mrefs]
+noop [⇑noop]
+object [⇑object]
+oop [⇑oop]
 printon: strm
 	[oop ≡ nil ⇒[super printon: strm]
-	strm append: 'Vmapper '; append: oop base8]\gb15B
+	strm append: 'Vmapper '; append: oop base8]
 show | i  "show image of object in base8"
 	[for⦂ i to: image length/2 do⦂
 		[user show: (image base8: i); space.
 		i\3 = 0 ⇒[user cr]]
-	]\gb5B5i31I
-\g
-SystemOrganization classify: ↪Vmapper under: 'Primitive Access'.\g
+	]
+
+SystemOrganization classify: ↪Vmapper under: 'Primitive Access'.

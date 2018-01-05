@@ -1,29 +1,29 @@
 'From Smalltalk 5.5k XM November 24 on 22 November 1980 at 2:57:08 am.'
-\g
-"BitRect"l15000z20000\gbf5 
+
+"BitRect" 
 Class new title: 'BitRect'
 	subclassof: Rectangle
 	fields: 'title  "<String> title of picture"
 		stripheight  "<Integer> scan lines in a buffer (private)"
 		data  "<Vector> of Strings.  Saves the bits in the Rectangle"'
 	declare: 'defaultpic ';
-	asFollows\gbf5 
+	asFollows 
 
 BitRect is a Rectangle that remembers the bits within it.
 To create and edit one, say:
 		BitRect new fromuser edit.
 This installs a BitRectEditor in the scheduler and starts it up.
-The editor is explained in BitRectEditor.\gi
+The editor is explained in BitRectEditor.
 
-Initialization\gbf5 
+Initialization 
 classInit
 	["the default picture is a gray rectangle"
-	defaultpic ← BitRect new filin: 'defaultpic']\gb11B2i39I
-default [⇑defaultpic recopy]\gb8B
+	defaultpic ← BitRect new filin: 'defaultpic']
+default [⇑defaultpic recopy]
 fromuser
 	[self title: 'BitRect' in: Rectangle new fromuser.
-	self saveScreenBits]\gb10B
-origin: origin corner: corner title: title stripheight: stripheight data: data\gb
+	self saveScreenBits]
+origin: origin corner: corner title: title stripheight: stripheight data: data
 title: title in: rect | nStrips i strips
 	[origin←rect origin.  corner←rect corner.
 	"the strip height is chosen so that each bitstring is about 2048 bytes"
@@ -32,31 +32,31 @@ title: title in: rect | nStrips i strips
 	data←Vector new: nStrips.
 	strips←self strips.
 	for⦂ i to: nStrips do⦂
-		[data◦i←String new: (strips◦i) bitStringLength]]\gb22B64i69I
+		[data◦i←String new: (strips◦i) bitStringLength]]
 
-Access to parts\gbf5 
-data [⇑data]\gb5B
-title [⇑title]\gb6B
+Access to parts 
+data [⇑data]
+title [⇑title]
 
-Rectangle Protocol\gbf5 
-= x [⇑self≡x]\gb4B
+Rectangle Protocol 
+= x [⇑self≡x]
 bitsOntoStream: strm | bits
-	[for⦂ bits from: data do⦂ [strm append: bits]]\gb21B
-corner←x [self growby: x-corner]\gb9B
-extent←x [self growby: x-self extent]\gb9B
+	[for⦂ bits from: data do⦂ [strm append: bits]]
+corner←x [self growby: x-corner]
+extent←x [self growby: x-self extent]
 growby: change | old
 	[old←BitRect new origin: origin corner: corner title: title
 		stripheight: stripheight data: data.
 	self title: title in: (origin rect: corner+change).
-	self copyBitsFrom: old]\gb15B
-growto: x [self growby: x-corner]\gb10B
-hash [user croak] primitive: 46\gb5B
-height←h [self growby: 0⌾(h-self extent y)]\gb9B
+	self copyBitsFrom: old]
+growto: x [self growby: x-corner]
+hash [user croak] primitive: 46
+height←h [self growby: 0⌾(h-self extent y)]
 printon: strm
-	[strm append: 'a BitRect']\gb15B
-width←w [self growby: (w-self extent x)⌾0]\gb8B
+	[strm append: 'a BitRect']
+width←w [self growby: (w-self extent x)⌾0]
 
-Editing\gbf5 
+Editing 
 copyBitsFrom: other
 		| clippedStrip i j myStrips otherStrips myStrip otherStrip
 	["copy all bits from other that are within my area"
@@ -74,22 +74,22 @@ copyBitsFrom: other
 				sourcebase←other data◦j;
 				sourceraster←otherStrip width+15/16;
 				source←clippedStrip origin-otherStrip origin;
-				checksandcall]]]\gb22B62i19u5U24I
+				checksandcall]]]
 edit | a
 	[user leaveTop.
 	a←BitRectEditor new picture: self.
 	a takeCursor; enter.
-	user restartup: a]\gb5B
+	user restartup: a]
 
-Showing\gbf5 
+Showing 
 saveScreenBits | strips i
 	[strips←self strips.
 	for⦂ i to: strips length do⦂
-		[strips◦i bitsIntoString: data◦i mode: storing clippedBy: nil]]\gb15B
+		[strips◦i bitsIntoString: data◦i mode: storing clippedBy: nil]]
 show | strips i
 	[strips←self strips.
 	for⦂ i to: strips length do⦂
-		[strips◦i bitsFromString: data◦i]]\gb5B
+		[strips◦i bitsFromString: data◦i]]
 strips   "return a vector of strips (Rectangles)"
 		| nStrips strips stripOrigin stripExtent i
 	[(nStrips←data length)=1⇒[⇑self inVector]
@@ -99,9 +99,9 @@ strips   "return a vector of strips (Rectangles)"
 		[strips◦i←Rectangle new origin: stripOrigin extent: stripExtent.
 		stripOrigin←stripOrigin+(0⌾stripheight)].
 	strips◦nStrips←Rectangle new origin: stripOrigin corner: corner.
-	⇑strips]\gb9B1i38I
+	⇑strips]
 
-Filin and filout\gbf5 
+Filin and filout 
 filin: title | f i x y rect strips  "read bits from a file"
 	[f←dp0 oldFile: (title concat: '.pic.').
 	f readonly.
@@ -114,17 +114,17 @@ filin: title | f i x y rect strips  "read bits from a file"
 	strips ← self strips.
 	for⦂ i to: strips length do⦂
 		[f into: data◦i].
-	f close]\gb13B23i23I
+	f close]
 filout | f i  "write bits on a file"
 	[f ← dp0 file: (title concat: '.pic.').
 	f nextword ← self extent x.
 	f nextword ← self extent y.
 	f nextword ← stripheight.
 	for⦂ i from: data do⦂ [f append: i].
-	f close]\gb7B8i20I
+	f close]
 
-Press\gbf5 
-length [⇑self bitStringLength]\gb7B
+Press 
+length [⇑self bitStringLength]
 presson: press in: r | w h hs scale w16 y [
 	scale ← press scale.
 	h ← self height.
@@ -145,12 +145,12 @@ presson: press in: r | w h hs scale w16 y [
 				setwindowwidth: w16 height: h;
 				dotsfollow.
 			self bitsOntoStream: press data].
-	⇑y]\gb21B
-\g
-SystemOrganization classify: ↪BitRect under: 'Picture Editor'.\g
-BitRect classInit\g
+	⇑y]
+
+SystemOrganization classify: ↪BitRect under: 'Picture Editor'.
+BitRect classInit
 
-"BitRectEditor"l15000z20000\gbf5 
+"BitRectEditor" 
 Class new title: 'BitRectEditor'
 	subclassof: Window
 	fields: 'tool  "<BitRectTool> the current tool"
@@ -158,7 +158,7 @@ Class new title: 'BitRectEditor'
 		dirty  "false if picture has not been modified"
 		saveActionPic saveToolPic  "buffers for saving background" '
 	declare: 'tools toolpic actionbuttons actionpic windowmenu ';
-	asFollows\gbf5 
+	asFollows 
 
 BitRectEditor edits BitRects.
 To create, say:
@@ -182,10 +182,10 @@ To install this copy as the menu picture, say
 	BitRectEditor new toolpic: newpic recopy.
 Do the analogous thing to edit the action picture.
 Caution: the editor blows up if you edit the tool picture itself and not a copy.
-\gi
 
-Initialization\gbf5 
-actionpic: a [actionpic ← a]\gb13B
+
+Initialization 
+actionpic: a [actionpic ← a]
 classInit | t i
 	[t ← Vector new: 6.
 	for⦂ i to: t length do⦂ [t◦i ← BitRectTool new init].
@@ -198,7 +198,7 @@ filout
 printbits'.
 	actionpic←BitRect new filin: 'actionpic'.
 	toolpic←BitRect new filin: 'toolpic'.
-	self initmenu1]\gb10B
+	self initmenu1]
 initmenu1 | s z
 	[s ← Vector new: 5. z ← 20.
 	s◦1 ← (RadioButtons new) vec: ↪(setbrush paint block draw line blowup) at: 0⌾0 height: z. "action"
@@ -206,13 +206,13 @@ initmenu1 | s z
 	s◦3 ← (RadioButtons new) vec: (0, 1, 2, 3) at: 0⌾0 height: z. "mode"
 	s◦4 ← (RadioButtons new) vec: (1, 2, 4, 8) at: 0⌾0 height: z. "width"
 	s◦5 ← (RadioButtons new) vec: (1, 2, 4, 8, 16, 32) at: 0⌾0 height: z. "grid"
-	actionbuttons ← s.]\gb10B127i6I90i4I66i4I66i5I74i4I
+	actionbuttons ← s.]
 picture: picture
 	[tool ← tools push: 1.
-	self frame: (picture origin rect: picture corner)]\gb18B
-toolpic: a [toolpic ← a]\gb11B
+	self frame: (picture origin rect: picture corner)]
+toolpic: a [toolpic ← a]
 
-Window protocol\gbf5 
+Window protocol 
 bluebug | 
 	[
 	picture is: BitImage⇒ [ ⇑ picture fromrectangle: (picture rectangle)]
@@ -223,7 +223,7 @@ bluebug |
 	=4 ⇒[self leave; erase.   "close"
 		 user unschedule: self. ⇑false];
 	=5 ⇒[self leave. picture filout. self enter];  "filout"
-	=6 ⇒[self print]	"press file"]\gb8B134i5I40i4I20i4I32i5I86i6I21i10I
+	=6 ⇒[self print]	"press file"]
 enter | start pt b
 	["Periodically check if the mouse is still in the frame.
 		If not, stop showing the picture"
@@ -253,11 +253,11 @@ enter | start pt b
 	saveToolPic ← toolpic bitsIntoString.
 	toolpic show.
 	tools moveto: pt;  setvalue: tool.
-	tool frame: frame; showon: actionbuttons.]\gb6B16i89I139i34I152i65I54i6I37i4I37i5I4i36I80i4I38i4I
+	tool frame: frame; showon: actionbuttons.]
 fixframe: r
 	[picture moveto: r origin.
 	r corner←picture corner.
-	⇑r]\gb13B
+	⇑r]
 grow | oldframe newframe pt r
 	[self leave.
 	newframe←picture origin rect: picture corner.
@@ -275,7 +275,7 @@ grow | oldframe newframe pt r
 	for⦂ r from: (oldframe minus: newframe) do⦂ [r clear: background].
 	for⦂ r from: (newframe minus: picture) do⦂ [r clear: white].
 	picture title: picture title in: newframe; saveScreenBits.
-	self frame: newframe; show; takeCursor; enter]\gb5B331i89I36i28I
+	self frame: newframe; show; takeCursor; enter]
 leave
 	[[nil≡saveActionPic⇒[]
 	 actionpic bitsFromString: saveActionPic.
@@ -284,8 +284,8 @@ leave
 	 toolpic bitsFromString: saveToolPic.
 	 saveToolPic←nil].
 	[dirty⇒[picture saveScreenBits. dirty ← false]].
-	frame border: 3 color: white]\gb7B
-lostMouse [⇑(frame has: user mp)≡false]\gb10B
+	frame border: 3 color: white]
+lostMouse [⇑(frame has: user mp)≡false]
 outside | pt
 	[toolpic has: (pt←user mp)⇒
 		[user redbug⇒
@@ -293,19 +293,19 @@ outside | pt
 	actionpic has: pt⇒
 		[user redbug⇒
 			[tool setfrom: actionbuttons]]
-	⇑false]\gb8B
-redbug [dirty←true.  tool redbug]\gb7B
-showtitle   "The BitRectEditor have a menu where the title used to be"\gb12Bi
-title [⇑picture title]\gb6B
-tool [⇑ tool]\gb5B
+	⇑false]
+redbug [dirty←true.  tool redbug]
+showtitle   "The BitRectEditor have a menu where the title used to be"
+title [⇑picture title]
+tool [⇑ tool]
 yellowbug
 	[picture is: BitImage⇒ [ picture yellowbug] 
-	]\gb11B
-\g
-SystemOrganization classify: ↪BitRectEditor under: 'Picture Editor'.\g
-BitRectEditor classInit\g
+	]
+
+SystemOrganization classify: ↪BitRectEditor under: 'Picture Editor'.
+BitRectEditor classInit
 
-"BitRectTool"l15000z20000\gbf5 
+"BitRectTool" 
 Class new title: 'BitRectTool'
 	subclassof: Object
 	fields: 'action "<UniqueString> the current action"
@@ -315,7 +315,7 @@ Class new title: 'BitRectTool'
 		tone  "<Integer> a spatial half-tone color (4 bits by 4 bits)"
 		grid  "<Integer> all mouse points are rounded to this"'
 	declare: 'blowupScale graypens brushpt ';
-	asFollows\gbf5 
+	asFollows 
 
 A BitRectTool paints on the screen.
 A tool is a combination of action, mode, pen-width, gray, and grid.
@@ -329,10 +329,10 @@ Some actions do not use certain of the other parts of a tool.
 (example: Block-of-gray does not use pen-width.)
 
 brushpt = Point in the menu where brush is shown.
-graypens = Vector of Strings of bits in pens.\gi
+graypens = Vector of Strings of bits in pens.
 
-Tool action\gbf5 
-block [self getRectangle color: tone mode: mode]\gb6B
+Tool action 
+block [self getRectangle color: tone mode: mode]
 blowup | smallRect bigRectFrame
 	[smallRect←self getRectangle.
 	bigRectFrame ← Rectangle new origin: smallRect corner
@@ -344,7 +344,7 @@ blowup | smallRect bigRectFrame
 		user screenrect has: bigRectFrame origin⇒[]
 		"can't find a space for blown up image"	
 		pencil frame flash.  ⇑nil].
-	self blowup: smallRect to: bigRectFrame]\gb7B404i37I
+	self blowup: smallRect to: bigRectFrame]
 blowup: smallRect to: bigRectFrame
 		| bigRect box pt i turt flag bits
 	[bits ← bigRectFrame bitsIntoString.
@@ -366,8 +366,8 @@ blowup: smallRect to: bigRectFrame
 		user anybug ⇒
 			[(bigRect inset: ¬5⌾¬5) has: pt⇒[bigRect flash]
 			"quit" flag←false]].
-	bigRectFrame bitsFromString: bits]\gb37B230i82I425i4I
-brush [⇑brush]\gb6B
+	bigRectFrame bitsFromString: bits]
+brush [⇑brush]
 brush: sourceRect   "use the bits in the BitRect sourceRect as a brush"
 		| minpt maxpt pt offset
 	["The inner painting loop should be fast - all the extra foliage below
@@ -398,7 +398,7 @@ brush: sourceRect   "use the bits in the BitRect sourceRect as a brush"
 			[minpt≤(pt←self mpOnGrid-offset) and⦂ pt≤maxpt⇒
 				[sourceRect blt: pt mode: mode]
 			sourceRect blt: pt mode: mode clippedBy: self frame]].
-	]\gb20B1i28u10U11I31i113I138i62I3i60I430i11I203i27I
+	]
 draw
 	[tone=white or⦂ tone=black⇒
 		[pencil place: self mpOnGrid-pencil frame origin.
@@ -407,7 +407,7 @@ draw
 				[pencil goto: user mp-pencil frame origin]]
 		while⦂ user redbug do⦂
 			[pencil goto: self mpOnGrid-pencil frame origin]]
-	self brush: graypens◦pencil width]\gb6B92i29I
+	self brush: graypens◦pencil width]
 getRectangle | rect newrect start t   "rect must be in my frame"
 	["the rect-newrect stuff is so that the complementing stays
 		on for a while"
@@ -424,7 +424,7 @@ getRectangle | rect newrect start t   "rect must be in my frame"
 		newrect←(Rectangle new origin: (start min: t) corner: (start max: t))
 			intersect: self frame.
 		rect comp].
-	⇑rect]\gb13B25i26I4i74I109i88I
+	⇑rect]
 line | start end width
 	[start←end←self mpOnGrid-pencil frame origin.
 	width←pencil width.  pencil xor; width: 1.
@@ -432,21 +432,21 @@ line | start end width
 		[end←self mpOnGrid-pencil frame origin.
 		pencil xor; place: start; goto: end; place: start; goto: end].
 	[tone=white⇒[pencil white] pencil black].
-	pencil width: width; place: start; goto: end]\gb5B17b2B
+	pencil width: width; place: start; goto: end]
 mode
-	[⇑ mode]\gb6B
+	[⇑ mode]
 mpOnGrid   "return mouse point rounded to grid"
-	[⇑user mp+(grid/2) | grid]\gb11Bi31u4U1I
+	[⇑user mp+(grid/2) | grid]
 paint
-	[self brush: brush]\gb7B
-redbug [self perform: action]\gb7B
+	[self brush: brush]
+redbug [self perform: action]
 setbrush | rect
 	[rect←self getRectangle.
 	rect empty or⦂ 50⌾50<rect extent⇒[pencil frame flash].
 	brush color: white mode: storing.
 	brush title: 'brush' in: rect; saveScreenBits.
 	brush moveto: brushpt; show.
-	action ← ↪paint]\gb9B
+	action ← ↪paint]
 shade | p1 p2 a b t p r vs "down on redbug is black place.
 	up on redbug is white place.  Subsequent redbugs
 	paint a shade of gray depending on position between
@@ -466,15 +466,15 @@ shade | p1 p2 a b t p r vs "down on redbug is black place.
 		brush brush: p mode: mode color: vs◦(17-t)]
 	]
 	]
-\gb6B
-tone
-	[⇑ tone]\gb6B
 
-Tool selection\gbf5 
+tone
+	[⇑ tone]
+
+Tool selection 
 brushpt: pt  "set the point at which the current brush will be shown"
-	[brushpt←pt]\gb13B1i54I
-frame [⇑pencil frame]\gb6B
-frame: f [pencil frame: f]\gb9B
+	[brushpt←pt]
+frame [⇑pencil frame]
+frame: f [pencil frame: f]
 setfrom: butvec | pt
 	[butvec◦1 has: (pt ← user mp) ⇒
 		[action ← butvec◦1 bug: pt]
@@ -483,15 +483,15 @@ setfrom: butvec | pt
 	butvec◦3 has: pt ⇒[mode ← butvec◦3 bug: pt]
 	butvec◦4 has: pt ⇒[pencil width: (butvec◦4 bug: pt)]
 	butvec◦5 has: pt ⇒[grid ← butvec◦5 bug: pt]
-	]\gb16B
+	]
 showon: butvec
 	[butvec◦1 setvalue: action.
 	butvec◦2 setvalue: tone.
 	butvec◦3 setvalue: mode.
 	butvec◦4 setvalue: pencil width.
-	butvec◦5 setvalue: grid]\gb16B
+	butvec◦5 setvalue: grid]
 
-Class initialization\gbf5 
+Class initialization 
 classInit | rect saveBits t i
 	[blowupScale←4.
 	"make a vector of gray pens"
@@ -505,16 +505,16 @@ classInit | rect saveBits t i
 		t place: 4⌾4; go: 0. 
 		graypens◦i ← BitRect new title: 'graypen' in: rect.
 		(graypens◦i) saveScreenBits].
-	rect bitsFromString: saveBits]\gb10B38i28I
+	rect bitsFromString: saveBits]
 init
 	[(pencil ← Turtle new) init; black; width: 2.
 	(brush ← BitRect new) title: 'brush' in: (0⌾0 rect: 16⌾16).
-	tone ← black. mode ← 0. grid ← 1. action ← ↪draw]\gb6B
-\g
-SystemOrganization classify: ↪BitRectTool under: 'Picture Editor'.\g
-BitRectTool classInit\g
+	tone ← black. mode ← 0. grid ← 1. action ← ↪draw]
+
+SystemOrganization classify: ↪BitRectTool under: 'Picture Editor'.
+BitRectTool classInit
 
-"RadioButtons"l15000z20000\gbf5 
+"RadioButtons" 
 Class new title: 'RadioButtons'
 	subclassof: Object
 	fields: 'vec  "<Vector> values corresponding to the buttons"
@@ -522,47 +522,47 @@ Class new title: 'RadioButtons'
 		rect  "<Rectangle> contains all the buttons"
 		size  "<Integer> width or height of a button"'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 A RadioButtons is a row or column of square regions ("buttons") on the display screen.  There is always exactly one button pushed.  (RadioButtons is a model of the station selection buttons on a car radio.)  The pushed button has a black box around it.  Each button has a value associated with it, which is returned when the button is pressed.  RadioButtons will not destroy a menu picture (BitRect) displayed in its area, but the RadioButtons has no knowledge of the picture.
-\gi
 
-Pushing a Button\gbf5 
+
+Pushing a Button 
 bug: pt | r a
 	[r ← (pt - rect origin - (1⌾1)) / size.
 	a ← r x + r y + 1.
-	⇑self push: a]\gb8B
+	⇑self push: a]
 push: a
 	[self release: cur thenPush: a.
-	⇑vec◦(cur ← a)]\gb9B
+	⇑vec◦(cur ← a)]
 setvalue: v | i
 	["if value has been lost, set self to 1"
 	i←(vec find: v) max: 1.
-	self push: i.  ⇑i]\gb12B6i39I
+	self push: i.  ⇑i]
 
-Init and State\gbf5 
-has: pt [⇑rect has: pt]\gb8B
+Init and State 
+has: pt [⇑rect has: pt]
 moveto: pt
 	[rect moveto: pt.
 	cur ← 0.
-	⇑rect corner x ⌾ rect origin y]\gb12B
-reset [cur←0]\gb6B
-value [⇑vec◦cur]\gb6B
-vec [⇑vec]\gb4B
+	⇑rect corner x ⌾ rect origin y]
+reset [cur←0]
+value [⇑vec◦cur]
+vec [⇑vec]
 vec: vec at: r height: size
 	[rect ← r rect: r+ ((vec length ⌾ 1)*size).
-	cur ← 0]\gb29B
+	cur ← 0]
 vec: vec at: r width: size
 	[rect ← r rect: r+ ((1 ⌾ vec length)*size).
-	cur ← 0]\gb28B
+	cur ← 0]
 
-Private\gbf5 
+Private 
 release: a thenPush: b | boxer offset
 	[a=b⇒[]
 	offset ← [size=rect extent y⇒[size⌾0] 0⌾size].
 	[a≠0⇒[boxer ← Rectangle new origin: (offset*(a-1)+rect origin+1)
 				extent: size⌾size-1.  boxer comp.  (boxer inset: 1⌾1) comp]].
 	b≠0⇒[boxer ← Rectangle new origin: (offset*(b-1)+rect origin+1)
-				extent: size⌾size-1.  boxer comp.  (boxer inset: 1⌾1) comp]]\gb23B
-\g
-SystemOrganization classify: ↪RadioButtons under: 'Picture Editor'.\g
+				extent: size⌾size-1.  boxer comp.  (boxer inset: 1⌾1) comp]]
+
+SystemOrganization classify: ↪RadioButtons under: 'Picture Editor'.

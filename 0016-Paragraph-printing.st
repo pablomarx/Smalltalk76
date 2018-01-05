@@ -1,6 +1,6 @@
 'From Smalltalk 5.5k XM November 24 on 22 November 1980 at 2:57:08 am.'
-\g
-"ParagraphPrinter"l15000z20000\gbf5 
+
+"ParagraphPrinter" 
 Class new title: 'ParagraphPrinter'
 	subclassof: Object
 	fields: 'frame "<Rectangle> usable area on page"
@@ -9,35 +9,35 @@ Class new title: 'ParagraphPrinter'
 		strm "<Stream> for output"
 		'
 	declare: 'defaultframe defaultleading ';
-	asFollows\gbf5 
+	asFollows 
 
-Provides a stream-like interface for printing a succession of paragraphs on a Bravo or Press file.  The margins, leading, and style are settable instance variables.  BravoPrinter and PressPrinter each override some messages\gi
+Provides a stream-like interface for printing a succession of paragraphs on a Bravo or Press file.  The margins, leading, and style are settable instance variables.  BravoPrinter and PressPrinter each override some messages
 
-Initialization\gbf5 
+Initialization 
 classInit | inch
 	[inch ← 2540.		"1 inch in micas"
 	defaultframe ←
 		(0.75*inch) asInteger⌾(1*inch) rect: (7.75*inch) asInteger⌾(10*inch).
-	defaultleading ← 0]\gb10B23i17I
+	defaultleading ← 0]
 init
 	[self frame ← self defaultframe.
 	self leading ← defaultleading.
-	self style ← DefaultTextStyle]\gb6B
-of: strm\gb
+	self style ← DefaultTextStyle]
+of: strm
 
-Access to state\gbf5 
-defaultframe [⇑defaultframe]\gb13B
-defaultleading [⇑defaultleading]\gb15B
-frame [⇑frame]\gb6B
-frame ← frame\gb
-leading ← leading\gb
-style ← style\gb
+Access to state 
+defaultframe [⇑defaultframe]
+defaultleading [⇑defaultleading]
+frame [⇑frame]
+frame ← frame
+leading ← leading
+style ← style
 
-Writing\gbf5 
+Writing 
 print: para		"A dummy, subclasses will override"
-	[strm append: para text]\gb13Bi35I
+	[strm append: para text]
 
-Class stuff\gbf5 
+Class stuff 
 printchanges: lis | selector class heading old mes s delFlg
 	"prints Changes format: ('class message' 'class message' ...)
 	or alternate format: (class (message ...) class () ...) or both
@@ -80,7 +80,7 @@ printchanges: lis | selector class heading old mes s delFlg
 		user space; show: selector.
 		s ← class organization invert: (selector ← selector unique).
 		s⇒[[s ≠ heading⇒[class startCategory: (heading ← s) on: self]].
-		class printMethod: selector on: self]]]]\gb18B44i22I40i20I36i200I112i29I56i22I137i14I353i8I
+		class printMethod: selector on: self]]]]
 printclass: class | c first [
 	class is: Vector⇒ [
 		first ← true.
@@ -91,13 +91,13 @@ printclass: class | c first [
 		[class is: UniqueString⇒
 			[class ← Smalltalk◦class]].
 		user cr; show: class title.
-		class paraprinton: self]]\gb18B
+		class paraprinton: self]]
 printForget: selector class: class
 	"Print a line that causes a message to be forgotten"
 	[user cr; show: '~'+class title+' '+selector.
 	self print:
 		(class title + ' derstands: ↪' + selector + '.
-') asParagraph]\gb36B
+') asParagraph]
 stamp | s t [
 	t ← user now "date and time".
 	s ← Stream default.
@@ -105,33 +105,33 @@ stamp | s t [
 		append: ' on '; print: t◦1;
 		append: ' at '; print: t◦2;
 		append: '.'''; cr.
-	self print: s contents asParagraph]\gb6B
+	self print: s contents asParagraph]
 
-Closing\gbf5 
-close [strm close]\gb6B
-\g
-SystemOrganization classify: ↪ParagraphPrinter under: 'Paragraph printing'.\g
-ParagraphPrinter classInit\g
+Closing 
+close [strm close]
+
+SystemOrganization classify: ↪ParagraphPrinter under: 'Paragraph printing'.
+ParagraphPrinter classInit
 
-"BravoPrinter"l15000z20000\gbf5 
+"BravoPrinter" 
 Class new title: 'BravoPrinter'
 	subclassof: ParagraphPrinter
 	fields: 'eject "Eject page before next paragraph if true"
 		'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-Prints Paragraphs in Bravo format\gi
+Prints Paragraphs in Bravo format
 
-Initialization\gbf5 
+Initialization 
 init
-	[super init.  eject ← false]\gb6B
+	[super init.  eject ← false]
 
-Writing\gbf5 
+Writing 
 eject
-	[strm next ← 014; cr]\gb7B
+	[strm next ← 014; cr]
 nextpage
-	[eject⇒ [self eject] eject ← true]\gb10B
+	[eject⇒ [self eject] eject ← true]
 print: para | l r
 	[[eject⇒ [self eject. eject ← false]].
 	strm append: para text; next← 032.		"^Z"
@@ -146,11 +146,11 @@ print: para | l r
 
 	"any other run info and cr"
 	para bravoRuns: strm.
-	]\gb12B83i4I
-\g
-SystemOrganization classify: ↪BravoPrinter under: 'Paragraph printing'.\g
+	]
+
+SystemOrganization classify: ↪BravoPrinter under: 'Paragraph printing'.
 
-"PressPrinter"l15000z20000\gbf5 
+"PressPrinter" 
 Class new title: 'PressPrinter'
 	subclassof: ParagraphPrinter
 	fields: 'page "<Integer> current page number"
@@ -158,22 +158,22 @@ Class new title: 'PressPrinter'
 		press "<PressFile> for output"
 		'
 	declare: 'defaultframe ';
-	asFollows\gbf5 
+	asFollows 
 
-Prints Paragraphs in Press format\gi
+Prints Paragraphs in Press format
 
-Initialization\gbf5 
+Initialization 
 classInit | inch
 	[inch ← 2540.		"1 inch in micas"
 	defaultframe ←
-		(1.1*inch) asInteger⌾(1*inch) rect: (7.75*inch) asInteger⌾(10*inch)]\gb10B
-defaultframe [⇑defaultframe]\gb13B
-init [super init. page ← 1. ypos ← frame maxY]\gb5B
-of: strm [press ← PressFile new of: strm]\gb9B
-press: press\gb
+		(1.1*inch) asInteger⌾(1*inch) rect: (7.75*inch) asInteger⌾(10*inch)]
+defaultframe [⇑defaultframe]
+init [super init. page ← 1. ypos ← frame maxY]
+of: strm [press ← PressFile new of: strm]
+press: press
 
-Writing\gbf5 
-nextpage [self nextpage: true]\gb9B
+Writing 
+nextpage [self nextpage: true]
 nextpage: h | n [
 	press page.
 	page ← page+1.
@@ -183,10 +183,10 @@ nextpage: h | n [
 		press setp: frame maxX+800 ⌾ (ypos + 960);
 			selectfont: (press fontindex: 0 style: DefaultTextStyle) - 1;
 			append: n;
-			showchars: n length]]\gb12B
+			showchars: n length]]
 print: para [
 	self print: para in: (
-		Rectangle new origin: frame origin corner: frame maxX ⌾ ypos)]\gb12B
+		Rectangle new origin: frame origin corner: frame maxX ⌾ ypos)]
 print: para in: rect | result oldpara [
 	[rect width = 0 or⦂ rect height = 0⇒ [user notify: 'zero dimension']].
 	"para is a Paragraph-like object (TextImage, Form, etc.)"
@@ -200,14 +200,14 @@ print: para in: rect | result oldpara [
 	"original para can hide information. if it split across page boundaries,
 	the format may vary. other completion flags can be added later"
 	oldpara hidePress: press complete: [oldpara≡para⇒ [0] 1].
-	⇑ypos ← result]\gb21B93i55I90i30I96i135I
+	⇑ypos ← result]
 
-Closing\gbf5 
+Closing 
 close
-	[press close]\gb7B
-toPrinter [press toPrinter]\gb10B
+	[press close]
+toPrinter [press toPrinter]
 
-Projector behavior\gbf5 
-\g
-SystemOrganization classify: ↪PressPrinter under: 'Paragraph printing'.\g
-PressPrinter classInit\g
+Projector behavior 
+
+SystemOrganization classify: ↪PressPrinter under: 'Paragraph printing'.
+PressPrinter classInit

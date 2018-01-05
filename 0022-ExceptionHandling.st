@@ -1,6 +1,6 @@
 'From Smalltalk 5.5k XM November 24 on 22 November 1980 at 2:57:08 am.'
-\g
-"ExceptionHandler"l15000z20000\gbf5 
+
+"ExceptionHandler" 
 Class new title: 'ExceptionHandler'
 	subclassof: Object
 	fields: ' 
@@ -13,11 +13,11 @@ Class new title: 'ExceptionHandler'
 		fStatusIndicator
 	'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-EXCEPTION HANDLER  J.C. Althoff  7/79\gi
+EXCEPTION HANDLER  J.C. Althoff  7/79
 
-DOCUMENTATION\gbf5 
+DOCUMENTATION 
 description
 [
 "
@@ -43,7 +43,7 @@ This class provides some exception handling capabilities that can be used in a v
 	EH release.
 8. Special error checking is included in the ExceptionHandler object to detect calls to pTrapCode during the execution of pTrapCode and other invalid conditions.
 "
-]j\gb12B3f8 250f0 26f8 120f0 25f8 57f0 31f8 17f0 5f8 98f0 9f8 85f0 33f8 83f0 5f8 13f0 6f8 165f0 7f8 51f0 9f8 7f0 21f8 104f0 9f8 63f0 15f8 21f0 9f8 88f0 9f8 55f0 9f8 46f0 9f8 33f0 5f8 7f0 10f8 17f0 5f8 23f0 7f8 15f0 7f8 31f0 5f8 48f0 31f8 3f0 11f8 8f0 12f8 8f0 9f8 16f0 14f8 73f0 5f8 4f0 9f8 16f0 18f8 97f0 8f8 3f0 17f8 2f0 24f8 7f0 5f8 65f0 9f8 77f0 11f8 89f0 9f8 25f0 9f8 30f0 
+] 250f0 26f8 120f0 25f8 57f0 31f8 17f0 5f8 98f0 9f8 85f0 33f8 83f0 5f8 13f0 6f8 165f0 7f8 51f0 9f8 7f0 21f8 104f0 9f8 63f0 15f8 21f0 9f8 88f0 9f8 55f0 9f8 46f0 9f8 33f0 5f8 7f0 10f8 17f0 5f8 23f0 7f8 15f0 7f8 31f0 5f8 48f0 31f8 3f0 11f8 8f0 12f8 8f0 9f8 16f0 14f8 73f0 5f8 4f0 9f8 16f0 18f8 97f0 8f8 3f0 17f8 2f0 24f8 7f0 5f8 65f0 9f8 77f0 11f8 89f0 9f8 25f0 9f8 30f0 
 implementationNotes
 [
 "
@@ -56,9 +56,9 @@ fResult : the object that is the result of 'do⦂onTrapDo⦂'.
 fPostTrapIndicator : an Integer specifying the action to be taken after fTrapCode is executed.
 fStatusIndicator : an Integer specifying the status of 'do⦂onTrapDo⦂'; nil means 'do⦂onTrapDo⦂' has not been invoked, 1 means fCode is active, 0 means fTrapCode is active.
 "
-]\gb20B11b10B72b5B108b9B109b14B50b7B52b18B77b16B
+]
 
-CONTROL STRUCTURE\gbf5 
+CONTROL STRUCTURE 
 do⦂ pCode onTrapDo⦂ pTrapCode
 "...executes the set of statements in the block pCode and, conditionally, the set of statements in the block pTrapCode.  If 'trap' or 'trap:' is invoked during the execution of pCode, the execution is interrupted and pTrapCode is started.  When pTrapCode completes, pCode is either continued, restarted, or aborted, depending on which of 'continue', 'restart', and 'abort' is sent during the execution of pTrapCode.  A notify window is created if 'trap' or 'trap:' is sent when pCode is not active, or if 'do⦂onTrapDo⦂' is sent again before the first invocation completes."
 [
@@ -85,14 +85,14 @@ do⦂ pCode onTrapDo⦂ pTrapCode
 8. Execute pCode.
 9. Set fields to nil to release saved contexts.
 10. Return fResult (which may have been modified during the execution of pCode or pTrapCode).
-"\gb30B
+"
 
-TRAP HANDLER\gbf5 
+TRAP HANDLER 
 trap
 "...interrupts the execution of pCode and begins pTrapCode (from 'do⦂ pCode onTrapDo⦂ pTrapCode')."
 [
 	self trap: nil.
-]\gb5B
+]
 trap: pTrapCondition
 "...interrupts the execution of pCode and begins pTrapCode (from 'do⦂ pCode onTrapDo⦂ pTrapCode').  The trap condition is set to pTrapCondition."
 	|tTrapCode i
@@ -126,43 +126,43 @@ trap: pTrapCondition
 8. Set the parameters and temporaries in the context, fTrapCode to those of the executed copy.  This is done so that fCode will see any changes made to these variables by fTrapCode.
 9. Set fStatusIndicator to indicate fTrapCode is not active.
 10. Select the terminating action from the value of fPostTrapIndicator.
-"\gb21B
+"
 
-POST TRAP SPECIFICATION\gbf5 
+POST TRAP SPECIFICATION 
 abort
 "...specifies that the code interrupted by 'trap' or 'trap:' will be aborted when the trap code completes.  Control will return to the statement that follows the invocation of 'do⦂onTrapDo⦂'."
 [
 	fPostTrapIndicator ← 1.
-]\gb6B
+]
 continue
 "...specifies that the code interrupted by 'trap' or 'trap:' will be continued when the trap code completes."
 [
 	fPostTrapIndicator ← 2.
-]\gb9B
+]
 restart
 "...specifies that the code interrupted by 'trap' or 'trap:' will be restarted when the trap code completes."
 [
 	fPostTrapIndicator ← 0.
-]\gb8B
+]
 
-MISC\gbf5 
+MISC 
 result
 "...returns the result set by 'result←'."
 [
 	⇑ fResult
-]\gb7B
+]
 result ← pResult
 "...sets the result value of 'do⦂onTrapDo⦂' to pResult."
 [
 	fResult ← pResult.
-]\gb17B
+]
 trapCondition
 "...returns the condition that was passed as the parameter to 'trap:'."
 [
 	⇑ fTrapCondition
-]\gb14B
+]
 
-POST TRAP ACTION (internal)\gbf5 
+POST TRAP ACTION (internal) 
 abortCode
 "...releases the context chain and returns fResult to the caller of 'do⦂onTrapDo⦂'."
 	|tDoContextCaller
@@ -179,7 +179,7 @@ abortCode
 3. Set fields to nil to clean up pointers to unwanted contexts.
 4. Return fResult to the caller of 'do⦂onTrapDo⦂'.
 5. Run the caller of 'do⦂onTrapDo⦂'.
-"\gb10B
+"
 release
 "...resets the exception handler to its initial condition."
 [
@@ -187,7 +187,7 @@ release
 	fTrapCode ← nil.
 	fDoContext ← nil.
 	fStatusIndicator ← nil.
-]\gb8B
+]
 restartCode
 "...releases the context chain and restarts the block of statements passed as the first parameter to 'do⦂onTrapDo⦂'."
 [
@@ -201,9 +201,9 @@ restartCode
 2. Resets the pc and stack pointer of fCode.
 3. Push the return context of fCode onto its tempframe.
 4. Run fCode.
-"\gb12B
+"
 
-TEST AND DIAGNOSTIC\gbf5 
+TEST AND DIAGNOSTIC 
 test  "ExceptionHandler new test."
 	| guard i
 [
@@ -213,7 +213,7 @@ test  "ExceptionHandler new test."
 	onTrapDo⦂
 		[ i < 10 ⇒ [ guard restart ]  guard continue ].
 	user show: ' done.'.  user cr.  ⇑ guard result
-]\gb6B28b2B
+]
 testTransaction  "ExceptionHandler new testTransaction."
 	| e i max f
 [
@@ -224,9 +224,9 @@ testTransaction  "ExceptionHandler new testTransaction."
 		[ user cr;  show: 'Juniper not responding'.
 		f release.  dpj release.  i ← i+1.  [ i < max ⇒ [ e restart. ] e abort ]. ].
 	user cr;  show: 'done'.  f close.  dpj close.
-]\gb17B39b2B
+]
 
-EXAMPLES\gbf5 
+EXAMPLES 
 juniperTest  "ExceptionHandler new juniperTest."
 	| e i max f
 [
@@ -237,7 +237,7 @@ juniperTest  "ExceptionHandler new juniperTest."
 		[ user cr;  show: 'Juniper not responding'.
 		f release.  dpj release.  i ← i+1.  [ i < max ⇒ [ e restart. ] e abort ]. ].
 	user cr;  show: 'done'.  f close.  dpj close.
-]\gb13B35b2B
+]
 loopTest  "ExceptionHandler new loopTest."
 	| guard i
 [
@@ -247,6 +247,6 @@ loopTest  "ExceptionHandler new loopTest."
 	onTrapDo⦂
 		[ i < 10 ⇒ [ guard restart ]  guard continue ].
 	user show: ' done.'.  user cr.  ⇑ guard result
-]\gb10B32b2B
-\g
-SystemOrganization classify: ↪ExceptionHandler under: 'ExceptionHandling'.\g 
+]
+
+SystemOrganization classify: ↪ExceptionHandler under: 'ExceptionHandling'. 

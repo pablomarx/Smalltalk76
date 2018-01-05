@@ -1,16 +1,16 @@
 'From Smalltalk 5.5k XM November 24 on 22 November 1980 at 2:57:08 am.'
-\g
-"CodePane"l15000z20000\gbf5 
+
+"CodePane" 
 Class new title: 'CodePane'
 	subclassof: Window
 	fields: 'pared class selector selectorPane scrollBar'
 	declare: 'editmenu ';
-	asFollows\gbf5 
+	asFollows 
 
-I am a Window for editing a paragraph which may include Smalltalk source code.  My selectorPane (not necessarily of class SelectorPane, and possibly even myself) compiles and doits for me.\gi
+I am a Window for editing a paragraph which may include Smalltalk source code.  My selectorPane (not necessarily of class SelectorPane, and possibly even myself) compiles and doits for me.
 
-Initialization\gbf5 
-class: class selector: selector para: para\gb
+Initialization 
+class: class selector: selector para: para
 classInit
 	[editmenu ← Menu new string:
 		'again
@@ -21,18 +21,18 @@ doit
 compile
 undo
 cancel
-align']\gb11B
-from: selectorPane\gb
-init\gb
+align']
+from: selectorPane
+init
 showing: paragraph
 	[pared ← ParagraphEditor new para: paragraph asParagraph frame: nil.
 	pared formerly: false; fixframe: frame.
 	self windowenter.
-	scrollBar ← ([scrollBar≡nil⇒ [ScrollBar new] scrollBar]) on: frame from: pared]\gb20B
+	scrollBar ← ([scrollBar≡nil⇒ [ScrollBar new] scrollBar]) on: frame from: pared]
 
-Window protocol\gbf5 
+Window protocol 
 close
-	[pared unselect. selectorPane ← pared ← nil. scrollBar close]\gb7B
+	[pared unselect. selectorPane ← pared ← nil. scrollBar close]
 doit | s val d [
 	d ← [user leftShiftKey⇒ [mem◦067] false].
 	[d⇒ [mem◦067 ← 58]].
@@ -53,7 +53,7 @@ doit | s val d [
 
 	scrollBar show.
 	d⇒ [mem◦067 ← d]
-]\gb5B97i48I208i31I5i26I
+]
 eachtime [
 	user kbck⇒ [⇑self kbd]
 	frame has: user mp⇒ [
@@ -62,40 +62,40 @@ eachtime [
 			user yellowbug⇒ [⇑self yellowbug]
 			user bluebug⇒ [⇑false]]
 		user anykeys⇒ [⇑self keyset]]
-	⇑self outside]\gb9B
+	⇑self outside]
 enter
-	[scrollBar show]\gb7B
+	[scrollBar show]
 frame ← frame
 	["Change my frame and that of my pared (if any)."
 	pared≡nil⇒ [] pared frame ← frame.
-	scrollBar on: frame from: pared]\gb15B1i48I
+	scrollBar on: frame from: pared]
 hardcopy: pf [
 	"if this is just part of a CodeWindow, then print entire Paragraph with no frame.
 	unfortunately, the test for this is a kludge. otherwise, print clipped"
 
 	selectorPane ≡ self⇒ [(PressPrinter init) press: pf; print: pared contents]
 	frame hardcopy: pf thickness: 1.
-	pared hardcopy: pf]\gb13B
+	pared hardcopy: pf]
 kbd
-	[pared typing]\gb5B
+	[pared typing]
 keyset
-	[⇑pared keyset]\gb8B
+	[⇑pared keyset]
 leave
-	[scrollBar hide]\gb7B
+	[scrollBar hide]
 outline
-	[frame outline: 1]\gb9B
+	[frame outline: 1]
 outside
-	[⇑scrollBar startup]\gb9B
+	[⇑scrollBar startup]
 picked
-	[⇑frame has: user mp]\gb8B
+	[⇑frame has: user mp]
 redbug
-	[⇑pared selecting]\gb8B
+	[⇑pared selecting]
 show
-	[frame outline. pared show]\gb6B
+	[frame outline. pared show]
 windowenter
-	[self outline. pared enter]\gb13B
+	[self outline. pared enter]
 windowleave
-	[pared≡nil⇒[] pared leave]\gb13B
+	[pared≡nil⇒[] pared leave]
 yellowbug
 	[editmenu bug
 		=5⇒[self doit];
@@ -110,55 +110,55 @@ yellowbug
 		=8⇒[pared formerly⇒ [
 				pared Deletion ← pared contents.
 				scrollBar hidewhile⦂ [self showing: pared formerly]] frame flash];
-		=9⇒[pared realign]]\gb11B
+		=9⇒[pared realign]]
 
-Browse/Notify protocol\gbf5 
+Browse/Notify protocol 
 compile: parag	"as my own selectorPane"
-	[⇑self compile: parag in: class under: 'As yet unclassified']\gb15Bi24I
+	[⇑self compile: parag in: class under: 'As yet unclassified']
 compile: parag in: defaultClass under: category
 	[⇑Generator new
 		compile: parag
 		in: [class≡nil⇒ [defaultClass] class]
 		under: category
-		notifying: self]\gb49B
+		notifying: self]
 contents
-	[⇑pared contents]\gb10B
+	[⇑pared contents]
 dirty
-	[pared formerly⇒ [⇑frame] ⇑false]\gb7B
+	[pared formerly⇒ [⇑frame] ⇑false]
 execute: parseStream for: codePane		"as my own selectorPane"
-	[⇑self execute: parseStream in: false to: nil]\gb36Bi24I
+	[⇑self execute: parseStream in: false to: nil]
 execute: parseStream in: context to: receiver
-	[⇑Generator new evaluate: parseStream in: context to: receiver notifying: self]\gb47B
+	[⇑Generator new evaluate: parseStream in: context to: receiver notifying: self]
 formerly: oldpara 	"should not be called before 'showing:'"
-	[pared formerly: oldpara]\gb19Bi40I
+	[pared formerly: oldpara]
 interactive
-	[⇑true]\gb13B
+	[⇑true]
 notify: errorString at: position in: stream
 	[pared
 		fintype;
 		selectRange: (position to: position);
 		replace: ('➲' + errorString + '➲.') asParagraph;
 		selectAndScroll.
-	⇑false]\gb45B
+	⇑false]
 oldContents
-	[⇑pared formerly]\gb13B
+	[⇑pared formerly]
 reflects: selection  "am I trying to show the code of selectorPaneⓢ selection?"
-	[⇑class≡nil and⦂ selection>0]\gb21Bi58I
-selectRange: r [pared selectRange: r; selectAndScroll]\gb15B
-\g
-SystemOrganization classify: ↪CodePane under: 'Panes and Menus'.\g
-CodePane classInit\g
+	[⇑class≡nil and⦂ selection>0]
+selectRange: r [pared selectRange: r; selectAndScroll]
+
+SystemOrganization classify: ↪CodePane under: 'Panes and Menus'.
+CodePane classInit
 
-"FilePane"l15000z20000\gbf5 
+"FilePane" 
 Class new title: 'FilePane'
 	subclassof: CodePane
 	fields: 'file'
 	declare: 'editmenu ';
-	asFollows\gbf5 
+	asFollows 
 
-This class has not yet been commented\gi
+This class has not yet been commented
 
-As yet unclassified\gbf5 
+As yet unclassified 
 classInit "FilePane classInit."
 	[editmenu ← Menu new string:
 		'again
@@ -169,8 +169,8 @@ doit
 put
 undo
 get
-align']\gb10B21b2B
-file: file\gb
+align']
+file: file
 yellowbug
 	[editmenu bug
 		=1⇒[pared again];
@@ -185,25 +185,25 @@ yellowbug
 		=7⇒[pared undo];
 		=8⇒[user displayoffwhile⦂ [scrollBar hidewhile⦂
 				[self showing: file contents asParagraph]]];
-		=9⇒[pared realign]]\gb11B
-\g
-SystemOrganization classify: ↪FilePane under: 'Panes and Menus'.\g
-FilePane classInit\g
+		=9⇒[pared realign]]
+
+SystemOrganization classify: ↪FilePane under: 'Panes and Menus'.
+FilePane classInit
 
-"ListPane"l15000z20000\gbf5 
+"ListPane" 
 Class new title: 'ListPane'
 	subclassof: Textframe
 	fields: 'list firstShown lastShown selection scrollBar'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-A list pane displays a vertical list of one-line items.  The list can be scrolled slow or fast, and any item can be selected.  When an item is selected (or deselected), a dependent pane can be told to display appropriate material.\gi
+A list pane displays a vertical list of one-line items.  The list can be scrolled slow or fast, and any item can be selected.  When an item is selected (or deselected), a dependent pane can be told to display appropriate material.
 
-Initialization\gbf5 
+Initialization 
 of: list "Acquire the specified list and show me scrolled to the top"
 	[firstShown← selection← 0.
 	self frame← window.
-	self fill; deselected]\gb9B
+	self fill; deselected]
 revise: newlist with: sel  | changing
 	["Acquire newlist. Do not change firstShown. Select sel if in list."
 	[changing ← list≠newlist⇒
@@ -214,17 +214,17 @@ revise: newlist with: sel  | changing
 		self fill]
 	 selection>0⇒ [changing ← list◦selection≠sel⇒ [self compselection]]
 	 changing ← true].
-	changing⇒ [selection ← ¬1. self select: (list find: sel)]]\gb27B13i67I
+	changing⇒ [selection ← ¬1. self select: (list find: sel)]]
 select: lineNum | oldSel
 	["Select my non-dummy displayed entry whose subscript is lineNum; highlight it; if it is different from selection, tell me to select.  If there is no such entry, set selection to 0 and if it wasnt 0 before, tell me to deselect."
 	oldSel ← selection.
 	(1 max: firstShown) ≤ lineNum and⦂ lineNum ≤ (list length min: lastShown)⇒
 		[selection ← lineNum. self compselection. oldSel≠selection⇒ [self selected]]
-	selection ← 0. oldSel≠selection⇒ [self deselected]]\gb16B11i227I
+	selection ← 0. oldSel≠selection⇒ [self deselected]]
 
-Pane protocol\gbf5 
+Pane protocol 
 close "Zero my selection so it wont be grayed when I close.  Break cycles."
-	[selection←0. scrollBar close]\gb5i1B69bI2B
+	[selection←0. scrollBar close]
 eachtime
 	[window has: user mp⇒
 		[user kbck⇒[⇑self kbd]
@@ -233,15 +233,15 @@ eachtime
 			user yellowbug⇒[⇑self yellowbug]
 			user bluebug⇒[⇑false]]
 		user anykeys⇒[⇑self keyset]]
-	⇑self outside]\gb10B
+	⇑self outside]
 enter
-	[scrollBar show]\gb7B
+	[scrollBar show]
 firsttime
 	[window has: user mp⇒[self enter]
-	⇑false]\gb11B
+	⇑false]
 frame ← window "(Re)initialize my window"
 	[para ← nil.
-	scrollBar ← ([scrollBar≡nil⇒ [ScrollBar new] scrollBar]) on: window from: self]\gb15Bi26I
+	scrollBar ← ([scrollBar≡nil⇒ [ScrollBar new] scrollBar]) on: window from: self]
 hardcopy: pf | t cr first last lasty lineNum parag left right lineheight [
 	window hardcopy: pf thickness: 1.
 	[para≡nil⇒ [self makeParagraph]].
@@ -267,23 +267,23 @@ hardcopy: pf | t cr first last lasty lineNum parag left right lineheight [
 		(parag copy: first+1 to: last-1) presson: pf in:
 			(pf transrect: (left ⌾ lasty rect: right ⌾ (lasty+lineheight+4))) style: style.
 		lasty ← lasty + lineheight.
-	]]\gb13B
+	]]
 kbd
-	[window flash. user kbd.]\gb5B
+	[window flash. user kbd.]
 keyset | c
 	["As long as any keyset keys are down, react to keys 2 and 8 down by scrolling up or down a line at a time.  If key 4 is down as well, scroll faster."
 	c ← user currentCursor.
 	self scrollControl⦂ [user keyset=6⇒[2]; =12⇒[¬2]; =2⇒[1]; =8⇒[¬1] 0].
-	c show]\gb7B6i149I
+	c show]
 lasttime
-	[self leave]\gb10B
+	[self leave]
 leave
-	[scrollBar hide]\gb7B
+	[scrollBar hide]
 outline
-	[window outline: 1]\gb9B
-outside [⇑scrollBar startup]\gb8B
+	[window outline: 1]
+outside [⇑scrollBar startup]
 picked
-	[⇑window has: user mp]\gb8B
+	[⇑window has: user mp]
 redbug | newSel f		"Deselect selection and select cursor item, if any"
 	[[f ← self locked⇒ []
 	self compselection.
@@ -291,40 +291,40 @@ redbug | newSel f		"Deselect selection and select cursor item, if any"
 	XeqCursor showwhile⦂ [self select: [newSel = selection⇒ [0] newSel]]].
 
 	while⦂ (user redbug and⦂ (window has: user mp)) do⦂ [
-		f⇒ [f flash. self compselection; compselection]]]\gb7B12i51I
+		f⇒ [f flash. self compselection; compselection]]]
 scrollPos
 	[firstShown≡nil or⦂ list length=0⇒[⇑0.0]
-	⇑firstShown asFloat/list length]\gb11B
+	⇑firstShown asFloat/list length]
 scrollTo: f | t
 	[self scrollControl⦂
 		[t← (f*list length) asInteger - firstShown.
 		t<0⇒[firstShown<0⇒[0] t]
-		lastShown>list length⇒[0] t]]\gb15B
+		lastShown>list length⇒[0] t]]
 windowenter "Refresh my image.  Reaffirm selection."
-	[self outline; fill; select: selection.]\gb12Bi40I
+	[self outline; fill; select: selection.]
 windowleave
-	[self compselection; grayselection]\gb13B
+	[self compselection; grayselection]
 yellowbug
-	[window flash]\gb11B
+	[window flash]
 
-Subclass defaults\gbf5 
-deselected "I just lost my selection.  I dont care, but my subclasses might."\gb11Bi
+Subclass defaults 
+deselected "I just lost my selection.  I dont care, but my subclasses might."
 dirty "My subclasses may want to prohibit a change of selection"
-	[⇑false]\gb6Bi58I
+	[⇑false]
 locked "My subclasses may want to prohibit a change of selection"
-	[⇑[selection=0⇒ [false] self dirty]]\gb7Bi58I
-selected "A new selection is highlighted.  I dont care, but my subclasses might"\gb9Bi
+	[⇑[selection=0⇒ [false] self dirty]]
+selected "A new selection is highlighted.  I dont care, but my subclasses might"
 
-Private\gbf5 
+Private 
 compselection "If I have a selection, complement its image."
-	[selection≠0⇒ [self selectionRect comp]]\gb14Bi46I
+	[selection≠0⇒ [self selectionRect comp]]
 dummy
-	[⇑'▱▱▱▱▱▱▱']\gb7B
-fill [self makeParagraph; show]\gb5B
+	[⇑'▱▱▱▱▱▱▱']
+fill [self makeParagraph; show]
 grayselection
-	[selection≠0⇒ [self selectionRect color: ltgray mode: oring]]\gb15B
+	[selection≠0⇒ [self selectionRect color: ltgray mode: oring]]
 init
-	[self para: nil frame: nil.]\gb6B
+	[self para: nil frame: nil.]
 makeParagraph | i len s lines "Given firstShown, compute lastShown."
 	[
 	len ← list length.
@@ -343,7 +343,7 @@ makeParagraph | i len s lines "Given firstShown, compute lastShown."
 			s append: self dummy].
 		s cr].
 	for⦂ i to: (lines+1 min: s limit - s position) do⦂ [s cr].
-	para ← s asArray]\gb14B16i38I330i45I4i25I
+	para ← s asArray]
 scrollBy⦂ expr copying: src into: dest showing: item in: frame direction: n
 		| strm final stop pt delay chars locked t
 	[strm ← Stream new. chars ← 2*frame width/self lineheight. para ← String new: chars.
@@ -357,7 +357,7 @@ scrollBy⦂ expr copying: src into: dest showing: item in: frame direction: n
 		(t← expr eval) abs ≤1⇒ [for⦂ delay to: chars/4 do⦂ [strm myend]. para ← nil. ⇑self]
 			t*n<0⇒[⇑self]].
 	para ← nil. locked and: stop≠final⇒ [locked flash. ⇑false]]
-\gb78B710b
+
 scrollControl⦂ expr
 		| dY onlyFirst butFirst onlyLast butLast x1 x2 y1 y2 y3 y4 k
 	["Selection is highlighted.  Unhighlight it.  Invalidate my saved para if I scroll.  Then reselect selection, or deselect if it is no longer displayed."
@@ -373,78 +373,78 @@ scrollControl⦂ expr
 		DownCursor topage1.
 		self scrollBy⦂ expr eval copying: butLast into: butFirst showing: firstShown
 				in: onlyFirst direction: ¬1⇒[] ⇑self select: selection].
-	self select: selection]\gb22B63i151I
+	self select: selection]
 scrollUp: n | c
 	[c ← window origin x-20.
 	self scrollControl⦂
 		[user buttons=4⇒
 			[user mp x > c⇒[2] ¬2]
-		0]]\gb12B
+		0]]
 selectionRect | h w
 	["I have a selection.  Return its highlighting rectangle."
 	(w ← window inset: 2) height ← h ← self lineheight. 
-	⇑w + (0⌾(selection-firstShown *h))]\gb14B8i57I
-\g
-SystemOrganization classify: ↪ListPane under: 'Panes and Menus'.\g
+	⇑w + (0⌾(selection-firstShown *h))]
+
+SystemOrganization classify: ↪ListPane under: 'Panes and Menus'.
 
-"ClassPane"l15000z20000\gbf5 
+"ClassPane" 
 Class new title: 'ClassPane'
 	subclassof: ListPane
 	fields: 'systemPane organizationPane'
 	declare: 'editmenu ';
-	asFollows\gbf5 
+	asFollows 
 
-I am a list pane that displays the names of all the classes of a category\gi
+I am a list pane that displays the names of all the classes of a category
 
-Initialization\gbf5 
+Initialization 
 classInit
 	[editmenu ← Menu new string: 'filout
 print
-forget']\gb11B
-from: systemPane to: organizationPane\gb
+forget']
+from: systemPane to: organizationPane
 
-Window protocol\gbf5 
+Window protocol 
 close
-	[systemPane ← nil. super close]\gb7B
+	[systemPane ← nil. super close]
 yellowbug
 	["If there is a selection, let the user choose a command from the menu."
 	selection=0⇒ [window flash]
 	editmenu bug
 		=1⇒ ["filout" (Smalltalk◦(list◦selection)) filout];
 		=2⇒ ["print" (Smalltalk◦(list◦selection)) printout];
-		=3⇒ ["forget" systemPane forget: list◦selection]]\gb11B2i69I53i6I48i5I50i6I
+		=3⇒ ["forget" systemPane forget: list◦selection]]
 
-ListPane protocol\gbf5 
+ListPane protocol 
 deselected
 	["I just lost my selection.  Tell organizationPane to display nothing."
-	organizationPane class: nil.]\gb12B1i70I
+	organizationPane class: nil.]
 selected
 	["My selection just changed.  Tell organizationPane to display the categories of my newly selected Class."
-	organizationPane class: Smalltalk◦(list◦selection).]\gb10B1i105I
+	organizationPane class: Smalltalk◦(list◦selection).]
 
-Browser protocol\gbf5 
+Browser protocol 
 compile: parag
-	[systemPane compile: parag]\gb16B
+	[systemPane compile: parag]
 dirty
-	[⇑organizationPane dirty]\gb7B
+	[⇑organizationPane dirty]
 noCode
-	[selection=0⇒ [⇑systemPane noCode] ⇑'']\gb8B
-\g
-SystemOrganization classify: ↪ClassPane under: 'Panes and Menus'.\g
-ClassPane classInit\g
+	[selection=0⇒ [⇑systemPane noCode] ⇑'']
+
+SystemOrganization classify: ↪ClassPane under: 'Panes and Menus'.
+ClassPane classInit
 
-"Menu"l15000z20000\gbf5 
+"Menu" 
 Class new title: 'Menu'
 	subclassof: Object
 	fields: 'str text thisline frame'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-I am a list of text lines one of which can be selected with the pointing device\gi
+I am a list of text lines one of which can be selected with the pointing device
 
-Initialization\gbf5 
+Initialization 
 rescan " | each. Menu allInstances notNil transform⦂ each to⦂ each rescan."
-	[self string: str]		"rescan (for new fonts, lineheight)"\gb7Bi68I22i
+	[self string: str]		"rescan (for new fonts, lineheight)"
 string: str |  i pt tpara
 	[[str last≠13⇒[str←str+'
 ']].		"make sure str ends with CR"
@@ -456,44 +456,44 @@ string: str |  i pt tpara
 	tpara center.
 	frame ← text frame inset: ¬2  ⌾ ¬2.
 	thisline ← Rectangle new origin: text frame origin
-				corner: text frame corner x ⌾ text lineheight]\gb12B46i28I
+				corner: text frame corner x ⌾ text lineheight]
 stringFromVector: v | s
 	["DW classInit"
 	s ← Stream default.
 	for⦂ v from: v do⦂ [s append: v; cr].
-	self string: s contents]\gb20B
+	self string: s contents]
 
-User interactions\gbf5 
+User interactions 
 bug | index bits
 	[bits ← self movingsetup.			"set up and save background"
 	index ← self bugit.						"get the index"
 	frame bitsFromString: bits.		"restore background"
 	⇑ index										"return index"
 	]
-\gb4B42i28I27i15I31i20I19i14I
+
 clear
-	[frame clear]\gb7B
+	[frame clear]
 fbug | index
 	[	"for fixed menus"
 	index ← self bugit.						"get the index"
 	⇑ index										"return index"
 	]
-\gb5B11i17I27i15I19i14I
+
 frame
-	[⇑ frame]\gb7B
+	[⇑ frame]
 has: pt
-	[⇑ text frame has: pt]\gb9B
+	[⇑ text frame has: pt]
 moveto: pt
 	[self clear.
 	frame moveto: pt.
 	text frame moveto: pt+2.
 	thisline moveto: pt+2.
-	]\gb12B
+	]
 rebug
 	[user waitbug. 	"wait for button down again"
-	⇑"bugcursor showwhile⦂" self bug]\gb7B16i28I3i22I
+	⇑"bugcursor showwhile⦂" self bug]
 show
-	[frame clear: black. text show.]\gb6B
+	[frame clear: black. text show.]
 wbug | index bits [
 	"save background, display menu"
 	bits ← self movingsetup.
@@ -508,16 +508,16 @@ wbug | index bits [
 	frame bitsFromString: bits.
 	⇑ index
 	]
-\gb5B
+
 zbug | index bits
 	[bits ← self movingsetup.
 	while⦂ (index ← self bugit) = 0 do⦂ [].
 	frame bitsFromString: bits.
 	⇑ index
 	]
-\gb5B
 
-Internal\gbf5 
+
+Internal 
 bugit | pt bits
 	[user nobug ⇒
 		[⇑0]										"accidental bug returns 0"
@@ -538,7 +538,7 @@ bugit | pt bits
 		until⦂ [text frame has: user mp] do⦂
 			[user nobug⇒[⇑0]] 			"return 0 for abort"
 		thisline comp]						"he came back"
-	]\gb6B41i26I159i25I142i14I29i18I64i20I23i14I
+	]
 movingsetup | pt bits
 	[pt ← user mp - thisline center.	"center prev item on mouse"
 	text frame moveby: pt. thisline moveby: pt.
@@ -546,33 +546,33 @@ movingsetup | pt bits
 	bits ← frame bitsIntoString.	"save background"
 	frame clear: black. text show.
 	⇑ bits
-	]\gb12B44i27I95i17I
-\g
-SystemOrganization classify: ↪Menu under: 'Panes and Menus'.\g
+	]
+
+SystemOrganization classify: ↪Menu under: 'Panes and Menus'.
 
-"OrganizationPane"l15000z20000\gbf5 
+"OrganizationPane" 
 Class new title: 'OrganizationPane'
 	subclassof: ListPane
 	fields: 'classPane selectorPane class'
 	declare: 'editmenu ';
-	asFollows\gbf5 
+	asFollows 
 
-I am a list pane that displays the selector categories of a class.\gi
+I am a list pane that displays the selector categories of a class.
 
-Initialization\gbf5 
+Initialization 
 class: class
-	[self of: (self listFor: class)]\gb14B
+	[self of: (self listFor: class)]
 classInit
 	[editmenu ← Menu new string: 'filout
-print']\gb11B
-from: classPane to: selectorPane\gb
+print']
+from: classPane to: selectorPane
 listFor: class
 	[⇑[class≡nil⇒ [Vector new: 0]
-		↪(ClassDefinition ClassOrganization) concat: class organization categories]]\gb16B
+		↪(ClassDefinition ClassOrganization) concat: class organization categories]]
 
-Window protocol\gbf5 
+Window protocol 
 close
-	[classPane ← nil. super close]\gb7B
+	[classPane ← nil. super close]
 yellowbug
 	["If there is a selection, let the user choose a command from the menu."
 	selection≤1⇒ [window flash]		"Can't filout or print definition by itself"
@@ -583,18 +583,18 @@ yellowbug
 		=2⇒ ["print the selected category"
 			selection=2⇒ [window flash]		"Can't print organization"
 			class printoutCategory: list◦selection]
-	]\gb11B
+	]
 
-ListPane protocol\gbf5 
+ListPane protocol 
 deselected
 	["I just lost my selection.  Tell selectorPane to display nothing."
-	selectorPane of: (Vector new: 0)]\gb12B1i66I
+	selectorPane of: (Vector new: 0)]
 selected
-	[selectorPane of: [selection≤2⇒ [Vector new: 0] class organization category: list◦selection]]\gb10B
+	[selectorPane of: [selection≤2⇒ [Vector new: 0] class organization category: list◦selection]]
 
-Browser protocol\gbf5 
+Browser protocol 
 code: selector
-	[⇑class code: selector]\gb16B
+	[⇑class code: selector]
 compile: parag
 		| sel cat
 	[class≡nil or⦂ selection=1⇒ [classPane compile: parag] "new definition"
@@ -603,41 +603,41 @@ compile: parag
 	sel ← selectorPane compile: parag in: class under: cat⇒
 		[self revise: (self listFor: class) with: cat.
 		selection≠0⇒ [selectorPane revise: (class organization category: cat) with: sel]]
-	⇑false]\gb17B66i16I76i18I
+	⇑false]
 dirty
-	[⇑selectorPane dirty]\gb7B
+	[⇑selectorPane dirty]
 execute: parag
-	[⇑classⓢ parag]\gb16B
+	[⇑classⓢ parag]
 forget: selector | cat
 	[class derstands: selector.
 	cat ← list◦selection.
 	self revise: (self listFor: class) with: cat.
 	selection>0⇒
-		[selectorPane revise: (class organization category: cat) with: selector]]\gb17B
+		[selectorPane revise: (class organization category: cat) with: selector]]
 noCode
 	[class≡nil⇒ [⇑classPane noCode]
 	selection=0⇒ [⇑'']; =1⇒ [⇑class definition]; =2⇒ [⇑class organization]
 	⇑'Message name and Arguments | Temporary variables "short comment"
 	["long comment if necessary"
 	Smalltalk
-	Statements]']\gb8B
+	Statements]']
 spawn: selector with: parag formerly: oldparag
 	[selectorPane compselection; select: 0.
-	class edit: selector para: parag formerly: oldparag]\gb48B
-\g
-SystemOrganization classify: ↪OrganizationPane under: 'Panes and Menus'.\g
-OrganizationPane classInit\g
+	class edit: selector para: parag formerly: oldparag]
+
+SystemOrganization classify: ↪OrganizationPane under: 'Panes and Menus'.
+OrganizationPane classInit
 
-"ScrollBar"l15000z20000\gbf5 
+"ScrollBar" 
 Class new title: 'ScrollBar'
 	subclassof: Object
 	fields: 'rect bitstr owner position'
 	declare: 'DownCursor UpCursor JumpCursor ';
-	asFollows\gbf5 
+	asFollows 
 
-I am a bar to the left of an awake window.  With the cursor in me I can make that window scroll.\gi
+I am a bar to the left of an awake window.  With the cursor in me I can make that window scroll.
 
-Initialization\gbf5 
+Initialization 
 classInit
 	[UpCursor ← Cursor new fromtext: '
 1000000000000000
@@ -689,9 +689,9 @@ classInit
 0000000000000000
 0000000000000000
 0000000000000000
-0000000000000000' offset: 2⌾1]\gb11B
+0000000000000000' offset: 2⌾1]
 on: f from: o
-	[self on: f from: o at: o scrollPos]\gb15B
+	[self on: f from: o at: o scrollPos]
 on: frame from: owner at: f
 	[rect ← Rectangle new
 		origin: frame origin-(32⌾2)
@@ -699,11 +699,11 @@ on: frame from: owner at: f
 	position ← Rectangle new
 		origin: rect origin+(9⌾4)
 		extent: 16⌾8.
-	self boxPosition← f]\gb29B
+	self boxPosition← f]
 
-Scheduling\gbf5 
+Scheduling 
 close
-	[owner←nil]\gb7B
+	[owner←nil]
 eachtime | p cx r		"This needs to be restructured"
 	[rect has: (p← user mp)⇒
 		[cx ← rect center x - 2.
@@ -718,10 +718,10 @@ eachtime | p cx r		"This needs to be restructured"
 				[while⦂ (r has: (p←user mp)) do⦂
 					[self slide: p⇒[owner scrollTo: (position minY-rect minY-4) asFloat/(rect height-12)]
 					user redbug⇒[self reposition⦂[owner scrollUp: p y - rect origin y]]]]]
-	⇑false]\gb9B11i29I
+	⇑false]
 firsttime	
-	[⇑rect has: user mp]\gb12B
-lasttime\gb
+	[⇑rect has: user mp]
+lasttime
 slide: p | bug
 	[position has: p⇒
 		[JumpCursor showwhile⦂
@@ -734,107 +734,107 @@ slide: p | bug
 							[position moveto: position origin x⌾
 								((user mp y max: rect origin y+4) min: rect corner y-12)]]]]].
 		⇑bug]
-	⇑false]\gb9B
+	⇑false]
 
-Image\gbf5 
+Image 
 boxPosition← f
 	[position moveto: rect origin+
-			(9⌾(4+(([f<0.0⇒[0.0]; >1.0⇒[1.0] f])*(rect height-16))))]\gb16B
+			(9⌾(4+(([f<0.0⇒[0.0]; >1.0⇒[1.0] f])*(rect height-16))))]
 hide 	"restore background"
 	[bitstr≡nil⇒ [user notify: 'Attempt to hide unshown scrollbar']
 	rect bitsFromString: bitstr.
-	bitstr ← nil]\gb6B1i18I
+	bitstr ← nil]
 hidewhile⦂ expr  | v
-	[self hide. v ← expr eval. self show. ⇑v]\gb17B
+	[self hide. v ← expr eval. self show. ⇑v]
 reposition⦂ expr
 	[self reshow⦂
-		[expr eval.  self boxPosition← owner scrollPos]]\gb18B
+		[expr eval.  self boxPosition← owner scrollPos]]
 reshow⦂ expr | r
 	[r ← position inset: ¬2.  expr eval.
-	r clear: white.  position outline]\gb13B
+	r clear: white.  position outline]
 show	"Save background and turn gray"
 	[bitstr ← rect bitsIntoString.
 	rect clear: black.
 	(rect inset: 2⌾2 and: 1⌾2) clear: white.
-	position outline]\gb5B1i29I
-\g
-SystemOrganization classify: ↪ScrollBar under: 'Panes and Menus'.\g
-ScrollBar classInit\g
+	position outline]
+
+SystemOrganization classify: ↪ScrollBar under: 'Panes and Menus'.
+ScrollBar classInit
 
-"SelectorPane"l15000z20000\gbf5 
+"SelectorPane" 
 Class new title: 'SelectorPane'
 	subclassof: ListPane
 	fields: 'organizationPane codePane'
 	declare: 'editmenu ';
-	asFollows\gbf5 
+	asFollows 
 
-I am a ListPane whose entries are the message selectors of a category within a class.  Only organizationPane knows what the class and category are.  I make codePane display the code of my selected selector, if any.\gi
+I am a ListPane whose entries are the message selectors of a category within a class.  Only organizationPane knows what the class and category are.  I make codePane display the code of my selected selector, if any.
 
-Initialization\gbf5 
+Initialization 
 classInit
 	[editmenu ← Menu new string:
 		'spawn
-forget']\gb11B
-from: organizationPane to: codePane\gb
+forget']
+from: organizationPane to: codePane
 
-Window protocol\gbf5 
+Window protocol 
 close
-	[organizationPane ← nil. super close]\gb7B
+	[organizationPane ← nil. super close]
 yellowbug
 	[selection=0⇒ [window flash]
 	scrollBar hidewhile⦂
 		[editmenu bug
 			=1⇒ [organizationPane spawn: list◦selection with: codePane contents
 					formerly: codePane oldContents];
-			=2⇒ [organizationPane forget: list◦selection]]]\gb11B
+			=2⇒ [organizationPane forget: list◦selection]]]
 
-ListPane protocol\gbf5 
+ListPane protocol 
 deselected
-	[codePane showing: organizationPane noCode]\gb12B
+	[codePane showing: organizationPane noCode]
 selected
-	[codePane showing: (organizationPane code: list◦selection)]\gb10B
+	[codePane showing: (organizationPane code: list◦selection)]
 
-Browser protocol\gbf5 
+Browser protocol 
 compile: parag
-	[⇑organizationPane compile: parag]\gb16B
+	[⇑organizationPane compile: parag]
 compile: parag in: class under: heading
-	[⇑codePane compile: parag in: class under: heading]\gb41B
+	[⇑codePane compile: parag in: class under: heading]
 dirty
-	[⇑codePane dirty]\gb7B
+	[⇑codePane dirty]
 execute: parseStream for: codePane
-	[⇑codePane execute: parseStream in: false to: nil]\gb36B
-\g
-SystemOrganization classify: ↪SelectorPane under: 'Panes and Menus'.\g
-SelectorPane classInit\g
+	[⇑codePane execute: parseStream in: false to: nil]
+
+SystemOrganization classify: ↪SelectorPane under: 'Panes and Menus'.
+SelectorPane classInit
 
-"StackPane"l15000z20000\gbf5 
+"StackPane" 
 Class new title: 'StackPane'
 	subclassof: ListPane
 	fields: 'contextVarPane instanceVarPane codePane variables proceed'
 	declare: 'stackmenu ';
-	asFollows\gbf5 
+	asFollows 
 
-I am a list pane that displays one or all of the stack below a context in a notify window.\gi
+I am a list pane that displays one or all of the stack below a context in a notify window.
 
-Initialization\gbf5 
+Initialization 
 classInit
 	[stackmenu ← Menu new string:
 		'stack
 spawn
 proceed
-restart']\gb11B
+restart']
 context: contextVarPane at: level instance: instanceVarPane code: codePane
 	[variables ← (Vector new: 16) asStream.
-	 proceed≡nil⇒[proceed ← (false, nil, level)]]\gb76B
+	 proceed≡nil⇒[proceed ← (false, nil, level)]]
 context: contextVarPane instance: instanceVarPane code: codePane
 	[variables ← (Vector new: 16) asStream.
-	 proceed≡nil⇒[proceed ← (false, nil, Top currentPriority)]]\gb66B
+	 proceed≡nil⇒[proceed ← (false, nil, Top currentPriority)]]
 interrupt: flag
-	[proceed◦1 ← flag]\gb17B
+	[proceed◦1 ← flag]
 
-Window protocol\gbf5 
+Window protocol 
 close
-	[Top enable: proceed◦3. super close. list⇒ [(list◦1) releaseFully]]\gb7B
+	[Top enable: proceed◦3. super close. list⇒ [(list◦1) releaseFully]]
 yellowbug
 	[scrollBar hidewhile⦂
 		[stackmenu bug
@@ -842,16 +842,16 @@ yellowbug
 					 self revise: (list◦1) stack with: [selection=0⇒ [nil] list◦selection]];
 			=2⇒ ["spawn a code editor" self spawn];
 			=3⇒ ["return to selected context" self continue: false];
-			=4⇒ ["restart selected context" self continue: true]]]\gb11B47i23I87i21I22i28I32i26I
+			=4⇒ ["restart selected context" self continue: true]]]
 
-ListPane protocol\gbf5 
+ListPane protocol 
 deselected
 	[contextVarPane ≡ false⇒ []
 	codePane showing: ''.
 	contextVarPane names: (Vector new: 0) values: ↪(nil) wrt: false.
-	instanceVarPane names: (Vector new: 0) values: ↪(nil) wrt: false]\gb12B
+	instanceVarPane names: (Vector new: 0) values: ↪(nil) wrt: false]
 locked
-	[⇑contextVarPane and⦂ (selection>0 and⦂ self dirty)]\gb8B
+	[⇑contextVarPane and⦂ (selection>0 and⦂ self dirty)]
 selected | context instance code safeVec
 	[contextVarPane ≡ false⇒ []
 	context ← list◦selection. instance ← context receiver.
@@ -868,9 +868,9 @@ selected | context instance code safeVec
 	variables reset. instance class fieldNamesInto: self.
 	safeVec ← Vector new: 2. safeVec all ← instance.
 	instanceVarPane names: (↪(self) concat: variables contents) values: safeVec wrt: context.
-	contextVarPane select: 1]\gb9B
+	contextVarPane select: 1]
 
-NotifyWindow protocol\gbf5 
+NotifyWindow protocol 
 compile: parseStream | ctxt selector method mcl
 	[ctxt ← list◦(selection max: 1). mcl ← ctxt mclass.
 	 proceed◦2 ← selector ←
@@ -879,20 +879,20 @@ compile: parseStream | ctxt selector method mcl
 			[method ← mcl md methodorfalse: selector⇒
 				[self releaseAboveSelection.
 			 	ctxt restartWith: method. proceed◦1 ← true.
-			 	self of: list◦(selection to: list length) copy; select: 1]]]]\gb21B
+			 	self of: list◦(selection to: list length) copy; select: 1]]]]
 dirty
-	[⇑codePane and⦂ codePane dirty]\gb7B
+	[⇑codePane and⦂ codePane dirty]
 execute: parseStream for: codePane
 	[⇑proceed◦2 ←
-		codePane execute: parseStream in: [selection=0⇒ [false] list◦selection] to: nil]\gb36B
+		codePane execute: parseStream in: [selection=0⇒ [false] list◦selection] to: nil]
 
-Private\gbf5 
+Private 
 code | mclass selector 		"code of my selected context"
 	[mclass ← (list ◦ selection) mclass.
 	selector ← self selector.
-	⇑(mclass canunderstand: selector) and⦂ (mclass code: selector)]\gb5B20i29I
-comment: s		"called by selected via Class fieldNamesInto"\gb12Bi
-contents	"called by selected via Class fieldNamesInto"\gb9Bi
+	⇑(mclass canunderstand: selector) and⦂ (mclass code: selector)]
+comment: s		"called by selected via Class fieldNamesInto"
+contents	"called by selected via Class fieldNamesInto"
 continue: restarting | ctxt
 	["Close my window and resume my selected context, if any, else my first context.  If interrupted (proceed◦1) or restarting or a recompiled method, don't return a value; otherwise, return proceed◦2."
 	[user leftShiftKey ⇒[mem◦067 ← 58 "turn display off"]].
@@ -908,55 +908,55 @@ continue: restarting | ctxt
 	Top run: ctxt at: proceed◦3.
 	Top enable: proceed◦3.
 	Top wakeup: proceed◦3.
-	Top resetCurrent]\gb21B9i199I140i28I61i24I42i21I
+	Top resetCurrent]
 declaration: dummy1 name: string asArg: dummy2
-	[variables next ← string]\gb48B
+	[variables next ← string]
 identifier: s		"called by selected via Class fieldNamesInto"
-	[variables next ← s]\gb15Bi45I
-notify: msg "selected context doesnt know its variables"\gb12Bi
+	[variables next ← s]
+notify: msg "selected context doesnt know its variables"
 releaseAboveSelection
 	[[selection>1⇒ [(list◦(selection-1)) sender ← nil. (list◦1) release"Fully"]].
-	(list◦(selection max: 1)) verifyFrames]\gb23B67i7I
+	(list◦(selection max: 1)) verifyFrames]
 selector | context
 	[context ← list◦(selection max: 1).
-	⇑[context sender≡nil⇒ [false] context selector]]\gb9B
-separator: c	"called by selected via Class fieldNamesInto"\gb13Bi
+	⇑[context sender≡nil⇒ [false] context selector]]
+separator: c	"called by selected via Class fieldNamesInto"
 spawn | mclass selector parag oldparag
 	[mclass ← (list◦(selection max: 1)) mclass.
 	selector ← self selector.
 	parag ← [codePane⇒ [codePane contents] mclass canunderstand: selector⇒ [mclass code: selector] ''].
 	oldparag ← [codePane⇒ [codePane oldContents] false].
 	self compselection; select: 0.
-	mclass edit: selector para: parag formerly: oldparag]\gb6B
-terminate "called by parser close during initialization"\gb10Bi
-trailer: s	"called by selected via Class fieldNamesInto"\gb11Bi
-\g
-SystemOrganization classify: ↪StackPane under: 'Panes and Menus'.\g
-StackPane classInit\g
+	mclass edit: selector para: parag formerly: oldparag]
+terminate "called by parser close during initialization"
+trailer: s	"called by selected via Class fieldNamesInto"
+
+SystemOrganization classify: ↪StackPane under: 'Panes and Menus'.
+StackPane classInit
 
-"SystemPane"l15000z20000\gbf5 
+"SystemPane" 
 Class new title: 'SystemPane'
 	subclassof: ListPane
 	fields: 'mySysOrgVersion classPane'
 	declare: 'sysmenu ';
-	asFollows\gbf5 
+	asFollows 
 
-I am a list pane in which all the system categories are displayed.\gi
+I am a list pane in which all the system categories are displayed.
 
-Initialization\gbf5 
+Initialization 
 classInit
 	[sysmenu ← Menu new string: 'filout
-print']\gb11B
-to: classPane\gb
+print']
+to: classPane
 update
-	[self of: (↪(AllClasses SystemOrganization) concat: SystemOrganization categories). mySysOrgVersion←user classNames]\gb8B
+	[self of: (↪(AllClasses SystemOrganization) concat: SystemOrganization categories). mySysOrgVersion←user classNames]
 
-Window protocol\gbf5 
+Window protocol 
 enter	 "be sure I am up to date"
 	[mySysOrgVersion≡user classNames⇒ [super enter]
-	window outline. self update. super enter]\gb7Bi25I
+	window outline. self update. super enter]
 leave	 "I am up to date"
-	[mySysOrgVersion ← user classNames. super leave]\gb7Bi17I
+	[mySysOrgVersion ← user classNames. super leave]
 yellowbug
 	[selection<3⇒[window flash]
 	scrollBar hidewhile⦂
@@ -966,19 +966,19 @@ yellowbug
 			=2⇒
 				[SystemOrganization printCategory: list◦selection]
 		]
-	]\gb11B
+	]
 
-ListPane protocol\gbf5 
+ListPane protocol 
 deselected
-	[classPane of: (Vector new: 0)]\gb12B
+	[classPane of: (Vector new: 0)]
 selected
-	[classPane of: self classes]\gb10B
+	[classPane of: self classes]
 
-Browser protocol\gbf5 
+Browser protocol 
 classes "return a Vector of the classes in my selected category"
 	[selection	=1⇒ [⇑user classNames];
 				≤2⇒ [⇑Vector new: 0]
-	⇑SystemOrganization category: list◦selection]\gb8Bi56I
+	⇑SystemOrganization category: list◦selection]
 compile: parag
 		| class cat className
 	[selection=2⇒ [SystemOrganization fromParagraph: parag. self update] "new organization"
@@ -990,62 +990,62 @@ compile: parag
 		mySysOrgVersion≡user classNames⇒
 			[selection>0⇒
 				[classPane of: [cat⇒ [SystemOrganization category: cat] user classNames]]]
-		self update]]\gb17B92i18I
+		self update]]
 dirty
-	[⇑classPane dirty]\gb7B
+	[⇑classPane dirty]
 forget: className
 	[user notify: 'Class '+className+' will disappear if you proceed...'.
 	(Smalltalk◦className) noChanges; obsolete. Smalltalk delete: className.
 	SystemOrganization delete: className.
 	AllClassNames ← AllClassNames delete: className.
-	classPane revise: self classes with: className]\gb19B
+	classPane revise: self classes with: className]
 noCode
 	[selection=0⇒ [⇑'']; =2⇒ [⇑SystemOrganization]
 	⇑'Class new title: ''NameOfClass''
 	subclassof: Object
 	fields: ''names of fields''
-	declare: ''names of class variables''' copy]\gb8B
-\g
-SystemOrganization classify: ↪SystemPane under: 'Panes and Menus'.\g
-SystemPane classInit\g
+	declare: ''names of class variables''' copy]
+
+SystemOrganization classify: ↪SystemPane under: 'Panes and Menus'.
+SystemPane classInit
 
-"VariablePane"l15000z20000\gbf5 
+"VariablePane" 
 Class new title: 'VariablePane'
 	subclassof: ListPane
 	fields: 'valuePane values context'
 	declare: 'varmenu ';
-	asFollows\gbf5 
+	asFollows 
 
-I am a list pane that displays the names of variables in a context or instance.\gi
+I am a list pane that displays the names of variables in a context or instance.
 
-Initialization\gbf5 
+Initialization 
 classInit
-	[varmenu ← Menu new string: 'inspect']\gb11B
+	[varmenu ← Menu new string: 'inspect']
 names: vars values: values wrt: context
-	[self of: vars]\gb41B
+	[self of: vars]
 to: valuePane
-	[]\gb15B
+	[]
 
-Window protocol\gbf5 
+Window protocol 
 yellowbug
 	[selection=0⇒ [window flash]
-	scrollBar hidewhile⦂ [varmenu bug =1⇒ [self value inspect]]]\gb11B
+	scrollBar hidewhile⦂ [varmenu bug =1⇒ [self value inspect]]]
 
-ListPane protocol\gbf5 
+ListPane protocol 
 deselected
-	[valuePane showing: '']\gb12B
+	[valuePane showing: '']
 selected
-	[valuePane showing: self value asString]\gb10B
+	[valuePane showing: self value asString]
 
-Notify/Inspect protocol\gbf5 
+Notify/Inspect protocol 
 compile: parag
-	[window flash. ⇑false]\gb16B
+	[window flash. ⇑false]
 execute: parseStream for: valuePane
-	[⇑valuePane execute: parseStream in: context to: values◦1]\gb37B
+	[⇑valuePane execute: parseStream in: context to: values◦1]
 
-Private\gbf5 
+Private 
 value
-	[selection=1⇒ [⇑values◦1] ⇑(values◦2) inspectfield: selection-1]\gb7B
-\g
-SystemOrganization classify: ↪VariablePane under: 'Panes and Menus'.\g
-VariablePane classInit\g
+	[selection=1⇒ [⇑values◦1] ⇑(values◦2) inspectfield: selection-1]
+
+SystemOrganization classify: ↪VariablePane under: 'Panes and Menus'.
+VariablePane classInit

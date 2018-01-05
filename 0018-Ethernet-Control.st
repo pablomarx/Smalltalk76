@@ -1,12 +1,12 @@
 'From Smalltalk 5.5k XM November 24 on 22 November 1980 at 2:57:08 am.'
-\g
-"Etherworld"l15000z20000\gbf5 
+
+"Etherworld" 
 Class new title: 'Etherworld'
 	subclassof: Object
 	fields: ''
 	declare: '';
 	sharing: EtherPool;
-	asFollows\gbf5 
+	asFollows 
 
 This is, of course, the class that controls all of the basic ethernet operations.  There should not be more than one EtherWorld, and one, E, has to be defined for the system to work.    
 
@@ -34,9 +34,9 @@ If you just want to temporarily prevent the device from running use etherStop an
 Should go to ethAsleep (use E sleep) if you quit, since may come up on a different machine.
 
 The lights on the right side of the screen are Etherworld signals.  They mean  Etherworld awakened; packet addressed to the Alto received; packet being processed; output being sent; and input rejected.
-\gi
 
-Initialization/Termination\gbf5 
+
+Initialization/Termination 
 classInit 
 [
 "if this needs to be filed in again, execute this first
@@ -56,7 +56,7 @@ EtherPool declare: ↪(
 	freeQ justArrivedQ   
 	sockeTable routingTable routingHopCount routingUpdateUser
 	IntProc InputProc broadcastFilter 
-	IntLight InputLight OutputLight )]\gb11B
+	IntLight InputLight OutputLight )]
 etherStart "allows ether to start running again"
 	[
 	"makes sure the interrupt is on, and kicks the device"
@@ -66,7 +66,7 @@ etherStart "allows ether to start running again"
 		self SIO: 3.   "forces it to wake up again"
 		].
 	self notify: 'Attempt to etherStart when not awake!!.'.
-	]\gb11B
+	]
 etherStop "temporarily shuts off the ether stuff"
 	[
 		Top critical⦂ 
@@ -75,7 +75,7 @@ etherStop "temporarily shuts off the ether stuff"
 			self SIO: 3.
 			mem◦0600 ← 0.
 			].
-	]\gb10B
+	]
 Init | i "move from state ethDead to ethAsleep"
 	[
 	"if we were already running, bring it all down, just in case!!"
@@ -101,7 +101,7 @@ Init | i "move from state ethDead to ethAsleep"
 	InputProc enable.
 	etherState ← ethAsleep.
 	"we are still asleep, must do a wakeup to get numbers, start, etc."
-	]\gb5B5i36I7i61I41i23I
+	]
 kill | socket "shuts down ethernet and PUP world completely"
 	[
 		"Should free up all of the storage, etc.....
@@ -127,11 +127,11 @@ kill | socket "shuts down ethernet and PUP world completely"
 		[routingUpdateUser≡ nil⇒ [] routingUpdateUser release].
 		routingUpdateUser ← routingTable ← routingHopCount ← nil.
 		etherState ← ethDead.
-	]\gb14B
+	]
 setLights
 	[IntLight← Rectangle new origin: 576⌾0 extent: 16⌾16.
 	InputLight← Rectangle new origin: 592⌾0 extent: 16⌾16.
-	OutputLight←Rectangle new origin: 576⌾16 extent: 16⌾16]\gb11B
+	OutputLight←Rectangle new origin: 576⌾16 extent: 16⌾16]
 sleep | socket "be sure to do this before a user quit" 
 	[
 	etherState=ethDead ⇒ [self Init] "that is, go from dead to asleep"
@@ -145,7 +145,7 @@ sleep | socket "be sure to do this before a user quit"
 		"when next we wake up, may be on a new machine/net"
 		].
 	"when next we wake up, may be on a new machine/net"
-	]\gb6B
+	]
 wakeup | socket "Try to get everything up and running" 
 	[
 	etherState=ethAwake ⇒ [self etherStart] "do nothing, kick the receiver".
@@ -171,10 +171,10 @@ wakeup | socket "Try to get everything up and running"
 			[socket≡nil⇒[] socket setOutAddBlock; wakeup]. 
 		].
 	self notify: 'In wakeup, found Ethernet in some unknown state.'.
-	]\gb7B
+	]
 
-Input Interrupt Routines\gbf5 
-copyinput: string [user croak] primitive: 108\gb18B
+Input Interrupt Routines 
+copyinput: string [user croak] primitive: 108
 installInputProc | inBuf destSoc [
 	InputProc ← Top install⦂ [
 		while⦂ [true] do⦂ [  "infinite loop for process in scheduler"
@@ -193,7 +193,7 @@ installInputProc | inBuf destSoc [
 				 self freePacket: inBuf]. 
 			InputLight comp. 
 			InputProc sleep   "last action in the loop"]] 
-	at: InputProcLevel]\gb17B70i38I70i45I7i28I60i15I31i126I98i35I76i23I
+	at: InputProcLevel]
 installIntProc  [
 	IntProc ← Top install⦂ [
 		while⦂ [true] do⦂ [  "infinite loop for process in scheduler.
@@ -221,10 +221,10 @@ installIntProc  [
 			IntLight comp. 
 			IntProc sleep    "last action in the loop"]]
 	at: IntProcLevel]
-\gb16B52i284I26i25I242i18I43i22I110i8I51i23I
 
-Output Routines\gbf5 
-doOutput: string [] primitive: 100\gb17B
+
+Output Routines 
+doOutput: string [] primitive: 100
 sendOutput: ethOutPac | post
 	[
 			"This is the one and only place from which we  send output.
@@ -242,42 +242,42 @@ sendOutput: ethOutPac | post
 					[user cr; show: 'Warning, bad output post: '+ post base8]].
 				OutputLight comp. 
 				]. "end of the critical part"
-	]\gb22B14i293I
+	]
 
-User messages\gbf5 
-awake [⇑etherState = ethAwake]\gb6B
+User messages 
+awake [⇑etherState = ethAwake]
 broadcastFilter: val
 	[val ⇒ [broadcastFilter←true. self broadcastFilterSet: 1] 
-			broadcastFilter ← false.  self broadcastFilterSet: 0.]\gb22B
+			broadcastFilter ← false.  self broadcastFilterSet: 0.]
 broadcastFilterSet: val
-	[user croak ] primitive: 107\gb25B
+	[user croak ] primitive: 107
 freePacket | p [
 	"get a packet"
 	freeQ⇒ [
 		(p ← freeQ next) ⇒ [⇑p]
 		user show: 'Warning, empty freeQ, in Etherworld'.
 		⇑false]
-	⇑Pacbuf new init]\gb11B8i12I
+	⇑Pacbuf new init]
 freePacket: p [
 	"put a used packet into free queue"
 	[freeQ and⦂ p⇒ [freeQ next ← p]].
-	⇑false]\gb14B4i33I
+	⇑false]
 
-Utility messages\gbf5 
-error: str [user cr. user show: str]\gb11B
+Utility messages 
+error: str [user cr. user show: str]
 fill | "I want to replenish the freeQ" outstanding [
 	freeQ≡false or⦂ freeQ≡nil⇒ []
 	outstanding ← (Pacbuf howMany) - (freeQ length).
 	user cr; show: (outstanding asString)+' packets outstanding'.
 	until⦂ [freeQ length=10] do⦂ [freeQ next ← Pacbuf init].
-	]\gb5B
-getMachineID  [⇑ (self SIO: 0) \ 256]\gb14B
+	]
+getMachineID  [⇑ (self SIO: 0) \ 256]
 notify: strng | "turn off the Ethernet before doing a user notify" 
 	[self etherStop.
 	user show: ' Etherworld stopped'.
 	 [Top currentPriority ≠ 1⇒[user cr; show: 'priority is ' + (Top currentPriority) asString.  ]].
 	 user notify: strng]
-	\gb14B
+	
 printon: s [
 	etherState = ethDead ⇒ [s append: 'Etherworld,  etherState = ethDead.'].
 	s append: 'Etherworld running on '; print: NETNUM;
@@ -288,7 +288,7 @@ printon: s [
 	etherState = ethAsleep ⇒ [s append: 'etherAsleep'].
 	etherState = ethAwake ⇒ [s append: 'etherAwake'].
 	s print: etherState.
-	]\gb11B
+	]
 printRoutingTable | i 
 	[
 	for⦂ i from: 1 to: 255 do⦂ 
@@ -301,7 +301,7 @@ printRoutingTable | i
 			]
 		]
 	user cr.
-	] \gb18B2b2B
+	] 
 printSocketTable | i [
 	sockeTable≡nil⇒[user cr; show: 'no socketTable']
 	for⦂ i from: sockeTable objects do⦂ [
@@ -309,38 +309,38 @@ printSocketTable | i [
 		user cr; print: i; show: ', '; print: sockeTable◦i
 		]
 	]
-	\gb17B
-setMachineID: ID [mem◦0610 ← ID]\gb17B
-SIO: sioArg [] primitive: 91\gb12B
-\g
-SystemOrganization classify: ↪Etherworld under: 'Ethernet Control'.\g
-Etherworld classInit\g
+	
+setMachineID: ID [mem◦0610 ← ID]
+SIO: sioArg [] primitive: 91
+
+SystemOrganization classify: ↪Etherworld under: 'Ethernet Control'.
+Etherworld classInit
 
-"Int32"l15000z20000\gbf5 
+"Int32" 
 Class new title: 'Int32'
 	subclassof: Number
 	fields: 'high low'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 This class should probably be part of Number rather than Etherworld.
-NOTE THAT + AND - SHOULD BE FIXED TO RETURN TO SMALLTALK IF TYPE OF ARG IS NOT INT32\gi
+NOTE THAT + AND - SHOULD BE FIXED TO RETURN TO SMALLTALK IF TYPE OF ARG IS NOT INT32
 
-Initialization\gbf5 
-asInteger [high = 0 ⇒ [⇑ low] ⇑high*65536 + low]\gb10B
-high: high low: low\gb
+Initialization 
+asInteger [high = 0 ⇒ [⇑ low] ⇑high*65536 + low]
+high: high low: low
 
-Info about self\gbf5 
-hash [⇑ low]\gb5B
-high [⇑ high]\gb5B
-low [⇑ low]\gb4B
+Info about self 
+hash [⇑ low]
+high [⇑ high]
+low [⇑ low]
 printon: strm 
-	[high printon: strm base: 8. strm append: '|'. low printon: strm base: 8 ]\gb16B
+	[high printon: strm base: 8. strm append: '|'. low printon: strm base: 8 ]
 
-Arithmetic\gbf5 
-≠ arg [⇑ low ≠ arg low or⦂ high ≠ arg high]\gb6B
-+ arg [⇑self + arg asInt32] primitive: 93\gb6B
-- arg [⇑self - arg asInt32] primitive: 92\gb6B
+Arithmetic 
+≠ arg [⇑ low ≠ arg low or⦂ high ≠ arg high]
++ arg [⇑self + arg asInt32] primitive: 93
+- arg [⇑self - arg asInt32] primitive: 92
 < arg "revised M. Dolbec 6/25/80"
 	[high = arg high⇒ 
 		[low < 0 ⇒ 
@@ -350,88 +350,88 @@ Arithmetic\gbf5
 				arg low > 0 ⇒
 					[⇑low < arg low] 
 					⇑true]
-		⇑high < arg high]\gb6Bi27bI2B
-= arg [⇑low = arg low and⦂ high = arg high]\gb6B
+		⇑high < arg high]
+= arg [⇑low = arg low and⦂ high = arg high]
 > arg "revised M. Dolbec 6/25/80"
-	[⇑arg < self]\gb6Bi27bI2B
-\g
-SystemOrganization classify: ↪Int32 under: 'Ethernet Control'.\g
+	[⇑arg < self]
+
+SystemOrganization classify: ↪Int32 under: 'Ethernet Control'.
 
-"Pacbuf"l15000z20000\gbf5 
+"Pacbuf" 
 Class new title: 'Pacbuf'
 	subclassof: Object
 	fields: 'pupString locked'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 This is the basic unit for building and interpreting packets for the ethernet.
 It contains the messages that allow fields of a packet to be filled and read.
-Most users will prefer to use the socket mechanisms\gi
+Most users will prefer to use the socket mechanisms
 
-Initialization\gbf5 
+Initialization 
 init 
 	[pupString ← String new: 558.
-	locked ← false]\gb7B
+	locked ← false]
 
-Ethernet header\gbf5 
-ethType [⇑pupString word: 2]\gb8B
-ethType← eT [pupString word: 2 ← eT]\gb12B
-imEthDestHost [⇑pupString◦1]\gb14B
-imEthDestHost← iEDH [pupString◦1 ← iEDH]\gb20B
-imEthSrcHost [⇑pupString◦2]\gb13B
-imEthSrcHost← iESH [pupString◦2 ← iESH]\gb19B
+Ethernet header 
+ethType [⇑pupString word: 2]
+ethType← eT [pupString word: 2 ← eT]
+imEthDestHost [⇑pupString◦1]
+imEthDestHost← iEDH [pupString◦1 ← iEDH]
+imEthSrcHost [⇑pupString◦2]
+imEthSrcHost← iESH [pupString◦2 ← iESH]
 
-PUP Header\gbf5 
-addressBlock [⇑pupString◦(13 to: 24) ]\gb13B
+PUP Header 
+addressBlock [⇑pupString◦(13 to: 24) ]
 addressBlock← addBlock "for quickly setting the 6 fields" [
 	"pupString◦(13 to: 24) ← addBlock"
-	pupString copy: 13 to: 24 with: addBlock from: 1 to: 12]\gb23B
-destHost [⇑pupString◦14]\gb9B
-destHost← dH [pupString◦14 ← dH]\gb13B
-destNet [⇑pupString◦13]\gb8B
-destNet← dN [pupString◦13 ←  dN]\gb12B
-destSoc0 [⇑pupString word: 8]\gb9B
-destSoc0← i [⇑pupString word: 8←i]\gb12B
-destSoc1 [⇑pupString word: 9]\gb9B
-destSoc1← i [⇑pupString word: 9←i]\gb12B
-destSocNum [⇑Int32 new high: (pupString word: 8) low: (pupString word: 9) ]\gb11B
+	pupString copy: 13 to: 24 with: addBlock from: 1 to: 12]
+destHost [⇑pupString◦14]
+destHost← dH [pupString◦14 ← dH]
+destNet [⇑pupString◦13]
+destNet← dN [pupString◦13 ←  dN]
+destSoc0 [⇑pupString word: 8]
+destSoc0← i [⇑pupString word: 8←i]
+destSoc1 [⇑pupString word: 9]
+destSoc1← i [⇑pupString word: 9←i]
+destSocNum [⇑Int32 new high: (pupString word: 8) low: (pupString word: 9) ]
 destSocNum← dSN [pupString word: 8 ← dSN high.
-						 pupString word: 9 ← dSN low]\gb16B
-pupID [⇑Int32 new high: (pupString word: 5) low: (pupString word: 6) ]\gb6B
-pupID0 [⇑pupString word: 5 ]\gb7B
-pupID0← pID [⇑pupString word: 5 ← pID ]\gb12B
-pupID1 [⇑pupString word: 6 ]\gb7B
-pupID1← pID [⇑pupString word: 6 ← pID ]\gb12B
+						 pupString word: 9 ← dSN low]
+pupID [⇑Int32 new high: (pupString word: 5) low: (pupString word: 6) ]
+pupID0 [⇑pupString word: 5 ]
+pupID0← pID [⇑pupString word: 5 ← pID ]
+pupID1 [⇑pupString word: 6 ]
+pupID1← pID [⇑pupString word: 6 ← pID ]
 pupID← pID [pupString word: 5 ← pID high.
-						 pupString word: 6 ← pID low]\gb11B
-pupLength [⇑pupString word: 3]\gb10B
-pupLength← pL [⇑pupString word: 3 ← pL]\gb14B
-pupType [⇑pupString◦8]\gb8B
-pupType← pT [pupString◦8 ← pT]\gb12B
-sourceHost [⇑pupString◦20]\gb11B
-sourceHost← sH [pupString◦20 ← sH]\gb15B
-sourceNet [⇑pupString◦19]\gb10B
-sourceNet← sN [pupString◦19 ← sN]\gb14B
-sourceSoc0 [⇑pupString word: 11]\gb11B
-sourceSoc0← i [⇑pupString word: 11←i]\gb14B
-sourceSoc1 [⇑pupString word: 12]\gb11B
-sourceSoc1← i [⇑pupString word: 12←i]\gb14B
-sourceSocNum [⇑Int32 new high: (pupString word: 11) low: (pupString word: 12)]\gb13B
+						 pupString word: 6 ← pID low]
+pupLength [⇑pupString word: 3]
+pupLength← pL [⇑pupString word: 3 ← pL]
+pupType [⇑pupString◦8]
+pupType← pT [pupString◦8 ← pT]
+sourceHost [⇑pupString◦20]
+sourceHost← sH [pupString◦20 ← sH]
+sourceNet [⇑pupString◦19]
+sourceNet← sN [pupString◦19 ← sN]
+sourceSoc0 [⇑pupString word: 11]
+sourceSoc0← i [⇑pupString word: 11←i]
+sourceSoc1 [⇑pupString word: 12]
+sourceSoc1← i [⇑pupString word: 12←i]
+sourceSocNum [⇑Int32 new high: (pupString word: 11) low: (pupString word: 12)]
 sourceSocNum← sSN [pupString word: 11 ← sSN high.
-						 pupString word: 12 ← sSN low]\gb18B
+						 pupString word: 12 ← sSN low]
 swapPorts | i [
-	for⦂ i from: 13 to: 18 do⦂ [pupString swap: i with: i+6]]\gb10B
-totLengthWords [⇑((self pupLength)+5)/2]\gb15B
-transportControl [⇑pupString◦7]\gb17B
-transportControl← tC [pupString◦7 ← tC]\gb21B
+	for⦂ i from: 13 to: 18 do⦂ [pupString swap: i with: i+6]]
+totLengthWords [⇑((self pupLength)+5)/2]
+transportControl [⇑pupString◦7]
+transportControl← tC [pupString◦7 ← tC]
 
-PUP Checksum\gbf5 
-checksum  [⇑pupString word: ((self pupLength+1)/2)+2]\gb10B
+PUP Checksum 
+checksum  [⇑pupString word: ((self pupLength+1)/2)+2]
 checksumOK "Boolean, returns true or false"
 	["just look at the current packet"
-	⇑self checksum = self doChecksum]\gb11B
+	⇑self checksum = self doChecksum]
 checksum←  cs 
-	 [pupString word: (((self pupLength+1)/2)+2) ← cs]\gb17B46b2B
+	 [pupString word: (((self pupLength+1)/2)+2) ← cs]
 doChecksum | i cs 
 	[
 	cs ← 0. 
@@ -440,53 +440,53 @@ doChecksum | i cs
 		[cs <0⇒[cs ← (cs lshift: 1)+1] cs ← cs lshift: 1]].
 	[cs=¬1⇒[cs ← 0]]. 
 	⇑cs
-	] primitive: 94 \gb11B
+	] primitive: 94 
 
-Data \gbf5 
-dataLength [⇑(pupString word: 3) "self pupLength" - 22]\gb11B
-dataLength← len [⇑pupString word: 3 "self pupLength" ← len + 22]\gb16B
-dataString [⇑pupString copy: 25 to: 24+self dataLength]\gb11B
+Data  
+dataLength [⇑(pupString word: 3) "self pupLength" - 22]
+dataLength← len [⇑pupString word: 3 "self pupLength" ← len + 22]
+dataString [⇑pupString copy: 25 to: 24+self dataLength]
 dataString← str | i [
 	i ← str length.
 	i > 532 ⇒ [user notify: 'Data string too big for single PUP']
 	pupString copy: 25 to: 24 + i with: str from: 1 to: i.
 	self dataLength ← i.
-	⇑str]\gb16B5b2B
-dataWord: i [⇑pupString word: i + 12]\gb12B
-dataWord: i ← v [⇑pupString word: i + 12 ← v]\gb16B
+	⇑str]
+dataWord: i [⇑pupString word: i + 12]
+dataWord: i ← v [⇑pupString word: i + 12 ← v]
 
-Etc\gbf5 
-◦ i [⇑pupString◦i]\gb4B
-◦ i ← v [⇑pupString◦i ← v]\gb8B
-header [⇑pupString◦(1 to: 24) ]\gb7B
+Etc 
+◦ i [⇑pupString◦i]
+◦ i ← v [⇑pupString◦i ← v]
+header [⇑pupString◦(1 to: 24) ]
 lock [locked⇒[E notify: 'trying to lock a buffer already locked']
-			locked←true. ⇑pupString lock]\gb5B
-locked [⇑locked]\gb7B
+			locked←true. ⇑pupString lock]
+locked [⇑locked]
 lockwith: string [locked⇒[E notify: 'trying to lock a buffer already locked']
-			locked←string. ⇑pupString lock]\gb17B
-pupString  [⇑pupString]\gb11B
-pupString ← pupString [⇑pupString]\gb22B
+			locked←string. ⇑pupString lock]
+pupString  [⇑pupString]
+pupString ← pupString [⇑pupString]
 unlock [locked⇒[locked←false.  pupString unlock]
-			user notify: 'trying to unlock a buffer not locked']\gb7B
-word: i [⇑pupString word: i]\gb8B
-word: i ← v [⇑pupString word: i ← v]\gb12B
-\g
-SystemOrganization classify: ↪Pacbuf under: 'Ethernet Control'.\g
+			user notify: 'trying to unlock a buffer not locked']
+word: i [⇑pupString word: i]
+word: i ← v [⇑pupString word: i ← v]
+
+SystemOrganization classify: ↪Pacbuf under: 'Ethernet Control'.
 
-"SafeQ"l15000z20000\gbf5 
+"SafeQ" 
 Class new title: 'SafeQ'
 	subclassof: PQueue
 	fields: 'enabled'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-checks all objects enqueued, to be sure not there already\gi
+checks all objects enqueued, to be sure not there already
 
-As yet unclassified\gbf5 
-disable [enabled ← false]\gb8B
-enable [enabled ← true]\gb7B
+As yet unclassified 
+disable [enabled ← false]
+enable [enabled ← true]
 length [⇑position - readposition]
-\gb7B
+
 next ← arg | i "short comment" [[enabled⇒
 	[
 	for⦂ i from: (readposition+1) to: position do⦂
@@ -495,19 +495,19 @@ next ← arg | i "short comment" [[enabled⇒
 		]]].
 	arg locked⇒[E notify: 'putting locked Pacbuf on Q']
 	super next ← arg
-	]\gb11B
-status [⇑enabled]\gb7B
-\g
-SystemOrganization classify: ↪SafeQ under: 'Ethernet Control'.\g
+	]
+status [⇑enabled]
+
+SystemOrganization classify: ↪SafeQ under: 'Ethernet Control'.
 
-"Socket"l15000z20000\gbf5 
+"Socket" 
 Class new title: 'Socket'
 	subclassof: Object
 	fields: 'socNumber computeOutgoingCS filterInput outAddBlock
 	lclSocNum frnNet frnHost frnSocNum'
 	declare: '';
 	sharing: EtherPool;
-	asFollows\gbf5 
+	asFollows 
 
 Sockets are used to do all communication through the net.  
 It is expected that a specialized server or process can have
@@ -531,18 +531,18 @@ to see error messages from an intermediate address.
 As a convenience, however, the socket can be asked to filterInput,
 so it only accepts things which match the frnPort.
 Thus, local and foreign attributes are primarily used to default
-fields of an outgoing  packet.\gi
+fields of an outgoing  packet.
 
-Initialization\gbf5 
+Initialization 
 default 
 	["default local socket number and leave frn port open"
 	self net: 0 host: 0 soc: (Int32 new high: 0 low: 0)
-	]\gb10B
+	]
 from: lclSocNum  
 	["set lcl soc number, leave frnPort open -- useful for creating
 	a well-known socket as a listener"
 	self from: lclSocNum net: 0 host: 0 soc: (Int32 new high: 0 low: 0)
-	]\gb19B
+	]
 from: lclSocNum net: frnNet host: frnHost soc: frnSocNum 
 	 [
 	"this is the most general initialization, both lcl soc# and frnPort given"
@@ -551,7 +551,7 @@ from: lclSocNum net: frnNet host: frnHost soc: frnSocNum
 	computeOutgoingCS ← filterInput ← false. 
 	sockeTable insert: lclSocNum with: self.  "put me in socket table"
 	self doMoreInit
-	]\gb60B
+	]
 hostName: name | a nh [
 	"lookup name, then set net and host numbers (maybe socket?)"
 	a ← NameUser init.
@@ -561,7 +561,7 @@ hostName: name | a nh [
 	Top critical⦂ [a close].
 	nh⇒ [self net: nh◦1 host: nh◦2]
 	"invalid name?"
-	⇑false]\gb15B11i58I55i116I
+	⇑false]
 net: frnNet host: frnHost soc: frnSocNum [
 	"default the local socket number:
 	use some memory dependent info (space) for the high word so that no two
@@ -571,7 +571,7 @@ net: frnNet host: frnHost soc: frnSocNum [
 
 	lclSocNum ← Int32 new high: self nail low: user ticks.
 	self unNail; from: lclSocNum net: frnNet host: frnHost soc: frnSocNum
-	]\gb41B1b2B
+	]
 setOutAddBlock
 	[
 	outAddBlock◦1 ← frnNet. outAddBlock◦2 ← frnHost.
@@ -580,14 +580,14 @@ setOutAddBlock
 	outAddBlock◦7 ← NETNUM. outAddBlock◦8 ← ALTONUM.
 	outAddBlock word: 5 ← lclSocNum high.
 	outAddBlock word: 6 ← lclSocNum low.
-	]\gb16B
+	]
 to: h [
 	"convenient default if on my net"
-	self net: NETNUM host: h]\gb6B4i31I
+	self net: NETNUM host: h]
 wakeup | "when E goes from ethAsleep to ethAwak" 
-	[  ]\gb7B
+	[  ]
 
-Process incoming packet\gbf5 
+Process incoming packet 
 acceptPacbuf: Ipac | temp
 	["if we get here, we know that the input distributer has verified the
 	PUP dest as being us (or a broadcast, if broadcast filter is off).
@@ -600,9 +600,9 @@ acceptPacbuf: Ipac | temp
 		 ⇒ [⇑self socDispose: Ipac]
 		"It's good, take it..."
 		⇑self socProcess: Ipac
-	]\gb19B
+	]
 
-Process outgoing packet\gbf5 
+Process outgoing packet 
 broadcast: packet to: socNumber| "I want to broadcast this packet" [
 	self setAddresses: packet.
 	packet
@@ -612,7 +612,7 @@ broadcast: packet to: socNumber| "I want to broadcast this packet" [
 		destSoc1←socNumber low.
 	"I assume that the length and type have been done"
 	self completePup: packet.
-	]\gb31B
+	]
 completePup: pac | t
 	[
 	"the user must have set all 6 address fields,ID, length, and type"
@@ -639,7 +639,7 @@ Inaccessible destination net: ' + pac destNet asString+ ', packet not sent.'.
 	"Fix this up later......"
 	E sendOutput: pac.
 	⇑pac
-	]\gb17B2b3B
+	]
 defaultAddresses: pac   "overwrites any fields which are 0"
 	[
 	[pac destNet = 0 ⇒ [pac destNet ← frnNet]].
@@ -650,70 +650,70 @@ defaultAddresses: pac   "overwrites any fields which are 0"
 	[pac sourceHost = 0 ⇒ [pac sourceHost ← ALTONUM]].
 	[(pac sourceSoc0 = 0) and: (pac sourceSoc1 = 0) ⇒ 
 			[pac sourceSocNum ← lclSocNum]].
-	]\gb24B
+	]
 defaultAndComplete: pac
 	[
 	self defaultAddresses: pac.
 	self completePup: pac.
-	]\gb25B
-setAddresses: pac [pac addressBlock ← outAddBlock]\gb18B
+	]
+setAddresses: pac [pac addressBlock ← outAddBlock]
 setAddressesAndComplete: pac 
-	[pac addressBlock ← outAddBlock.  self completePup: pac]\gb31B
+	[pac addressBlock ← outAddBlock.  self completePup: pac]
 
-Access to Parts\gbf5 
+Access to Parts 
 close [self release.
-	sockeTable lookup: lclSocNum⇒[sockeTable delete: lclSocNum]]\gb6B
-computeOutgoingCS [⇑computeOutgoingCS]\gb18B2b17B
-computeOutgoingCS← computeOutgoingCS [⇑computeOutgoingCS]\gb37B2b17B
+	sockeTable lookup: lclSocNum⇒[sockeTable delete: lclSocNum]]
+computeOutgoingCS [⇑computeOutgoingCS]
+computeOutgoingCS← computeOutgoingCS [⇑computeOutgoingCS]
 disable  	["left for compatibility" user show: 'unnecessary disable'.
-	self close.]\gb10B
-enable ["now a no-op" user show: 'someone did unnecessary enable'. self print]\gb7B
-filterInput  [⇑filterInput]\gb13B
-filterInput← filterInput [⇑filterInput ]\gb25B
+	self close.]
+enable ["now a no-op" user show: 'someone did unnecessary enable'. self print]
+filterInput  [⇑filterInput]
+filterInput← filterInput [⇑filterInput ]
 freePacket | p [
 	"get a packet"
 	freeQ⇒ [
 		(p ← freeQ next)⇒ [⇑p]
 		user show: 'Warning, empty freeQ, in Socket'.
 		⇑false]
-	⇑Pacbuf new init]\gb11B8i12I
+	⇑Pacbuf new init]
 freePacket: p [
 	"put a used packet into free queue"
 	[freeQ and⦂ p⇒ [freeQ next ← p]].
-	⇑false]\gb14B4i33I
-frnHost [⇑frnHost]\gb8B
-frnHost← frnHost [⇑frnHost]\gb17B
-frnNet [⇑frnNet]\gb7B
-frnNet← frnNet [⇑frnNet]\gb15B
-frnSocNum [⇑frnSocNum]\gb10B
-frnSocNum← frnSocNum [⇑frnSocNum]\gb21B
-lclSocNum [⇑lclSocNum]\gb10B
-lclSocNum← lclSocNum [⇑lclSocNum]\gb21B
+	⇑false]
+frnHost [⇑frnHost]
+frnHost← frnHost [⇑frnHost]
+frnNet [⇑frnNet]
+frnNet← frnNet [⇑frnNet]
+frnSocNum [⇑frnSocNum]
+frnSocNum← frnSocNum [⇑frnSocNum]
+lclSocNum [⇑lclSocNum]
+lclSocNum← lclSocNum [⇑lclSocNum]
 
-Overwrite by Subclasses\gbf5 
-doMoreInit\gb
-kill ["whole world about to go.  I don't care, but my subclasses might"]\gb5B
-release "disable Timers, undo circular structures etc."\gb8B1i45I
-sleep ["the user is quitting.  I don't care, but my subclasses might"]\gb6B
-socDispose: Ipac [self freePacket: Ipac]\gb17B
-socProcess: Ipac [self freePacket: Ipac]\gb17B
-\g
-SystemOrganization classify: ↪Socket under: 'Ethernet Control'.\g
+Overwrite by Subclasses 
+doMoreInit
+kill ["whole world about to go.  I don't care, but my subclasses might"]
+release "disable Timers, undo circular structures etc."
+sleep ["the user is quitting.  I don't care, but my subclasses might"]
+socDispose: Ipac [self freePacket: Ipac]
+socProcess: Ipac [self freePacket: Ipac]
+
+SystemOrganization classify: ↪Socket under: 'Ethernet Control'.
 
-"RetransmitSocket"l15000z20000\gbf5 
+"RetransmitSocket" 
 Class new title: 'RetransmitSocket'
 	subclassof: Socket
 	fields: 'retransTimer retransMax retransCount'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-An abstract socket for handling retransmission behavior\gi
+An abstract socket for handling retransmission behavior
 
-Socket\gbf5 
+Socket 
 release [
 	retransTimer≡nil⇒ []
 	"release circular structure"
-	retransTimer disable. retransTimer ← nil]\gb8B26i26I
+	retransTimer disable. retransTimer ← nil]
 setAddressesAndComplete: pac [
 	"this may need to be bracketed as critical?"
 	pac addressBlock ← outAddBlock.
@@ -722,48 +722,48 @@ setAddressesAndComplete: pac [
 	self completePup: pac
 
 	"self startTimer.
-	super setAddressesAndComplete: pac"]\gb29B4i42I37i11I
+	super setAddressesAndComplete: pac"]
 
-Timer\gbf5 
+Timer 
 retransmit: retransMax every: delay [
 	retransTimer ← Timer new.
-	retransTimer for: delay action⦂ [self timerFired]]\gb36B
-startTimer [retransCount ← 0. retransTimer reset]\gb11B
-timerOff [retransTimer≡nil⇒ [] retransTimer disable]\gb9B
+	retransTimer for: delay action⦂ [self timerFired]]
+startTimer [retransCount ← 0. retransTimer reset]
+timerOff [retransTimer≡nil⇒ [] retransTimer disable]
 timerOn [
 	"turn on timer if retry count has not been reached"
 	(retransCount ← retransCount + 1) ≤ retransMax ⇒ [retransTimer reset]
-	⇑false]\gb8B4i49I
+	⇑false]
 
-Subclass\gbf5 
+Subclass 
 timerFired [
 	"subclass should redefine this"
 	self timerOn⇒ ["again, e.g. self completePup: pac"]
-	"done"]\gb11B4i29I19i34I4i4I
-\g
-SystemOrganization classify: ↪RetransmitSocket under: 'Ethernet Control'.\g
+	"done"]
+
+SystemOrganization classify: ↪RetransmitSocket under: 'Ethernet Control'.
 
-"NameUser"l15000z20000\gbf5 
+"NameUser" 
 Class new title: 'NameUser'
 	subclassof: RetransmitSocket
 	fields: 'resultType resultSet result outPac'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 Typical use: 
    foo ← NameUser init.
    foo getAddressBlock: string.  --- returns 6-byte string
 	foo getAddressString.  --- returns string like 2#2#0
-   foo close.\gi
+   foo close.
 
-Initialization\gbf5 
+Initialization 
 init 
 	["create a NameUser, to socket 4, from a default local socket number"
 	E wakeup.
 	self net: 0 host: 0 soc: 4 asInt32.
-	self retransmit: 2 every: 300]\gb7B
+	self retransmit: 2 every: 300]
 
-Output requests\gbf5 
+Output requests 
 getAddressBlock: str [
 	"returns a string, 6 bytes: net/host/socket"
 	result ← resultSet ← false.
@@ -771,7 +771,7 @@ getAddressBlock: str [
 	outPac pupType← 0220; dataString← str.
 	self setAddressesAndComplete: outPac.
 	until⦂ resultSet do⦂ [].
-	⇑result]\gb21B4i42I
+	⇑result]
 getAddressString: str | temp  "return string representation"
 	[
 	temp ← self getAddressBlock: str ⇒
@@ -780,11 +780,11 @@ getAddressString: str | temp  "return string representation"
 		(temp word: 2) base8 + '|' +  (temp word: 3) base8.
 		]
 	⇑false
-	]\gb22B
+	]
 getName: str | "convert string address back to host name"
-	["not implemented yet"]\gb13B
+	["not implemented yet"]
 
-Handle input\gbf5 
+Handle input 
 socProcess: Ipac | i j best bestHops "overwrite from Socket"
 	[
 	"called from Ether stuff, running at a very high level"
@@ -813,24 +813,24 @@ socProcess: Ipac | i j best bestHops "overwrite from Socket"
 	]"dummy block".
 	"all done"
 	self freePacket: Ipac.
-	]\gb17B
+	]
 timerFired  [
 	self timerOn⇒ [self completePup: outPac]
-	resultSet ← true]\gb12B
-\g
-SystemOrganization classify: ↪NameUser under: 'Ethernet Control'.\g
+	resultSet ← true]
+
+SystemOrganization classify: ↪NameUser under: 'Ethernet Control'.
 
-"RoutingUpdater"l15000z20000\gbf5 
+"RoutingUpdater" 
 Class new title: 'RoutingUpdater'
 	subclassof: RetransmitSocket
 	fields: 'outPac resultSet'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 A specialized sub-class of Socket, designed to send out requests
-for the current routing info, and update the routing table.\gi
+for the current routing info, and update the routing table.
 
-Initialization\gbf5 
+Initialization 
 init [
 	"create a new local soc number, broadcast to socket 2"
 	super net: 0 host: 0 soc: 2 asInt32.
@@ -838,17 +838,17 @@ init [
 	outPac pupType ← 0200.
 	outPac dataString ← ''.
 	self retransmit: 3 every: 300.
-]\gb5B
+]
 
-Sending\gbf5 
+Sending 
 update | i 
 	[
 	for⦂ i to: 255 do⦂ [routingTable◦i ← 0. routingHopCount◦i←8].
 	resultSet ← false.
 	self setAddressesAndComplete: outPac.
-	until⦂ resultSet do⦂ []]\gb7B
+	until⦂ resultSet do⦂ []]
 
-Overwrite from Socket\gbf5 
+Overwrite from Socket 
 socProcess: pac | block gateway net count i 
 	[
 	"an input has arrived, we are running at a higher level.
@@ -868,37 +868,37 @@ socProcess: pac | block gateway net count i
 			]
 		].
 	self freePacket: pac
-	]\gb16B31b1B2i78I
+	]
 timerFired [
 	self timerOn⇒ [self completePup: outPac]
-	resultSet ← true]\gb11B
-\g
-SystemOrganization classify: ↪RoutingUpdater under: 'Ethernet Control'.\g
+	resultSet ← true]
+
+SystemOrganization classify: ↪RoutingUpdater under: 'Ethernet Control'.
 
-"RPPSocket"l15000z20000\gbf5 
+"RPPSocket" 
 Class new title: 'RPPSocket'
 	subclassof: RetransmitSocket
 	fields: 'seqNum outPac ackOK abortTransfer inQ ackType transaction myStream eof'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 I establish a reliable packet protocol for communication.
-This is a sub-class of Socket, and uses many of its messages.\gi
+This is a sub-class of Socket, and uses many of its messages.
 
-Intialization\gbf5 
+Intialization 
 init [
 	self retransmit: 10 every: 180.
 	seqNum ← transaction ← 0.
 	outPac ← ackOK  ← false.
-	abortTransfer ← true. "stop an old timer from perhaps firing"]\gb5B
+	abortTransfer ← true. "stop an old timer from perhaps firing"]
 
-Termination\gbf5 
-release [self reset. inQ ← false. super release]\gb8B
+Termination 
+release [self reset. inQ ← false. super release]
 reset [
 	outPac ← self freePacket: outPac.
-	self timerOff]\gb6B
+	self timerOff]
 
-Sending Data\gbf5 
+Sending Data 
 send: myStream 
 	[
 	"Sends a whole stream, and an end sequence.
@@ -911,14 +911,14 @@ send: myStream
 
 	"We hit the end of file, do the end sequence and close the connection"
 	self sendEndSequence ⇒ [⇑myStream] ⇑false.  "all done!"
-	]\gb17B48i57I
+	]
 sendBlock: str 
 	[
 		"Take the data from a string (1-532 bytes), send it out; uses outPac"
 		outPac dataString ← str.
 		self sendPacket.  "tries to do it reliably"
 		abortTransfer⇒[⇑false]
-	]\gb17B
+	]
 sendData | i t buf len [
 	"send one packet of data from myStream"
 	buf ← outPac pupString.
@@ -944,7 +944,7 @@ sendData | i t buf len [
 
 	"send packet reliably or abort, then return"
 	self sendPacket. 
-	]\gb9B
+	]
 sendEndSequence
 	[
 		"This will do the 3-way handshake, and close the connection.
@@ -959,7 +959,7 @@ sendEndSequence
 		self sendPacketOnce.
 		self reset.
 		⇑true.
-	]\gb17B
+	]
 sendPacket | 
 	"general routine to send the outPac packet, maybe retransmit, get ack" 
 	[
@@ -969,19 +969,19 @@ sendPacket |
 	self setAddressesAndComplete: outPac.
 	until⦂ [abortTransfer or⦂ ackOK] do⦂ [].
 	seqNum ← seqNum + 1.
-	]\gb11B
+	]
 sendPacketOnce | 
 	"special routine to send the outPac packet, no retransmission" 
 	[
 	outPac pupID1 ← seqNum. 
 	outPac pupID0 ← transaction. "pupID0 can be used by one of my subclasses"
 	self setAddressesAndComplete: outPac; timerOff.
-	]\gb15B
+	]
 
-Receiving Data\gbf5 
+Receiving Data 
 
-Handle Input\gbf5 
-process: packet ["my subclasses use this" self freePacket: packet]\gb16B2i22I
+Handle Input 
+process: packet ["my subclasses use this" self freePacket: packet]
 socProcess: Ipac "I have received a packet" [
 	Ipac pupType = ackType ⇒[
 		[Ipac pupID1 = seqNum and⦂ Ipac pupID0 = transaction⇒[
@@ -991,9 +991,9 @@ socProcess: Ipac "I have received a packet" [
 		"an old acknowledgement"].
 		self freePacket: Ipac]
 	"must be a trasmission started elsewhere"
-	self process: Ipac.]\gb17B1i24I92i23I40i22I31i39I
+	self process: Ipac.]
 
-Timer Interupts\gbf5 
+Timer Interupts 
 timerFired [
 	"This piece of code only runs when a Timer fires;  
 	Don't do an active return"
@@ -1002,22 +1002,22 @@ timerFired [
 		"retransmit"
 		self completePup: outPac]
 	user show: 'Excessive retransmits in RPP retransmit' .
-	abortTransfer ← true]\gb11B
-\g
-SystemOrganization classify: ↪RPPSocket under: 'Ethernet Control'.\g
+	abortTransfer ← true]
+
+SystemOrganization classify: ↪RPPSocket under: 'Ethernet Control'.
 
-"EFTPSender"l15000z20000\gbf5 
+"EFTPSender" 
 Class new title: 'EFTPSender'
 	subclassof: RPPSocket
 	fields: ' '
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 A specialized sub-class of RPPSocket, designed to send files to an
 EFTP receiver.  By convention, the receiver will be on socket 020
-There can only be one outstanding packet at a time, called outPac.\gi
+There can only be one outstanding packet at a time, called outPac.
 
-Initialization\gbf5 
+Initialization 
 net: n host: h
 	[
 	"Each instance of an EFTPSender has a unique lclSocket, but
@@ -1029,14 +1029,14 @@ net: n host: h
 	outPac ← false.
 	transaction ← 0.
 	ackType ← 031.
-	]\gb16B
+	]
 
-Receiving\gbf5 
+Receiving 
 process: packet | error "The printer is trying to tell me something" [
 	packet pupType = 033⇒[
 		"error 33!!!" error ← packet dataString.
 		self freePacket: packet.
 		user show: 'remote server aborted: '; show: error◦(3 to: error length).
-		abortTransfer←true]]\gb16B
-\g
-SystemOrganization classify: ↪EFTPSender under: 'Ethernet Control'.\g
+		abortTransfer←true]]
+
+SystemOrganization classify: ↪EFTPSender under: 'Ethernet Control'.

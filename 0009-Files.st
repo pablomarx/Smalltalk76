@@ -1,18 +1,18 @@
 'From Smalltalk 5.5k XM November 24 on 22 November 1980 at 2:57:08 am.'
-\g
-"File"l15000z20000\gbf5 
+
+"File" 
 Class new title: 'File'
 	subclassof: Dict
 	fields: 'directory type name serialNumber pageReaders pageBuffer lastpn error'
 	declare: '';
 	sharing: FilePool;
-	asFollows\gbf5 
+	asFollows 
 
 A collection of FilePages usually on some device external to the virtual memory, which can be viewed and modified. File is a generalization: some examples are AltoFile and WoodstockFile. FilePage and FileDirectory are related classes. FileStream provides Stream access to Files.
 
-Subclasses should override any superclass message implemented as [self subError]\gi
+Subclasses should override any superclass message implemented as [self subError]
 
-Documentation\gbf5 
+Documentation 
 help "
 
 A common way to access a File is through a FileStream.
@@ -48,98 +48,98 @@ Some common ways to access a FileStream (see Stream and FileStream):
 When finished with a FileStream, <FileStream> close.
 
 For information about using or creating other views of file organizations (Btree, file-based object dictionaries, Findit), about WFS and Juniper files, and general file problems, see Steve Weyer.
-"\gb5B28b4B14b10B89b5B21b8B5b8B57b16B141b8B73b6B5b10B57b7B35b35B35b43B24b9B35b20B35b24B22b50B47b76B47b5B78b5B
+"
 
-Dictionary\gbf5 
-close\gb
-entryClass ["a subclass of FilePage" self subError]\gb11B2i22I
-Find: page [⇑page pageNumber ≤ lastpn]\gb11B
-found: page ["read an existing page" self subError]\gb12B2i21I
+Dictionary 
+close
+entryClass ["a subclass of FilePage" self subError]
+Find: page [⇑page pageNumber ≤ lastpn]
+found: page ["read an existing page" self subError]
 makeEntry: page [
 	page is: self entryClass⇒ [page init; serialNumber: serialNumber. ⇑page]
 	⇑[(self entryClass new) dictionary: self;
-		init; pageNumber: page; serialNumber: serialNumber]]\gb16B
-open ["compute lastpn" self findLastPage]\gb5B2i14I
-release\gb
+		init; pageNumber: page; serialNumber: serialNumber]]
+open ["compute lastpn" self findLastPage]
+release
 reopen [
 	[self sameFile⇒ []
 	"init and directory access"
 	directory get: self init].
-	self open]\gb7B24i25I
+	self open]
 
-DictionaryEntry\gbf5 
-dictionary [⇑directory]\gb11B
-dictionary: directory\gb
-init [lastpn ← false. error ← nullString. serialNumber ← String new: 4]\gb5B
-match: entry [⇑self name match: entry name]\gb13B
-name [⇑name]\gb5B
-name: name\gb
-printon: strm [strm append: name]\gb14B
+DictionaryEntry 
+dictionary [⇑directory]
+dictionary: directory
+init [lastpn ← false. error ← nullString. serialNumber ← String new: 4]
+match: entry [⇑self name match: entry name]
+name [⇑name]
+name: name
+printon: strm [strm append: name]
 
-Initialize\gbf5 
+Initialize 
 classInit [
 	"subclasses of File may want to share variables in pools.
 	execute before filin:
 		Smalltalk declare: ↪XFilePool as: (SymbolTable new init: 16).
 	in classInit: XFilePool declare: ↪() as: ↪()"
 
-	FilePool declare: ↪(read write shorten) as: ↪(1 2 4)]\gb10B4i79I66i13I
+	FilePool declare: ↪(read write shorten) as: ↪(1 2 4)]
 sameFile "is File's current internal representation the same as what is stored externally? if so, usually can avoid some initialization, directory lookup"
-	[⇑false]\gb9B1i143I
+	[⇑false]
 
-Name\gbf5 
-serialNumber [⇑serialNumber]\gb13B
+Name 
+serialNumber [⇑serialNumber]
 serialNumber: s [
 	"stored as a String of 4 characters rather than as various Numbers"
 	s is: String⇒ [serialNumber ← s]
 	s is: Substring⇒ [serialNumber ← s copy]
 	s is: Integer⇒ [serialNumber word: 1 ← 0; word: 2 ← s]
 	"Vector of Integers"
-	serialNumber word: 1 ← s◦1; word: 2 ← s◦2]\gb16B4i65I136i18I
+	serialNumber word: 1 ← s◦1; word: 2 ← s◦2]
 
-FileDirectory\gbf5 
-delete [⇑directory delete: self]\gb7B
-directory [⇑directory]\gb10B
-directory: directory\gb
-rename: newName [⇑directory rename: self newName: newName]\gb16B
-type [⇑type]\gb5B
-type: type "used by different Files in different ways, e.g. read/write mode"\gb11B
+FileDirectory 
+delete [⇑directory delete: self]
+directory [⇑directory]
+directory: directory
+rename: newName [⇑directory rename: self newName: newName]
+type [⇑type]
+type: type "used by different Files in different ways, e.g. read/write mode"
 
-File Length\gbf5 
+File Length 
 endFile: page [
 	"make File end with this FilePage. false means delete all of File"
-	self subError]\gb14B4i64I
+	self subError]
 findLastPage [
 	"the default definitions for findLastPage and length are circular.
 	at least one of them must be defined by a subclass"
 
-	⇑lastpn ← self pageFrom: self length]\gb13B4i28bI12Bi5bI6Bi68I
-lastFullPage [(self read: self lastPage) full⇒ [⇑lastpn] ⇑lastpn-1]\gb13B
+	⇑lastpn ← self pageFrom: self length]
+lastFullPage [(self read: self lastPage) full⇒ [⇑lastpn] ⇑lastpn-1]
 lastPage ["length in pages"
-	lastpn⇒ [⇑lastpn] ⇑self findLastPage]\gb9B2i15I
-lastPage: lastpn "for those who know what they're doing"\gb17B1i37I
+	lastpn⇒ [⇑lastpn] ⇑self findLastPage]
+lastPage: lastpn "for those who know what they're doing"
 length | page [
 	"length in characters"
 	page ← self read: self lastPage.
-	⇑lastpn-1 * page dataLength + page length]\gb7B11i20I
+	⇑lastpn-1 * page dataLength + page length]
 pageFrom: len [
 	"compute page number for a character index"
-	⇑(len-1 / self entryClass new dataLength) asSmall+ 1]\gb14B4i41I
+	⇑(len-1 / self entryClass new dataLength) asSmall+ 1]
 
-FilePage\gbf5 
+FilePage 
 doCommand: com page: page error: s [
 	"execute a File command on page. if an error occurs, include
 	error ← 'some error message'.
 	⇑self error: s
 	if s is false, returns false.
-	otherwise s is passed to an error routine" self subError]\gb35B4i61I47i72I
-error [⇑error]\gb6B
+	otherwise s is passed to an error routine" self subError]
+error [⇑error]
 error: e [
 	e⇒ [e ← [(Stream default) append: name; append: ' in '; append: e;
 			append: ', '; append: error; contents].
 		error ← nullString.
 		⇑super error: e]
-	⇑false]\gb9B
+	⇑false]
 Get: page | p pn [
 	pn ← page pageNumber.
 	p ← self Read: page⇒ [⇑p]
@@ -151,51 +151,51 @@ Get: page | p pn [
 
 	"return an empty last page which is not written yet"
 	page pageNumber: pn; length: 0.
-	⇑page]\gb10B62i45I93i50I
-get: pn [⇑self Get: (self makeEntry: pn)]\gb8B
-newPage [⇑self makeEntry: 0]\gb8B
-newPage: pn [⇑self makeEntry: pn]\gb12B
-Read: page ["return page or false" self subError]\gb11B2i20I
-read: pn [⇑self Read: (self makeEntry: pn)]\gb9B
+	⇑page]
+get: pn [⇑self Get: (self makeEntry: pn)]
+newPage [⇑self makeEntry: 0]
+newPage: pn [⇑self makeEntry: pn]
+Read: page ["return page or false" self subError]
+read: pn [⇑self Read: (self makeEntry: pn)]
 Write: page [
 	"update lastpn, write page and return result (maybe next page)"
-	self subError]\gb12B4i7bI6Bi48I
+	self subError]
 
-FileStream\gbf5 
-asStream [⇑(FileStream new) on: [self open; get: 1]]\gb9B
-\g
-SystemOrganization classify: ↪File under: 'Files'.\g
-File classInit\g
+FileStream 
+asStream [⇑(FileStream new) on: [self open; get: 1]]
+
+SystemOrganization classify: ↪File under: 'Files'.
+File classInit
 
-"FileDirectory"l15000z20000\gbf5 
+"FileDirectory" 
 Class new title: 'FileDirectory'
 	subclassof: Dict
 	fields: 'directory fileReaders'
 	declare: '';
 	sharing: FilePool;
-	asFollows\gbf5 
+	asFollows 
 
-A collection of Files. FileDirectory is a generalization: some examples are AltoFileDirectory and WoodstockFileDirectory\gi
+A collection of Files. FileDirectory is a generalization: some examples are AltoFileDirectory and WoodstockFileDirectory
 
-Dictionary\gbf5 
+Dictionary 
 checkName: s [
 	"default behavior is to get rid of ending period.
 	subclasses can do any kind of checking they want and
 	return false if name is no good"
 
 	s empty or⦂ s last ≠ ('.'◦1)⇒ [⇑s]
-	⇑s copy: 1 to: s length-1]\gb13B4i135I
+	⇑s copy: 1 to: s length-1]
 close [
 	self obsolete⇒ []
 	externalViews delete: self.
-	self release]\gb6B
-entryClass ["a subclass of File" self subError]\gb11B2i18I
-error: e entry: file [⇑file error: e]\gb21B
+	self release]
+entryClass ["a subclass of File" self subError]
+error: e entry: file [⇑file error: e]
 Find: file | name [
 	name ← self checkName: file name⇒ [
 		file name: name.
 		⇑self Position ← file]
-	file error: 'illegal name']\gb11B
+	file error: 'illegal name']
 insert: file | old [
 	"note: this changes the default behavior found in Dict.
 	this creates a new version rather than generating an error if the name exists"
@@ -216,31 +216,31 @@ insert: file | old [
 	"file didn't exist"].
 
 	self Insert: file.
-	⇑file]\gb13B
-open [externalViews insert: self]\gb5B
+	⇑file]
+open [externalViews insert: self]
 printon: strm [
 	strm append: [self obsolete⇒ ['a closed '] 'an open '];
 		append: self class title;
 		append: ' on '.
-	self server printon: strm]\gb14B
+	self server printon: strm]
 
-DictionaryEntry\gbf5 
-dictionary [⇑directory]\gb11B
-dictionary: directory\gb
+DictionaryEntry 
+dictionary [⇑directory]
+dictionary: directory
 
-Initialize\gbf5 
-directory: directory\gb
+Initialize 
+directory: directory
 
-File\gbf5 
-allocateSN: file ["allocate a new serial number for a File" self subError]\gb17B2i39I
-directory [⇑directory]\gb10B
+File 
+allocateSN: file ["allocate a new serial number for a File" self subError]
+directory [⇑directory]
 newPage ["return a dummy FilePage from a dummy File"
-	⇑(self makeEntry: nullString) newPage]\gb8B2i41I
-versionNumbers ["generally, version numbers are not supported" ⇑false]\gb15B
+	⇑(self makeEntry: nullString) newPage]
+versionNumbers ["generally, version numbers are not supported" ⇑false]
 
-FileStream\gbf5 
-file: name [⇑(self get: name) asStream]\gb11B
-filin: s [self filin: s format: 1]\gb9B
+FileStream 
+file: name [⇑(self get: name) asStream]
+filin: s [self filin: s format: 1]
 filin: s format: ft [
 	"read Class definitions or Changes from FileStreams or PressFiles
 	ft: 1 (FileStream=Bravo), 2 (Press)"
@@ -254,162 +254,162 @@ filin: s format: ft [
 
 	[s is: UniqueString⇒ ["Class name" s ← s + [ft=1⇒ ['.st'] '.press']]].
 
-	([ft=1⇒ [self oldFile: s] self pressfile: s]) filin]]\gb20B4i101I94i34I137i10I
-newFile: name [⇑(self insert: name) asStream]\gb14B
-oldFile: name [⇑(self find: name) asStream]\gb14B
-pressfile: name [⇑PressFile new of: (self file: name)]\gb16B
-pressfilin: s [self filin: s format: 2]\gb14B
+	([ft=1⇒ [self oldFile: s] self pressfile: s]) filin]]
+newFile: name [⇑(self insert: name) asStream]
+oldFile: name [⇑(self find: name) asStream]
+pressfile: name [⇑PressFile new of: (self file: name)]
+pressfilin: s [self filin: s format: 2]
 
-FTP\gbf5 
+FTP 
 asFtpDirectory | ftp [
 	"to allow convenient (kludgey) access to file servers (e.g. phylum, dpj) via Ftp"
 	(ftp ← FtpDirectory new) server: self server; open.
 	[ftp userName empty⇒ [ftp login: self userName password: self userPassword]].
-	⇑ftp]\gb15B
-login: name [⇑self login: name password: '' "or prompt?"]\gb12B33i10I
-login: name password: pw [self subError]\gb25B
+	⇑ftp]
+login: name [⇑self login: name password: '' "or prompt?"]
+login: name password: pw [self subError]
 retrieve: s | t [
 	s is: Vector⇒ [for⦂ t from: s do⦂ [self retrieve: t as: t]]
-	⇑self retrieve: s as: s]\gb12B
+	⇑self retrieve: s as: s]
 retrieve: s1 as: s2 | f [
 	[self exists: s1⇒ [f ← self oldFile: s1] ⇑false].
 	f readonly.
 	([s2 is: FileStream⇒ [s2] dp0 file: s2]) append: f; close.
-	f close]\gb20B
-server [⇑directory]\gb7B
-server: directory\gb
+	f close]
+server [⇑directory]
+server: directory
 store: s | t [
 	s is: Vector⇒ [for⦂ t from: s do⦂ [self store: t as: t]]
-	⇑self store: s as: s]\gb9B
+	⇑self store: s as: s]
 store: s1 as: s2 | f [
 	[s1 is: FileStream⇒ [f ← s1] dp0 exists: s1⇒ [f ← dp0 oldFile: s1] ⇑false].
 	f readonly.
 	(self file: s2) append: f; close.
-	f close]\gb17B
-userName [⇑[currentProfile≡nil⇒ [''] currentProfile userName: self server]]\gb9B
-userPassword [⇑[currentProfile≡nil⇒ [''] currentProfile userPassword: self server]]\gb13B
+	f close]
+userName [⇑[currentProfile≡nil⇒ [''] currentProfile userName: self server]]
+userPassword [⇑[currentProfile≡nil⇒ [''] currentProfile userPassword: self server]]
 
-Juniper\gbf5 
-closeTransaction "default is to do nothing"\gb17B1i24I
-exceptionHandler: eh "default is to do nothing"\gb21B1i24I
-\g
-SystemOrganization classify: ↪FileDirectory under: 'Files'.\g
+Juniper 
+closeTransaction "default is to do nothing"
+exceptionHandler: eh "default is to do nothing"
+
+SystemOrganization classify: ↪FileDirectory under: 'Files'.
 
-"FilePage"l15000z20000\gbf5 
+"FilePage" 
 Class new title: 'FilePage'
 	subclassof: Dict
 	fields: 'file page'
 	declare: '';
 	sharing: FilePool;
-	asFollows\gbf5 
+	asFollows 
 
-A block, chunk, or page of information from some collection of pages (a File).  FilePage is a generalization: some examples are AltoFilePage and WoodstockFilePage\gi
+A block, chunk, or page of information from some collection of pages (a File).  FilePage is a generalization: some examples are AltoFilePage and WoodstockFilePage
 
-Dictionary\gbf5 
-◦i [⇑page◦(self checkIndex: i)]\gb3B
-◦i ← v [⇑page◦(self checkIndex: i) ← v]\gb7B
-asStream [⇑self asStream: Stream new]\gb9B
-reopen [file reopen; makeEntry: self "self may have been released"]\gb7B31i27I
+Dictionary 
+◦i [⇑page◦(self checkIndex: i)]
+◦i ← v [⇑page◦(self checkIndex: i) ← v]
+asStream [⇑self asStream: Stream new]
+reopen [file reopen; makeEntry: self "self may have been released"]
 
-DictionaryEntry\gbf5 
-dictionary [⇑file]\gb11B
-dictionary: file\gb
+DictionaryEntry 
+dictionary [⇑file]
+dictionary: file
 init [
 	[page≡nil⇒ ["self page:" page ← String new: self pageLength]].
-	self length: 0"not sure who depends on this besides FileStream read:"]\gb5B
-name: sp [self init; serialNumber: sp◦1; pageNumber: sp◦2]\gb9B
+	self length: 0"not sure who depends on this besides FileStream read:"]
+name: sp [self init; serialNumber: sp◦1; pageNumber: sp◦2]
 
-Initialize\gbf5 
-file: file\gb
-page: page\gb
+Initialize 
+file: file
+page: page
 
-File\gbf5 
-doCommand: com error: s [⇑file doCommand: com page: self error: s]\gb24B
-endFile [⇑file endFile: self]\gb8B
-file [⇑file]\gb5B
-get: pn ["recycle self" self pageNumber: pn; length: 0. ⇑file Get: self]\gb8B2i12I
-read: pn ["recycle self" self pageNumber: pn; length: 0. ⇑file Read: self]\gb9B2i12I
+File 
+doCommand: com error: s [⇑file doCommand: com page: self error: s]
+endFile [⇑file endFile: self]
+file [⇑file]
+get: pn ["recycle self" self pageNumber: pn; length: 0. ⇑file Get: self]
+read: pn ["recycle self" self pageNumber: pn; length: 0. ⇑file Read: self]
 write [
 	"some files, e.g. AltoFile, will return a last empty page instead of a full one"
-	⇑file Write: self]\gb6B4i78I
+	⇑file Write: self]
 
-Page\gbf5 
-address ["page address, e.g. on a disk" self subError]\gb8B2i28I
-address: a [self subError]\gb11B
+Page 
+address ["page address, e.g. on a disk" self subError]
+address: a [self subError]
 asStream: s | offset [
 	offset ← self headerLength.
-	⇑s of: self dataString from: offset+1 to: offset+self length "self dataEnd"]\gb12B
+	⇑s of: self dataString from: offset+1 to: offset+self length "self dataEnd"]
 checkIndex: i [
 	i > 0 and⦂ i ≤ self length⇒ [⇑i + self headerLength]
-	self error: 'illegal index']\gb14B
-dataBeginning [⇑self headerLength]\gb14B
-dataEnd ["logical end of data in page" ⇑self headerLength + self length]\gb8B2i27I
-dataEnd: pos [self length: pos - self headerLength]\gb13B
-dataLength ["physical length of data in page. default" ⇑512]\gb11B2i40I
-dataMaxEnd ["physical end of data in page" ⇑self headerLength + self dataLength]\gb11B2i28I
-dataString [⇑page]\gb11B
-full [⇑self length = self dataLength]\gb5B
-header: n ["return n-th header word" ⇑page word: n]\gb10B2i23I
-header: n ← v ["set and return n-th header word" ⇑page word: n ← v]\gb14B2i31I
-headerLength ["length of stuff before data begins in page" ⇑0]\gb13B2i42I
-lastPage ["is this last page in file?" ⇑self pageNumber ≥ file lastPage]\gb9B2i26I
-length ["logical length of data in page" self subError]\gb7B2i30I
-length: len [self subError]\gb12B
-page [⇑page]\gb5B
+	self error: 'illegal index']
+dataBeginning [⇑self headerLength]
+dataEnd ["logical end of data in page" ⇑self headerLength + self length]
+dataEnd: pos [self length: pos - self headerLength]
+dataLength ["physical length of data in page. default" ⇑512]
+dataMaxEnd ["physical end of data in page" ⇑self headerLength + self dataLength]
+dataString [⇑page]
+full [⇑self length = self dataLength]
+header: n ["return n-th header word" ⇑page word: n]
+header: n ← v ["set and return n-th header word" ⇑page word: n ← v]
+headerLength ["length of stuff before data begins in page" ⇑0]
+lastPage ["is this last page in file?" ⇑self pageNumber ≥ file lastPage]
+length ["logical length of data in page" self subError]
+length: len [self subError]
+page [⇑page]
 pageLength ["physical size of page"
-	⇑self headerLength + self dataLength + self trailerLength]\gb11B2i21I
-pageNumber [self subError]\gb11B
-pageNumber: pn [self subError]\gb15B
-serialNumber [⇑file serialNumber]\gb13B
-serialNumber: sn [self subError]\gb17B
-trailerLength ["length of stuff after data ends in page" ⇑0]\gb14B2i39I
-word: i ["no bounds checking" ⇑page word: self headerLength/2 + i]\gb8B2i18I
-word: i ← v ["no bounds checking" ⇑page word: self headerLength/2 + i ← v]\gb12B2i18I
-\g
-SystemOrganization classify: ↪FilePage under: 'Files'.\g
+	⇑self headerLength + self dataLength + self trailerLength]
+pageNumber [self subError]
+pageNumber: pn [self subError]
+serialNumber [⇑file serialNumber]
+serialNumber: sn [self subError]
+trailerLength ["length of stuff after data ends in page" ⇑0]
+word: i ["no bounds checking" ⇑page word: self headerLength/2 + i]
+word: i ← v ["no bounds checking" ⇑page word: self headerLength/2 + i ← v]
+
+SystemOrganization classify: ↪FilePage under: 'Files'.
 
-"EtherFilePage"l15000z20000\gbf5 
+"EtherFilePage" 
 Class new title: 'EtherFilePage'
 	subclassof: FilePage
 	fields: ''
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-A FilePage which consists of an ethernet packet (Pacbuf) containing network information, header info and data\gi
+A FilePage which consists of an ethernet packet (Pacbuf) containing network information, header info and data
 
-FilePage\gbf5 
-dataString [⇑page pupString]\gb11B
+FilePage 
+dataString [⇑page pupString]
 header: n [
 	"for accessing information after pup header, e.g. file commands and parameters.
 	n = 1 to (self headerLength-24)/2"
-	⇑page word: 12+n]\gb10B4i113I
-header: n ← v [⇑page word: 12+n ← v]\gb14B
-headerLength [⇑44 "ethernet encap.(4), pup header(20), file label (20=default)"]\gb13B6i59I
+	⇑page word: 12+n]
+header: n ← v [⇑page word: 12+n ← v]
+headerLength [⇑44 "ethernet encap.(4), pup header(20), file label (20=default)"]
 init [
 	[page≡nil⇒ ["self page:" page ← file allocatePage]].
-	self length: 0]\gb5B
-length [⇑page pupLength - (self headerLength - 2)]\gb7B
-length: len [page pupLength ← len + self headerLength - 2]\gb12B
-trailerLength [⇑2 "checksum"]\gb14B5i8I
+	self length: 0]
+length [⇑page pupLength - (self headerLength - 2)]
+length: len [page pupLength ← len + self headerLength - 2]
+trailerLength [⇑2 "checksum"]
 
-Ether\gbf5 
-packet [⇑page]\gb7B
-pupType [⇑page pupType]\gb8B
-pupType← p [⇑page pupType← p]\gb11B
-\g
-SystemOrganization classify: ↪EtherFilePage under: 'Files'.\g
+Ether 
+packet [⇑page]
+pupType [⇑page pupType]
+pupType← p [⇑page pupType← p]
+
+SystemOrganization classify: ↪EtherFilePage under: 'Files'.
 
-"FileStream"l15000z20000\gbf5 
+"FileStream" 
 Class new title: 'FileStream'
 	subclassof: Stream
 	fields: 'page dirty rwmode'
 	declare: '';
 	sharing: FilePool;
-	asFollows\gbf5 
+	asFollows 
 
-A Stream which windows a File. see File example\gi
+A Stream which windows a File. see File example
 
-Dictionary\gbf5 
+Dictionary 
 close [
 	self obsolete⇒ []
 	[self writing⇒ [
@@ -418,13 +418,13 @@ close [
 	"self release (sort of)"
 	dirty ← limit ← 0.
 	self file close.
-	externalViews delete: self]\gb6B
-file [⇑page file]\gb5B
-obsolete [⇑dirty]\gb9B
+	externalViews delete: self]
+file [⇑page file]
+obsolete [⇑dirty]
 release [
 	self obsolete⇒ []
 	dirty ← limit ← 0.
-	self file release]\gb8B
+	self file release]
 reopen | pos [
 	dirty "self obsolete"⇒ [
 		"reopen to current position"
@@ -434,43 +434,43 @@ reopen | pos [
 		note that settoend would be recursive"
 		self read: (self file lastPage)⇒ [position ← limit]
 		self error: 'cannot reopen or settoend']
-	⇑false]\gb7B37i26I81i93I
+	⇑false]
 
-Initialize\gbf5 
+Initialize 
 on: page "some page from a File, usually page 1, or another FileStream" [
 	[page is: FileStream⇒ [page ← page page]].
 	page asStream: self.
 	externalViews insert: self.
 	"obsolete flag"
-	dirty ← false]\gb9Bi61I
+	dirty ← false]
 
-Access Modes\gbf5 
-readonly [self setMode: read]\gb9B
+Access Modes 
+readonly [self setMode: read]
 readwrite [
 	"allow read and write but don't automatically shorten"
-	self setMode: read + write]\gb10B4i52I
+	self setMode: read + write]
 readwriteshorten ["allow read and write and shorten File upon closing"
-	self setMode: read+write+shorten]\gb17B2i50I
+	self setMode: read+write+shorten]
 setMode: m [
 	rwmode = m⇒ []
 	"don't flush if first time or not write mode or continuing write mode"
 	[rwmode≡nil or⦂ ((rwmode nomask: write) or⦂ (m anymask: write))⇒ []
 	self flush].
 	rwmode ← m]
-\gb11B20i68I
+
 writeshorten ["allow write and shorten File upon closing. in general, this would be faster for overwriting Files since pages might not have to be read first. at present, treated same as readwriteshorten"
-	self setMode: write+shorten]\gb13B2i171bI16B
+	self setMode: write+shorten]
 writing [
 	rwmode≡nil⇒ ["default mode. true" ⇑self readwriteshorten]
-	⇑(rwmode land: write) = write]\gb8B17i18I
+	⇑(rwmode land: write) = write]
 
-Stream\gbf5 
+Stream 
 ◦i [
 	self position ← i-1.
-	⇑self next]\gb3B
+	⇑self next]
 ◦i ← v [
 	self position ← i-1.
-	⇑self next ← v]\gb7B
+	⇑self next ← v]
 append: s [
 	"try to make some special cases go much faster"
 	[s is: String⇒ [
@@ -482,17 +482,17 @@ append: s [
 		self writeFile: s for: nil. ⇑s]
 	].
 
-	⇑super append: s]\gb10B
+	⇑super append: s]
 contents | s ["read all of a File"
 	self readonly; reset.
 	s ← self next: self length.
 	self close.
-	⇑s]\gb9B6i18I
+	⇑s]
 end [
 	self reopen.
 	position < limit⇒ [⇑false]
 	self read: page pageNumber+1⇒ [⇑"page empty" position = limit]
-	⇑true]\gb4B
+	⇑true]
 into: s endError: err | charsRead len t [
 	len ← s  length.
 	[len > 80⇒ [
@@ -506,16 +506,16 @@ into: s endError: err | charsRead len t [
 	err⇒ [
 		charsRead = len⇒ [⇑s]
 		user notify: 'only read first ' + charsRead asString]
-	⇑charsRead]\gb22B
+	⇑charsRead]
 length [
 	page lastPage⇒ [⇑page pageNumber-1 * page dataLength + page length]
-	⇑self file length]\gb7B
+	⇑self file length]
 next: n from: strm [
 	n > 80 and⦂ (strm is: FileStream)⇒ [self writeFile: strm for: n]
-	⇑super next: n from: strm]\gb19B
+	⇑super next: n from: strm]
 pastend [
 	self reopen or⦂ (page lastPage≡false and⦂ self nextPage)⇒ [⇑self next]
-	⇑false]\gb8B
+	⇑false]
 pastend← v [
 	self writing⇒ [
 		self reopen⇒ [⇑self next ← v]
@@ -523,22 +523,22 @@ pastend← v [
 			self nextPage⇒ [position=limit]
 			self error: 'could not get page']⇒ [limit ← page dataMaxEnd]].
 		⇑self next← v]
-	self error: 'no writing allowed']\gb11B
-position [⇑self positionSize: 1]\gb9B
-position← p [⇑self position: p size: 1]\gb12B
+	self error: 'no writing allowed']
+position [⇑self positionSize: 1]
+position← p [⇑self position: p size: 1]
 printon: strm [
 	super printon: strm.
 	strm append: ' on '.
-	self file printon: strm]\gb14B
+	self file printon: strm]
 reset ["self position ← 0"
 	self read: 1⇒ []
-	self error: 'reset']\gb6B
+	self error: 'reset']
 settoend ["self position ← self length"
 	"make sure file is open so lastPage is correct"
 	self reopen.
 	"when writing on the last page, lastPage may be too small"
 	self read: (self file lastPage max: page pageNumber)⇒ [position ← limit]
-	self error: 'settoend???']\gb9B33i45I18i56I
+	self error: 'settoend???']
 skip: n | p plen [
 	n=0⇒ []
 	self reopen.
@@ -556,43 +556,43 @@ skip: n | p plen [
 		self error: 'cannot skip ' + n asString]
 
 	"same page"
-	position ← p]\gb8B88i22I34i90I31i44I179i9I
+	position ← p]
 word: i [
 	self wordposition ← i-1.
-	⇑self nextword]\gb8B
+	⇑self nextword]
 word: i ← v [
 	self wordposition ← i-1.
-	⇑self nextword ← v]\gb12B
-wordposition [⇑self positionSize: 2]\gb13B
-wordposition← w [⇑self position: w size: 2]\gb16B
+	⇑self nextword ← v]
+wordposition [⇑self positionSize: 2]
+wordposition← w [⇑self position: w size: 2]
 
-File\gbf5 
-directory [⇑self file directory]\gb10B
+File 
+directory [⇑self file directory]
 fixEnd [
 	self writing and⦂ position > page dataEnd⇒ [
 		"fix the end of page"
-		page dataEnd: (limit ← position)]]\gb7B51i19I
+		page dataEnd: (limit ← position)]]
 flush [
 	self obsolete⇒ [⇑page]
 	self fixEnd.
-	⇑page write]\gb6B
-name [⇑self file name]\gb5B
-nextPage [⇑self read: page pageNumber+1]\gb9B
+	⇑page write]
+name [⇑self file name]
+nextPage [⇑self read: page pageNumber+1]
 pad: size | rem [
 	"skip to next boundary of size and return how many characters skipped"
 	rem ← (([page dataLength \ size = 0⇒ [
 		position - page dataBeginning] self position]) \ size) asSmall.
 	rem = 0⇒ [⇑0]
 	self skip: size - rem.
-	⇑size - rem]\gb10B
+	⇑size - rem]
 pad: size with: val | rem [
 	"pad to next boundary of size and return how many characters padded"
 	rem ← (([page dataLength \ size = 0⇒ [
 		position - page dataBeginning] self position]) \ size) asSmall.
 	rem = 0⇒ [⇑0]
 	self next: size - rem ← val.
-	⇑size - rem]\gb20B
-page [⇑page]\gb5B
+	⇑size - rem]
+page [⇑page]
 position: objpos size: size | len pn c pos [
 	"set the current character position and the current page
 	from the position of an object of a given size (see positionSize:)"
@@ -612,7 +612,7 @@ position: objpos size: size | len pn c pos [
 	c ← size * (pos◦2) asSmall].
 
 	self positionPage: pn character: c⇒ [⇑objpos]
-	self error: 'cannot read page ' + pn asString]\gb28B19i109bI13Bi1I43i9I74i33I57i47I
+	self error: 'cannot read page ' + pn asString]
 positionPage: pn character: c [
 	"normally accessed by position:size:, skip:"
 	self read: pn⇒ [
@@ -625,7 +625,7 @@ positionPage: pn character: c [
 	c=0⇒ [
 		"try end of previous page"
 		⇑self positionPage: pn-1 character: page dataLength]
-	⇑false]\gb30B4i21bI21B23i69bI3B116i24I
+	⇑false]
 positionSize: size | len pos [
 	"compute the position for an object of a given size,
 		e.g. characters (1), words (2), fixed length (n),
@@ -639,7 +639,7 @@ positionSize: size | len pos [
 
 	"page length is a multiple of size"
 	⇑page pageNumber-1 * (len/size) + 
-		(position - page dataBeginning / size)]\gb19B14i161I161i33I
+		(position - page dataBeginning / size)]
 read: pn | p [
 	"normally accessed by nextPage, position:size:, reopen, reset, settoend"
 	pn < 1⇒ [⇑false]
@@ -666,22 +666,22 @@ read: pn | p [
 		p ← page get: pn]
 	p ← page read: pn].
 	p⇒ [(page ← p) asStream: self]
-	⇑false]\gb9B8i21bI49B41i34I185i68I73i42I36i17I68i18I43i47I6i20I
+	⇑false]
 settopage: p char: c [
 	"mainly for compatibility, since page sizes may vary.
 	in general, use position←, wordposition←"
 	self read: p asSmall⇒ [self skip: c asSmall]
-	self error: 'no page']\gb21B4i70bI24B
+	self error: 'no page']
 shorten [
 	"normally called by close and not directly by user"
 	self on: [page dataEnd: (limit ← position); endFile].
-	position ← limit]\gb8B4i19bI5Bi25I
+	position ← limit]
 
-Filin/Filout\gbf5 
-asParagraphPrinter ["default format for filout etc." ⇑BravoPrinter init of: self]\gb19B2i30I
+Filin/Filout 
+asParagraphPrinter ["default format for filout etc." ⇑BravoPrinter init of: self]
 backup [
 	"assume ivy open"
-	self directory≡dp0⇒ [ivy replace: self name]]\gb7B4i15I
+	self directory≡dp0⇒ [ivy replace: self name]]
 filin | p [
 	user cr.
 	self readonly.
@@ -690,20 +690,20 @@ filin | p [
 		FilinSource ← self.
 		user print: nilⓢ p text; space].
 	self close.
-	FilinSource ← nil]\gb6B
-filout [self filout: Changes contents sort]\gb7B
-filout: source [(self asParagraphPrinter) stamp; printchanges: source; close]\gb15B
-filoutclass: class [(self asParagraphPrinter) stamp; printclass: class; close]\gb19B
+	FilinSource ← nil]
+filout [self filout: Changes contents sort]
+filout: source [(self asParagraphPrinter) stamp; printchanges: source; close]
+filoutclass: class [(self asParagraphPrinter) stamp; printclass: class; close]
 nextParagraph | text [
 	"Bravo format paragraph (or self contents if no trailer)"
 	self end⇒ [⇑false]
 	text ← self upto: 032 "ctrl-z".
-	⇑text asParagraph applyBravo: self at: 1 to: text length]\gb14B11i55I46i6I
+	⇑text asParagraph applyBravo: self at: 1 to: text length]
 
-Print\gbf5 
-asPressPrinter ["default format for printt etc." ⇑PressPrinter init of: self]\gb15B2i30I
-printout: source [(self asPressPrinter) stamp; printchanges: source; close; toPrinter]\gb17B
-printoutclass: class [(self asPressPrinter) stamp; printclass: class; close; toPrinter]\gb21B
+Print 
+asPressPrinter ["default format for printt etc." ⇑PressPrinter init of: self]
+printout: source [(self asPressPrinter) stamp; printchanges: source; close; toPrinter]
+printoutclass: class [(self asPressPrinter) stamp; printclass: class; close; toPrinter]
 toPrinter | pp p [
 	"print an unformatted or Bravo file as a press file"
 	user displayoffwhile⦂ [
@@ -711,12 +711,12 @@ toPrinter | pp p [
 	self readonly.
 	while⦂ (p ← self nextParagraph) do⦂ [pp print: p].
 	self close].
-	pp close; toPrinter]\gb10B11i50I
+	pp close; toPrinter]
 
-CodePane Editor\gbf5 
-edit [user restartup: (CodeWindow new file: self)]\gb5B
+CodePane Editor 
+edit [user restartup: (CodeWindow new file: self)]
 
-Fast Access\gbf5 
+Fast Access 
 readPages: n | charsLeft len s [
 	"read n pages of characters"
 	len ← n * page dataLength.
@@ -725,7 +725,7 @@ readPages: n | charsLeft len s [
 	charsLeft ← self readString: s from: 1 to: len.
 	charsLeft = 0⇒ ["read len chars" ⇑s]
 	"return characters read only before end of file"
-	⇑s copy: 1 to: len - charsLeft]\gb13B22i26I164i14I8i46I
+	⇑s copy: 1 to: len - charsLeft]
 readString: s from: start to: stop | len charsLeft [
 	"for reading a subrange of a large String from a file (quickly, if BitBlt is used);
 	called by FileStream into:endError:"
@@ -752,9 +752,9 @@ readString: s from: start to: stop | len charsLeft [
 		].
 
 	"return the number of characters not read"
-	⇑charsLeft]\gb35B20i94bI25B77i130I58i58I78i33I88i38I61i40I
-streamPosition [⇑position]\gb15B
-streamPosition←position [⇑position]\gb24B
+	⇑charsLeft]
+streamPosition [⇑position]
+streamPosition←position [⇑position]
 writeFile: fs for: charsLeft | start len maxLimit [
 	"for copying part or all of one file to another (quickly, if BitBlt is used);
 	charsLeft ≡ nil means copy until end, otherwise a number of characters.
@@ -790,7 +790,7 @@ writeFile: fs for: charsLeft | start len maxLimit [
 		].
 
 	"return the number of characters not read"
-	⇑[charsLeft ≡ nil⇒ [0] charsLeft]]\gb29B25i77I1i71I1i11bI30B117i130I76i32I48i67I167i50I97i38I113i40I
+	⇑[charsLeft ≡ nil⇒ [0] charsLeft]]
 writeString: s from: start to: stop | len charsLeft maxLimit [
 	"for writing a subrange of a large String onto a file (quickly, if BitBlt is used);
 	called by FileStream append:"
@@ -820,58 +820,58 @@ writeString: s from: start to: stop | len charsLeft maxLimit [
 		position ← position + len.
 		position > limit⇒ [limit ← position]
 		].
-	⇑s]\gb36B29i94bI10Bi1bI7B142i59I34i20I48i58I81i33I88i38I
-\g
-SystemOrganization classify: ↪FileStream under: 'Files'.\g
+	⇑s]
+
+SystemOrganization classify: ↪FileStream under: 'Files'.
 
-"FtpDirectory"l15000z20000\gbf5 
+"FtpDirectory" 
 Class new title: 'FtpDirectory'
 	subclassof: FileDirectory
 	fields: 'command'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-an interim(?) substitute for our own ftp server\gi
+an interim(?) substitute for our own ftp server
 
-FileDirectory\gbf5 
-close [self closeThen: 'Resume. Small.Boot']\gb6B
+FileDirectory 
+close [self closeThen: 'Resume. Small.Boot']
 closeThen: s [
 	command append: '; '; append: s.
 	user quitThen: command contents.
-	self open]\gb13B
-commands [⇑command contents]\gb9B
+	self open]
+commands [⇑command contents]
 connect: name password: pw [
-	command append: ' Connect/C '; append: name; space; append: pw]\gb27B
-delete: name [command append: ' Delete/C '; append: (self checkName: name)]\gb13B
+	command append: ' Connect/C '; append: name; space; append: pw]
+delete: name [command append: ' Delete/C '; append: (self checkName: name)]
 directoryName: name [
 	"this message should be directory:, but until rewriting..."
-	command append: ' Directory/C '; append: name]\gb20B
+	command append: ' Directory/C '; append: name]
 login: name password: pw [
 	name empty⇒ []
-	command append: ' Login/C '; append: name; space; append: pw]\gb25B
+	command append: ' Login/C '; append: name; space; append: pw]
 open [
 	command ← Stream new of: (String new: 100).
 	command append: 'Ftp '; append: directory.
-	self login: self userName password: self userPassword]\gb5B
+	self login: self userName password: self userPassword]
 rename: oldName newName: newName [
 	command append: ' Rename/C ';
-		append: (self checkName: oldName); space; append: (self checkName: newName)]\gb33B
+		append: (self checkName: oldName); space; append: (self checkName: newName)]
 replace: name | s [
 	s ← self checkName: name.
 	(directory compare: 'maxc') = 2⇒ [self delete: s; store: s]
 	"store as highest version (ifs only)"
-	command append: ' Store/S '; append: s; space; append: s; append: '!H']\gb14B96i35I
+	command append: ' Store/S '; append: s; space; append: s; append: '!H']
 retrieve: s | t [
 	s is: Vector⇒ [for⦂ t from: s do⦂ [self retrieve: t]]
-	command append: ' Retrieve/C '; append: (self checkName: s)]\gb12B
+	command append: ' Retrieve/C '; append: (self checkName: s)]
 retrieve: remote as: local [
 	command append: ' Retrieve/S ';
-		append: (self checkName: remote); space; append: (self checkName: local)]\gb27B
+		append: (self checkName: remote); space; append: (self checkName: local)]
 store: s | t [
 	s is: Vector⇒ [for⦂ t from: s do⦂ [self store: t]]
-	command append: ' Store/C '; append: (self checkName: s)]\gb9B
+	command append: ' Store/C '; append: (self checkName: s)]
 store: local as: remote [
 	command append: ' Store/S ';
-		append: (self checkName: local); space; append: (self checkName: remote)]\gb24B
-\g
-SystemOrganization classify: ↪FtpDirectory under: 'Files'.\g
+		append: (self checkName: local); space; append: (self checkName: remote)]
+
+SystemOrganization classify: ↪FtpDirectory under: 'Files'.

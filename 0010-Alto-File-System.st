@@ -1,24 +1,24 @@
 'From Smalltalk 5.5k XM November 24 on 22 November 1980 at 2:57:08 am.'
-\g
-"AltoFile"l15000z20000\gbf5 
+
+"AltoFile" 
 Class new title: 'AltoFile'
 	subclassof: File
 	fields: 'leader pageAddresses'
 	declare: '';
 	sharing: AltoFilePool;
-	asFollows\gbf5 
+	asFollows 
 
-A File found on an Alto Model 31(44) disk\gi
+A File found on an Alto Model 31(44) disk
 
-Dictionary\gbf5 
-close ["to look at at reopen" type ← self updateLeader: (self read: 0)]\gb6B
-entryClass [⇑AltoFilePage]\gb11B
-open ["don't find last page immediately.  for later close" type ← read]\gb5B2i50I
+Dictionary 
+close ["to look at at reopen" type ← self updateLeader: (self read: 0)]
+entryClass [⇑AltoFilePage]
+open ["don't find last page immediately.  for later close" type ← read]
 
-DictionaryEntry\gbf5 
-fileSize ["sn, version, fn, leader, name" ⇑11 + (name length lor: 1)]\gb9B
+DictionaryEntry 
+fileSize ["sn, version, fn, leader, name" ⇑11 + (name length lor: 1)]
 init [super init.
-	pageAddresses ← AltoFileAddressTable new]\gb5B
+	pageAddresses ← AltoFileAddressTable new]
 readFrom: s [
 	"read file description from SysDir"
 	serialNumber ← s next: 4.
@@ -26,14 +26,14 @@ readFrom: s [
 
 	leader ← directory virtualToReal: s nextword.
 	name ← s nextString.
-	s padNext]\gb12B
+	s padNext]
 storeOn: s [
 	s append: serialNumber;
 		nextword ← 1; nextword ← 0;
 		nextword ← (directory realToVirtual: leader);
-		nextString ← name; padNext ← 0]\gb11B
+		nextString ← name; padNext ← 0]
 
-File\gbf5 
+File 
 classInit [
 	"before filing in:
 		Smalltalk declare: ↪AltoFilePool as: (SymbolTable new init: 32)"
@@ -44,14 +44,14 @@ classInit [
 			dfmask "bit means active directory entry"
 			boffset "byte offset of bit table in DiskDescriptor"
 			dirname) as: ↪(02000 040 'SysDir.' );
-		declare: ↪(nextp backp numch pagen vn) as: ↪(1 2 4 5 6)]\gb10B4i17I112i13I66i32I14i42I
+		declare: ↪(nextp backp numch pagen vn) as: ↪(1 2 4 5 6)]
 doCommand: com page: page error: e [
 	error ← nullString.
 	self dskprim: directory diskNumber address: page address command: com
 		page: page page⇒ [⇑page]
 
 	error ← self errorString: error "set by dskprim:...".
-	⇑self error: e]\gb35B156i7bI11B
+	⇑self error: e]
 endFile: page | nextPage pn [
 	[page≡false⇒ ["free all of file" pn ← ¬1]
 	[page full⇒ [
@@ -73,10 +73,10 @@ endFile: page | nextPage pn [
 			doCommand: CWW error: 'endFile:'.
 		directory deallocate: nextPage].
 	[page⇒ [pageAddresses position ← (lastpn ← page pageNumber)]].
-	⇑page]\gb14B32i16I60i66I118i15I48i17I44i18I
+	⇑page]
 findLastPage [
 	self read: 20000.
-	⇑lastpn]\gb13B
+	⇑lastpn]
 Get: page | p pn [
 	pn ← page pageNumber.
 	self Read: page⇒ [⇑page]
@@ -86,7 +86,7 @@ Get: page | p pn [
 		page pageNumber: p; length: page dataLength.
 		"this writes current and allocates next (empty) page"
 		page ← self Write: page].
-	⇑page]\gb10B61i27I88i51I
+	⇑page]
 Read: page | pn p palen [
 	pn ← page pageNumber.
 	[pageAddresses⇒ [palen ← pageAddresses length]
@@ -106,7 +106,7 @@ Read: page | pn p palen [
 		page lastPage⇒ [(lastpn ← p) < pn⇒ [⇑false]]
 		p ≥ palen and⦂ pageAddresses⇒[pageAddresses◦(p+1) ← page header: nextp]
 		"no need to store if already known or no page table"].
-	⇑page]\gb11B164i24I13i22I393i50I
+	⇑page]
 sameFile | page s [
 	(page ← self newPage: 0) address: leader.
 	"if any of following  tests fail, File will be reinitialized"
@@ -116,7 +116,7 @@ sameFile | page s [
 		[s ← page asStream.
 		"last write was by us" type = (s next: 4) and⦂
 		[s skip: 8.
-		"same name" (name compare: s nextString) = 2]]]\gb9B56i59I7i19I45i19I53i20I43i9I
+		"same name" (name compare: s nextString) = 2]]]
 Write: page | nextPage labelDirty returnPage [
 	[(labelDirty ← page lastPage) and⦂ page full⇒ [
 		"last page can't be full, so glue on another page"
@@ -135,9 +135,9 @@ Write: page | nextPage labelDirty returnPage [
 	"whenever a last (or second last) page is written, write label also"
 	self doCommand: [labelDirty⇒ [CWW] CCW] page: page error: 'writePage:'.
 	type ← read+write.
-	⇑returnPage]\gb12B87i48I300i20I105b16B26i66I
+	⇑returnPage]
 
-Alto\gbf5 
+Alto 
 dskprim: diskNumber "0/1"
 	address: a "starting Alto disk address"
 	command: com "disk command (usually CCR, CCW, CWW)"
@@ -149,7 +149,7 @@ dskprim: diskNumber "0/1"
 
 	"if other error occurs, e.g. nil instead of Integer..."
 	error ← ¬1.
-	⇑false] primitive: 80\gb20B1i3I3b10B2i26I3b12B2i36I3b12B2i32I6i36I44b12B15i53I
+	⇑false] primitive: 80
 errorString: status | t s [
 	"see Alto hardware manual for details on error word format"
 	status=¬1⇒ [⇑'primitive failure, bad args?']
@@ -168,10 +168,10 @@ errorString: status | t s [
 				'hardware not transferring'
 				'checksum')◦t]].
 	s space; append: status base8.
-	⇑s contents]\gb20B10i57I
-leader [⇑leader]\gb7B
-leader: leader\gb
-pageAddresses: pageAddresses\gb
+	⇑s contents]
+leader [⇑leader]
+leader: leader
+pageAddresses: pageAddresses
 updateLeader: page | s time lastwrite [ 
 	"see <Alto>AltoFileSys.D, (p.3 leader page) for further info"
 	time ← user timewords.
@@ -187,57 +187,57 @@ updateLeader: page | s time lastwrite [
 	s skip: 4; append: time].
 	self Write: page.
 
-	⇑lastwrite]\gb19B24i59I75i37I
-\g
-SystemOrganization classify: ↪AltoFile under: 'Alto File System'.\g
-AltoFile classInit\g
+	⇑lastwrite]
+
+SystemOrganization classify: ↪AltoFile under: 'Alto File System'.
+AltoFile classInit
 
-"AltoFileAddressTable"l15000z20000\gbf5 
+"AltoFileAddressTable" 
 Class new title: 'AltoFileAddressTable'
 	subclassof: RunVector
 	fields: ''
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 This class converts to virtual disk addrs which tend to come in consecutive
-runs, and can thus use the compact representation of its superclass.\gi
+runs, and can thus use the compact representation of its superclass.
 
-Reading and writing\gbf5 
-◦i | base [base← super◦i. ⇑dp0 virtualToReal: base+offset]\gb3B
+Reading and writing 
+◦i | base [base← super◦i. ⇑dp0 virtualToReal: base+offset]
 ◦i← val | virt [
 	virt← dp0 realToVirtual: val.
 	starts ≡ nil⇒[super◦i← virt. ⇑val]
 	super◦i← virt-i+(starts last).		"superclass tries for constant runs"
 	offset>0⇒[⇑val]		"OK if same run"
-	values last← virt. ⇑val]		"else fix new run value base"\gb8B
+	values last← virt. ⇑val]		"else fix new run value base"
 position← p | l		"shortens (for file shorten)"
 	[p>max⇒[user notify: 'invalid extension'] max← p.
 	(l← starts findSorted: max)<starts length⇒
-		[starts← starts copy: 1 to: l.  values← values copy: 1 to: l]]\gb12B
-\g
-SystemOrganization classify: ↪AltoFileAddressTable under: 'Alto File System'.\g
+		[starts← starts copy: 1 to: l.  values← values copy: 1 to: l]]
+
+SystemOrganization classify: ↪AltoFileAddressTable under: 'Alto File System'.
 
-"AltoFileDirectory"l15000z20000\gbf5 
+"AltoFileDirectory" 
 Class new title: 'AltoFileDirectory'
 	subclassof: FileDirectory
 	fields: 'dirFile bitsFile closed diskPages totalPages nSectors'
 	declare: '';
 	sharing: AltoFilePool;
-	asFollows\gbf5 
+	asFollows 
 
-\gi
 
-Dictionary\gbf5 
+
+Dictionary 
 close [
 	self obsolete⇒ []
 	dirFile close.
 	[bitsFile ≡ nil⇒ ["an interrupted open?"] bitsFile close].
-	super close]\gb6B
+	super close]
 Delete: file [
 	(self deleteEntry: file) open; endFile: false.
-	bitsFile flush]\gb13B
-entryClass [⇑AltoFile]\gb11B
-entrySize: file ["entry size in words" ⇑1 + (file fileSize / 2)]\gb16B
+	bitsFile flush]
+entryClass [⇑AltoFile]
+entrySize: file ["entry size in words" ⇑1 + (file fileSize / 2)]
 Insert: file | sn page [
 	file serialNumber: (sn ← self allocateSN: file).
 	"allocate a new page (more success after O.S. stuff, bittable etc.)"
@@ -245,7 +245,7 @@ Insert: file | sn page [
 	"write 0th -- leader, in the process filling it in and then creating first page"
 	page init; serialNumber: sn; length: page dataLength.
 	file leader: page address; type: write; updateLeader: page.
-	self addEntry: file]\gb13B64i66I54i78I
+	self addEntry: file]
 nextEntry: file | s elen [
 	dirFile≡nil⇒ [
 		(file name compare: dirname) = 2⇒ [
@@ -264,8 +264,8 @@ nextEntry: file | s elen [
 			⇑file]
 		"deleted entry, again"
 		dirFile skipwords: elen-1].
-	⇑false]\gb16B69i59I104i99I176i20I
-obsolete [⇑dirFile≡nil]\gb9B
+	⇑false]
+obsolete [⇑dirFile≡nil]
 open | f s a page len elen type [
 	nil ≠ dirFile⇒ []
 
@@ -323,7 +323,7 @@ open | f s a page len elen type [
 		14 sector systems should have had the DSHAPE property"
 		self configure: bitsFile]].
 	super open.
-]\gb5B51i434I75i81I30i46I30i33I57i31I103i79I59i21I28i50I29i24I50i140I182i129I
+]
 Position ← entry | name elen s holepos holesize entrysize nlen sk [
 	"entry format
 		1	n (length in words, including this one) + undeleted bit (dfmask)
@@ -368,21 +368,21 @@ Position ← entry | name elen s holepos holesize entrysize nlen sk [
 		dirFile skip: elen*2 + sk].
 
 	[holepos⇒ [dirFile position ← holepos-2] "at end of dirFile"].
-	⇑false]\gb17B53i200I186i18I44i21I53i15I30i62I40i27I56i24I47i15I82i47I40i71I76i17I
-release [dirFile ← bitsFile ← nil]\gb8B
+	⇑false]
+release [dirFile ← bitsFile ← nil]
 reset [
 	[self obsolete⇒ [self open] self flush].
-	dirFile readonly; reset]\gb6B
+	dirFile readonly; reset]
 
-FileDirectory\gbf5 
+FileDirectory 
 allocateSN: file | sn [
 	bitsFile position ← 010.
 	sn ← bitsFile next: 4.
 	[(sn word: 2 ← (sn word: 2) + 1) = 0⇒ [
 		"overflow" sn word: 1 ← (sn word: 1) + 1]].
 	bitsFile skip: ¬4; append: sn.
-	⇑sn]\gb17B101i8I
-checkName: s [⇑self checkName: s fixing: false]\gb13B
+	⇑sn]
+checkName: s [⇑self checkName: s fixing: false]
 realToVirtual: adr ["see virtualToReal:.
 	Alto address format is
 	bits
@@ -400,7 +400,7 @@ realToVirtual: adr ["see virtualToReal:.
 		"diskPages*(adr land: 2)/2")
 
 	"vadr < 0 or⦂ vadr ≥ totalPages⇒ [
-		self error: 'illegal disk address']"]\gb19B6b14B3i328I16i13I24i25I50i26I
+		self error: 'illegal disk address']"]
 rename: file newName: newName | holesize pos [
 	[newName ← self checkName: newName⇒ [
 		self position ← newName⇒ [self error: 'new name already exists: ' + newName]
@@ -428,7 +428,7 @@ rename: file newName: newName | holesize pos [
 			file type: write]
 		"close file: updating name in leader page" file type: write; close]
 		
-	file error: 'rename: old name does not exist']\gb30B138i26I234i17I21i35I33i19I30i21I33i49I
+	file error: 'rename: old name does not exist']
 virtualToReal: vadr | t2 d ["inverse of realToVirtual:"
 	"vadr < 0 or⦂ vadr ≥ totalPages⇒ [
 		self error: 'illegal virtual address']"
@@ -445,9 +445,9 @@ virtualToReal: vadr | t2 d ["inverse of realToVirtual:"
 
 	⇑("sector" (t2 \ nSectors) lshift: 12) +
 	("cylinder & head" (t2 / nSectors) lshift: 2) +
-	("disk" d "(vadr / diskPages) lshift: 1")]\gb20B9i11bI14B262i6I35i15I34i4I
+	("disk" d "(vadr / diskPages) lshift: 1")]
 
-Alto\gbf5 
+Alto 
 addEntry: file | entrysize holesize [
 	"called only by Insert: and rename:newName:"
 	[holesize ← dirFile nextword⇒ [
@@ -465,7 +465,7 @@ addEntry: file | entrysize holesize [
 		"mark remaining hole"
 		dirFile nextword ← holesize-entrysize]].
 	dirFile readonly.
-	bitsFile flush]\gb15B25i15bI7Bi5bI15B38i38I62i6I161i19I
+	bitsFile flush]
 allocate: nextPage after: address | index stop ch m vadr [
 	index ← false.
 	while⦂ true do⦂ [
@@ -507,7 +507,7 @@ allocate: nextPage after: address | index stop ch m vadr [
 				"page not free according to bit"].
 				m ← m lshift: ¬1].
 		].
-	]]\gb34B63i140I40i37I51i34I6i19I166i53I186i6I7i109I163i46I54i35I16i9I129i20I8i30I
+	]]
 checkName: fname fixing: fixing | x copy special [
 	fname empty⇒[
 		fixing⇒ [⇑'$']
@@ -527,7 +527,7 @@ checkName: fname fixing: fixing | x copy special [
 
 	[fixing⇒ [fname last = (special◦1)⇒ [copy skip: ¬1]]
 	fname last ≠ (special◦1)⇒ [copy next ←  special◦1]].
-	⇑copy contents]\gb32B
+	⇑copy contents]
 configure: s | nDisks nHeads nTracks [
 	"read disk configuration from a Stream:
 		either leader page of SysDir or beginning of DiskDescriptor"
@@ -537,7 +537,7 @@ configure: s | nDisks nHeads nTracks [
 	nSectors ← s nextword.
 
 	diskPages ← nTracks * nHeads * nSectors.
-	totalPages ← nDisks * diskPages]\gb13B
+	totalPages ← nDisks * diskPages]
 deallocate: page | index ch m [
 	[dirFile≡nil⇒ [self open]].
 	index ← self realToVirtual: page address.
@@ -548,7 +548,7 @@ deallocate: page | index ch m [
 	m ← 0200 lshift: 0-(index land: 7).
 	"make page free by turning off bit in DiskDescriptor"
 	(ch land: m) = m⇒ [bitsFile skip: ¬1; next← ch - m]
-	user cr; show: 'page already free (dealloc:)']\gb17B89i18I65i12I40i53I
+	user cr; show: 'page already free (dealloc:)']
 deleteEntry: file | p [
 	"called only by Delete: and rename:newName:
 	read and save"
@@ -559,7 +559,7 @@ deleteEntry: file | p [
 	"delete it from directory (turn off bit in entry length word)"
 	p ← dirFile nextword land: dfmask-1.
 	dirFile skip: ¬2; readwrite; nextword ← p; readonly; skip: ¬2.
-	⇑file]\gb18B8i15bI7Bi5bI15Bi15I74i60I
+	⇑file]
 diskID | f u [
 	"return user name and disk name installed in O.S."
 	(f ← self oldFile: 'sys.boot') readonly; position ← 512.
@@ -567,14 +567,14 @@ diskID | f u [
 	f padNext.
 	u ← u, f nextString.
 	f close.
-	⇑u]\gb7B10i48I
-diskNumber ["directory is: Integer⇒ [" ⇑directory "] ⇑directory diskNumber"]\gb11B
+	⇑u]
+diskNumber ["directory is: Integer⇒ [" ⇑directory "] ⇑directory diskNumber"]
 filesMatching: pattern | files v i [
 	files ← self match: [pattern last = ('.'◦1)⇒ [pattern] pattern + '.'].
 	v ← Vector new: files length.
 	for⦂ i to: v length do⦂ [v◦i ← (files◦i) name].
-	⇑v]\gb23B
-flush [bitsFile≡nil⇒ [] bitsFile flush]\gb6B
+	⇑v]
+flush [bitsFile≡nil⇒ [] bitsFile flush]
 freePages | npages ch i [
 	self open.
 	bitsFile position ← boffset.
@@ -586,7 +586,7 @@ freePages | npages ch i [
 		until⦂ ch = 0 do⦂ [
 			npages ← npages - (ch land: 1).
 			ch ← ch lshift: ¬1]].
-	⇑npages]\gb10B146i8I6i23I
+	⇑npages]
 growSmalltalkBy: n | zfpt i file page a zlen ["dp0 growSmalltalkBy: 100."
 	"find and read last page of small.boot, then extend file"
 	i ← 1. zlen← 96.
@@ -607,7 +607,7 @@ growSmalltalkBy: n | zfpt i file page a zlen ["dp0 growSmalltalkBy: 100."
 			pageAddresses: false "Read:, Write: check this";
 			Get: (page pageNumber: page pageNumber+n).
 			user space; print: self freePages; show: ' pages left.']
-	self error: 'growSmalltalkBy:. last page not last or 2 successive user grows']\gb19B57i55I363i68I115b13Bi11I
+	self error: 'growSmalltalkBy:. last page not last or 2 successive user grows']
 stampBoot | a file page ["dp0 stampBoot."
 	"update the time stamps in leader page of current boot file"
 
@@ -625,41 +625,41 @@ stampBoot | a file page ["dp0 stampBoot."
 	file doCommand: CCR page: page error: 'cannot read page 1 of boot file';
 		leader: (page header: backp);
 		type: write;
-		close]\gb10B
-\g
-SystemOrganization classify: ↪AltoFileDirectory under: 'Alto File System'.\g
+		close]
+
+SystemOrganization classify: ↪AltoFileDirectory under: 'Alto File System'.
 
-"AltoFilePage"l15000z20000\gbf5 
+"AltoFilePage" 
 Class new title: 'AltoFilePage'
 	subclassof: FilePage
 	fields: 'address'
 	declare: '';
 	sharing: AltoFilePool;
-	asFollows\gbf5 
+	asFollows 
 
-A FilePage from an AltoFile consists of a header (2 words), a label (8 words) and data (512 characters)\gi
+A FilePage from an AltoFile consists of a header (2 words), a label (8 words) and data (512 characters)
 
-FilePage\gbf5 
-address [⇑address]\gb8B
-address: address\gb
-headerLength [⇑16]\gb13B
+FilePage 
+address [⇑address]
+address: address
+headerLength [⇑16]
 init [
 	page ≡ nil⇒ [super init]
 	"nextp, backp, lnused, numch, pn"
-	page fill: 1 to: 10 with: 0]\gb5B30i31I
-lastPage [⇑("self header:" page word: nextp) = 0]\gb9B
-length [⇑"self header:" page word: numch]\gb7B
-length: len ["self header:" page word: numch ← len]\gb12B
-pageNumber [⇑"self header:" page word: pagen]\gb11B
-pageNumber: pn ["self header:" page word: pagen ← pn]\gb15B
-serialNumber [⇑page◦(13 to: 16)]\gb13B
+	page fill: 1 to: 10 with: 0]
+lastPage [⇑("self header:" page word: nextp) = 0]
+length [⇑"self header:" page word: numch]
+length: len ["self header:" page word: numch ← len]
+pageNumber [⇑"self header:" page word: pagen]
+pageNumber: pn ["self header:" page word: pagen ← pn]
+serialNumber [⇑page◦(13 to: 16)]
 serialNumber: sn ["page◦(13 to: 16) ← sn"
 	page copy: 13 to: 16 with: sn from: 1 to: 4.
-	"self header:" page word: vn ← 1 "fixed version"]\gb17B
+	"self header:" page word: vn ← 1 "fixed version"]
 
-Alto\gbf5 
+Alto 
 freePage [
 	"label for a free page: version, sn1, sn2 = ¬1"
-	page fill: 11 to: 16 with: 0377]\gb9B4i45I
-\g
-SystemOrganization classify: ↪AltoFilePage under: 'Alto File System'.\g
+	page fill: 11 to: 16 with: 0377]
+
+SystemOrganization classify: ↪AltoFilePage under: 'Alto File System'.

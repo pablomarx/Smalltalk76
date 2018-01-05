@@ -1,174 +1,174 @@
 'From Smalltalk 5.5k XM November 24 on 22 November 1980 at 2:57:08 am.'
-\g
-"Object"l15000z20000\gbf5 
+
+"Object" 
 Class new title: 'Object'
 	subclassof: nil
 	fields: ''
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-Object is the superclass of all classes.  It is an abstract class, meaning that it has no state, and its main function is to provide a foundation message protocol for its subclasses.  Three instances of this class are defined: nil, true, and false.\gi
+Object is the superclass of all classes.  It is an abstract class, meaning that it has no state, and its main function is to provide a foundation message protocol for its subclasses.  Three instances of this class are defined: nil, true, and false.
 
-Comparison\gbf5 
-≤ x [⇑self>x≡false]\gb4B
-≡ x [⇑self≡x "In case this is reached by perform:"] primitive: 4\gb4B9i37I
-≠ x [⇑self=x≡false]\gb4B
-≥ x [⇑self<x≡false]\gb4B
-= x [⇑self≡x]\gb4B
-and⦂ x [self⇒[⇑x eval] ⇑false]\gb7B
-and: x [self⇒[⇑x] ⇑false]\gb7B
-empty [⇑self length = 0]\gb6B
-eqv: x [x⇒[⇑self] ⇑self≡false]\gb7B
-or⦂ x [self⇒[⇑true] ⇑x eval]\gb6B
-or: x [self⇒[⇑true] ⇑x]\gb6B
+Comparison 
+≤ x [⇑self>x≡false]
+≡ x [⇑self≡x "In case this is reached by perform:"] primitive: 4
+≠ x [⇑self=x≡false]
+≥ x [⇑self<x≡false]
+= x [⇑self≡x]
+and⦂ x [self⇒[⇑x eval] ⇑false]
+and: x [self⇒[⇑x] ⇑false]
+empty [⇑self length = 0]
+eqv: x [x⇒[⇑self] ⇑self≡false]
+or⦂ x [self⇒[⇑true] ⇑x eval]
+or: x [self⇒[⇑true] ⇑x]
 sameAs: object
-	[⇑self≡object]\gb16B
-xor: x [x⇒[⇑self≡false] ⇑self]\gb7B
+	[⇑self≡object]
+xor: x [x⇒[⇑self≡false] ⇑self]
 
-Classification\gbf5 
-class [user croak] primitive: 27\gb6B
-is: x [⇑self class≡x]\gb6B
+Classification 
+class [user croak] primitive: 27
+is: x [⇑self class≡x]
 Is: x  "Is the class x a superclass or class of self"
 	[self class ≡ x ⇒[⇑true]
-	⇑self class Isa: x]\gb7B
+	⇑self class Isa: x]
 isArray
-	[⇑false]\gb9B
-isnt: x [⇑(self class≡x) ≡ false]\gb8B
+	[⇑false]
+isnt: x [⇑(self class≡x) ≡ false]
 Isnt: x
-	[⇑(self Is: x)≡false]\gb9B
+	[⇑(self Is: x)≡false]
 isNumber
-	[⇑false]\gb10B
+	[⇑false]
 
-Construction\gbf5 
+Construction 
 , x | v
 	[v ← Vector new: 2.
-	v◦1 ← self. v◦2 ← x.  ⇑v]\gb4B
-asParagraph [⇑self asString asParagraph]\gb12B
-asStream [⇑self asVector asStream]\gb9B
+	v◦1 ← self. v◦2 ← x.  ⇑v]
+asParagraph [⇑self asString asParagraph]
+asStream [⇑self asVector asStream]
 asVector | v
 	[self≡nil⇒[⇑Vector new: 0]
-	v ← Vector new: 1. v◦1 ← self. ⇑v]\gb9B
+	v ← Vector new: 1. v◦1 ← self. ⇑v]
 copy		"create new copy of self"
 	[self is: Object⇒[⇑self]
-	⇑self class copy: self]\gb6Bi25I
+	⇑self class copy: self]
 inVector | vec
 	["Return me as the sole element of a new Vector."
 	vec ← Vector new: 1.
 	vec◦1 ← self.
-	⇑vec]\gb9B8i48I
+	⇑vec]
 recopy	"recursively copy whole structure"
 	[self is: Object⇒[⇑self]
-	⇑self class recopy: self]\gb7Bi34I
+	⇑self class recopy: self]
 
-Aspects\gbf5 
-asOop [user croak] primitive: 46\gb6B
+Aspects 
+asOop [user croak] primitive: 46
 canunderstand: selector
-	[⇑self class canunderstand: selector]\gb25B
-error: s [⇑user notify: s]\gb9B
+	[⇑self class canunderstand: selector]
+error: s [⇑user notify: s]
 fields
 	["Return an Array of all my field names or many of my subscripts."
 	self class is: VariableLengthClass⇒
 		[self length ≤ 50⇒ [⇑1 to: self length]
 		⇑ (1 to: 20) concat: (self length-20 to: self length)]
-	⇑self class instvars]\gb8B1i65I
-hash [user croak] primitive: 46\gb5B
+	⇑self class instvars]
+hash [user croak] primitive: 46
 inspect
-	[user leaveTop; restartup: (InspectWindow new of: self)]\gb9B
+	[user leaveTop; restartup: (InspectWindow new of: self)]
 inspectfield: n	"used by variable panes"
 	[self class is: VariableLengthClass⇒ [⇑self◦(self fields◦n)]
-	⇑self instfield: n]\gb16Bi24I
-instfield: n [user croak] primitive: 38\gb13B
-instfield: n ← val [user croak] primitive: 39\gb19B
+	⇑self instfield: n]
+instfield: n [user croak] primitive: 38
+instfield: n ← val [user croak] primitive: 39
 instfields | vec size  i
 	["Return an Array of all my field values or many of my elements."
 	self class is: VariableLengthClass⇒ [⇑self◦self fields]
 	size ← self class instsize.
 	vec ← Vector new: size.
 	for⦂ i to: size do⦂ [vec◦i ← self instfield: i].
-	⇑vec]\gb11B16i64I
-itself \gb
+	⇑vec]
+itself 
 ref: index
-	[⇑FieldReference new object: self offset: index]\gb12B
-subError [self error: 'message not defined by subclass']\gb9B
+	[⇑FieldReference new object: self offset: index]
+subError [self error: 'message not defined by subclass']
 title
-	[⇑self class title + '.' + self asOop base8]\gb7B
+	[⇑self class title + '.' + self asOop base8]
 
-Printing\gbf5 
+Printing 
 asFullString | strm
 	[strm ← (String new: 20) asStream.
-	self fullprinton: strm. ⇑strm contents]\gb13B
+	self fullprinton: strm. ⇑strm contents]
 asString | strm
 	[strm ← (String new: 16) asStream.
-	self printon: strm. ⇑strm contents]\gb9B
+	self printon: strm. ⇑strm contents]
 filout | file
 	[⇑user displayoffwhile⦂ 
 		[file ← dp0 file: self title asFileName.
 		self fullprinton: file.
-		file close]]\gb7B
+		file close]]
 fullprint | strm
 	[strm ← Stream default. self fullprinton: strm.
-	user show: strm contents]\gb10B
+	user show: strm contents]
 fullprinton: strm
 	[self≡nil⇒ [strm append: 'nil']
 	self≡false⇒ [strm append: 'false']
 	self≡true⇒ [strm append: 'true']
-	self class print: self on: strm]\gb19B
+	self class print: self on: strm]
 print
-	[user show: self asString]\gb7B
+	[user show: self asString]
 printon: strm | t [
 	strm append: [self≡nil⇒ ['nil']; ≡false⇒ ['false']; ≡true⇒ ['true']
 		t ← self class title.
 		strm append: ['AEIO' has: t◦1⇒ ['an '] 'a '].
-		t]]\gb14B
+		t]]
 
-Compiler Defaults\gbf5 
+Compiler Defaults 
 ⓢ code
-	[⇑Generator new evaluate: code asStream in: false to: self notifying: self]\gb8B
+	[⇑Generator new evaluate: code asStream in: false to: self notifying: self]
 argsOff: stack
-	[self⇒ [stack pop: 1]]\gb16B
+	[self⇒ [stack pop: 1]]
 asRemoteCode: generator
-	[⇑ParsedRemote new expr: self]\gb25B
-emitForEffect: code on: stack\gb
+	[⇑ParsedRemote new expr: self]
+emitForEffect: code on: stack
 emitForTruth: trueSkip falsity: falseSkip into: code on: stack
 	[self emitForValue: code on: stack.
 	(trueSkip jmpSize + falseSkip) emitBfp: code on: stack.
-	trueSkip emitJmp: code on: stack]\gb64B
-emitForValue: code on: stack\gb
+	trueSkip emitJmp: code on: stack]
+emitForValue: code on: stack
 emitsLoad
-	[⇑false]\gb11B
+	[⇑false]
 emittedReceiver
-	[⇑false]\gb17B
+	[⇑false]
 emittedVariable
-	[⇑false]\gb17B
-findMacros: macros compilerTemps: compilerTemps\gb
+	[⇑false]
+findMacros: macros compilerTemps: compilerTemps
 firstPush
-	[⇑¬1]\gb11B
+	[⇑¬1]
 interactive
-	[⇑false]\gb13B
+	[⇑false]
 isField
-	[⇑false]\gb9B
+	[⇑false]
 notify: errorString at: position in: stream
-	[⇑self notify: errorString at: position in: stream for: self class]\gb45B
+	[⇑self notify: errorString at: position in: stream for: self class]
 notify: errorString at: position in: stream for: class | syntaxWindow
 	[NotifyFlag⇒
 		[syntaxWindow ← SyntaxWindow new of: errorString at: position in: stream for: class from: thisContext sender.
 		thisContext sender ← nil.
 		user restartup: syntaxWindow]
-	 user notify: errorString. ⇑false]\gb55B
-printon: strm indent: level precedence: p forValue: v decompiler: decompiler\gb
-remote: generator\gb
+	 user notify: errorString. ⇑false]
+printon: strm indent: level precedence: p forValue: v decompiler: decompiler
+remote: generator
 returns
-	[⇑false]\gb9B
+	[⇑false]
 sizeForEffect: nextPush 
-	[⇑0]\gb26B
+	[⇑0]
 sizeForTruth: trueSkip falsity: falseSkip
 		| jump
 	[jump ← trueSkip jmpSize.
-	⇑self sizeForValue + (jump+falseSkip) bfpSize + jump]\gb44B
+	⇑self sizeForValue + (jump+falseSkip) bfpSize + jump]
 sizeForValue
-	[⇑0]\gb14B
+	[⇑0]
 
-System Primitives\gbf5 
+System Primitives 
 error | sender op n args i		"after compiling execute: nil installError.  "
 	[sender ← thisContext sender.
 	op ← sender thisop.
@@ -176,57 +176,57 @@ error | sender op n args i		"after compiling execute: nil installError.  "
 	args ← Vector new: n.
 	for⦂ i from: (n to: 1 by: ¬1) do⦂
 		[args◦i ← sender pop].
-	⇑self messageNotUnderstood: op withArgs: args from: sender]\gb6B
+	⇑self messageNotUnderstood: op withArgs: args from: sender]
 installError | code old
 	[code ← Object md method: ↪error.
 	old ← SpecialOops◦1.
 	old asOop≠(mem◦3)⇒ [user notify: 'Object installError failed']
 	Top critical⦂
 		[mem◦3 ← code asOop.
-		SpecialOops◦1 ← code]]\gb13B
+		SpecialOops◦1 ← code]]
 messageNotUnderstood: op withArgs: args from: sender
 	[thisContext sender ← sender.
-	user notify: 'Message not understood: '+op]\gb54B
-nail [user croak] primitive: 31		"Nail me in core and return my core address"\gb5B
+	user notify: 'Message not understood: '+op]
+nail [user croak] primitive: 31		"Nail me in core and return my core address"
 perform: selector 	"Send the unary message, selector, to self"
-	[selector mustTake: 0. ⇑self performDangerously: selector]\gb19Bi43I
+	[selector mustTake: 0. ⇑self performDangerously: selector]
 perform: selector with: arg1 	"Send the 1-argument message, selector, to self"
-	[selector mustTake: 1. ⇑self performDangerously: selector with: arg1]\gb30Bi48I
+	[selector mustTake: 1. ⇑self performDangerously: selector with: arg1]
 perform: selector with: arg1 with: arg2 	"Send the 2-argument message, selector, to self"
-	[selector mustTake: 2. ⇑self performDangerously: selector with: arg1 with: arg2]\gb41Bi48I
+	[selector mustTake: 2. ⇑self performDangerously: selector with: arg1 with: arg2]
 perform: selector with: arg1 with: arg2 with: arg3 	"Send the 3-argument message, selector, to self"
-	[selector mustTake: 3. ⇑self performDangerously: selector with: arg1 with: arg2 with: arg3]\gb52Bi48I
+	[selector mustTake: 3. ⇑self performDangerously: selector with: arg1 with: arg2 with: arg3]
 perform: selector withArgs: vec
 	[selector mustTake: vec length.
-	⇑self performDangerously: selector withArgs: vec]\gb33B
+	⇑self performDangerously: selector withArgs: vec]
 performDangerously: selector "Send self the message, selector; it had better be unary"
-	[user notify: 'can''t perform: nil'] primitive: 102\gb29Bi57I
+	[user notify: 'can''t perform: nil'] primitive: 102
 performDangerously: selector with: arg1  "selector had better take 1 arg"
-	[user notify: 'can''t perform: nil with:'] primitive: 102\gb41Bi32I
+	[user notify: 'can''t perform: nil with:'] primitive: 102
 performDangerously: selector with: arg1 with: arg2  "selector had better take 2 args"
-	[user notify: 'can''t perform: nil with:with:'] primitive: 102\gb52Bi33I
+	[user notify: 'can''t perform: nil with:with:'] primitive: 102
 performDangerously: selector with: arg1 with: arg2 with: arg3  "selector had better take 3 args"
-	[user notify: 'can''t perform: nil with:with:with:'] primitive: 102\gb63Bi33I
+	[user notify: 'can''t perform: nil with:with:with:'] primitive: 102
 performDangerously: selector withArgs: vec
 	[vec length=0⇒ [⇑self performDangerously: selector];
 		=1⇒ [⇑self performDangerously: selector with: vec◦1];
 		=2⇒ [⇑self performDangerously: selector with: vec◦1 with: vec◦2];
 		=3⇒ [⇑self performDangerously: selector with: vec◦1 with: vec◦2 with: vec◦3]
-	user notify: 'More than 3 args for perform:']\gb44B
-PTR [] primitive: 46\gb4B
-refct [user croak] primitive: 45\gb6B
+	user notify: 'More than 3 args for perform:']
+PTR [] primitive: 46
+refct [user croak] primitive: 45
 startup		"loopless scheduling"
 	[self firsttime⇒
 		[while⦂ self eachtime do⦂ [].
 		⇑self lasttime]
-	⇑false]\gb9Bi21I
+	⇑false]
 swap⦂ variable | x  "assign me to variable and return its old value"
-	[x ← variable value. variable value ← self. ⇑x]\gb15B5i48I
-unNail [user croak] primitive: 32		"Release me from being nailed"\gb7B
-\g
-SystemOrganization classify: ↪Object under: 'Kernel Classes'.\g
+	[x ← variable value. variable value ← self. ⇑x]
+unNail [user croak] primitive: 32		"Release me from being nailed"
+
+SystemOrganization classify: ↪Object under: 'Kernel Classes'.
 
-"Class"l15000z20000\gbf5 
+"Class" 
 Class new title: 'Class'
 	subclassof: Object
 	fields: 'title	"<String> for identification, printing"
@@ -239,29 +239,29 @@ Class new title: 'Class'
 			fieldtype'
 	declare: 'lastClass lastSelector lastParagraph ';
 	veryspecial: 1;
-	asFollows\gbf5 
+	asFollows 
 
 Classes are the molecules of Smalltalk.  The instance fields specify the number and naming of fields for each instance, and the messages define the protocol with which these objects may be communicated.  Classes inherit the fields and message protocol of their superclass.  Locally defined messages will override inherited ones of the same name, and overriden ones may be accessed through the use of super in place of self.  A typical class definition looks like:
 	Class new title: 'CodeEditor';
 		subclassof: Window;
 		fields: 'pared class selector';
 		declare: 'editmenu'
-This ordering is required, though the subclassof: and declare: messages are optional.  A class definition may be re-executed but, if the fields: clause has changed, all instances of the old class will become obsolete (they will fail to respond to any messages).\gi
+This ordering is required, though the subclassof: and declare: messages are optional.  A class definition may be re-executed but, if the fields: clause has changed, all instances of the old class will become obsolete (they will fail to respond to any messages).
 
-Initialization\gbf5 
+Initialization 
 abstract
-	[self fields: nullString]\gb10B
+	[self fields: nullString]
 bytesize: n	"non-pointer declaration"
 	[self≠self realself⇒[self realself bytesize: n]
-	fieldtype ← 32+ [n=8⇒ [8] 16]]\gb12Bi25I
+	fieldtype ← 32+ [n=8⇒ [8] 16]]
 classInit		"gets propagated to a dummy instance"
-	[self new classInit]\gb11Bi37I
+	[self new classInit]
 copyof: oldClass subclassof: newSubClass
 	[title ← oldClass title.
 	 self subclassof: newSubClass.
 	 classvars ← oldClass classvars.
 	 environment ← oldClass environment.
-	 self newFieldsForSubClass: oldClass myinstvars]\gb42B
+	 self newFieldsForSubClass: oldClass myinstvars]
 declare: v | var recom
 	[self≠self realself⇒[self realself declare: v]
 	 [classvars≡nil⇒[classvars ← SymbolTable init]].
@@ -277,8 +277,8 @@ declare: v | var recom
 		[for⦂ var from: v do⦂
 			[classvars insert: var with: nil]]
 	  classvars insert: v with: nil].
-	 recom⇒[self compileall]]\gb11B11b2B
-environment ← environment [] "for resetting to reread sharing clauses"\gb26B3i
+	 recom⇒[self compileall]]
+environment ← environment [] "for resetting to reread sharing clauses"
 fields: myinstvars | r a b s h		"list of instance variables"
 	[messagedict ← MessageDict init.
 	 r ← self realself.
@@ -305,19 +305,19 @@ fields: myinstvars | r a b s h		"list of instance variables"
 	 self fixSubClassesOf: r.
 	 r obsolete.
 	 Smalltalk◦title unique ← self.
-	 self initClass]\gb19B13i28I511i29I
+	 self initClass]
 fixSubClassesOf: oldClass | n subClass
 	[for⦂ n from: user classNames do⦂
 		[subClass ← Smalltalk◦n.
 		 subClass superclass≡oldClass⇒
-			[Class new copyof: subClass subclassof: self]]]\gb26B
+			[Class new copyof: subClass subclassof: self]]]
 initClass
 	[fieldtype ← 16.
 	instsize ← self instvars length.
 	instsize>256⇒
 		[user notify: 'too many instance variables']
-	self organization]\gb11B
-myinstvars ← myinstvars\gb
+	self organization]
+myinstvars ← myinstvars
 newFieldsForSubClass: myinstvars | r a b		"list of instance variables"
 	[messagedict ← MessageDict init.
 	 r ← self realself.
@@ -341,15 +341,15 @@ newFieldsForSubClass: myinstvars | r a b		"list of instance variables"
 		 leading to the notifys are false. If I'm available, I'd like to see
 		 any case that results in notification.
 				Dave Robson"
-\gb33B9i29I439i22I
+
 obsolete		"invalidate further communication"
 	[title ← 'AnObsolete'+title.
 	classvars ← nil.		"recycle class variables"
 	messagedict close.		"invalidate and recycle local messages"
 	environment ← self.		"keep me around for old instances"
 	superclass ← Object.		"invalidate superclass messages"]
-\gb10Bi34I50i25I22i39I23i34I24i32I
-realself [⇑Smalltalk◦title unique]		"as opposed to possible filin ghost"\gb9B27i
+
+realself [⇑Smalltalk◦title unique]		"as opposed to possible filin ghost"
 rename: newtitle
 		| name newname oldclass category
 	[name ← title unique.  newname ← newtitle unique.
@@ -365,15 +365,15 @@ rename: newtitle
 	SystemOrganization delete: name.
 	title ← newtitle.
 	Smalltalk declare: newname as: self]
-\gb19B
+
 sharing: table
 	[self≠self realself⇒[self realself sharing: table]
-	environment ← environment asVector , table]\gb16B
+	environment ← environment asVector , table]
 subclassof: superclass
 	[(superclass isnt: Class) and⦂ (superclass isnt: VariableLengthClass)⇒
-		[user notify: 'Superclass is not yet defined or not a Class']]\gb24B
+		[user notify: 'Superclass is not yet defined or not a Class']]
 title: title
-	[self title: (title ← title unique) insystem: Smalltalk]\gb14B
+	[self title: (title ← title unique) insystem: Smalltalk]
 title: name insystem: system | cl
 	[superclass ← Object.
 	[system has: name⇒
@@ -382,28 +382,28 @@ title: name insystem: system | cl
 		user notify: name + ' will change from a ' + cl title + ' to a ' + self class title + ' if you proceed...']].
 	system declare: name as: self.
 	AllClassNames ← AllClassNames insertSorted: name.
-	SystemOrganization classify: name under: 'As yet unclassified']\gb29B
+	SystemOrganization classify: name under: 'As yet unclassified']
 title: t subclassof: s fields: f declare: d
 	[t◦1≠((t◦1) asUppercase)⇒
 		[user notify: 'Please capitalize each word in class title: ' + t. ⇑false]
-	self title: t; subclassof: s; fields: f; declare: d]\gb45B
+	self title: t; subclassof: s; fields: f; declare: d]
 veryspecial: n		"inaccessible fields"
-	[instsize ← self instvars length + n]\gb16Bi21I
+	[instsize ← self instvars length + n]
 
-Access to parts\gbf5 
-◦x [⇑classvars◦x]\gb3B
-◦x ← val [⇑classvars◦x ← val]\gb9B
+Access to parts 
+◦x [⇑classvars◦x]
+◦x ← val [⇑classvars◦x ← val]
 fieldNamesInto: collector
 	[[superclass≡nil⇒ [] superclass fieldNamesInto: collector].
-	⇑(Reader new of: myinstvars) readInto: collector]\gb27B
+	⇑(Reader new of: myinstvars) readInto: collector]
 instsize
 ["Return the number of user accessable instance fields (self instvars length)."
 ⇑[fieldtype≥32⇒ [0] 
 	self≡Class⇒ [instsize-1]
 	self≡VariableLengthClass ⇒[instsize-20]
-	instsize]]\gb9B1i78I
+	instsize]]
 instvars
-	[⇑self fieldNamesInto: FieldNameCollector default]\gb10B
+	[⇑self fieldNamesInto: FieldNameCollector default]
 invertRef: refs "Refs may be a vector (to allow batching)" 
 		| cl env source ref inv sym t
 	[refs isnt: Vector⇒ [⇑(self invert: refs inVector)◦1]
@@ -421,56 +421,56 @@ invertRef: refs "Refs may be a vector (to allow batching)"
 				inv ← (t concat: ' ') concat: inv]
 			 do⦂ [].
 		inv]
-	]\gb16B
+	]
 Isa: x  "is x on my superclass chain?"
 	[superclass ≡ x ⇒[⇑true]; ≡ nil ⇒[⇑false]
-	⇑superclass Isa: x]\gb8Bi30I
-md [⇑messagedict]\gb3B
+	⇑superclass Isa: x]
+md [⇑messagedict]
 myinstvars
-	[⇑myinstvars]\gb12B
-superclass [⇑superclass]\gb11B
-title [⇑title]\gb6B
+	[⇑myinstvars]
+superclass [⇑superclass]
+title [⇑title]
 
-Organization\gbf5 
-classvars [⇑classvars]\gb10B
+Organization 
+classvars [⇑classvars]
 clean | name	"release unreferenced classvars"
 	[for⦂ name from: classvars do⦂
 		[name≠↪ClassOrganization and⦂ (classvars ref: name) refct=1⇒
-			[classvars delete: name]]]\gb6B
+			[classvars delete: name]]]
 environment
-	[⇑environment]\gb13B
+	[⇑environment]
 organization | o
 	[	[classvars ≡ nil⇒[self declare: ↪ClassOrganization]].
 	o ← classvars lookup: ↪ClassOrganization.
 	o is: ClassOrganizer⇒[⇑o]
 	o ← ClassOrganizer new init: messagedict contents sort.
-	classvars insert: ↪ClassOrganization with: o.  ⇑o]\gb13B
+	classvars insert: ↪ClassOrganization with: o.  ⇑o]
 wholeEnvironment
 	[⇑(classvars asVector concat: environment asVector) concat:
-		[superclass≡nil⇒ [↪()] superclass wholeEnvironment]]\gb18B
+		[superclass≡nil⇒ [↪()] superclass wholeEnvironment]]
 
-Editing\gbf5 
+Editing 
 ed: selector | c s
 	[c← self code: selector. user clearshow: c.
 	while⦂ (s← user request: 'substitute: ') do⦂
 		[c ← c subst: s for: (user request: 'for: ').
 		user clearshow: c]
-	self understands: c]\gb13B
+	self understands: c]
 edit: selector | para s v
 	[para ←
 		[selector=↪ClassOrganization⇒
 			[self organization asParagraph]
 		messagedict has: selector⇒[self code: selector]
 		nullString asParagraph].
-	self edit: selector para: para formerly: false]\gb15B
+	self edit: selector para: para formerly: false]
 edit: selector para: para formerly: oldpara
 	[user leaveTop.
-	user restartup: (CodeWindow new class: self selector: selector para: para formerly: oldpara)]\gb45B
+	user restartup: (CodeWindow new class: self selector: selector para: para formerly: oldpara)]
 execute: code		"disposable methods"
 	[self understands: 'doit [⇑' + code + ']'.
-	⇑self new doit]\gb15Bi20I
+	⇑self new doit]
 
-Message access\gbf5 
+Message access 
 archiveOn: file changesOnly: ch | org m [
 	"this should be called only by the system releaser
 	(via UserView file:classes:changesOnly:) !!!
@@ -493,15 +493,15 @@ archiveOn: file changesOnly: ch | org m [
 		ch and⦂ ((messagedict code: m) is: RemoteParagraph)⇒ []
 		messagedict code: m ←
 			(RemoteParagraph new on: file) fromParagraph: (self code: m).
-		ch⇒ [user space; show: m]]]\gb32B12i56bI34Bi288I55i71I150i69I
+		ch⇒ [user space; show: m]]]
 bytesof: sel
-	[⇑(messagedict method: sel) asBytes]\gb14B
+	[⇑(messagedict method: sel) asBytes]
 canUnderstand: selector
 	[messagedict has: selector⇒ [⇑self]
 	superclass≡nil⇒ [⇑false]
-	⇑superclass canUnderstand: selector]\gb25B
+	⇑superclass canUnderstand: selector]
 canunderstand: selector
-	[⇑messagedict has: selector]\gb25B
+	[⇑messagedict has: selector]
 code: sel [ 
 	"last paragraph returned is cached (mainly for NotifyWindows)"
 	[sel ≡ lastSelector and⦂ self ≡ lastClass ⇒ []
@@ -514,7 +514,7 @@ code: sel [
 
 	lastClass ← self.
 	lastSelector ← sel].
-	⇑lastParagraph]\gb10B5i60I122i36I49i28I
+	⇑lastParagraph]
 compileall | s c "does not modify code, just compiles it"
 	[for⦂ s from: messagedict do⦂
 		[c ← messagedict code: s.
@@ -524,9 +524,9 @@ compileall | s c "does not modify code, just compiles it"
 "to recompile the whole system (check out big changes) execute:
 	| n [for⦂ n from: AllClassNames do⦂
 		[user show: n; cr. (Smalltalk◦n) compileall.
-		Changes init. MessageDict new freeMethods]] "\gb11B238i
+		Changes init. MessageDict new freeMethods]] "
 copy: sel from: class
-	[self copy: sel from: class classified: nil]\gb23B
+	[self copy: sel from: class classified: nil]
 copy: sel from: class classified: cat "Useful when modifying an existing class"
 		| s code
 	[sel is: Vector⇒ [for⦂ s from: sel do⦂ [self copy: s from: class classified: cat]]
@@ -536,9 +536,9 @@ copy: sel from: class classified: cat "Useful when modifying an existing class"
 	[messagedict has: sel⇒
 		[code text=(self code: sel) text⇒ []
 		user notify: title+' '+sel+' will be redefined if you proceed.']].
-	self understands: code classified: cat]\gb38B
+	self understands: code classified: cat]
 decompile: t1 
-	[⇑user displayoffwhile⦂ [Decompiler new decompile: t1 class: self]]\gb16B
+	[⇑user displayoffwhile⦂ [Decompiler new decompile: t1 class: self]]
 derstands: selector | c		"overstands?  undersits? - forget it"
 	[selector is: Vector⇒[for⦂ c from: selector do⦂ [self derstands: c]]
 	(messagedict has: selector)≡false⇒[] 
@@ -547,12 +547,12 @@ derstands: selector | c		"overstands?  undersits? - forget it"
 	lastClass ← lastSelector ← lastParagraph ← nil.
 	[Changes has: (c←title+' '+selector)⇒ [Changes delete: c]].
 	Changes insert: (c←'~'+c).
-	⇑c]\gb20B5i37I
+	⇑c]
 describe: method on: strm | sel cls  "append mclass and selector"
 	[cls ← self.
 	until⦂ [cls≡nil⇒ [cls←self. sel←↪?] sel ← cls md invert: method] do⦂
 		[cls ← cls superclass].
-	strm append: cls title; space; append: sel]\gb26B11i28I
+	strm append: cls title; space; append: sel]
 install: name method: method literals: literals
 		code: code backpointers: backpointers | c
 	[messagedict ← messagedict insert: name method: method
@@ -561,38 +561,38 @@ install: name method: method literals: literals
 	lastSelector ← name.
 	lastParagraph ← code.
 	Changes insert: (c←title+' '+name).
-	Changes has: (c←'~'+c)⇒[Changes delete: c]]\gb93B
-messages [⇑messagedict contents , ↪ClassOrganization]\gb9B
+	Changes has: (c←'~'+c)⇒[Changes delete: c]]
+messages [⇑messagedict contents , ↪ClassOrganization]
 method: sel
-	[⇑messagedict methodorfalse: sel]\gb13B
+	[⇑messagedict methodorfalse: sel]
 notify: errorString at: position in: stream
-	[⇑self notify: errorString at: position in: stream for: self]\gb45B
+	[⇑self notify: errorString at: position in: stream for: self]
 selectors		"Return a Vector of all my selectors."
-	[⇑self messages]\gb11Bi38I
-shrink [messagedict ← messagedict shrink]\gb7B
+	[⇑self messages]
+shrink [messagedict ← messagedict shrink]
 space | a s
 	[s ← 0. for⦂ a from: messagedict do⦂
 		[s ← s + (messagedict method: a) length]
-	⇑s]\gb6B
+	⇑s]
 textLocal | s [
 	"makes comment and methods local"
 	s ← self organization.
 	s globalComment ← s globalComment.
-	for⦂ s from: messagedict do⦂ [messagedict code: s ← self code: s]]\gb10B8i31I
+	for⦂ s from: messagedict do⦂ [messagedict code: s ← self code: s]]
 understands: code | selector old		"install method"
-	[⇑self understands: code classified: 'As yet unclassified']\gb18B16i16I
+	[⇑self understands: code classified: 'As yet unclassified']
 understands: code classified: heading		"compile and install method"
 	[⇑Generator new compile: code asParagraph
-		in: self under: heading notifying: self]\gb39Bi28I
+		in: self under: heading notifying: self]
 whosends: selector | s l a
 	[s ← Stream default.
 	for⦂ a from: messagedict do⦂
 		[for⦂ l from: (messagedict literals: a) do⦂
 			[selector≡l⇒[s append: a; space]]]
-	⇑s contents]\gb19B
+	⇑s contents]
 
-Instance access\gbf5 
-allInstances [⇑self allInstancesEver notNil]\gb13B
+Instance access 
+allInstances [⇑self allInstancesEver notNil]
 allInstancesEver | indx vec PCLs i "returns a vector containing all instances of this class mixed with nils"
 	["Works for all classes.  Some additional instances may be created after the
 	vector is filled but before you get to use it."
@@ -600,46 +600,46 @@ allInstancesEver | indx vec PCLs i "returns a vector containing all instances of
 	vec ← Vector new: 128*PCLs length.
 	for⦂ i to: PCLs length do⦂ 
 		[(vec◦[i-1*128+1 to: i*128]) all← PCLs◦i].
-	thisContext destroyAndReturn: (self fromFreelist: Class instsize fill: vec)]\gb17B18i73I3i124I33i16I
+	thisContext destroyAndReturn: (self fromFreelist: Class instsize fill: vec)]
 copy: inst | t i
 	[t ← self new.
 	for⦂ i to: self instsize do⦂
 		[t instfield: i ← inst instfield: i]
-	⇑t]\gb11B
+	⇑t]
 default
-	[⇑self new default]\gb9B
+	[⇑self new default]
 fromFreelist: i fill: vec "i = zero order index of freelist in class instance.
 	vec = vector in pclasses of all possible instances."
-	[user croak] primitive: 60\gb26Bi106I
+	[user croak] primitive: 60
 howMany | v "how many instances of this class are in use now?"
 	[v ← self allInstancesEver.
-	thisContext destroyAndReturn: v length-(v count: nil)]\gb8B4i50I
+	thisContext destroyAndReturn: v length-(v count: nil)]
 init		"init and default get propagated to instances"
-	[⇑self new init]\gb6Bi46I
+	[⇑self new init]
 init: n		"init and default get propagated to instances"
-	[⇑self new init: n]\gb9Bi46I
+	[⇑self new init: n]
 instfield:	 i	"prevent user from getting freelist"
 	[i > Class instsize ⇒[user notify: 'arg too big']
-	⇑super instfield: i]\gb14Bi36I
-new [user croak] primitive: 28\gb4B
+	⇑super instfield: i]
+new [user croak] primitive: 28
 new: length "To allow fixed-length classes to simulate variable-length ones"
-	[⇑self new init: length] "By convention"\gb12B
+	[⇑self new init: length] "By convention"
 print: inst on: strm | ivars i
 	[ivars ← self instvars.
 	strm append: '('; append: title; append: ' new '.
 	for⦂ i to: instsize do⦂
 		[strm append: ivars◦i; append: ': ';
 			print: (inst instfield: i); space]
-	strm append: ')']\gb21B
+	strm append: ')']
 printon: strm
-	[strm append: 'Class ' + title]\gb15B
+	[strm append: 'Class ' + title]
 recopy: inst | t i
 	[t ← self new.
 	for⦂ i to: self instsize do⦂
 		[t instfield: i ← (inst instfield: i) recopy]
-	⇑t]\gb13B
+	⇑t]
 
-Filin and Filout\gbf5 
+Filin and Filout 
 asFollows | s heading selector p [
 	self≠self realself⇒[self realself asFollows]
 	heading ← 'As yet unclassified'.
@@ -655,33 +655,33 @@ asFollows | s heading selector p [
 		self canunderstand: (
 			selector ← self understands: p classified: heading)⇒ [
 				user show: selector; space. messagedict purge: selector]
-		user show: '(an uncompiled method) ']]\gb10B108i50I94i49I54i6I53bf5 7Bf0 
-changelist: cat [⇑title unique, (self organization category: cat)]\gb16B
+		user show: '(an uncompiled method) ']] 7Bf0 
+changelist: cat [⇑title unique, (self organization category: cat)]
 definition | strm		"return a string that defines me (Class new title etc.)"
 	[strm ← (String new: 50) asStream.
 	self printdefon: strm.
-	⇑strm contents]\gb11B8i56I
-endCategoryOn: pstrm\gb
+	⇑strm contents]
+endCategoryOn: pstrm
 endChangesOn: pstrm
-	[pstrm print: '' asParagraph]\gb21B
+	[pstrm print: '' asParagraph]
 filout [user displayoffwhile⦂ [
 	(dp0 file: title+'.st.') filoutclass: self.
-	self noChanges]]\gb7B
+	self noChanges]]
 filoutCategory: cat
-	[(dp0 file: (title+'-'+cat+'.st') asFileName) filout: (self changelist: cat)]\gb21B
+	[(dp0 file: (title+'-'+cat+'.st') asFileName) filout: (self changelist: cat)]
 filoutOrganization	"So we can merge separate work on organization"
 	[user show: title; cr.
 	user displayoffwhile⦂
 		[(dp0 file: title+'.org.')
 			append: title+' organization fromParagraph:'; cr;
 			append: self organization asParagraph text asString;
-			append: 'asParagraph'; close]]\gb19Bi47I
+			append: 'asParagraph'; close]]
 noChanges | s t
 	[t← title+' *'.
 	for⦂ s from: Changes contents do⦂
 		[(s◦1=126 "~" and⦂ (t match: s◦(2 to: s length)))
 		 or⦂ (t match: s)⇒
-			[Changes delete: s]]]\gb10B
+			[Changes delete: s]]]
 paraprinton: strm		"Strm is actually a ParagraphPrinter"
 		| para frame s heading org
 	[para ← ('"'+title+'"') asParagraph.
@@ -702,12 +702,12 @@ paraprinton: strm		"Strm is actually a ParagraphPrinter"
 		(SystemOrganization invert: title unique)+'''.') asParagraph.
 	[self ≡ Class or: self ≡ VariableLengthClass⇒ [] self canunderstand: ↪classInit⇒
 		[strm print: (title+' classInit') asParagraph]].
-	]\gb19Bi37I104i16I
+	]
 printCategory: s on: pstrm | sel
 	[self startCategory: s on: pstrm.
 	for⦂ sel from: (self organization category: s) do⦂
 		[self printMethod: sel on: pstrm].
-	self endCategoryOn: pstrm]\gb27B
+	self endCategoryOn: pstrm]
 printdefon: strm | s		"print my definition on strm"
 	[strm append: self class title;
 		append: ' new title: ';
@@ -727,39 +727,39 @@ printdefon: strm | s		"print my definition on strm"
 		strm semicrtab; append: 'veryspecial: '; print: instsize-s length].
 	[environment≡nil⇒[]
 		for⦂ s from: environment do⦂
-			[strm semicrtab; append: 'sharing: '; append: (Smalltalk invert: s)]]]\gb17B5i29I
+			[strm semicrtab; append: 'sharing: '; append: (Smalltalk invert: s)]]]
 printMethod: sel on: pstrm
 	[pstrm print: (self code: sel).
-	messagedict purge: sel]\gb28B
+	messagedict purge: sel]
 printout [user displayoffwhile⦂ [
-	(dp0 file: title+'.press.') printoutclass: self]]\gb9B
+	(dp0 file: title+'.press.') printoutclass: self]]
 printoutCategory: cat
-	[(dp0 file: (title+'-'+cat+'.press') asFileName) printout: (self changelist: cat)]\gb23B
-readfrom: strm [⇑self readfrom: strm format: nil]\gb15B
+	[(dp0 file: (title+'-'+cat+'.press') asFileName) printout: (self changelist: cat)]
+readfrom: strm [⇑self readfrom: strm format: nil]
 readfrom: strm format: f [
-	⇑self new readfrom: strm format: f]\gb25B
+	⇑self new readfrom: strm format: f]
 startCategory: s on: pstrm
 	[pstrm print: (('
 '+s) asParagraph maskrunsunder: 0361 to: 0121).		"Font 5, Bold"
-	]\gb28B67i14I
+	]
 startChangesOn: pstrm
 	[pstrm print: (('
 '+title+' asFollows') asParagraph maskrunsunder: 0361 to: 0121).		"Font 5, Bold"
-	]\gb23B85i14I
+	]
 
-System Organization\gbf5 
-category [⇑SystemOrganization invert: self title unique]\gb9B
+System Organization 
+category [⇑SystemOrganization invert: self title unique]
 category: cat
 	[cat is: String ⇒[SystemOrganization add: self title unique under: cat]
-		user notify: 'Category name must be a String']\gb15B
+		user notify: 'Category name must be a String']
 moveFromCat: cat1 to: cat2
 	[(cat1 is: String) and⦂ (cat2 is: String) ⇒
 			[SystemOrganization move: self title unique from: cat1 to: cat2]
-		user notify: 'Category name must be a String']\gb28B
-\g
-SystemOrganization classify: ↪Class under: 'Kernel Classes'.\g
+		user notify: 'Category name must be a String']
+
+SystemOrganization classify: ↪Class under: 'Kernel Classes'.
 
-"Context"l15000z20000\gbf5 
+"Context" 
 Class new title: 'Context'
 	subclassof: Object
 	fields: 'sender "<Context> from which this message was sent"
@@ -770,11 +770,11 @@ Class new title: 'Context'
 		pc "<Integer> marks progress of execution in method"
 		stackptr "<Integer> offset of stack top in tempframe"'
 	declare: 'arrayFld positionFld limitFld ';
-	asFollows\gbf5 
+	asFollows 
 
-A context keeps track of the progress of a method\gi
+A context keeps track of the progress of a method
 
-Initialization\gbf5 
+Initialization 
 cleancopy
 	[⇑Context new
 		sender: sender
@@ -782,7 +782,7 @@ cleancopy
 		method: method
 		tempframe: tempframe copy
 		pc: pc
-		stackptr: stackptr]\gb11B
+		stackptr: stackptr]
 copy
 [
 	⇑ Context new
@@ -792,14 +792,14 @@ copy
 			tempframe: tempframe
 			pc: pc
 			stackptr: stackptr
-]\gb5B
+]
 sender: sender receiver: receiver
-		method: method tempframe: tempframe pc: pc stackptr: stackptr\gb
+		method: method tempframe: tempframe pc: pc stackptr: stackptr
 
-Access to parts\gbf5 
+Access to parts 
 caller [⇑sender]
-\gb7B
-getPT: i  [ ⇑ tempframe◦i ]\gb10B
+
+getPT: i  [ ⇑ tempframe◦i ]
 mclass | selector mclass		"return the class in which method was found"
 	[sender ≡ nil ⇒ [⇑receiver class]
 	selector ← self selector.
@@ -807,12 +807,12 @@ mclass | selector mclass		"return the class in which method was found"
 	until⦂ mclass ≡ nil do⦂
 		[(mclass method: selector) ≡ method ⇒ [⇑mclass]
 		mclass ← mclass superclass].
-	⇑receiver class]\gb7B17i46I
+	⇑receiver class]
 method
-	[⇑method]\gb8B
-pc [⇑pc]\gb3B
+	[⇑method]
+pc [⇑pc]
 receiver
-	[⇑receiver]\gb10B
+	[⇑receiver]
 selector | mclass selector		"return the selector for my method"
 	[selector ← sender thisop.
 	selector◦(1~19)='performDangerously:'⇒
@@ -820,59 +820,59 @@ selector | mclass selector		"return the selector for my method"
 		until⦂ [mclass ≡ nil or⦂ (selector←mclass md invert: method)] do⦂
 			[mclass ← mclass superclass]
 		selector≡false⇒[⇑↪confused] ⇑selector]
-	⇑selector]\gb9B19i35I96i28I
-sender [⇑sender]\gb7B
-sender← sender []\gb15B
-setPT: i to: n  [ tempframe◦i ← n ]\gb16B
+	⇑selector]
+sender [⇑sender]
+sender← sender []
+setPT: i to: n  [ tempframe◦i ← n ]
 stackIndex "Return the subscript in tempframe of my top of stack."
-	[⇑stackptr+1]\gb11Bi55I
+	[⇑stackptr+1]
 swapSender: coroutine | oldSender
-	[oldSender ← sender. sender ← coroutine. ⇑oldSender]	\gb22B
+	[oldSender ← sender. sender ← coroutine. ⇑oldSender]	
 tempframe
-	[⇑tempframe]\gb11B
-totalPT [⇑ (method◦5)+1 ]\gb8B
+	[⇑tempframe]
+totalPT [⇑ (method◦5)+1 ]
 
-Control structures\gbf5 
+Control structures 
 for⦂ var1 from: expr1 with⦂ var2 from: expr2 do⦂ stmt | s1 s2
 	[s1 ← expr1 asStream. s2 ← expr2 asStream.
 	while⦂ [(var1 value ← s1 next) and⦂ (var2 value ← s2 next)] do⦂ stmt eval]
-\gb54B
 
-Debugging\gbf5 
+
+Debugging 
 debug | t v
 	[self print.
 	while⦂ [user cr. t ← user request: '*'] do⦂  "until ctrl-d"
 		[v ← Generator new evaluate: t asStream in: false to: self notifying: nil.
 		↪debugret=v⇒[self print] v print]
-	⇑↪debugret]\gb6B66i14I
+	⇑↪debugret]
 printon: strm | mc
 	["Print the selector which invoked this Context
 	  and the class in which code was found for that selector"
 	 mc ← self mclass.
 	 strm append: mc title. sender≡nil⇒ []
 	 [receiver is: mc⇒[] strm append: '('+receiver class title+')'].
-	 strm append: '⇒'; print: self selector]\gb14B7i106I
+	 strm append: '⇒'; print: self selector]
 restartWith: method
 	[tempframe ← tempframe copy: 1 to: method◦3.
-	self restart]\gb21B
+	self restart]
 stack | a strm
 	["Return a Vector of me and all my derivative contexts."
 	strm ← (Vector new: 20) asStream.
 	strm next ← a ← self.
 	"when user notifty is fixed, a sender can become a caller"
 	until⦂ (a←a sender)≡nil do⦂ [strm next ← a].
-	⇑strm contents.]\gb6B11i55I61i27I10i10I
+	⇑strm contents.]
 thisop | a		"return the message selector just sent"
 	[a ← method◦pc.
 	a≥0320⇒ [⇑self litof: a-0320]
 	a≥0260⇒ [⇑SpecialOops◦(10+a-0260)]
 	method◦(pc-1)=0214⇒ [⇑self litof: a]
-	⇑↪confused]\gb7B3i41I
+	⇑↪confused]
 trace | strm a
 	[strm ← Stream default. self printon: strm.
 	a ← sender. until⦂ a≡nil do⦂
 		[strm cr. a printon: strm. a ← a sender]
-	⇑strm contents]\gb6B
+	⇑strm contents]
 variableNamesInto: dest with: block | class selector parser
 	["For each method variable name, call
 			dest declaration: block name: string asArg: <true or false>
@@ -881,15 +881,15 @@ variableNamesInto: dest with: block | class selector parser
 	selector ← class md invert: method⇒
 		[parser ← Parser new from: (class code: selector) asStream to: dest.
 		parser pattern: block; temporaries: block; terminate]
-	dest notify: 'thisContext is not running a currently defined method']\gb36B26i147I
+	dest notify: 'thisContext is not running a currently defined method']
 verifyFrames  | c "be sure frames on stack aren't nil"
 	[c ← self.
 	 until⦂ c≡nil do⦂
 		[c tempframe≡nil⇒
 			[user notify: 'Sorry, that stack has been released -- proceeding is impossible'; restart]
-		 c ← c sender]]\gb14B4i36I
+		 c ← c sender]]
 
-Simulation\gbf5 
+Simulation 
 docode: code toclass: class | i v
 	[[(i←code◦2)≠ 0 ⇒
 		[i = 1  ⇒ [⇑self];
@@ -901,17 +901,17 @@ docode: code toclass: class | i v
 			= 102 ⇒ [⇑self performing: code◦4 toclass: tempframe◦(stackptr+1)]
 		 (v ← self doprimitive: code) ≡ ↪failed ⇒[]
 		 stackptr ← stackptr-(code◦4+1). ⇑self push: v]].
-	 ⇑self newToRun: code]\gb28B
+	 ⇑self newToRun: code]
 dojump: displacement
-	[pc ← pc+displacement]\gb22B
+	[pc ← pc+displacement]
 dopop
-	[stackptr ← stackptr-1]\gb7B
+	[stackptr ← stackptr-1]
 doprimitive: code
-	[⇑↪failed] primitive: 101\gb19B
+	[⇑↪failed] primitive: 101
 doremotereturn | t f
-	[t ← self pop. f ← self pop. ⇑f push: t]\gb15B
+	[t ← self pop. f ← self pop. ⇑f push: t]
 doreturn | t
-	[t ← tempframe◦(stackptr+1). tempframe ← nil. ⇑sender push: t]\gb9B
+	[t ← tempframe◦(stackptr+1). tempframe ← nil. ⇑sender push: t]
 dostore | byte
 	[byte ← method◦(pc← pc+1).
 	 byte<020⇒ [self smashField: byte];
@@ -923,13 +923,13 @@ dostore | byte
 			=0211⇒ [self smashTemp: self nextByte];
 			=0213⇒ [self smashLitInd: self nextByte]
 	 user notify: 'Illegal store'
-	]\gb8B
+	]
 dosuper | byte
 	[byte ← self nextByte.
 	[byte=0214⇒ [byte ← self nextByte+0320]].
 	byte<0260⇒ [user notify: 'non-selector after super']
 	⇑self sendmess: nil byte: byte toclass: 
-		(self litof: method◦6-8/2) value superclass]\gb8B
+		(self litof: method◦6-8/2) value superclass]
 doUnique | r e "cause ◦ ← to be done for a UniqueString inside str: inside intern:"
 	[r ← tempframe◦(2+stackptr). "receiver"
 	"already know class is UniqueString"
@@ -940,14 +940,14 @@ doUnique | r e "cause ◦ ← to be done for a UniqueString inside str: inside i
 	method◦(method length) ≠ 0203 "return" ⇒[user notify: e]
 	"trick this method into returning"
 	pc ← method length -1.
-	⇑self]\gb9B
+	⇑self]
 help
 	["Here is how to use the Smalltalk simulator.
 
 	thisContext runsimulated⦂ [ place here the code you to simulate ].
 
 	Some classes in Smalltalk may not be subclassed.  Some messages
-	may not be overridden.  initSimulator tells the details. "]\gb6B76b35B
+	may not be overridden.  initSimulator tells the details. "]
 initSimulator | i "these class variables of Context are used by instfield: to simulate what the microcode does to objects."
 	["  Context declare: 'positionFld arrayFld limitFld'.    "
 	"Rules:  There may not be a subclass of Integer.
@@ -962,9 +962,9 @@ initSimulator | i "these class variables of Context are used by instfield: to si
 	positionFld ← i find: 'position'.
 	arrayFld ← i find: 'array'.
 	limitFld ← i find: 'limit'.
-	]\gb14B
+	]
 litof: a
-	[⇑(method word: a+4) asObject]\gb10B
+	[⇑(method word: a+4) asObject]
 newToRun: code | r v i
 	[r ← self pop. v ← Vector new: code◦3.
 	 for⦂ i from: (code◦4 to: 1 by: ¬1) do⦂ "Move args to new tframe"
@@ -973,11 +973,11 @@ newToRun: code | r v i
 		].
 	 ⇑self class new sender: self receiver: r method: code
 		tempframe: v pc: code◦6 stackptr: code◦5 - 1. "Allocate a new Context"
-	]\gb15B7b2B
+	]
 nextByte
-	[⇑method◦(pc ← pc+1)]\gb10B
+	[⇑method◦(pc ← pc+1)]
 nonEmptyStack
-	[⇑(stackptr≠¬1)]\gb15B
+	[⇑(stackptr≠¬1)]
 performing: nargs toclass: class | i sel
 	[i ← stackptr-nargs.
 	sel ← tempframe◦(i+1).	"Selector is first arg"
@@ -985,21 +985,21 @@ performing: nargs toclass: class | i sel
 		[tempframe◦(i+1) ← tempframe◦(i+2).
 		i ← i+1].
 	stackptr ← stackptr-1.
-	⇑self sendmess: sel byte: 0320 toclass: class]\gb33B
+	⇑self sendmess: sel byte: 0320 toclass: class]
 pop
-	[⇑tempframe◦(2+ (stackptr← stackptr-1))]\gb5B
+	[⇑tempframe◦(2+ (stackptr← stackptr-1))]
 push: n "Push n on top of stack"
-	[tempframe◦(1+(stackptr←stackptr+1)) ← n]\gb8B
+	[tempframe◦(1+(stackptr←stackptr+1)) ← n]
 pushField: i
-	[tempframe◦(1+(stackptr←stackptr+1)) ← receiver instfield: i+1]\gb14B
+	[tempframe◦(1+(stackptr←stackptr+1)) ← receiver instfield: i+1]
 pushLit: i
-	[tempframe◦(1+(stackptr←stackptr+1)) ← (method word: i+4) asObject]\gb12B
+	[tempframe◦(1+(stackptr←stackptr+1)) ← (method word: i+4) asObject]
 pushLitInd: i
-	[tempframe◦(1+(stackptr←stackptr+1)) ← (method word: i+4) asObject value]\gb15B
+	[tempframe◦(1+(stackptr←stackptr+1)) ← (method word: i+4) asObject value]
 pushTemp: i
-	[tempframe◦(1+(stackptr←stackptr+1)) ← tempframe◦(i+1)]\gb13B
+	[tempframe◦(1+(stackptr←stackptr+1)) ← tempframe◦(i+1)]
 restart
-	[pc ← method◦6. stackptr ← method◦5-1]\gb9B
+	[pc ← method◦6. stackptr ← method◦5-1]
 runsimulated⦂ cntxt | ctx b i "To use the simulator say...
 		thisContext runsimulated⦂ [your code]. "
 	["turn off use of BitBlt by Strings"
@@ -1011,7 +1011,7 @@ runsimulated⦂ cntxt | ctx b i "To use the simulator say...
 
 	"restore state of StringBlter"
 	String◦↪StringBlter ← b.
-	⇑self pop]\gb20B
+	⇑self pop]
 sendmess: sel byte: byte toclass: class | cl code
 	[cl ← class.  until⦂ cl≡nil do⦂
 		[[byte<0320⇒ "Is it a special message?"
@@ -1020,15 +1020,15 @@ sendmess: sel byte: byte toclass: class | cl code
 		  sel≡nil⇒ [sel ← self litof: byte-0320]]. "Send the selector from the literals"
 		 code ← cl md methodorfalse: sel⇒ [⇑self docode: code toclass: cl]
 	  	 cl ← cl superclass]. "Try up the superclass chain"
-	 user notify: ('Simulated message not understood: ' concat: sel asString)]\gb40B9b2B297f1 1f0 
+	 user notify: ('Simulated message not understood: ' concat: sel asString)] 1f0 
 simulate⦂ cntxt
-	[cntxt push: thisContext.  ⇑cntxt inspect]\gb17B
+	[cntxt push: thisContext.  ⇑cntxt inspect]
 smashField: i
-	[receiver instfield: i+1 ← tempframe◦(stackptr+1)]\gb15B
+	[receiver instfield: i+1 ← tempframe◦(stackptr+1)]
 smashLitInd: i
-	[(self litof: i) value ← tempframe◦(stackptr+1)]\gb16B
+	[(self litof: i) value ← tempframe◦(stackptr+1)]
 smashTemp: i
-	[tempframe◦(i+1) ← tempframe◦(stackptr+1)]\gb14B
+	[tempframe◦(i+1) ← tempframe◦(stackptr+1)]
 specialmess: byte toclass: class | "Return false if cannot do it here, else do exactly what the microcode does."
 	[byte<0270⇒  "+, -, <, >, ≤, ≥, =, ≠"
 		[⇑self specialmess: byte toclassInteger: class];
@@ -1038,7 +1038,7 @@ specialmess: byte toclass: class | "Return false if cannot do it here, else do e
 		=0304⇒ "length"
 			[ [class≡String⇒[] class≡Vector⇒[] ⇑false]. self push: (self pop length)];
 		=0305⇒ "≡"  [self push: self pop≡self pop]
-	⇑false]\gb33B
+	⇑false]
 specialmess: byte toclassArray: class | r n d i s l easy "cause ◦, ◦←, next, next←  to happen"
 	[d ← stackptr.  r ← self pop.
 	[byte=0301 or⦂ byte=0303 ⇒[n ← self pop]]. " ◦← or next← "
@@ -1064,7 +1064,7 @@ specialmess: byte toclassArray: class | r n d i s l easy "cause ◦, ◦←, nex
 								n ← r instfield: i].
 					 self push: n.
 					 [byte>0301⇒[s instfield: positionFld ← i]]. ⇑self]]].
-	stackptr ← d. ⇑false]\gb38B
+	stackptr ← d. ⇑false]
 specialmess: byte toclassInteger: class | r n "If class is Integer, do arithmetic"
 	[class ≡ Integer⇒
 			[r ← self pop. n ← self pop.
@@ -1074,7 +1074,7 @@ specialmess: byte toclassInteger: class | r n "If class is Integer, do arithmeti
 					=0262⇒ [r<n];  =0263⇒ [r>n]; =0264⇒ [r≤n];  =0265⇒ [r≥n];
 					=0266⇒ [r=n];  =0267⇒ [r≠n]]]
 			 stackptr ← stackptr+2. ⇑false]
-	⇑false]\gb40B
+	⇑false]
 step | byte t "Execute the next byte code and return the current Context"
 	[byte ← method◦(pc ← pc+1).
 	⇑[byte<0200⇒ "load"
@@ -1108,10 +1108,10 @@ step | byte t "Execute the next byte code and return the current Context"
 			 self dojump: t].	"unconditional, do the branch"
 			self]
 	 self sendmess: nil byte: byte toclass: (tempframe◦(stackptr+1)) class]
-	]\gb5B
+	]
 
-Remote evaluation\gbf5 
-eval [user croak] primitive: 30\gb5B
+Remote evaluation 
+eval [user croak] primitive: 30
 remoteCopy
 	| tResult
 [
@@ -1124,14 +1124,14 @@ remoteCopy
 		stackptr: stackptr.
 	tResult initialize.
 	⇑ tResult
-]\gb12B9b1B
+]
 
-Interpretation\gbf5 
+Interpretation 
 have: receiver interpret: method
 	["Warning -- someone must be holding methodⓢ literals."
 	"Warning -- do not call as self have:interpret: or cycle will result"
 	tempframe ← (Vector new: method◦3).
-	self restart. ⇑self interpretFor: thisContext sender]\gb34B1i54I2i69I
+	self restart. ⇑self interpretFor: thisContext sender]
 interpret: objectCode with: tframe
 	["interpret in new context with tempframe tframe"
 	"Warning -- someone must be holding objectCodeⓢ literals."
@@ -1140,18 +1140,18 @@ interpret: objectCode with: tframe
 		sender: nil receiver: receiver
 		method: objectCode tempframe: tframe
 		pc: objectCode◦6 stackptr: objectCode◦5-1)
-	  interpretFor: thisContext sender]\gb36B1i48I2i58I2i69I
+	  interpretFor: thisContext sender]
 interpretFor: sender  "resume execution"
-	[PriorityInterrupt new run: self]\gb22Bi18I
+	[PriorityInterrupt new run: self]
 
-Deallocation\gbf5 
+Deallocation 
 destroyAndReturn: value
 	[thisContext sender ← sender.
 	tempframe all ← nil.
-	⇑value]\gb25B
+	⇑value]
 eraseFully
 	[tempframe≡nil⇒ []
-	tempframe all ← nil. tempframe ← nil]\gb12B
+	tempframe all ← nil. tempframe ← nil]
 release | s		"release frames to break cycles"
 	[ [tempframe≡nil⇒[] tempframe all← nil. tempframe ← nil].
 	receiver← nil.
@@ -1162,20 +1162,20 @@ release | s		"release frames to break cycles"
 			[s← sender instfield: 1.
 			sender instfield: 5← nil.
 			s≡nil⇒[⇑self] sender← s]]]."
-	sender release]\gb13Bi32I94i32I
+	sender release]
 releaseFully | c 	"nullify frames to break cycles"
 	[c ← self.
-	 until⦂ c≡nil do⦂ [c eraseFully. c ← c sender]]\gb13B5i32I
+	 until⦂ c≡nil do⦂ [c eraseFully. c ← c sender]]
 releaseTo: pContext
 [
 	sender ≡ pContext ⇒ [ sender ← nil. ]
 		sender releaseTo: pContext.
 		sender ← nil.
-]\gb20B
-\g
-SystemOrganization classify: ↪Context under: 'Kernel Classes'.\g
+]
+
+SystemOrganization classify: ↪Context under: 'Kernel Classes'.
 
-"RemoteContext"l15000z20000\gbf5 
+"RemoteContext" 
 Class new title: 'RemoteContext'
 	subclassof: Context
 	fields: ' 
@@ -1183,15 +1183,15 @@ Class new title: 'RemoteContext'
 		fSavedStackptr
 	'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-CONTEXT FOR REMOTE CODE\gi
+CONTEXT FOR REMOTE CODE
 
-REMOTE CONTEXT\gbf5 
+REMOTE CONTEXT 
 caller
 [
 	⇑ tempframe ◦ (fSavedStackptr+2)
-]\gb7B
+]
 cleancopy
 	| tResult
 [
@@ -1204,28 +1204,28 @@ cleancopy
 		stackptr: stackptr.
 	tResult initialize.
 	⇑ tResult
-]\gb11B
+]
 initialize
 [
 	fSavedPC ← pc.
 	fSavedStackptr ← stackptr.
-]\gb11B
+]
 releaseTo: pContext
 [
 	tempframe ◦ (fSavedStackptr+2) ≡ pContext ⇒
 		[ tempframe ◦ (fSavedStackptr+2) ← nil. ]
 		tempframe ◦ (fSavedStackptr+2) releaseTo: pContext.
 		tempframe ◦ (fSavedStackptr+2) ← nil.
-]\gb20B
+]
 restart
 [
 	pc ← fSavedPC.
 	stackptr ← fSavedStackptr.
-]\gb8B
-\g
-SystemOrganization classify: ↪RemoteContext under: 'Kernel Classes'.\g
+]
+
+SystemOrganization classify: ↪RemoteContext under: 'Kernel Classes'.
 
-"UserView"l15000z20000\gbf5 
+"UserView" 
 Class new title: 'UserView'
 	subclassof: Object
 	fields: 'screenrect "<Rectangle> current screen size"
@@ -1237,31 +1237,31 @@ Class new title: 'UserView'
 		disp "<dispframe> default message stream"
 		sched "<Vector> Windows in this view"'
 	declare: 'currentCursor mxoffset myoffset screenMenu ';
-	asFollows\gbf5 
+	asFollows 
 
-This is a melting-pot, incorporating the notions of user interaction (mouse, keyboard), display context (current screen view), and global operations (reading the clock, leaving the system).\gi
+This is a melting-pot, incorporating the notions of user interaction (mouse, keyboard), display context (current screen view), and global operations (reading the clock, leaving the system).
 
-Mouse, Cursor, Keys\gbf5 
-anybug [⇑self buttons >0 or⦂ (mem◦0177100) < 0]\gb7B
-anykeys [⇑self keyset>0]\gb8B
-bluebug [⇑self buttons=2]\gb8B
+Mouse, Cursor, Keys 
+anybug [⇑self buttons >0 or⦂ (mem◦0177100) < 0]
+anykeys [⇑self keyset>0]
+bluebug [⇑self buttons=2]
 buttons
-	[⇑7-(mem◦0177030 land: 7)]\gb9B
-currentCursor [⇑currentCursor]\gb14B
+	[⇑7-(mem◦0177030 land: 7)]
+currentCursor [⇑currentCursor]
 currentCursor: c | coff oldpt [
 	oldpt ← self mp.
 	currentCursor ← c.
 	coff ← c offset.
 	mxoffset ← coff x - htab.
 	myoffset ← coff y - vtab.
-	self cursorloc ← oldpt]\gb17B
+	self cursorloc ← oldpt]
 cursorloc ← pt 
 	[mem◦0424 ← pt x - mxoffset*scale.
-	mem◦0425 ← pt y - myoffset*scale]\gb17B
+	mem◦0425 ← pt y - myoffset*scale]
 kbck | t
-	[t ← self rawkbck⇒[⇑kbMap◦t] self purgealittle. ⇑false ]\gb5B
+	[t ← self rawkbck⇒[⇑kbMap◦t] self purgealittle. ⇑false ]
 kbd [until⦂ self rawkbck do⦂ [self purgealittle]
-	⇑kbMap◦self rawkbd]\gb4B
+	⇑kbMap◦self rawkbd]
 kbd: char
 	["stuff char into the event queue"
 	[char is: String ⇒[char ← char◦1]].
@@ -1272,7 +1272,7 @@ kbd: char
 		type:			1											"2=up, 1=down"
 		stroke:		(kbMap find: char)					"1-336"
 		elapsed:		Events	elapsedtime				"1-32767 sixtieths of a sec"
-		time:			Events time + Events elapsedtime.]\gb11B1i33I93i9I24i9I23i14I35i7I35i28I
+		time:			Events time + Events elapsedtime.]
 kbdnext | event [
 	"returns next character (mapped) if any; otherwise false"
 	while⦂ [
@@ -1280,11 +1280,11 @@ kbdnext | event [
 		(event ← Events primitiveDequeue)] do⦂ [
 		event isKbdDown⇒ [⇑kbMap◦event stroke]].
 	"self rawkbck⇒ [⇑kbMap◦Events next stroke]"
-	⇑false]\gb8B7b1B
+	⇑false]
 keyset
 	["Fix a bug in sysdefs."
-	⇑037 - ((mem◦0177030 lshift: ¬3) land: 037)]\gb8B1i23I
-leftShiftKey ["left shift key down?" ⇑(mem◦0177036 land: 0100) = 0]\gb13B
+	⇑037 - ((mem◦0177030 lshift: ¬3) land: 037)]
+leftShiftKey ["left shift key down?" ⇑(mem◦0177036 land: 0100) = 0]
 mp
 	[scale=2⇒
 		[⇑Point new
@@ -1292,39 +1292,39 @@ mp
 		y: mem◦0425 + myoffset / 2]
 	⇑Point new
 		x: mem◦0424 + mxoffset
-		y: mem◦0425 + myoffset]\gb4B
+		y: mem◦0425 + myoffset]
 mpnext [
 	"return next mouse point if red button or tablet is down; otherwise false"
 	self redbug⇒ [⇑self mp]
-	⇑false]\gb7B4i72I
+	⇑false]
 nobug
-	[⇑self anybug ≡ false]\gb7B
+	[⇑self anybug ≡ false]
 rawkbck | event				"flush event queue until down keyboard event or queue empty."
 			[while⦂ (event ← Events peek) do⦂
 				[event isKbdDown ⇒[⇑event stroke] Events next].
 			⇑false							"if queue empty, return false"
-			]\gb8B11i61I106i30I
+			]
 rawkbd | stroke
 			[until⦂ (stroke ← self rawkbck) do⦂ [].			"wait for activity"
 			Events next.  ⇑stroke								"if key down, pop queue and return stroke"
-			]\gb7B54i19I33i42I
-redbug [⇑self buttons=4 or⦂ (mem◦0177100) < 0]\gb7B
-tablet [⇑(mem◦0177100) ≠ 0]\gb7B
-tabletabsolute [mem◦0126 ← 1]\gb15B
-tabletbug [⇑(mem◦0177100) < 0]\gb10B
-tabletrelative [mem◦0126 ← ¬1]\gb15B
+			]
+redbug [⇑self buttons=4 or⦂ (mem◦0177100) < 0]
+tablet [⇑(mem◦0177100) ≠ 0]
+tabletabsolute [mem◦0126 ← 1]
+tabletbug [⇑(mem◦0177100) < 0]
+tabletrelative [mem◦0126 ← ¬1]
 waitbug
-	[until⦂ self anybug do⦂ [] ⇑self mp]\gb9B
+	[until⦂ self anybug do⦂ [] ⇑self mp]
 waitclickbug
-	[self waitnobug. ⇑self waitbug]\gb14B
+	[self waitnobug. ⇑self waitbug]
 waitnobug
-	[while⦂ self anybug do⦂ [] ⇑self mp]\gb11B
-waitnokey [until⦂ self keyset=0 do⦂ [self rawkbck]]\gb10B
-x [⇑mem◦0426 - htab		"cursorx, horiz tab adjusted"]\gb2B19i29I
-y [⇑mem◦0427 - vtab		"cursory, vert tab adjusted"]\gb2B19i28I
-yellowbug [⇑self buttons=1]\gb10B
+	[while⦂ self anybug do⦂ [] ⇑self mp]
+waitnokey [until⦂ self keyset=0 do⦂ [self rawkbck]]
+x [⇑mem◦0426 - htab		"cursorx, horiz tab adjusted"]
+y [⇑mem◦0427 - vtab		"cursory, vert tab adjusted"]
+yellowbug [⇑self buttons=1]
 
-Screen Views\gbf5 
+Screen Views 
 bugScreenMenu
 	["see classInit"
 	screenMenu bug
@@ -1335,29 +1335,29 @@ bugScreenMenu
 		=5⇒[self restartup: (CodeWindow new class: UserView selector: ↪workspace
 				para: (UserView code: ↪workspace) formerly: false)];
 		=6⇒[user displayoffwhile⦂ [self reclaim]]
-	]\gb15B
-color: color scale: scale	[self install]\gb26B
+	]
+color: color scale: scale	[self install]
 copyIn: p
 	[⇑UserView new
 		screenrect: screenrect copy
 		vtab: vtab htab: htab scale: scale color: color
 		projectWindow: p
-		disp: disp sched: ↪()]\gb11B
+		disp: disp sched: ↪()]
 displayoffwhile⦂ expr | t v
 	["t ← mem◦0420. mem◦0420 ← 0."
 	t ← mem◦067. mem◦067 ← 58 "disp text frame maxY/2 ?".
 	v ← expr eval.
-	mem◦067 "0420" ← t. ⇑v]\gb22B
+	mem◦067 "0420" ← t. ⇑v]
 install
-	[self screenextent: screenrect extent tab: htab⌾vtab]\gb9B
+	[self screenextent: screenrect extent tab: htab⌾vtab]
 projectWindow [
 	[projectWindow≡nil⇒
 		[projectWindow ← ProjectWindow new.
 		projectWindow userview: self changes: Changes parent: projectWindow]].
-	⇑projectWindow]\gb14B
-reconfigure [] primitive: 62\gb12B
+	⇑projectWindow]
+reconfigure [] primitive: 62
 restoredisplay
-	[mem◦0420 ← 060. mem◦067 ← screenrect height/2]\gb16B
+	[mem◦0420 ← 060. mem◦067 ← screenrect height/2]
 screenextent: extent tab: tab [
 	mem◦065 ←
 		(color*040000)+[scale=2⇒[0100000] 0]+(tab x/16*0400)+(extent x/16|2).
@@ -1367,42 +1367,42 @@ screenextent: extent tab: tab [
 	vtab ← mem◦063*2.
 	screenrect ← 0⌾0 rect: (extent x|32)⌾(extent y|2).
 	self currentCursor: currentCursor;
-		reconfigure; restore]\gb30B
-screenrect [⇑screenrect]\gb11B
-screenrect: screenrect vtab: vtab htab: htab scale: scale color: color projectWindow: projectWindow disp: disp sched: sched\gb
+		reconfigure; restore]
+screenrect [⇑screenrect]
+screenrect: screenrect vtab: vtab htab: htab scale: scale color: color projectWindow: projectWindow disp: disp sched: sched
 
-Window Scheduling\gbf5 
+Window Scheduling 
 leaveTop		"leave the top window if there is one"
 	[sched length=0⇒[]
-	(sched◦1) leave]\gb10B1i36I
+	(sched◦1) leave]
 promote: window
-	[sched promote: window]\gb17B
+	[sched promote: window]
 restart | i 
 			[[Events ≡ nil ⇒
 				[Events ← EventQueue init. "Top init3.  initialize Event queue and Time interrupt"]].
 			NormalCursor topage1.
-			self restart⦂ [user run]]\gb8B56i55I
+			self restart⦂ [user run]]
 restart⦂ code | u
 	[u ← code cleancopy. u sender ← nil.
 	thisContext sender releaseFully.
 	thisContext sender ← nil.	code ← nil. 	"release caller chain"
 	MessageDict new freeMethods.		"release held code"
 	disp frame flash.
-	while⦂ true do⦂ [u eval]]\gb14B116i22I32i19I
+	while⦂ true do⦂ [u eval]]
 restartup: window
 	[ "Equivalent to schedule new window, restart, and redbug in window, except firsttime is already done."
 	thisContext sender releaseFully. thisContext sender ← nil.
 	NormalCursor topage1.
 	self schedule: window.
 	thisContext tempframe all ← nil.
-	self run: true]\gb19B2i101I
+	self run: true]
 restore | w
 	[screenrect clear.
 	[projectWindow≡nil⇒[] projectWindow putTitle].
 	for⦂ w from: (sched length to: 1 by: ¬1) do⦂
-		[(sched◦w) show]]\gb8B
+		[(sched◦w) show]]
 run
-	[self run: false]\gb5B
+	[self run: false]
 run: topFlag | i w forward	"topFlag means sched◦1 already is awake"
 	[forward ← [topFlag⇒ [w←sched◦1. while⦂ w eachtime do⦂ []. w lasttime] true].
 	while⦂ true do⦂
@@ -1414,20 +1414,20 @@ run: topFlag | i w forward	"topFlag means sched◦1 already is awake"
 				[user yellowbug⇒[self bugScreenMenu]]
 		sched promote: w.
 		while⦂ w eachtime do⦂ []
-		forward← w lasttime]]\gb13B14i40I233i30I
-sched [⇑sched]\gb6B
+		forward← w lasttime]]
+sched [⇑sched]
 schedule: window
 	[sched≡nil⇒[sched ← window inVector]
-	sched ← window inVector concat: sched]\gb18B
+	sched ← window inVector concat: sched]
 scheduleOnBottom: window
 	[sched≡nil⇒[sched ← window asVector]
-	sched ← sched concat: window asVector]\gb26B
-topWindow [⇑sched◦1]\gb10B
+	sched ← sched concat: window asVector]
+topWindow [⇑sched◦1]
 unschedule: window | t
 	[0<(t← sched find: window)⇒
-		[sched ← sched◦(1 to: t-1) concat: sched◦(t+1 to: sched length)]]\gb19B
+		[sched ← sched◦(1 to: t-1) concat: sched◦(t+1 to: sched length)]]
 
-Notify Window\gbf5 
+Notify Window 
 notifier: titleString level: lev interrupt: flag
 	["Restore the full display.  Schedule a one-paned window to notify the user that errorString happened."
 	self restoredisplay.
@@ -1438,7 +1438,7 @@ notifier: titleString level: lev interrupt: flag
 			append: ' tempframe shows args, ctrl-d proceeds'; cr;
 			append: titleString; cr; show.
 		(Top◦lev) debug. ⇑false]
-	⇑NotifyWindow new of: titleString level: lev interrupt: flag]\gb50B1i102I
+	⇑NotifyWindow new of: titleString level: lev interrupt: flag]
 notifier: titleString stack: stack interrupt: flag
 	["Restore the full display.  Schedule a one-paned window to notify the user that errorString happened."
 	self restoredisplay.
@@ -1449,7 +1449,7 @@ notifier: titleString stack: stack interrupt: flag
 			append: ' tempframe shows args, ctrl-d proceeds'; cr;
 			append: titleString; cr; show.
 		stack debug. ⇑false]
-	⇑NotifyWindow new of: titleString stack: stack interrupt: flag]\gb52B1i102I
+	⇑NotifyWindow new of: titleString stack: stack interrupt: flag]
 notify: errorString | notifyWindow
 	["Create a notify window looking at the Context stack"
 	notifyWindow ← self notifier: errorString stack: thisContext sender interrupt: false.
@@ -1459,43 +1459,43 @@ notify: errorString | notifyWindow
 			[self restartup: notifyWindow]
 		 self scheduleOnBottom: notifyWindow.
 		 Top errorReset]
-	⇑nil]\gb20B17i53I
+	⇑nil]
 
-Dialog Window\gbf5 
+Dialog Window 
 clear		"clear disp of debris and characters"
-	[disp clear]\gb7Bi37I
+	[disp clear]
 clearshow: str
-	[disp clear; append: str; show]\gb16B
-cr [disp cr]\gb3B
+	[disp clear; append: str; show]
+cr [disp cr]
 croak
-	[self notify: 'A primitive has failed.']\gb7B
+	[self notify: 'A primitive has failed.']
 ev
-	[disp ev]\gb4B
+	[disp ev]
 frame		"return rectangle of dialogue window"
-	[⇑disp text frame]\gb7Bi37I
+	[⇑disp text frame]
 newdisp "for when some class associated with running Dispframe  changed"
 	[
 	self unschedule: disp.
 	disp ← Dispframe new rect: (8⌾0 rect: 150⌾96).
 	self schedule: disp ; clearshow: 'New Dialogue window created.
-']\gb8Bi64I
+']
 newdisploc: origin and: corner "for moving disp"
 	["user newdisploc: 8⌾0 and: 150⌾96"
 	(disp text frame inset: ¬2⌾¬2) clear.
 	disp text frame ← origin rect: corner.
-	disp show]\gb31Bi17I3i34I
-next ← x ["simulate a Vector Stream"	disp cr; print: x; show]\gb9B
-print: x [disp print: x; show]\gb9B
-read [⇑disp read]\gb5B
-request: s[⇑disp request: s]\gb10B
-show [disp outline; show]\gb5B
+	disp show]
+next ← x ["simulate a Vector Stream"	disp cr; print: x; show]
+print: x [disp print: x; show]
+read [⇑disp read]
+request: s[⇑disp request: s]
+show [disp outline; show]
 show: str
-	[disp append: str; show]\gb11B
+	[disp append: str; show]
 space
-	[disp space]\gb7B
-tab [disp tab]\gb4B
+	[disp space]
+tab [disp tab]
 
-Time\gbf5 
+Time 
 convertTime: s returnSecs: format | d dd t dfirst dlast m570 m571 [
 	"s is total seconds from midnight Jan 1 1901 GMT (Greenwich mean time).
 	see maxc <AltoDocs>AltoTime.Press for details"
@@ -1537,15 +1537,15 @@ convertTime: s returnSecs: format | d dd t dfirst dlast m570 m571 [
 		t hours: t hours+1]].
 
 	"return either total seconds or Date and Time"
-	format⇒ [⇑s] ⇑d,t]\gb34B36i117I5i29I40i20I26i4I7i4I22i5I37i17I53i36I79i98I5i51I68i17I63i43I77i26I70i46I70i44I99i44I
+	format⇒ [⇑s] ⇑d,t]
 dateAndTime: secs [
 	"secs is a String of 4 characters representing seconds (in GMT) since Jan 1 1901.
 	convert it to a LargeInteger (rawtotalsecs:), then return a Vector (Date, Time),
 	which is corrected for local time zone and daylight savings"
 
-	⇑self convertTime: (self rawtotalsecs: secs) returnSecs: false]\gb18B4i223I
-now [⇑self dateAndTime: self timewords]\gb4B
-rawtotalsecs [⇑self rawtotalsecs: self timewords]\gb13B
+	⇑self convertTime: (self rawtotalsecs: secs) returnSecs: false]
+now [⇑self dateAndTime: self timewords]
+rawtotalsecs [⇑self rawtotalsecs: self timewords]
 rawtotalsecs: secs | s [
 	"secs is a String of 4 characters representing seconds (in GMT) since Jan 1 1901.
 	copy (in reverse order) to a Natural string, then return a LargeInteger"
@@ -1555,24 +1555,24 @@ rawtotalsecs: secs | s [
 	s◦2 ← secs◦3.
 	s◦3 ← secs◦2.
 	s◦4 ← secs◦1.
-	⇑LargeInteger new bytes: s neg: false]\gb19B8i157I
+	⇑LargeInteger new bytes: s neg: false]
 ticks "Return the 38.08-millisecond interval timer"
-	[⇑mem◦0430]\gb6B
-time [⇑self now◦2]\gb5B
+	[⇑mem◦0430]
+time [⇑self now◦2]
 time⦂ expr | t
-	[t ← self ticks.  expr eval.  ⇑self ticks-t]\gb11B
+	[t ← self ticks.  expr eval.  ⇑self ticks-t]
 timewords | s [
 	"seconds (in GMT) since Jan 1 1901: as a String"
 	s ← String new: 4.
 	s word: 1 ← mem◦0572; word: 2 ← mem◦0573.
-	⇑s]\gb10B8i46I
-today [⇑self now◦1]\gb6B
-totalsecs [⇑self totalsecs: self timewords]\gb10B
+	⇑s]
+today [⇑self now◦1]
+totalsecs [⇑self totalsecs: self timewords]
 totalsecs: secs [
 	"convert from GMT to local and correct for Daylight Savings"
-	⇑self convertTime: (self rawtotalsecs: secs) returnSecs: true]\gb16B4i58I
+	⇑self convertTime: (self rawtotalsecs: secs) returnSecs: true]
 
-Changes\gbf5 
+Changes 
 changedCategories | titles space str
 	["return a vector of the names of class categories which have been changed"
 	space ← ' '◦1.
@@ -1581,7 +1581,7 @@ changedCategories | titles space str
 		[titles insert: (
 			SystemOrganization invert: ((Stream new of: str) upto: space) unique)].
 	⇑titles contents
-	]\gb18B
+	]
 changedClasses | titles space str
 	["return a vector of the names of classes which have been changed"
 	space ← ' '◦1.
@@ -1589,19 +1589,19 @@ changedClasses | titles space str
 	for⦂ str from: Changes contents do⦂
 		[titles insert: ((Stream new of: str) upto: space). "class title"].
 	⇑titles contents
-	]\gb15B
-changedMessages [⇑Changes contents sort]\gb16B
-noChanges [Changes init]\gb10B
+	]
+changedMessages [⇑Changes contents sort]
+noChanges [Changes init]
 
-System quit/resume\gbf5 
+System quit/resume 
 backup   "back up smalltalk on ivy and resume"
-	[ivy open; delete: 'small.boot'; store: 'small.boot'; close]\gb9Bi37I
+	[ivy open; delete: 'small.boot'; store: 'small.boot'; close]
 hasXM
 	["return true if this is XM Smalltalk"
 	⇑(mem◦0147)≠0 "1 for XM, 0 for normal"
-	]\gb7B54i24I
+	]
 InLd: fileid  "write out the core image, then load in OS"
-	[user notify: 'file problem'] primitive: 85\gb59B
+	[user notify: 'file problem'] primitive: 85
 overlay: fileid | t [
 	dp0 stampBoot.
 	self releaseExternalViews.
@@ -1615,19 +1615,19 @@ overlay: fileid | t [
 
 	"we start here after a resume"
 	mem◦0420 ← t.
-	while⦂ user keyset>0 do⦂ [user show: 'The keyset is stuck'; cr]]\gb16B53i25I27i35I54i28I
+	while⦂ user keyset>0 do⦂ [user show: 'The keyset is stuck'; cr]]
 quit 
-	[self quitFrom: self "yup"]\gb7B21i5I
+	[self quitFrom: self "yup"]
 quitFrom: controller
 	[self overlay: ↪(0 0 0 0 0).
 	self hasXM⇒[
 		screenrect clear.
-		controller restore]]\gb22B
+		controller restore]]
 quitThen: str | rem rest ["quit, then have OS execute str"
 	rem ← (dp0 file: 'rem.cm') readonly.
 	rest ← rem next: rem length.
 	rem readwrite; reset; append: str; cr; append: rest; close.
-	self quit]\gb14B13i30I
+	self quit]
 quitThen: s continue: r [
 	[s⇒ [
 		"something for O.S. to do"
@@ -1635,7 +1635,7 @@ quitThen: s continue: r [
 			append: s; append: '; ';
 			append: [r⇒ ['Resume.~ small.boot'] 'Quit.~; Resume.~ small.boot'];
 			cr; flush]].
-	self quit]\gb24B12i24I
+	self quit]
 releaseExternalViews | t [
 	"close some things that we know about, everything else gets released"
 	Sources close. dp0 close. dp1 close.
@@ -1643,10 +1643,10 @@ releaseExternalViews | t [
 	"release (obsolete) some external views, usually File related"
 	for⦂ t from: externalViews length to: 1 by: ¬1 do⦂ [
 		(externalViews◦t) release. externalViews◦t ← nil].
-	externalViews reset]\gb21B8i67I43i60I
-Swat [] primitive: 90\gb5B
+	externalViews reset]
+Swat [] primitive: 90
 
-Misc System Stuff\gbf5 
+Misc System Stuff 
 classInit [
 	screenMenu ← Menu new string:
 'exit to overview
@@ -1654,7 +1654,7 @@ quit
 open a subview
 open a browser
 open a workspace
-reclaim']\gb10B
+reclaim']
 classNames		"an alphabetized Vector of all Smalltalk class titles uniqued"
 		| classes x c
 	[
@@ -1669,7 +1669,7 @@ classNames		"an alphabetized Vector of all Smalltalk class titles uniqued"
 		AllClassNames ← classes contents sort.
 		].
 	⇑AllClassNames
-	]\gb12Bi62I
+	]
 file: file classes: classes changesOnly: ch | cl [
 	"called by UserView release to write just changes or entire system on a
 	new file.  also, see comment in Class archiveOn:changesOnly:.
@@ -1681,10 +1681,10 @@ file: file classes: classes changesOnly: ch | cl [
 	[ch⇒ [file settoend] file reset].
 	file readwriteshorten.
 	for⦂ cl from: classes do⦂ [Smalltalk◦cl archiveOn: file changesOnly: ch].
-	file close; readonly]\gb44B9i10bI16Bi78bI28B1i47bI10Bi27bI16Bi74bI15Bi11I
+	file close; readonly]
 growSmalltalk: numberofdiskpages
 	"for preemptive growth of Small.boot on disk"
-	[dp0 growSmalltalkBy: numberofdiskpages]\gb34B1i43I
+	[dp0 growSmalltalkBy: numberofdiskpages]
 initCompiler  "Initialize shared variables of parser and generators"
 		| code sel c t
 	[
@@ -1746,7 +1746,7 @@ initCompiler  "Initialize shared variables of parser and generators"
 			(toLoadLitIndLong 0213) (toSendLitLong 0214)
 			(codeLoadField 0400) (codeLoadTemp 01000) (codeLoadLit 01400)
 			(codeLoadLitInd 02000) (codeSendLit 02400)) do⦂
-		[ByteCodes declare: t◦1 as: t◦2]]\gb14Bi54I256i23I100i51I20i33I930i54I
+		[ByteCodes declare: t◦1 as: t◦2]]
 oopsToFile | a c i t s cs f ts
 	[f ← dp0 file: 'oops'.
 	cs ← user classNames transform⦂ a to⦂ Smalltalk◦a.
@@ -1761,7 +1761,7 @@ oopsToFile | a c i t s cs f ts
 		for⦂ i from: t permutationToSort do⦂
 			[f tab; append: (t◦i) base8; tab; append: s◦i; cr]
 		user show: c title; cr]
-	f close]\gb11B311i11I51i13I
+	f close]
 printCrossReference: classNames on: f | dict m md frame l each s class
 "user displayoffwhile⦂ [
 	user printCrossReference: user classNames
@@ -1808,15 +1808,15 @@ printCrossReference: classNames on: f | dict m md frame l each s class
 				class← l◦1].
 			s append: l◦2].
 		f print: s contents asParagraph].
-	f close; toPrinter]\gb38B449i37I342i31I
-purgealittle [] primitive: 89\gb13B
+	f close; toPrinter]
+purgealittle [] primitive: 89
 reclaim | c cl cv		" Should only be called from bugScreenMenu !! "
 	[user cr; show: 'Reclaiming... '.
 	cl← CodePane, ScrollBar, PanedWindow, ListPane, Generator, Parser, BitImage, Document, DocumentEditor, Image.
 	cv← Context allInstances.
 	user print: cv length.
 	for⦂ c from: cv do⦂ [cl has: c mclass⇒[c release]]. cv all← nil.
-	user show: ' reduced to ' + Context howMany asString + '.']\gb8B
+	user show: ' reduced to ' + Context howMany asString + '.']
 release | m [
 	"prepare to release this version (after editing UserView version)
 	and possibly copying Sources file (see writeSources:)"
@@ -1837,8 +1837,8 @@ release | m [
 	
 		user writeChangedMessages: (phylum file: '<Smalltalk>ChangedMessages').].
 
-	user noChanges. user releaseMessage.]\gb8B8i31I2bu5BU9b16B42b13B121i76I267i20I
-releaseMessage [user clearshow: 'Welcome to ' + user version]\gb15B
+	user noChanges. user releaseMessage.]
+releaseMessage [user clearshow: 'Welcome to ' + user version]
 systemStartup "To do after system flush and installation of new core image"
 	[Top top.
 	Window classInit.
@@ -1853,7 +1853,7 @@ systemStartup "To do after system flush and installation of new core image"
 	[E≡nil⇒ [] "ignore broadcasts" E broadcastFilter: true].
 
 	(VirtualMemory new) thisvmem.
-	Vmem afterBirth]\gb14Bi61I33i126I17i2I165i17I
+	Vmem afterBirth]
 systemworkspace1		"for system releasers only!!!
 
 this has been partitioned into three workspaces for editing convenience:
@@ -1897,7 +1897,7 @@ For those who want to vmem write their own versions, do not execute steps 4, 7 o
 		classes next ← c].
 	user file: (phylum file: '<ddd>xx.Sources.' + user versionName)
 		classes: classes contents changesOnly: false.
-"\gb18B1i355I3b2Bi784u16U63I1b2Bi228I14u10U37u5U60b2Bi65bI2Bi225I75i1bI3Bi364I65u8U74i174I93u4U13u8U19u18U123u7U
+"
 systemworkspace2		"for system releasers only!!!
 
 
@@ -1941,7 +1941,7 @@ Vmem surgery: (dp0 oldFile: 'Smalltalk.run').
 			store: file as: remotefile].
 	(dp0 file: 'rem.cm') append: dir commands; cr; close.
 	user releaseMessage.
-"\gb18B1i31bI2Bi394I37u1U321u21U264b1Bi107I23b1Bi304I52u4U68u8U
+"
 systemworkspace3		"for system releasers only!!!
 
 
@@ -1957,7 +1957,7 @@ systemworkspace3		"for system releasers only!!!
 			printclass: (SystemOrganization category: cat); close; toPrinter].
 	xref empty⇒ []
 	user printCrossReference: xref on: (phylum file: 'CrossReference.Press').
-"\gb18B1i29I2b2Bi447I23u195U10u3U68u8U153u11U
+"
 version [⇑'Smalltalk 5.5k ' + [user hasXM⇒ ['XM '] ''] + 'November 24']
 "user version
 
@@ -2034,13 +2034,13 @@ see [Phylum]<Smalltalk> for the following files.  () surround an optional prefix
 		all Smalltalk.Sources (including the current one) are explicitly named
 
 [Phylum]<Small-Goodies> contains miscellaneous bug fixes and new features (and even some documentation: goodies.bravo, .press) offered by the community of Smalltalk Users.
-"\gb8B13b4B33b11B735b18B628b12B454i14I2i6I40i4I62b15B518b13B
+"
 versionName | s [
 	s ← self version asStream.
 	"skip Smalltalk"
 	s skipTo: 040.
 	"return version identification, e.g. 5.5f"
-	⇑s upto: 040]\gb12B
+	⇑s upto: 040]
 workspace
 	[user notify: 'Not meant to be executed']
 "
@@ -2112,7 +2112,7 @@ Sources on: (yourserver file: '<Smalltalk>Smalltalk.Sources.' + user versionName
 Changes init.
 
 user Swat.
-"c\gb11B44f2 5f0 3b23B59i1I98i27I79i40I296i38I50i31I146i32I89i32I44i34I311i1I125i137I
+" 5f0 3b23B59i1I98i27I79i40I296i38I50i31I146i32I89i32I44i34I311i1I125i137I
 writeChangedMessages: ChangedMessages | class m ms [
 	"append changed messages to a file (usually on [phylum])"
 	ChangedMessages settoend; cr; cr; asParagraphPrinter stamp.
@@ -2123,7 +2123,7 @@ writeChangedMessages: ChangedMessages | class m ms [
 			[ChangedMessages append: ', '; append: (ms upto: 040)]
 		ChangedMessages cr; append: m.
 		class← m asStream upto: 040].
-	ChangedMessages close]\gb38B
+	ChangedMessages close]
 writeSources: newSources [
 	"write a new Sources file (usually on [phylum]Smalltalk.Sources.xxx
 		(i.e. xxx = user versionName))
@@ -2134,29 +2134,29 @@ writeSources: newSources [
 		changesOnly: (newSources end ≡ false).
 	Sources close.
 	Sources ← newSources]
-\gb25B
-\g
-SystemOrganization classify: ↪UserView under: 'Kernel Classes'.\g
-UserView classInit\g
+
+
+SystemOrganization classify: ↪UserView under: 'Kernel Classes'.
+UserView classInit
 
-"VariableLengthClass"l15000z20000\gbf5 
+"VariableLengthClass" 
 Class new title: 'VariableLengthClass'
 	subclassof: Class
 	fields: ''
 	declare: '';
 	veryspecial: 20;
-	asFollows\gbf5 
+	asFollows 
 
-I am a class whose instances have numbered elements instead of named fields.\gi
+I am a class whose instances have numbered elements instead of named fields.
 
-Initialization\gbf5 
+Initialization 
 classInit		"gets propagated to a dummy instance"
-	[(self new: 1) classInit]\gb11Bi37I
+	[(self new: 1) classInit]
 
-Instance access\gbf5 
+Instance access 
 allInstances [user notify: 'use allInstances: instead to specify the length range'
-	"the length ranges are 0,1,2,3,4,5,6,7,8 individually and groups 9 (to 16), 17 (to 32), 33 (to 64), 65, 129, 257, 513, 1025, 2049, and 4197"]\gb13B71i140I
-allInstances: len [⇑(self allInstancesEver: len) notNil]\gb18B
+	"the length ranges are 0,1,2,3,4,5,6,7,8 individually and groups 9 (to 16), 17 (to 32), 33 (to 64), 65, 129, 257, 513, 1025, 2049, and 4197"]
+allInstances: len [⇑(self allInstancesEver: len) notNil]
 allInstancesEver: len | indx vec PCLs i "returns a vector containing all instances of this class and length mixed with nils"
 	["for large lengths, instances come in groups with lengths within a single power of 2"
 	PCLs ← Vmem pclassesOf: self length: len.  "vector of PCLs"
@@ -2164,17 +2164,17 @@ allInstancesEver: len | indx vec PCLs i "returns a vector containing all instanc
 	for⦂ i to: PCLs length do⦂ 
 		[(vec◦[i-1*128+1 to: i*128]) all← PCLs◦i].
 	thisContext destroyAndReturn:
-		(self fromFreelist: (Vmem freelistOffset: len) fill: vec)]\gb22B18i84I3i85I45i16I
+		(self fromFreelist: (Vmem freelistOffset: len) fill: vec)]
 copy: inst | t i
 	[t ← self new: inst length.
 	for⦂ i to: inst length do⦂
 		[t◦i ← inst◦i]
-	⇑t]\gb11B
+	⇑t]
 howMany: len | v "how many instances of this class and length are in use now?"
 	[v ← self allInstancesEver: len.
-	thisContext destroyAndReturn: v length - (v count: nil)]\gb13B4i61I
+	thisContext destroyAndReturn: v length - (v count: nil)]
 new
-	[user notify: 'use new: <Integer=length> here.']\gb5B
+	[user notify: 'use new: <Integer=length> here.']
 new: length
 	[length>16384 ⇒[user notify: length asString+
 												' is too big a String']
@@ -2182,11 +2182,11 @@ new: length
 												' is too big a Vector']
 	length<0 ⇒[user notify: length asString+
 												' -- negative length is invalid']
-	⇑self new: length asInteger] primitive: 29\gb13B
+	⇑self new: length asInteger] primitive: 29
 recopy: inst | t i
 	[t ← self new: inst length.
 	for⦂ i to: inst length do⦂
 		[t◦i ← (inst◦i) recopy]
-	⇑t]\gb13B
-\g
-SystemOrganization classify: ↪VariableLengthClass under: 'Kernel Classes'.\g
+	⇑t]
+
+SystemOrganization classify: ↪VariableLengthClass under: 'Kernel Classes'.

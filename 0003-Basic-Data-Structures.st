@@ -1,140 +1,140 @@
 'From Smalltalk 5.5k XM November 24 on 22 November 1980 at 2:57:08 am.'
-\g
-"Array"l15000z20000\gbf5 
+
+"Array" 
 Class new title: 'Array'
 	subclassof: Object
 	fields: ''
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-Array is an abstract class in the sense that it has no state, and instantiation is consequently not meaningful.  However it defines the default message set inherited by its subclasses, notably String, Vector, and UniqueString.  Notice that subscripting is not done here, except to handle the exceptional cases such as subscripting by other types as in a◦(1 to: 3).\gi
+Array is an abstract class in the sense that it has no state, and instantiation is consequently not meaningful.  However it defines the default message set inherited by its subclasses, notably String, Vector, and UniqueString.  Notice that subscripting is not done here, except to handle the exceptional cases such as subscripting by other types as in a◦(1 to: 3).
 
-Reading and Writing\gbf5 
+Reading and Writing 
 ◦ x
-	[⇑x subscripts: self]\gb5B
+	[⇑x subscripts: self]
 ◦ x ← val
-	[⇑x subscripts: self ← val]\gb11B
+	[⇑x subscripts: self ← val]
 < v "for sorting vectors by first element"
-	[⇑(self◦1)<(v◦1)]\gb4Bi38I
+	[⇑(self◦1)<(v◦1)]
 = arg | x
 	[arg isArray⇒
 		[self length ≠ arg length⇒ [⇑false]
 		for⦂ x to: self length do⦂ 
 			[(self◦x) = (arg◦x)⇒ [] ⇑false]
 		⇑true]
-	⇑false]\gb6B
+	⇑false]
 > v "for sorting vectors by first element"
-	[⇑(self◦1)>(v◦1)]\gb4Bi38I
+	[⇑(self◦1)>(v◦1)]
 all ← val | i
 	[for⦂ i to: self length do⦂
-		[self◦i ← val]]\gb10B
+		[self◦i ← val]]
 last
-	[⇑self◦self length]\gb6B
+	[⇑self◦self length]
 last ← val
-	[⇑self◦self length ← val]\gb12B
-length  [user notify: 'message not understood.']\gb8B
+	[⇑self◦self length ← val]
+length  [user notify: 'message not understood.']
 
-Copying and Altering\gbf5 
-+ arg [⇑self concat: arg]\gb6B
+Copying and Altering 
++ arg [⇑self concat: arg]
 concat: arg | x s [
 	x ← self species new: self length + arg length.
 	self copyto: (s ← x asStream).
 	arg copyto: s.
-	⇑x]\gb12B
+	⇑x]
 copy
-	[⇑self copy: 1 to: self length]\gb6B
+	[⇑self copy: 1 to: self length]
 copy: a to: b
-	[⇑self copy: a to: b to: (self species new: b-a+1)]\gb15B
+	[⇑self copy: a to: b to: (self species new: b-a+1)]
 copy: a to: b to: t | i s me
 	[s ← t asStream.
 	me ← Stream new of: self from: a to: b.
 	for⦂ i from: a to: b do⦂		"general code wont stop at false"
 		[s next ← me next]
-	⇑t]\gb20B95i33I
+	⇑t]
 copyto: t
-	[⇑self copy: 1 to: self length to: t]\gb11B
+	[⇑self copy: 1 to: self length to: t]
 delete: obj | s each
 	[s ← (self species new: self length) asStream.
 	for⦂ each from: self do⦂
 		[obj=each⇒[] s next← each]
-	⇑ s contents]\gb12B
-grow [⇑self growto: (4 max: self length*2)]\gb5B
-growby: n [⇑self growto: self length + n]\gb10B
-growto: n [⇑self "copyto:" copy: 1 to: self length to: (self species new: n)]\gb10B
+	⇑ s contents]
+grow [⇑self growto: (4 max: self length*2)]
+growby: n [⇑self growto: self length + n]
+growto: n [⇑self "copyto:" copy: 1 to: self length to: (self species new: n)]
 insertNonDescending: x		"self is assumed to be sorted"
-	[⇑self insertSorted: x]\gb24Bi30I
+	[⇑self insertSorted: x]
 insertSorted: x | a c i		"self is assumed to be sorted"
 	[i ← self findSorted: x.
 	c ← (a ← self species new: self length+1) asStream.
 	self◦(1 to: i) copyto: c. c next ← x. self◦(i+1 to: self length) copyto: c.
-	⇑a]\gb16B9i30I
+	⇑a]
 notNil | t i  "copy self (which contains no falses) removing all nils"
 	[t ← (self species new: (self length-(self count: nil))) asStream.
 	for⦂ i from: self do⦂ [i≡nil ⇒[] t next← i].
 	⇑t asArray]
-\gb7B7i56I
+
 replace: a to: b by: s | x xs
 	[x ← self species new: self length+s length -(1+b-a).
 	xs ← x asStream.
 	self copy: 1 to: a-1 to: xs.
 	s copy: 1 to: s length to: xs.
 	self copy: b+1 to: self length to: xs.
-	⇑x]\gb23B
+	⇑x]
 without: index | s me i  "if index in range, return self without ◦index"
 	[index cansubscript: self⇒
 		[s ← (self species new: self length-1) asStream.
 		me ← self asStream.
 		for⦂ i to: self length do⦂ [i=index⇒ [me next] s next ← me next].
-		⇑s asArray]]\gb15B10i47I
+		⇑s asArray]]
 
-Searching\gbf5 
+Searching 
 all⦂ variable suchThat⦂ expr | s i x  "a copy of some of me"
 	[s ← (self species new: self length) asStream.
 	for⦂ i to: self length do⦂
 		[x ← self◦i. variable value ← x.
 		expr eval⇒ [s next ← x]].
-	⇑s contents]\gb29B9i22I
+	⇑s contents]
 count: x | i n
 	[n←0.
 	for⦂ i to: self length do⦂
 		[x=(self◦i)⇒ [n←n+1]].
-	⇑n]\gb9B
+	⇑n]
 find⦂ x suchThat⦂ predicate | i
 	[for⦂ i to: self length do⦂
 		[x value ← self◦i. predicate eval⇒ [⇑i]].
-	⇑0]\gb28B
+	⇑0]
 find: x | i
 	[for⦂ i to: self length do⦂
 		[self◦i=x⇒ [⇑i]].
-	⇑0]\gb8B
+	⇑0]
 findnon: x | i
 	[for⦂ i to: self length do⦂
 		[self◦i≠x⇒ [⇑i]].
-	⇑0]\gb11B
+	⇑0]
 findSorted: x | lo mid hi		" returns index of largest element ≤ x "
 	[hi ← self length+1.  lo ← 1.
 	while⦂ lo < hi do⦂		"binary search; self must be sorted"
 		[self◦(mid←lo+hi/2) > x⇒[hi ← mid]  lo ← mid+1].
-	⇑hi-1]		" 0≤result≤length "\gb14B
+	⇑hi-1]		" 0≤result≤length "
 first⦂ x suchThat⦂ predicate | i
 	[for⦂ i to: self length do⦂
 		[x value ← self◦i. predicate eval⇒ [⇑self◦i]].
-	⇑false]\gb29B
-has: x [⇑(self find: x)≠0]\gb7B
+	⇑false]
+has: x [⇑(self find: x)≠0]
 
-Permutation\gbf5 
+Permutation 
 permutationToSort
 	["Return a Vector, permutation, such that self◦permutation is sorted nondescending.  Do not alter self."
-	⇑((self◦((1 to: self length) copy)) sort: 1 to: self length) map.]\gb19B1i103I
+	⇑((self◦((1 to: self length) copy)) sort: 1 to: self length) map.]
 promote: t | n
 	[n ← self find: t. n=0⇒ []
 	self◦(n to: 2 by: ¬1) ← self◦(n-1 to: 1 by: ¬1).
-	self◦1 ← t]\gb11B
+	self◦1 ← t]
 reverse	
-	[⇑Substring new data: self map: (self length to: 1 by: ¬1)]\gb10B
+	[⇑Substring new data: self map: (self length to: 1 by: ¬1)]
 sort
 	["Permute my elements so they are sorted nondescending.  Note: if I am a substring, only my map will be permuted.  In certain situations, this may not be what you expect."
-	self sort: 1 to: self length.]\gb6B1i170I
+	self sort: 1 to: self length.]
 sort: i to: j | di dij dj tt ij k l n
 	["Sort elements i through j of self to be nondescending."
 	
@@ -161,168 +161,168 @@ sort: i to: j | di dij dj tt ij k l n
 		[self swap: k with: l].
 	"Now l<k (either 1 or 2 less), and di through dl are all less than dk through dj.  Sort those two segments."
 	self sort: i to: l.
-	self sort: k to: j.]\gb14B26i56I4i33I16i18I3i13I90i33I26i32I2i44I108i35I3i129I142i108I
+	self sort: k to: j.]
 swap: i with: j | t
-	[t ← self◦i. self◦i ← self◦j. self◦j ← t]\gb16B
+	[t ← self◦i. self◦i ← self◦j. self◦j ← t]
 
-Conversion\gbf5 
-asSet [⇑Set new of: self to: self length]\gb6B
+Conversion 
+asSet [⇑Set new of: self to: self length]
 asStream
-	[⇑Stream new of: self]\gb10B
+	[⇑Stream new of: self]
 frequencies | d x  "return a sorted vector ((freq item) (freq item) ...)"
 	[d ← Dictionary new init: 64.
 	for⦂ x from: self do⦂
 		[d tally: x].
-	⇑d asInvertedVector sort]\gb12B7i54I
-sum [⇑self sumTo: 0]\gb4B
+	⇑d asInvertedVector sort]
+sum [⇑self sumTo: 0]
 sumTo: subTotal | x		"add all my elements to this subTotal (usually 0 or 0.0)"
 	[for⦂ x from: self do⦂
 		[subTotal← subTotal+x].
-	⇑subTotal]\gb16B
+	⇑subTotal]
 transform⦂ each to⦂ expr | s i  "a copy of me with each element transformed"
 	[s ← (self species new: self length) asStream.
 	for⦂ i to: self length do⦂
 		[each value ← self◦i. s next ← expr eval].
-	⇑s asArray]\gb25B7i44I
-viewer [⇑SetReader new of: self]\gb7B
+	⇑s asArray]
+viewer [⇑SetReader new of: self]
 
-Mapping\gbf5 
+Mapping 
 cansubscript: a | i
-	[for⦂ i from: self do⦂ [i cansubscript: a⇒ [] ⇑false]]\gb16B
+	[for⦂ i from: self do⦂ [i cansubscript: a⇒ [] ⇑false]]
 subscripts: x			"subarrays"
-	[⇑Substring new data: x map: self]\gb16Bi11I
+	[⇑Substring new data: x map: self]
 subscripts: x ← val		"subrange replacement"
 	[self length≠val length⇒
 		[user notify: 'lengths not commensurate']
 	val copyto: (Substring new data: x map: self).
-	⇑val]\gb21Bi22I
+	⇑val]
 
-Compatibility\gbf5 
-isArray\gb
+Compatibility 
+isArray
 isIntervalBy1
-	[⇑false]\gb15B
+	[⇑false]
 species
-	[⇑Vector]\gb9B
+	[⇑Vector]
 
-Comparing\gbf5 
+Comparing 
 hash "make sure = arrays hash =ly"
 	[self length=0⇒[⇑17171]
-	⇑(self◦1) hash + (self◦self length) hash]\gb5Bi29I
-\g
-SystemOrganization classify: ↪Array under: 'Basic Data Structures'.\g
+	⇑(self◦1) hash + (self◦self length) hash]
+
+SystemOrganization classify: ↪Array under: 'Basic Data Structures'.
 
-"FieldReference"l15000z20000\gbf5 
+"FieldReference" 
 Class new title: 'FieldReference'
 	subclassof: Object
 	fields: 'object offset'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-I reference a field of an instance\gi
+I reference a field of an instance
 
-Initialization\gbf5 
-object: object offset: offset\gb
+Initialization 
+object: object offset: offset
 
-Indirection\gbf5 
+Indirection 
 eval 
-	[⇑object instfield: offset]\gb7B
-value [⇑object instfield: offset]\gb6B
+	[⇑object instfield: offset]
+value [⇑object instfield: offset]
 value ← value
-	[object instfield: offset ← value. ⇑value]\gb15B
-\g
-SystemOrganization classify: ↪FieldReference under: 'Basic Data Structures'.\g
+	[object instfield: offset ← value. ⇑value]
+
+SystemOrganization classify: ↪FieldReference under: 'Basic Data Structures'.
 
-"Interval"l15000z20000\gbf5 
+"Interval" 
 Class new title: 'Interval'
 	subclassof: Array
 	fields: 'start stop step length'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-I am an arithmetic progression from start in steps of step, not exceeding stop\gi
+I am an arithmetic progression from start in steps of step, not exceeding stop
 
-Initialization\gbf5 
+Initialization 
 from: start to: stop by: step
 	[length ← 1+(stop-start/step).
 	step<0⇒[start<stop⇒[length← 0]]
 	stop<start⇒[length← 0]
-	]\gb31B
+	]
 
-Reading and Writing\gbf5 
+Reading and Writing 
 ◦ x
 	[x is: Integer⇒[x<1⇒ [⇑nil]
 		x>length⇒ [⇑nil]
 		⇑start+(step*(x-1))]
-	⇑super◦x]\gb5B
+	⇑super◦x]
 ◦ x ← val
-	[user notify: 'Intervals are not for writing into']\gb11B
-length [⇑length]\gb7B
-start [⇑start]\gb6B
-stop [⇑stop]\gb5B
+	[user notify: 'Intervals are not for writing into']
+length [⇑length]
+start [⇑start]
+stop [⇑stop]
 
-Compatibility\gbf5 
-= int [⇑start = int start and⦂ (stop = int stop and⦂ length = int length)]\gb6B
+Compatibility 
+= int [⇑start = int start and⦂ (stop = int stop and⦂ length = int length)]
 cansubscript: a
-	[⇑length≤0 or⦂ ((start cansubscript: a) and⦂ (length-1*step+start cansubscript: a))]\gb17B
-hash [⇑(((start lshift: 2) lxor: stop) lshift: 1) lxor: length]\gb5B
+	[⇑length≤0 or⦂ ((start cansubscript: a) and⦂ (length-1*step+start cansubscript: a))]
+hash [⇑(((start lshift: 2) lxor: stop) lshift: 1) lxor: length]
 isIntervalBy1
-	[⇑step=1]\gb15B
+	[⇑step=1]
 
-Random Numbers\gbf5 
+Random Numbers 
 random		"See Lehmers linear congruential method, Knuth Vol. 1:
 	modulus m=2^16
 	a=27181 odd, and 5 = a mod 8
 	c=13849 odd, and c/m around 0.21132"
 	[step← (13849 + (27181*step)) asSmall.
-	⇑(start + ((length asFloat*(32768.0+step))/65536.0)) asSmall]\gb8Bi138bI2B
-randomInit [self randomInit: mem◦0430]\gb11B
+	⇑(start + ((length asFloat*(32768.0+step))/65536.0)) asSmall]
+randomInit [self randomInit: mem◦0430]
 randomInit: x		"Call with const to get repeatable sequence"
 	[step← x.		"step holds the current state"
-	start is: Float⇒[length←stop-start]		"for Float intervals"]\gb15Bi44bI2B11i30I39i21I
-\g
-SystemOrganization classify: ↪Interval under: 'Basic Data Structures'.\g
+	start is: Float⇒[length←stop-start]		"for Float intervals"]
+
+SystemOrganization classify: ↪Interval under: 'Basic Data Structures'.
 
-"ObjectReference"l15000z20000\gbf5 
+"ObjectReference" 
 Class new title: 'ObjectReference'
 	subclassof: Object
 	fields: 'object'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-I am an indirect reference\gi
+I am an indirect reference
 
-Initialization\gbf5 
-object: object\gb
+Initialization 
+object: object
 
-Indirection\gbf5 
+Indirection 
 eval 
-	[⇑object]\gb7B
-value [⇑object]\gb6B
+	[⇑object]
+value [⇑object]
 value ← object
-	[⇑object]\gb16B
+	[⇑object]
 
-Conversion\gbf5 
+Conversion 
 printon: strm
-	[strm append: '->'; print: object]\gb15B
-\g
-SystemOrganization classify: ↪ObjectReference under: 'Basic Data Structures'.\g
+	[strm append: '->'; print: object]
+
+SystemOrganization classify: ↪ObjectReference under: 'Basic Data Structures'.
 
-"RunVector"l15000z20000\gbf5 
+"RunVector" 
 Class new title: 'RunVector'
 	subclassof: Array
 	fields: ' min max starts values offset'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 RunVectors compactly store data which tends to be constant over much
 of its domain.  They may have any range of subscript, but must be stored
-into consecutively.\gi
+into consecutively.
 
-Reading and writing\gbf5 
+Reading and writing 
 ◦i | index
 	[index← starts findSorted: i.
 	offset← i-(starts◦index).		"distance into run"
-	⇑values◦index]\gb10B
+	⇑values◦index]
 ◦i← val
 	[offset← 0.
 	min≡nil⇒[min← max← i. starts← i inVector. values← val inVector]
@@ -331,52 +331,52 @@ Reading and writing\gbf5
 	val=values last⇒[offset← i-starts last. ⇑val]
 	starts← starts , i.
 	values← values , val. ⇑val]
-\gb9B
+
 length [max≡nil⇒[⇑0]
-	⇑max-min+1]\gb7B
-max [⇑max]\gb4B
-min [⇑min]\gb4B
-\g
-SystemOrganization classify: ↪RunVector under: 'Basic Data Structures'.\g
+	⇑max-min+1]
+max [⇑max]
+min [⇑min]
+
+SystemOrganization classify: ↪RunVector under: 'Basic Data Structures'.
 
-"Stream"l15000z20000\gbf5 
+"Stream" 
 Class new title: 'Stream'
 	subclassof: Object
 	fields: 'array position limit'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-Streams provide fast sequential access to arrays (implemented in microcode for Strings and Vectors).  A subclass can handle end conditions if desired (disk files do this).\gi
+Streams provide fast sequential access to arrays (implemented in microcode for Strings and Vectors).  A subclass can handle end conditions if desired (disk files do this).
 
-Initialization\gbf5 
+Initialization 
 close
-	[limit← position. position← 0]\gb7B
+	[limit← position. position← 0]
 default
-	[self of: (String new: 16)]\gb9B
+	[self of: (String new: 16)]
 of: array
-	[position ← 0. limit ← array length]\gb11B
+	[position ← 0. limit ← array length]
 of: array from: pos to: lim | len
 	[limit ← [lim > (len ← array length)⇒ [len] lim].
-	position ← [pos≤1⇒ [0] pos-1]]\gb28B5b2B
-release [array ← nil]\gb8B
+	position ← [pos≤1⇒ [0] pos-1]]
+release [array ← nil]
 
-Sequential reading and writing\gbf5 
+Sequential reading and writing 
 ∢ x | y
 	[y← self next⇒		"peek for matching element"
 		[x=y⇒ [⇑y]		"gobble it if found"
 		position ← position-1. ⇑false]
-	⇑false]\gb4B21i27I15i20I
+	⇑false]
 append: x | i	"Array arg"
 	[for⦂ i from: x do⦂
 		[self next ← i].
-	⇑x]\gb10B4i11I
+	⇑x]
 dequeue		"use it as a FIFO"
-	[⇑self dequeue: 1]\gb9Bi18I
+	[⇑self dequeue: 1]
 dequeue: n | t
 	[position<n⇒ [⇑false]
 	t ← (array◦(1 to: n)) copy.
 	array◦(1 to: position-n) ← array◦(n+1 to: position).
-	position ← position-n. ⇑t]\gb11B
+	position ← position-n. ⇑t]
 integerScan | sign base maxdigit c val [
 	"get the next Integer or LargeInteger (Float?) from a Stream.
 	copied from String asInteger"
@@ -393,10 +393,10 @@ integerScan | sign base maxdigit c val [
 	"Some special maneuvering to keep 01ddddd and ¬32768 (and nothing else)
 	from overflowing."
 	base=8 and⦂ (val>077777 and⦂ (sign=1 and⦂ val<65536))⇒[⇑val asSmall]
-	⇑(val*sign) asInteger]\gb12B
+	⇑(val*sign) asInteger]
 into: x [
 	"generate an error if the Stream is exhausted before x is filled"
-	⇑self into: x endError: true]\gb8B
+	⇑self into: x endError: true]
 into: x endError: err | i t len ["Array result"
 	i ← 0.
 	len ← x length.
@@ -408,13 +408,13 @@ into: x endError: err | i t len ["Array result"
 		user notify: 'only read first ' + i asString]
 
 	"return number that were read"
-	⇑i]j\gb22B11i14I
+	⇑i]
 next	"simple result"
 	[self myend⇒ [⇑self pastend]
-	⇑array◦(position ← position+1)] primitive: 17\gb5Bi15I
-next: n [⇑self into: (array species new: n) endError: true]\gb8B
-next: n from: strm [for⦂ n to: n do⦂ [self next ← strm next]]\gb19B
-next: n ← v [for⦂ n to: n do⦂ [self next ← v]]\gb12B
+	⇑array◦(position ← position+1)] primitive: 17
+next: n [⇑self into: (array species new: n) endError: true]
+next: n from: strm [for⦂ n to: n do⦂ [self next ← strm next]]
+next: n ← v [for⦂ n to: n do⦂ [self next ← v]]
 nextNumber: n | i s t [
 	"return next n characters s as a positive Integer or LargeInteger"
 	s ← false.
@@ -430,7 +430,7 @@ nextNumber: n | i s t [
 			s last ← t]
 		"positive Integer"
 		⇑(t lshift: 8) + self next].
-	⇑LargeInteger new bytes: s neg: false]\gb14B12i64I16i61I46i48I89i31I47i16I
+	⇑LargeInteger new bytes: s neg: false]
 nextNumber: n ← v | vlen [
 	"write a positive Integer or LargeInteger as n characters"
 	v ← v bytes.
@@ -445,97 +445,97 @@ nextNumber: n ← v | vlen [
 	vlen = 2 and⦂ (v is: Integer)⇒ [self nextword ← v]
 
 	"LargeInteger (assume pos, no negative convention)"
-	self append: v reverse]\gb18B11i56I95i22I114i49I
+	self append: v reverse]
 nextPoint | x [
 	x ← self nextword.
-	⇑Point new x: x y: self nextword]\gb10B
+	⇑Point new x: x y: self nextword]
 nextPoint←p [
 	self nextword ← p x;
-		nextword ← p y]\gb12B
+		nextword ← p y]
 nextString | len [
 	⇑self into: (String new: [
 		(len ← self next)
 			<192⇒[len]	"up to 191 chars (BCPL compat)"
-		len-192*256 + self next]) endError: true]		"up to 16383 chars"\gb11B70i31I46i
+		len-192*256 + self next]) endError: true]		"up to 16383 chars"
 nextString← s | len [
 	[(len ← s length) < 192⇒[self next← len]
 	self next← len/256+192; next← len\256].
 	self append: s.
-	⇑s]\gb14B
+	⇑s]
 nextword | hi lo
 	[hi ← self next⇒
 		[lo ← self next⇒
 			[⇑(hi lshift: 8)+lo]
 		⇑false]
-	⇑false]\gb9B
+	⇑false]
 nextword← val
 	[self next← val lshift: ¬8.
-	self next← val land: 0377. ⇑val]\gb15B
+	self next← val land: 0377. ⇑val]
 next ← x		"simple arg"
 	[self myend⇒ [⇑self pastend ← x]
-	⇑array◦(position ← position+1) ← x] primitive: 18\gb10Bi12I
+	⇑array◦(position ← position+1) ← x] primitive: 18
 padNext ["make position even (on word boundary), returning padding character if any"
 	position even⇒ [⇑false]
-	⇑self next]\gb8B
+	⇑self next]
 padNext← c [
 	position even⇒ [⇑false]
-	⇑self next← c]\gb11B
+	⇑self next← c]
 peek | x
 	[x← self next⇒ [position ← position-1.  ⇑x]		"peek at next element"
-	⇑false]\gb5B50i22I
+	⇑false]
 pop		"use it as a LIFO"
 	[position<1⇒ [⇑false]
-	position ← position-1. ⇑array◦(position+1)]\gb5Bi18I
+	position ← position-1. ⇑array◦(position+1)]
 pop: n | t
 	[position<n⇒ [⇑false]
 	t ← self last: n.
-	position ← position-n. ⇑t]\gb7B
+	position ← position-n. ⇑t]
 upto: x | y s
 	[s ← (String new: 250) asStream.
 	for⦂ y from: self do⦂
 		[y=x⇒[⇑s contents]
 		s next ← y].
-	⇑s contents]\gb8B
+	⇑s contents]
 
-Test and alter position\gbf5 
+Test and alter position 
 empty		"for"
-	[⇑position=0]\gb7Bi5I
+	[⇑position=0]
 end
-	[⇑position≥limit]\gb5B
+	[⇑position≥limit]
 limit
-	[⇑limit]\gb7B
+	[⇑limit]
 loc	"synonym for compiler"
-	[⇑position]\gb4Bi22I
+	[⇑position]
 myend
-	[⇑position≥limit]\gb7B
+	[⇑position≥limit]
 pastend
-	[⇑false]\gb9B
+	[⇑false]
 pastend ← x
 	[array ← array grow. limit ← array length.
-	⇑self next ← x]\gb13B
+	⇑self next ← x]
 position
-	[⇑position]\gb10B
-position← position\gb
+	[⇑position]
+position← position
 reset
-	[position ← 0]\gb7B
-settoend [position← limit]\gb9B
+	[position ← 0]
+settoend [position← limit]
 skip: x
-	[position ← position+x]\gb9B
+	[position ← position+x]
 skipTo: x | y [
 	for⦂ y from: self do⦂ [y=x⇒[⇑true]].
-	⇑false]\gb10B
-skipwords: w [self skip: 2*w]\gb13B
-wordposition [⇑self position/2]\gb13B
-wordposition← w [self position← w*2]\gb16B
+	⇑false]
+skipwords: w [self skip: 2*w]
+wordposition [⇑self position/2]
+wordposition← w [self position← w*2]
 
-Static reading and writing\gbf5 
+Static reading and writing 
 ◦ x
-	[⇑array◦x]\gb5B
+	[⇑array◦x]
 ◦ x ← val
-	[⇑array◦x ← val]\gb11B
-contents [⇑array copy: 1 to: position]\gb9B
+	[⇑array◦x ← val]
+contents [⇑array copy: 1 to: position]
 first
-	[position ≠ 0 ⇒ [⇑array◦1] ⇑nil]\gb7B
+	[position ≠ 0 ⇒ [⇑array◦1] ⇑nil]
 insert: x | i  "treat as LIFO queue, insert in front"
 	["grow array if necessary"
 	 [position=limit⇒
@@ -544,73 +544,73 @@ insert: x | i  "treat as LIFO queue, insert in front"
 	for⦂ i to: position do⦂
 		[array◦(position-i+2) ← array◦(position-i+1)].
 	array◦1 ← x.
-	position←position+1]\gb10B5i38I4i23I
+	position←position+1]
 last
-	[position≠ 0 ⇒ [⇑array◦position] ⇑nil]\gb6B
+	[position≠ 0 ⇒ [⇑array◦position] ⇑nil]
 last: n
-	[⇑(array◦(position-n+1 to: position)) copy]\gb9B
-rest [⇑array copy: position+1 to: limit]\gb5B
+	[⇑(array◦(position-n+1 to: position)) copy]
+rest [⇑array copy: position+1 to: limit]
 
-Character printing\gbf5 
+Character printing 
 cr
-	[self next ← 015]\gb4B
+	[self next ← 015]
 crtab: n | i
 	[self next←13.
-	for⦂ i to: n do⦂ [self next←9]]\gb9B3b2B
+	for⦂ i to: n do⦂ [self next←9]]
 print: obj
-	[obj printon: self]\gb12B
+	[obj printon: self]
 semicrtab
 	[self append: ';
-	']\gb11B
+	']
 space
-	[self next ← 040]\gb7B
+	[self next ← 040]
 tab
-	[self next ← 011]\gb5B
+	[self next ← 011]
 
-Coercions\gbf5 
+Coercions 
 asArray
-	[⇑array]\gb9B
+	[⇑array]
 asReadStream [
 	"an alternative to Set/SetReader.
 	create another Stream which reads the contents of this one"
-	⇑Stream new of: array from: 1 to: position]\gb13B
-asStream\gb
+	⇑Stream new of: array from: 1 to: position]
+asStream
 asVector "Convert a string to a vector of tokens"
-	[⇑(Reader new of: self) read]\gb9Bi40I
-viewer [⇑SetReader new of: array from: 1 to: position]\gb7B
+	[⇑(Reader new of: self) read]
+viewer [⇑SetReader new of: array from: 1 to: position]
 
-Compiler object code\gbf5 
+Compiler object code 
 emitLong: jmpOrBfp by: dist
 	[[dist<0⇒ [dist←dist+1024]; >1023⇒ [dist←¬1] jmpOrBfp←jmpOrBfp+4].
 	dist<0⇒ [user notify: 'A block compiles more than 1K bytes of code']
-	self next ← dist/256 + jmpOrBfp. self next ← dist\256]\gb29B
-\g
-SystemOrganization classify: ↪Stream under: 'Basic Data Structures'.\g
+	self next ← dist/256 + jmpOrBfp. self next ← dist\256]
+
+SystemOrganization classify: ↪Stream under: 'Basic Data Structures'.
 
-"PQueue"l15000z20000\gbf5 
+"PQueue" 
 Class new title: 'PQueue'
 	subclassof: Stream
 	fields: 'readposition'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-A PQueue is a First In First Out list of objects implemented as an array and a read pointer and write pointer. PQueue is a subclass of Stream and uses Streamⓢstandard method for inserting a new item (next←, i.e. Streamⓢposition is the write pointer). A PQueue also has a read pointer which it uses for accessing objects with the messages next or dequeue (which are identical). All messages to a PQueue that change its state are declared as critical sections to avoid race conditions\gi
+A PQueue is a First In First Out list of objects implemented as an array and a read pointer and write pointer. PQueue is a subclass of Stream and uses Streamⓢstandard method for inserting a new item (next←, i.e. Streamⓢposition is the write pointer). A PQueue also has a read pointer which it uses for accessing objects with the messages next or dequeue (which are identical). All messages to a PQueue that change its state are declared as critical sections to avoid race conditions
 
-FIFO access\gbf5 
+FIFO access 
 dequeue: num | n
 	[Top critical⦂
 		[position-readposition < num ⇒ [n ← false]
 		 n ← (array◦(readposition+1 to: readposition + num)) copy.
 		 readposition ← readposition + num].
-	 ⇑n]\gb13B
+	 ⇑n]
 length | l
-	[Top critical⦂ [l ← position-readposition]. ⇑l]\gb7B
-myend [⇑true]\gb6B
+	[Top critical⦂ [l ← position-readposition]. ⇑l]
+myend [⇑true]
 next | n
 	[Top critical⦂
 		[readposition≥position⇒ [readposition←position←0. n ← false]
 		 n ← array◦(readposition ← readposition+1)].
-	 ⇑n] primitive: 98\gb5B
+	 ⇑n] primitive: 98
 pastend ← x	 | n i	"simple arg"
 	[Top critical⦂
 		[position≥limit⇒
@@ -620,124 +620,124 @@ pastend ← x	 | n i	"simple arg"
 			 readposition ← 0. position ← n.
 			 self next ← x]
 		 array◦(position ← position+1) ← x].
-	 ⇑x]\gb13B6i12I
+	 ⇑x]
 peek | n
 	[Top critical⦂
 		[readposition≥position⇒ [readposition←position←0. n ← false]
 		 n ← array◦(readposition + 1)].
-	 ⇑n]\gb5B
+	 ⇑n]
 skip: x
-	[Top critical⦂ [readposition ← readposition+x]]\gb9B
+	[Top critical⦂ [readposition ← readposition+x]]
 
-LIFO access\gbf5 
+LIFO access 
 push: x				"treat as LIFO queue"
 	[Top critical⦂
 		[readposition > 0 ⇒
 			[array◦readposition ← x.
 			 readposition ← readposition - 1]		"readpositon > 0, just jam it in"
-		 self insert: x]]											"otherwise insert on front"\gb11Bi21I105i33I31i
+		 self insert: x]]											"otherwise insert on front"
 
-Stream protocol\gbf5 
+Stream protocol 
 contents | n
-	[Top critical⦂ [n ← (array◦(readposition+1 to: position)) copy]. ⇑n]\gb9B
+	[Top critical⦂ [n ← (array◦(readposition+1 to: position)) copy]. ⇑n]
 empty | l
-	[Top critical⦂ [l ← readposition≥position]. ⇑l] primitive: 99\gb6B
+	[Top critical⦂ [l ← readposition≥position]. ⇑l] primitive: 99
 end | n
-	[Top critical⦂ [n ← readposition≥position]. ⇑n]\gb4B
+	[Top critical⦂ [n ← readposition≥position]. ⇑n]
 of: array
-	[Top critical⦂ [position ← 0. readposition ← 0. limit ← array length]]\gb11B
+	[Top critical⦂ [position ← 0. readposition ← 0. limit ← array length]]
 of: array from: position to: limit
-	[user notify: 'of:from:to: is not appropriate for PQueues']\gb36B
+	[user notify: 'of:from:to: is not appropriate for PQueues']
 reset
-	[Top critical⦂ [readposition ← position ← 0]]\gb7B
-\g
-SystemOrganization classify: ↪PQueue under: 'Basic Data Structures'.\g
+	[Top critical⦂ [readposition ← position ← 0]]
+
+SystemOrganization classify: ↪PQueue under: 'Basic Data Structures'.
 
-"Queue"l15000z20000\gbf5 
+"Queue" 
 Class new title: 'Queue'
 	subclassof: Stream
 	fields: 'readposition'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-A Queue is a First In First Out list of objects implemented as an array and a read pointer and write pointer. Queue is a subclass of Stream and uses Streamⓢstandard method for inserting a new item (next←, i.e. Streamⓢposition is the write pointer). A Queue also has a read pointer which it uses for accessing objects with the messages next or dequeue (which are identical)\gi
+A Queue is a First In First Out list of objects implemented as an array and a read pointer and write pointer. Queue is a subclass of Stream and uses Streamⓢstandard method for inserting a new item (next←, i.e. Streamⓢposition is the write pointer). A Queue also has a read pointer which it uses for accessing objects with the messages next or dequeue (which are identical)
 
-FIFO access\gbf5 
+FIFO access 
 deQ1 | n	"A noninterruptable dequeue"
 	[Top critical⦂ [n ← self dequeue].
-	 ⇑n]\gb5B4i28I
+	 ⇑n]
 dequeue
 	[readposition≥position⇒ [readposition←position←0. ⇑false]
-	 ⇑array◦(readposition ← readposition+1)]\gb9B
+	 ⇑array◦(readposition ← readposition+1)]
 dequeue: num | n
 	[position-readposition < num ⇒ [⇑false]
 	 n ← (array◦(readposition+1 to: readposition + num)) copy.
 	 readposition ← readposition + num.
-	 ⇑n]\gb13B
+	 ⇑n]
 enQ1: n	"A noninterruptable enqueue"
 	[Top critical⦂ [super next← n].
-	 ⇑n]\gb8Bi28I
+	 ⇑n]
 length
-	[⇑position-readposition]\gb8B
+	[⇑position-readposition]
 next
 	[readposition≥position⇒ [readposition←position←0. ⇑false]
-	 ⇑array◦(readposition ← readposition+1)]\gb6B
+	 ⇑array◦(readposition ← readposition+1)]
 peek
 	[readposition≥position⇒ [readposition←position←0. ⇑false]
-	 ⇑array◦(readposition + 1)]\gb6B
+	 ⇑array◦(readposition + 1)]
 skip: x
-	[readposition ← readposition+x]\gb9B
+	[readposition ← readposition+x]
 
-LIFO access\gbf5 
+LIFO access 
 push: x				"treat as LIFO queue"
 	[readposition > 0 ⇒
 	[array◦readposition ← x.  readposition ← readposition - 1]		"readpositon > 0, just jam it in"
-	self insert: x]																"otherwise insert on front"\gb11Bi21I83i33I33i
+	self insert: x]																"otherwise insert on front"
 
-Stream protocol\gbf5 
+Stream protocol 
 contents
-	[⇑(array◦(readposition+1 to: position)) copy]\gb10B
+	[⇑(array◦(readposition+1 to: position)) copy]
 empty
-	[⇑readposition≥position]\gb7B
+	[⇑readposition≥position]
 end
-	[⇑readposition≥position]\gb5B
+	[⇑readposition≥position]
 of: array
-	[position ← 0. readposition ← 0. limit ← array length]\gb11B
+	[position ← 0. readposition ← 0. limit ← array length]
 of: array from: position to: limit
-	[user notify: 'of:from:to: is not appropriate for Queues']\gb36B
+	[user notify: 'of:from:to: is not appropriate for Queues']
 pastend ← x | n
 	[readposition=0⇒[⇑super pastend ← x]
 	 n ← position-readposition.
 	 array◦(1 to: n) ← array◦(readposition+1 to: position).
 	 readposition ← 0.
 	 position ← n.
-	 ⇑self next ← x]\gb12B
+	 ⇑self next ← x]
 reset
-	[readposition ← position ← 0]\gb7B
-\g
-SystemOrganization classify: ↪Queue under: 'Basic Data Structures'.\g
+	[readposition ← position ← 0]
+
+SystemOrganization classify: ↪Queue under: 'Basic Data Structures'.
 
-"Set"l15000z20000\gbf5 
+"Set" 
 Class new title: 'Set'
 	subclassof: Stream
 	fields: 'views'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 For storing/collecting, read by a SetReader.
-Use no messages from Stream except of:, empty, next←, contents, space, nextword←\gi
+Use no messages from Stream except of:, empty, next←, contents, space, nextword←
 
-Initialization\gbf5 
-default [self vector: 8]\gb8B
-of: array to: position [limit ← array length]\gb23B
-string: limit [self of: (String new: limit)]\gb14B
-vector: limit [self of: (Vector new: limit)]\gb14B
+Initialization 
+default [self vector: 8]
+of: array to: position [limit ← array length]
+string: limit [self of: (String new: limit)]
+vector: limit [self of: (Vector new: limit)]
 
-Index operations\gbf5 
-◦i [⇑array◦("self checkIndex:" i)]\gb3B
+Index operations 
+◦i [⇑array◦("self checkIndex:" i)]
 ◦i ← val [
 	position+1 = i⇒ [self next ← val]
-	⇑array◦("self checkIndex:" i) ← val]\gb9B
+	⇑array◦("self checkIndex:" i) ← val]
 deleteI: i | v j
 	[
 	v ← self◦i.
@@ -747,7 +747,7 @@ deleteI: i | v j
 	array◦position ← nil.
 	position ← position-1.
 	⇑v
-	]\gb11B
+	]
 deleteI: i to: j| n k
 	[
 	n ← j-i+1.
@@ -759,7 +759,7 @@ deleteI: i to: j| n k
 		].
 	position ← position-n.
 	
-	]\gb16B
+	]
 insertI: i value: v | old j 
 	[i > position ⇒ [ self next ← v ]
 	old←array.
@@ -776,62 +776,62 @@ insertI: i value: v | old j
 		].
 	array◦i ← v.
 	position  ← position +1
-	]\gb20B
+	]
 
-Value operations\gbf5 
-add: x  [self next ← x]\gb8B
-append: x  [for⦂ x from: x do⦂ [self next ← x]]\gb11B
+Value operations 
+add: x  [self next ← x]
+append: x  [for⦂ x from: x do⦂ [self next ← x]]
 delete: x | i [
 	for⦂ i to: position do⦂ [
 		array◦i ≡ x⇒ [⇑self deleteI: i]].
-	⇑false]\gb10B
+	⇑false]
 find: v | i [
 	for⦂ i to: position do⦂ [array◦i = v⇒ [⇑i]].
-	⇑0]\gb8B
-has: x [⇑(self find: x) > 0]\gb7B
-insert: x [(self find: x) = 0⇒ [self next← x]]\gb10B
+	⇑0]
+has: x [⇑(self find: x) > 0]
+insert: x [(self find: x) = 0⇒ [self next← x]]
 
-Viewing\gbf5 
-asSet\gb
-asStream [⇑self viewer]\gb9B
-copy [⇑self viewer copy]\gb5B
-initView: v [⇑v of: array to: position]\gb12B
-length [⇑position]\gb7B
+Viewing 
+asSet
+asStream [⇑self viewer]
+copy [⇑self viewer copy]
+initView: v [⇑v of: array to: position]
+length [⇑position]
 notViewed: v [
 	views delete: v;
-		empty⇒ [views ← nil]]\gb13B
+		empty⇒ [views ← nil]]
 printon: strm | t [
 	strm append: 'a Set: '.
 	array is: String⇒ [strm append: self]
-	for⦂ t from: self do⦂ [strm space; print: t]]\gb14B
-species [⇑array species]\gb8B
+	for⦂ t from: self do⦂ [strm space; print: t]]
+species [⇑array species]
 viewer [
 	⇑SetReader new of: array from: 1 to: position
-	"self viewRange: 1 to: position"]\gb7B
+	"self viewRange: 1 to: position"]
 viewer: v [
 	[views≡nil⇒ [views ← Set default]].
-	views next ← v]\gb10B
+	views next ← v]
 viewRange: i to: j [
 	⇑"self viewer:" (
-	SetReader new of: array from: (i "max: 1") to: (j "min: position"))]\gb19B
+	SetReader new of: array from: (i "max: 1") to: (j "min: position"))]
 
-Private\gbf5 
+Private 
 checkIndex: i [
 	i ≥ 1 and⦂ i ≤ position⇒ [⇑i]
-	⇑user notify: 'illegal index']\gb14B
+	⇑user notify: 'illegal index']
 grow [
 	"self grown and reset. returns another Set with old contents"
-	⇑self growby: (10 max: limit/4)]\gb5B
+	⇑self growby: (10 max: limit/4)]
 growby: n | old [
 	"grow and reset self. return old Set for copying"
 	old ← Set new of: array to: position.
 	self of: (array species new: limit+n) to: 0.
-	⇑old]\gb16B
-next [user notify: 'no direct reading of a Set']\gb5B
+	⇑old]
+next [user notify: 'no direct reading of a Set']
 pastend ← x [
-	⇑[self append: self grow; next ← x]]\gb12B
+	⇑[self append: self grow; next ← x]]
 
-Arithmetic operations\gbf5 
+Arithmetic operations 
 dotproduct: s | i dotproduct
 	["dot product of two sets ... sets must be of equal length"
 	dotproduct ← 0.0.
@@ -842,7 +842,7 @@ dotproduct: s | i dotproduct
 		⇑ dotproduct  
 		]
 	user notify: 'dot product undefined...sets are not of equal length'. 
-	]\gb14B
+	]
 product: s | product i
 	["product of two sets ... sets must be of equal length"
 	product ← Set new default.
@@ -854,70 +854,70 @@ product: s | product i
   
 		]
 	user notify: 'product undefined...sets are not of equal length'. 
-	]\gb11B
+	]
 summation| i summation
 	["sum of the values in the set"
 	summation ← 0.0.
 	for⦂ i to: position do⦂ [summation ← summation + (self◦i)].
 	⇑ summation
-	]\gb9B
-\g
-SystemOrganization classify: ↪Set under: 'Basic Data Structures'.\g
+	]
+
+SystemOrganization classify: ↪Set under: 'Basic Data Structures'.
 
-"SetReader"l15000z20000\gbf5 
+"SetReader" 
 Class new title: 'SetReader'
 	subclassof: Stream
 	fields: ''
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 Read a Set; no edits occur to set. (see Steve for ISetReader (interruptible))
-Inherit of:from:to:, next, next:, end, pastend, skip:, ∢, asStream, viewer\gi
+Inherit of:from:to:, next, next:, end, pastend, skip:, ∢, asStream, viewer
 
-Initialization\gbf5 
+Initialization 
 of: array from: position for: n [
 	position ← position-1.
-	limit ← position+n]\gb32B
+	limit ← position+n]
 
-Reading\gbf5 
-asSet [⇑self copy]\gb6B
+Reading 
+asSet [⇑self copy]
 copy "yield contents all at once as a Set" [
-	⇑[Set new of: (array species new: limit-position); append: self]]\gb5B
+	⇑[Set new of: (array species new: limit-position); append: self]]
 length [
 	"how much left"
-	⇑limit-position]\gb7B
-\g
-SystemOrganization classify: ↪SetReader under: 'Basic Data Structures'.\g
+	⇑limit-position]
+
+SystemOrganization classify: ↪SetReader under: 'Basic Data Structures'.
 
-"String"l15000z20000\gbf5 
+"String" 
 VariableLengthClass new title: 'String'
 	subclassof: Array
 	fields: ''
 	declare: 'StringBlter ';
 	bytesize: 8;
-	asFollows\gbf5 
+	asFollows 
 
-I am an array of bytes, integers between 0 and 255 usually representing ascii characters\gi
+I am an array of bytes, integers between 0 and 255 usually representing ascii characters
 
-Reading and Writing\gbf5 
-all← val [self fill: 1 to: self length with: val]\gb9B
+Reading and Writing 
+all← val [self fill: 1 to: self length with: val]
 fill: a to: b with: val | i [
 	"eventually use BitBlt?"
-	for⦂ i from: a to: b do⦂ [self◦i ← val]]\gb24B
-length [⇑self length "In case this is reached by perform:"]\gb7B14i37I
+	for⦂ i from: a to: b do⦂ [self◦i ← val]]
+length [⇑self length "In case this is reached by perform:"]
 word: x		"read word in String"
-	[⇑self◦(x+x) + (self◦(x+x-1) lshift: 8)]\gb9Bi21I
+	[⇑self◦(x+x) + (self◦(x+x-1) lshift: 8)]
 word: x ← y		"write word in String"
 	[self◦(x+x-1) ← y lshift: ¬8.
-	self◦(x+x) ← y land: 0377. ⇑y]\gb13Bi22I
+	self◦(x+x) ← y land: 0377. ⇑y]
 
-Copying and Altering\gbf5 
+Copying and Altering 
 concat: s | len [
 	(len ← self length) + s length > 20 and⦂ (s Is: String)⇒ [
 		"this concatenates more quickly if BitBlt is used"
 		⇑self replace: len+1 to: len by: s from: 1 to: s length]
-	⇑super concat: s]\gb10B
-copy: a to: b [⇑(self species new: 1+b-a) copy: 1 to: 1+b-a with: self from: a to: b]\gb14B
+	⇑super concat: s]
+copy: a to: b [⇑(self species new: 1+b-a) copy: 1 to: 1+b-a with: self from: a to: b]
 copy: a to: b with: s from: c to: d | i [
 	"like replace, except in place. self◦(a to: b) ← s◦(c to: d).
 	use BitBlt unless size too small, StringBlter≡false, or index/sizes too large"
@@ -930,21 +930,21 @@ copy: a to: b with: s from: c to: d | i [
 		copy in reverse order: self◦(b to: a by: ¬1) ← self◦(d to: c by: ¬1)"
 		for⦂ i from: b-a to: 0 by: ¬1 do⦂ [self◦(a+i) ← self◦(c+i)]]
 
-	s copy: c to: d to: (Stream new of: self from: a to: b)]	\gb36B8i139I151i127I
+	s copy: c to: d to: (Stream new of: self from: a to: b)]	
 findString: str startingAt: start | i t
 	[str length=0⇒[⇑0] t← str◦1.
 	for⦂ i from: start to: self length-str length+1 do⦂
 		[self◦i=t⇒[self◦(i to: i+str length-1)=str⇒[⇑i]]]
-	⇑0]\gb34B
+	⇑0]
 growto: n | len [
 	[(len ← self length) ≤ n⇒ [] len ← n].
-	⇑(self species new: n) copy: 1 to: len with: self from: 1 to: len]\gb10B
+	⇑(self species new: n) copy: 1 to: len with: self from: 1 to: len]
 recopy
-	[⇑self copy]\gb8B
+	[⇑self copy]
 replace: a to: b by: s 
 	[s Is: String ⇒[
 		⇑self replace: a to: b by: s from: 1 to: s length]
-	⇑self replace: a to: b by: s asArray from: 1 to: s position]\gb25B
+	⇑self replace: a to: b by: s asArray from: 1 to: s position]
 replace: a to: b by: r from: c to: d | s t [
 	s ← self species new: self length + (d-c) - (b-a).
 
@@ -957,7 +957,7 @@ replace: a to: b by: r from: c to: d | s t [
 	self copy: 1 to: a-1 to: t.
 	r copy: c to: d to: t.
 	self copy: b+1 to: self length to: t.
-	⇑s]\gb37B7b2B54i60I108i17I
+	⇑s]
 subst: repl for: key | key1 i nskip result
 	[nskip ← 0. key1 ← key◦1. result ← Stream default.
 	for⦂ i to: self length do⦂		" the Boyer Slow string replacement "
@@ -967,9 +967,9 @@ subst: repl for: key | key1 i nskip result
 				[result append: repl. nskip ← key length-1]
 			result next← self◦i]
 		result next← self◦i]
-	⇑result contents]\gb21B103i37I
+	⇑result contents]
 
-Comparison\gbf5 
+Comparison 
 - s | i c ldiff	 [
 	"Return a negative, zero, or positive integer as I compare < = or > s"
 	"The collation sequence is ascii with case differences ignored."
@@ -977,24 +977,24 @@ Comparison\gbf5
 		(ldiff ← self length-s length) < 0⇒ [self length] s length] do⦂ [
 		(c← UpperCase◦(self◦i + 1) -(UpperCase◦(s◦i + 1)))
 			≠0⇒ [⇑c]].
-	⇑ldiff]\gb4B16i70I2i64I
+	⇑ldiff]
 < s
 	["Return true iff I collate before s.  The collation sequence is ascii with case differences ignored."
-	⇑(self compare: s) = 1]\gb5B1i101I
+	⇑(self compare: s) = 1]
 > s
 	["Return true iff I collate after s.  The collation sequence is ascii with case differences ignored."
-	⇑(self compare: s) = 3]\gb5B1i100I
+	⇑(self compare: s) = 3]
 compare: s | i len lcomp u1 u2 [
 	lcomp ← [self length < (len ← s length)⇒ [len ← self length. 1]; =len⇒ [2] 3].
 	for⦂ i to: len do⦂ [
 		(u1 ← UpperCase◦(self◦i + 1)) = (u2 ← UpperCase◦(s◦i + 1))⇒ []
 		u1 < u2⇒ [⇑1]
 		⇑3]
-	⇑lcomp]\gb11B
+	⇑lcomp]
 hash | l m
 	[[(l← m← self length)≤2⇒
 		[l=2⇒[m←3]; =1⇒[⇑((self◦1) land: 0177)*0152] ⇑052525]].
-	 ⇑(self◦1)*060+(self◦(m-1)+l)]\gb5B
+	 ⇑(self◦1)*060+(self◦(m-1)+l)]
 match: text | star pound pattern scanning p t back [
 	star ← 052 "*".  pound ← 043 "#".
 	pattern ← self asStream.  text ← text asStream.
@@ -1013,7 +1013,7 @@ match: text | star pound pattern scanning p t back [
 		scanning⇒ [
 			back ← scanning - pattern position.
 			pattern skip: back. text skip: back+1]
-		⇑false]]\gb12B
+		⇑false]]
 systemRehash | dicts d left loop
 	["change the meaning of hash for Strings"
 	String understands:
@@ -1032,14 +1032,14 @@ systemRehash | dicts d left loop
 		[left ← d objects asStream. loop ← left next.
 		 while⦂ loop do⦂
 			[loop is: String⇒[d rehash. loop ← false]
-			 loop ← left next]]]\gb13B83b1B1b5B
+			 loop ← left next]]]
 
-Conversion\gbf5 
+Conversion 
 asBytes | s c
 	[s ← Stream default.
 	for⦂ c from: self do⦂
 		[s append: c base8; space]
-	⇑s contents]\gb8B
+	⇑s contents]
 asDecimalDigits "Not asInteger, because the result may be a Float if it's too big"
 		| strm sign c val
 	[strm← Stream new of: self.
@@ -1049,8 +1049,8 @@ asDecimalDigits "Not asInteger, because the result may be a Float if it's too bi
 		[c<060 or: c>071⇒[user notify: self + ' isn''t a valid integer']
 		val← val*10+(c-060)]
 	sign⇒[⇑val*¬1]
-	⇑val]\gb16Bi66I
-asFileName [⇑dp0 checkName: self fixing: true]\gb11B
+	⇑val]
+asFileName [⇑dp0 checkName: self fixing: true]
 asFloat | strm int frac exp
 	[strm← Stream new of: self.
 	int← strm upto: 056.
@@ -1060,7 +1060,7 @@ asFloat | strm int frac exp
 	exp=0⇒[⇑int];
 		>0⇒[⇑int*(10.0 ipow: exp)].
 	⇑int/(10.0 ipow: 0-exp)
-	]\gb8B
+	]
 asInteger | strm sign base maxdigit c val
 	[strm← Stream new of: self.
 	sign← [strm∢025⇒[¬1]1].
@@ -1071,102 +1071,102 @@ asInteger | strm sign base maxdigit c val
 		val← val*base+(c-060)]
 	"Some special maneuvering to keep 01ddddd and ¬32768 (and nothing else) from overflowing."
 	[val>077777⇒[base=8⇒[sign=1⇒[val<65536⇒[⇑val asSmall]]]]].
-	⇑(val*sign) asInteger]\gb10B261i90I
+	⇑(val*sign) asInteger]
 asLarge "convert to a LargeInteger"
 	| neg i large large10
 	[[self◦1=025⇒[neg←true] neg←false].
 	 large ← 0 asLarge. large10 ← 10 asLarge.
 	 for⦂ i from: [neg⇒[2]1] to: self length do⦂
 		[large ← (large*large10)+(self◦i-060)].
-	 neg⇒[⇑large negated] ⇑large]\gb8B
+	 neg⇒[⇑large negated] ⇑large]
 asParagraph
-	[⇑Paragraph new text: self alignment: 0]\gb13B
+	[⇑Paragraph new text: self alignment: 0]
 asUppercase | s c
 	[s ← Stream default.
 	for⦂ c from: self do⦂
 		[s next ← UpperCase◦(c+1)]
-	⇑s contents]\gb12B
+	⇑s contents]
 asVector
-	[⇑self asStream asVector]\gb10B
+	[⇑self asStream asVector]
 base8: i  "word: i  in base 8 as a String"
-	[⇑(self word: i) base8]\gb10Bi32I
+	[⇑(self word: i) base8]
 hasBeenUniqued
-	[⇑↪a hasInterned: self]\gb16B
+	[⇑↪a hasInterned: self]
 printon: strm | x	"print inside string quotes"
 	[strm next← 047.
 	for⦂ x from: self do⦂
 		[strm next← x.
 		x=047⇒[strm next← x]]		"imbedded quotes get doubled"
-	strm next← 047]\gb14B4i28I84i29I
+	strm next← 047]
 unique | u		"copy and intern"
-	[⇑↪a intern: self]\gb7B5i17I
+	[⇑↪a intern: self]
 
-Compatibility\gbf5 
+Compatibility 
 species
-	[⇑String]\gb9B
+	[⇑String]
 
-System primitives\gbf5 
-lock [] primitive: 31\gb5B
-unlock [] primitive: 32\gb7B
-\g
-SystemOrganization classify: ↪String under: 'Basic Data Structures'.\g
+System primitives 
+lock [] primitive: 31
+unlock [] primitive: 32
+
+SystemOrganization classify: ↪String under: 'Basic Data Structures'.
 
-"Substring"l15000z20000\gbf5 
+"Substring" 
 Class new title: 'Substring'
 	subclassof: Array
 	fields: 'data map'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-I am an array that consists of a set of elements (specified by map) of an array (data)\gi
+I am an array that consists of a set of elements (specified by map) of an array (data)
 
-Initialization\gbf5 
-data: data map: map\gb
+Initialization 
+data: data map: map
 
-Reading and Writing\gbf5 
+Reading and Writing 
 ◦ x
-	[⇑data◦(map◦x)]\gb5B
+	[⇑data◦(map◦x)]
 ◦ x ← val
-	[⇑data◦(map◦x) ← val]\gb11B
+	[⇑data◦(map◦x) ← val]
 length
-	[⇑map length]\gb8B
+	[⇑map length]
 map
 	["Return my map."
-	⇑map]\gb5B1i16I
+	⇑map]
 
-Copying and Altering\gbf5 
+Copying and Altering 
 swap: i with: j | t
 	["By permuting my map (a writable Array), swap elements i and j."
-	t ← map◦i. map◦i ← map◦j. map◦j ← t.]\gb16B6i64I
+	t ← map◦i. map◦i ← map◦j. map◦j ← t.]
 
-Conversion\gbf5 
+Conversion 
 asStream
 	[map isIntervalBy1⇒	"direct stream for simple substrings"
 		[⇑Stream new of: data from: map start to: map stop]
-	⇑Stream new of: self from: 1 to: map length]\gb10B20i37I
+	⇑Stream new of: self from: 1 to: map length]
 
-Compatability\gbf5 
+Compatability 
 species
-	[⇑data species]\gb9B
-\g
-SystemOrganization classify: ↪Substring under: 'Basic Data Structures'.\g
+	[⇑data species]
+
+SystemOrganization classify: ↪Substring under: 'Basic Data Structures'.
 
-"UniqueString"l15000z20000\gbf5 
+"UniqueString" 
 VariableLengthClass new title: 'UniqueString'
 	subclassof: String
 	fields: ''
 	declare: '';
 	bytesize: 8;
-	asFollows\gbf5 
+	asFollows 
 
-I am a string that is unequal to every other instance of my subclass\gi
+I am a string that is unequal to every other instance of my subclass
 
-Initialization\gbf5 
+Initialization 
 classInit | i a v		"make up table of 1-char atoms"
 	[v ← Vector new: 128. a ← String new: 1.
 	for⦂ i to: 128 do⦂
 		[a◦1 ← i-1. v◦i ← a unique]
-	UST1 ← v]\gb10B9i31I
+	UST1 ← v]
 hasInterned: s | h i v n
 		"⇑false if String s hasnt been interned, else ⇑s unique"
 	[	[s length=1⇒[s◦1<128⇒[⇑UST1◦(s◦1+1)]]].
@@ -1177,7 +1177,7 @@ hasInterned: s | h i v n
 		[v◦i≡nil⇒	[⇑false]
 		[s length=(v◦i) length⇒ [s=(v◦i)⇒[⇑v◦i]]].
 		i← [i=v length⇒[1] i+1]]
-	user notify: 'USTable is jammed']\gb15B12i56I
+	user notify: 'USTable is jammed']
 intern: s | h i j v n	
 	[	[s length=1⇒[s◦1<128⇒[⇑UST1◦(s◦1+1)]]].
 	h← [s is: String⇒[s hash] s stringhash].
@@ -1195,7 +1195,7 @@ intern: s | h i j v n
 						(UniqueString new: s length) str: s]]
 		[s length=(v◦i) length⇒ [s=(v◦i)⇒[⇑v◦i]]].
 		i← [i=v length⇒[1] i+1]]
-	user notify: 'USTable is jammed']\gb10B195i12I73i27I85i25I89i19I
+	user notify: 'USTable is jammed']
 rehash | oldTable v i
 	[oldTable ← USTable.
 	 USTable ← Vector new: oldTable length.
@@ -1203,29 +1203,29 @@ rehash | oldTable v i
 		[USTable◦i ← Vector new: 4].
 	 for⦂ v from: oldTable do⦂
 		[for⦂ i from: v do⦂
-			[i≡nil⇒[] self intern: i]]]\gb7B
+			[i≡nil⇒[] self intern: i]]]
 str: s | j
 	[for⦂ j to: s length do⦂
 		[super◦j ← s◦j]
-	⇑self]\gb7B
-unique\gb
+	⇑self]
+unique
 
-Reading and Writing\gbf5 
+Reading and Writing 
 ◦x ← val
-	[user notify: 'UniqueStrings are not for writing into']\gb10B
+	[user notify: 'UniqueStrings are not for writing into']
 
-Selectors\gbf5 
+Selectors 
 isarrow	 "ends with ←"
 	[self length≤1⇒ [⇑false]
-	⇑self◦self length=95]\gb9Bi13I
+	⇑self◦self length=95]
 isinfix | x
-	[self length≠1⇒ [⇑false]  ⇑(self◦1) isletter≡false]\gb8B
+	[self length≠1⇒ [⇑false]  ⇑(self◦1) isletter≡false]
 iskeyword | x	"ends with colon"
 	[self length≤1⇒ [⇑false]
 	x ← self◦self length.
-	x=072⇒[⇑true] ⇑x=03]\gb10B4i17I
+	x=072⇒[⇑true] ⇑x=03]
 isuneval | x		"ends with open colon"
-	[⇑self◦self length=03]\gb9B5i22I
+	[⇑self◦self length=03]
 keywords  "return a vector of the keywords that compose me"
 		| result strm i l char colon ocolon
 	['◦←'=self⇒[⇑↪('◦' '←')]
@@ -1237,44 +1237,44 @@ keywords  "return a vector of the keywords that compose me"
 		 [(char=colon or⦂ char=ocolon) or⦂ i=l⇒
 			[result next← strm contents.  strm reset]].
 		i←i+1].
-	⇑result contents]\gb10B1i47I
+	⇑result contents]
 mustTake: nargs "fatal error if I am not a selector that takes nargs arguments"
 	[self numArgs≠nargs⇒
-		[user notify: self + ' does not take ' + nargs asString + ' arguments']]\gb16Bi63I
+		[user notify: self + ' does not take ' + nargs asString + ' arguments']]
 numArgs  | len n i "the number of arguments I take when I am a selector"
 	[len ← self length.
 	len=1⇒ [⇑[(self◦1) isletter⇒ [0] 1]]
 	n ← 0. "count colons, dots, and arrows"
 	for⦂ i to: len do⦂ [self◦i=072⇒ [n←n+1]; =03⇒ [n←n+1]; =0137⇒[n←n+1]; =07⇒[n←n+1]].
-	⇑n]\gb9B10i53I68i32I
+	⇑n]
 
-Comparison\gbf5 
-= x [⇑self≡x]\gb4B
-hash [] primitive: 46\gb5B
+Comparison 
+= x [⇑self≡x]
+hash [] primitive: 46
 stringhash
-	[⇑super hash]\gb12B
+	[⇑super hash]
 
-Compatibility\gbf5 
-copy [⇑self]\gb5B
-recopy [⇑self]\gb7B
+Compatibility 
+copy [⇑self]
+recopy [⇑self]
 species
-	[⇑String]\gb9B
+	[⇑String]
 
-Conversion\gbf5 
+Conversion 
 asString
-[⇑super copy]\gb9B
+[⇑super copy]
 printon: strm
-	[strm append: self]\gb15B
-\g
-SystemOrganization classify: ↪UniqueString under: 'Basic Data Structures'.\g
-UniqueString classInit\g
+	[strm append: self]
+
+SystemOrganization classify: ↪UniqueString under: 'Basic Data Structures'.
+UniqueString classInit
 
-"Vector"l15000z20000\gbf5 
+"Vector" 
 VariableLengthClass new title: 'Vector'
 	subclassof: Array
 	fields: ''
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 Vector is a VariableLengthClass.  The length of a Vector may not be less than 0,
 nor may it be greater than 8196.  
@@ -1291,46 +1291,46 @@ Microcode Primitives
 ◦ x ← val  "assign value to element"
 	[0 > x or: x > self length ⇒[user notify: 'Subscript out of bounds']
 	x class ≡ Integer ⇒[Store the value val as the xth element. ⇑val]
-	⇑ super ◦ x ← val]\gi
+	⇑ super ◦ x ← val]
 
-Reading and Writing\gbf5 
+Reading and Writing 
 length "This is actually done in microcode"
-	[⇑self length "perform: needs this"]\gb7Bi36I16i21I
+	[⇑self length "perform: needs this"]
 
-Copying and Altering\gbf5 
+Copying and Altering 
 , x | v
 	[v ← self growby: 1.	"use a stream if youre in a hurry"
-	v last ← x. ⇑v]\gb4B26i34I
+	v last ← x. ⇑v]
 
-Searching\gbf5 
+Searching 
 max| biggest i
 	[biggest ← self◦1.	"return largest value in a vector"
 	for⦂ i to: self length do⦂
 		[(self◦i) > biggest ⇒[biggest ← self◦i]].
-	 ⇑biggest]\gb3B32i34I
+	 ⇑biggest]
 
-Conversion\gbf5 
-asVector\gb
+Conversion 
+asVector
 printon: strm | i
 	[strm append: '('.
 	for⦂ i to: self length do⦂
 		[strm print: self◦i; space]
-	strm append: ')' ]\gb14B
+	strm append: ')' ]
 
-System primitives\gbf5 
-nail [user croak] primitive: 31		"Nail me in core and return my core address"\gb5B28i
-unNail [user croak] primitive: 32		"Release me from being nailed"\gb7B28i
+System primitives 
+nail [user croak] primitive: 31		"Nail me in core and return my core address"
+unNail [user croak] primitive: 32		"Release me from being nailed"
 
-Compiler argument list\gbf5 
+Compiler argument list 
 argsOff: stack
-	[stack pop: self length]\gb16B
+	[stack pop: self length]
 emitForValue: code on: stack  | x
-	[for⦂ x from: self do⦂ [x emitForValue: code on: stack]]\gb30B
+	[for⦂ x from: self do⦂ [x emitForValue: code on: stack]]
 firstPush
-	[⇑(self◦1) firstPush]\gb11B
+	[⇑(self◦1) firstPush]
 remote: generator  | x
-	[for⦂ x from: self do⦂ [x remote: generator]]\gb19B
+	[for⦂ x from: self do⦂ [x remote: generator]]
 sizeForValue  | size x
-	[size ← 0. for⦂ x from: self do⦂ [size ← size+ x sizeForValue]. ⇑size]\gb14B
-\g
-SystemOrganization classify: ↪Vector under: 'Basic Data Structures'.\g
+	[size ← 0. for⦂ x from: self do⦂ [size ← size+ x sizeForValue]. ⇑size]
+
+SystemOrganization classify: ↪Vector under: 'Basic Data Structures'.
