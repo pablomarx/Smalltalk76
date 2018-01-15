@@ -1,0 +1,3938 @@
+00	Class
+01	VariableLengthClass
+02	Context
+03	Number
+04	Integer
+05	Float
+06	Array
+07	Dictionary
+010	Stream
+011	Substring
+012	Interval
+013	MessageDict
+014	Point
+015	Rectangle
+016	Textframe
+017	Paragraph
+020	TextStyle
+021	Dispframe
+022	HashSet
+023	SymbolTable
+024	ObjectReference
+025	CoreLocs
+026	UserView
+027	Object
+030	NotifyWindow
+031	CodePane
+032	Generator
+033	ParsedConditional
+034	MachineDouble
+035	FieldReference
+036	ParagraphScanner
+037	BitBlt
+040	Turtle
+041	LargeInteger
+042	Int32
+043	ParsedFieldReference
+044	ParsedObjectReference
+045	Reader
+046	TokenCollector
+047	SetReader
+050	Set
+051	InspectWindow
+052	VariablePane
+053	Menu
+054	Path
+055	Form
+056	ListPane
+057	ScrollBar
+060	Cursor
+061	ClassOrganizer
+062	FieldNameCollector
+063	RemoteParagraph
+064	Decompiler
+065	ParsedBlock
+066	ParsedAssignment
+067	ParsedMessage
+070	ParsedNegation
+071	ParsedLoop
+072	ParsedForLoop
+073	ParsedRemote
+074	ParsedDisjunct
+075	ParsedConjunct
+076	CodeWindow
+077	FilePane
+0100	PanedWindow
+0101	Window
+0102	ParagraphEditor
+0103	TextImage
+0104	SyntaxWindow
+0105	StackPane
+0106	ParseStack
+0107	Parser
+0110	PressPrinter
+0111	PressFile
+0112	EFTPSender
+0113	RPPSocket
+0114	FileStream
+0115	BravoPrinter
+0116	ParagraphPrinter
+0117	RetransmitSocket
+0120	Timer
+0121	Queue
+0122	Socket
+0123	NameUser
+0124	Pacbuf
+0125	WidthTable
+0126	Date
+0127	Time
+0130	ProjectWindow
+0131	BrowseWindow
+0132	SystemPane
+0133	ClassPane
+0134	OrganizationPane
+0135	SelectorPane
+0136	EventQueue
+0137	UserEvent
+0140	VirtualMemory
+0141	Vmapper
+0142	BitImage
+0143	BitRectEditor
+0144	RadioButtons
+0145	BitRectTool
+0146	BitRect
+0147	Image
+0150	BorderedText
+0151	Document
+0152	Heading
+0153	FormSet
+0154	DocumentEditor
+0155	PriorityInterrupt
+0156	RemoteContext
+0157	SafeQ
+0160	PQueue
+0161	ILFileDirectory
+0162	ILFile
+0163	ILFilePage
+0164	EtherFilePage
+0165	FilePage
+0166	Dict
+0167	File
+0170	ILSocket
+0171	ILParameterBlock
+0172	FileDirectory
+0173	FtpDirectory
+0174	AltoFileDirectory
+0175	AltoFile
+0176	AltoFilePage
+0177	AltoFileAddressTable
+0200	RunVector
+0201	JuniperFileController
+0202	JuniperPageBuffer
+0203	JuniperRequestParameterBlock
+0204	JuniperParameterBlock
+0205	PriorityScheduler
+0206	DictionaryEntry
+0207	JuniperResultParameterBlock
+0210	MessageTally
+0211	FontWindow
+0212	Etherworld
+0213	RoutingUpdater
+0214	PressTurtle
+0215	SystemOrganizer
+0216	HalfToner
+0217	JuniperInterface
+0220	JuniperSocket
+0221	ExceptionHandler
+0600	Vector
+0601	String
+0602	UniqueString
+0603	Natural
+
+Class
+	03560	install:method:literals:code:backpointers:
+	03561	noChanges
+	03562	code:
+	03566	print:on:
+	03567	title:insystem:
+	03570	derstands:
+	03571	rename:
+	04116	title
+	04117	classvars
+	04120	environment
+	04121	superclass
+	04127	myinstvars
+	04130	md
+	06246	endCategoryOn:
+	013052	paraprinton:
+	013053	declare:
+	013056	asFollows
+	013057	printdefon:
+	013060	invertRef:
+	013061	fields:
+	013062	newFieldsForSubClass:
+	027515	recopy:
+	027516	copy:
+	027517	startChangesOn:
+	027520	filoutCategory:
+	027521	instfield:
+	027522	printout
+	027523	whosends:
+	027524	subclassof:
+	027526	bytesize:
+	027530	compileall
+	027531	organization
+	027537	describe:on:
+	027540	clean
+	027541	sharing:
+	027542	instsize
+	027543	edit:
+	027560	copyof:subclassof:
+	027561	fixSubClassesOf:
+	027562	initClass
+	027566	moveFromCat:to:
+	027567	ed:
+	030661	default
+	030662	init
+	030663	new:
+	030671	canunderstand:
+	030672	notify:at:in:
+	030673	method:
+	030674	understands:
+	030702	readfrom:
+	030703	readfrom:format:
+	030704	myinstvars←
+	030705	environment←
+	030706	classInit
+	030707	allInstances
+	030710	selectors
+	030717	init:
+	030721	bytesof:
+	030727	abstract
+	030730	realself
+	030736	copy:from:
+	030743	◦←
+	030744	◦
+	030745	new
+	031443	printon:
+	031444	category
+	031445	space
+	031446	endChangesOn:
+	031447	printMethod:on:
+	031451	veryspecial:
+	031467	fieldNamesInto:
+	031470	Isa:
+	031471	definition
+	031472	changelist:
+	031473	obsolete
+	031474	messages
+	031475	instvars
+	031500	execute:
+	031507	howMany
+	031510	canUnderstand:
+	031511	wholeEnvironment
+	031522	decompile:
+	031575	understands:classified:
+	031577	edit:para:formerly:
+	032600	allInstancesEver
+	032601	archiveOn:changesOnly:
+	032616	copy:from:classified:
+	032617	filoutOrganization
+	033672	printCategory:on:
+	033673	title:subclassof:fields:declare:
+	033675	printoutCategory:
+	033676	filout
+	033677	textLocal
+	033700	category:
+	034132	fromFreelist:fill:
+	034133	shrink
+	034454	startCategory:on:
+	034455	title:
+
+VariableLengthClass
+	03556	new:
+	03557	allInstancesEver:
+	027513	copy:
+	027514	recopy:
+	030655	classInit
+	030656	allInstances:
+	031434	allInstances
+	031435	howMany:
+	031441	new
+
+Context
+	02446	step
+	02447	specialmess:toclassArray:
+	03200	totalPT
+	03201	pop
+	03202	swapSender:
+	03400	printon:
+	03401	doUnique
+	04000	pc
+	04200	sender:receiver:method:tempframe:pc:stackptr:
+	04201	copy
+	06542	help
+	036742	tempframe
+	036745	receiver
+	036746	sender
+	036747	method
+	036750	caller
+	044717	newToRun:
+	044720	variableNamesInto:with:
+	044721	sendmess:byte:toclass:
+	044722	specialmess:toclass:
+	044723	dosuper
+	044724	selector
+	045155	interpretFor:
+	045157	cleancopy
+	045160	restartWith:
+	045161	releaseFully
+	045162	eraseFully
+	045165	doremotereturn
+	045167	smashField:
+	045170	smashTemp:
+	045171	smashLitInd:
+	045172	destroyAndReturn:
+	045173	remoteCopy
+	045176	pushField:
+	045177	pushTemp:
+	045451	docode:toclass:
+	045452	specialmess:toclassInteger:
+	045453	dostore
+	045711	have:interpret:
+	045712	interpret:with:
+	045713	verifyFrames
+	045716	performing:toclass:
+	045721	for⦂from:with⦂from:do⦂
+	045722	pushLitInd:
+	045723	runsimulated⦂
+	045724	initSimulator
+	045725	thisop
+	045726	mclass
+	045727	release
+	045730	stack
+	045731	trace
+	045732	debug
+	047550	sender←
+	047566	stackIndex
+	047567	eval
+	047570	doprimitive:
+	047576	nonEmptyStack
+	047577	nextByte
+	052600	simulate⦂
+	052601	litof:
+	052602	doreturn
+	052603	pushLit:
+	052604	push:
+	052607	restart
+	052611	releaseTo:
+	053000	dopop
+	053001	dojump:
+	053003	getPT:
+	053004	setPT:to:
+
+Number
+	03333	>
+	03334	<
+	03335	=
+	03336	printon:
+	03337	≠
+	03340	between:and:
+	03341	⌾
+	06216	isLarge
+	06412	asPtY
+	06413	asPtX
+	06424	isNumber
+	06425	asRectCorner
+	06426	asRectOrigin
+	014734	log2
+	014735	base8
+	024066	to:
+	024067	compare:
+	024070	factorial
+	024071	sign
+	024072	to:by:
+	024073	for:
+	024074	within:
+	024075	base:
+	024076	~
+	025023	cansubscript:
+	025024	subscripts:
+	025025	subscripts:←
+	025026	abs
+	025027	asRectangle
+	025030	max:
+	025031	min:
+	025032	asPoint
+
+Integer
+	03300	lshift:
+	03301	|
+	03302	between:and:
+	03415	◦
+	03416	printon:base:
+	03512	emitBytes:
+	03513	subscripts:←
+	03514	asCompilerCode
+	03515	natcompare:
+	03516	findMacros:compilerTemps:
+	04253	>
+	04254	<
+	04255	≤
+	04256	≥
+	04261	isalphanumeric
+	04262	instfield:
+	04263	asLowercase
+	04264	oneToMeAsStream
+	06406	hash
+	06407	copy
+	06433	recopy
+	06434	asSmall
+	06435	asInteger
+	06436	bytes
+	06441	isInt
+	06443	firstPush
+	013033	printon:indent:precedence:forValue:decompiler:
+	014625	+
+	014626	-
+	014627	=
+	014630	≠
+	014631	printon:
+	014632	*
+	014633	/
+	014634	\
+	014635	emitBfp:on:
+	014636	emitJmp:on:
+	014637	absprinton:
+	014640	compareChar:
+	014747	asLarge
+	014750	subscripts:
+	014752	compare:
+	014753	field:
+	014754	field:←
+	014755	isletter
+	014756	hibit
+	014760	asNatural
+	014762	natnormalize:
+	014763	intdiv:
+	014764	asRemoteCode:
+	014770	sizeForValue
+	014771	emitForValue:on:
+	024122	cansubscript:
+	024125	isField
+	024126	length
+	024131	inString
+	024132	tokenish
+	024133	bits:
+	024134	isdigit
+	024135	unsigned
+	024136	jmpSize
+	024137	bfpSize
+	024140	classInit
+	024145	asUppercase
+	024155	emitsLoad
+	024156	emittedVariable
+	025101	asFloat
+	025102	even
+	025103	lor:
+	025104	sameAs:
+	025105	last
+	025106	neg
+	025110	negate
+	025111	asObject
+	025112	land:
+	025113	purge
+	025114	allmask:
+	025115	anymask:
+	025116	lxor:
+	025117	nomask:
+	025120	asInt32
+	025130	negated
+	025131	unsignedadd:
+	025132	unsignedlessthan:
+
+Float
+	03307	fpart
+	03310	asInteger
+	03311	+
+	03312	>
+	03313	<
+	03314	-
+	03315	≤
+	03316	≥
+	03317	≠
+	03320	*
+	03321	|
+	03323	neg
+	03417	ln
+	03420	tan
+	03421	sin
+	03422	asLarge
+	03510	sqrt
+	03511	classInit
+	04273	round
+	04275	=
+	04276	printon:
+	04277	/
+	04301	cos
+	06410	copy
+	06431	asFloat
+	06432	recopy
+	013004	exp
+	013005	arctan
+	013032	absprinton:digits:
+	014644	\
+	014743	printon:digits:
+	014744	epart:
+	014745	ipow:
+	024115	hash
+	024117	log:
+	024120	roundTo:
+	025062	near:within:
+	025063	asDegrees
+	025064	asDirection
+	025065	asRadians
+	025066	sameAs:
+	025067	negated
+	025070	near:
+	025071	ipart
+
+Array
+	03262	◦←
+	03263	◦
+	03264	+
+	03265	>
+	03266	<
+	03267	growby:
+	03270	last←
+	03271	has:
+	03272	copy
+	03273	subscripts:
+	03530	without:
+	04246	length
+	04250	hash
+	04251	cansubscript:
+	06233	isIntervalBy1
+	06446	isArray
+	013036	sort:to:
+	014623	=
+	027071	species
+	027072	last
+	027073	asStream
+	027074	viewer
+	027075	sort
+	027076	insertNonDescending:
+	027077	copyto:
+	027100	sum
+	027265	growto:
+	027266	all←
+	027267	grow
+	027270	reverse
+	027271	permutationToSort
+	027272	copy:to:
+	027273	swap:with:
+	027274	concat:
+	027275	asSet
+	027276	sumTo:
+	027415	subscripts:←
+	027416	find:
+	027417	delete:
+	027420	count:
+	027421	notNil
+	027422	replace:to:by:
+	027423	findnon:
+	027424	promote:
+	027425	copy:to:to:
+	027426	findSorted:
+	027427	frequencies
+	027430	transform⦂to⦂
+	027431	find⦂suchThat⦂
+	027432	insertSorted:
+	027433	all⦂suchThat⦂
+	027434	first⦂suchThat⦂
+
+Dictionary
+	03445	asInvertedVector
+	04010	values
+	04355	insertall:
+	04356	swap:with:
+	04357	copyfrom:
+	04360	insert:with:
+	04361	invert
+	04362	lookup:
+	04363	init:
+	014663	growto:
+	014664	delete:
+	014665	tally:
+	014666	with:values:
+	014667	insertall:with:
+	014670	invertto:
+	014671	rehash
+	014672	invert:
+	014673	clean
+	023410	◦←
+	023411	◦
+
+Stream
+	03276	◦←
+	03414	nextNumber:←
+	03517	nextNumber:
+	03524	emitLong:by:
+	03525	integerScan
+	04067	loc
+	04070	asArray
+	04071	position
+	04072	limit
+	06232	pastend
+	06444	asStream
+	014772	nextString
+	014773	nextString←
+	014774	of:from:to:
+	024163	default
+	024164	asVector
+	025173	cr
+	025174	◦
+	025175	wordposition←
+	025176	tab
+	025177	position←
+	027000	semicrtab
+	027021	space
+	027022	end
+	027023	print:
+	027024	rest
+	027025	contents
+	027026	into:
+	027027	skip:
+	027030	myend
+	027031	settoend
+	027032	reset
+	027033	dequeue
+	027034	empty
+	027054	close
+	027056	release
+	027057	skipwords:
+	027060	wordposition
+	027200	∢
+	027201	pop:
+	027202	of:
+	027203	pop
+	027204	append:
+	027205	nextword←
+	027206	next:from:
+	027207	padNext←
+	027210	skipTo:
+	027211	next
+	027212	last
+	027213	peek
+	027214	last:
+	027215	nextword
+	027216	pastend←
+	027217	first
+	027220	next←
+	027221	viewer
+	027246	next:
+	027247	next:←
+	027250	asReadStream
+	027251	padNext
+	027252	nextPoint
+	027253	nextPoint←
+	027400	insert:
+	027401	upto:
+	027402	dequeue:
+	027413	into:endError:
+	027414	crtab:
+
+Substring
+	03274	◦←
+	03275	◦
+	04075	map
+	014624	asStream
+	027063	length
+	027064	species
+	027065	data:map:
+	027261	swap:with:
+
+Interval
+	03305	hash
+	03306	isIntervalBy1
+	04002	length
+	04003	stop
+	04051	start
+	04266	◦←
+	04267	cansubscript:
+	04270	=
+	04271	randomInit
+	04272	randomInit:
+	014642	◦
+	014643	from:to:by:
+	014746	random
+
+MessageDict
+	03572	insert:method:literals:code:backpointers:
+	03573	literalsIn:
+	03574	holdLiterals:
+	03575	freeLiterals:
+	03576	freeMethod:
+	04125	methods
+	04126	code
+	06251	purge:
+	027545	growto:
+	027546	delete:
+	027547	holdMethods:
+	027551	copyfrom:
+	027552	freeMethods
+	027553	close
+	027554	invert:
+	030731	code:←
+	030732	method:
+	030733	code:
+	031501	swap:with:
+	031502	methodorfalse:
+	031503	init:
+	031504	literals:
+
+Point
+	03342	y←
+	03343	x←
+	03344	rect:
+	03503	theta
+	04006	asPtX
+	04044	asPtY
+	04045	x
+	04046	y
+	04312	+
+	04313	<
+	04314	-
+	04315	=
+	04316	≤
+	04317	>
+	04320	printon:
+	04321	≥
+	06214	width
+	06215	height
+	06420	asRectCorner
+	06421	asRectOrigin
+	06422	origin
+	06423	asPoint
+	014733	hideData:
+	024051	*
+	024052	/
+	024053	|
+	024054	dist:
+	024055	length
+	024056	normalize
+	024057	abs
+	024060	hidePress:complete:
+	024061	max:
+	024062	translate:
+	024063	min:
+	024064	normal
+	024065	fromPress:value:
+	025007	copy
+	025010	pressCode
+	025011	hash
+	025012	asRectangle
+	025013	x:y:
+	025014	extent
+	025015	corner
+	025016	extent:
+
+Rectangle
+	02405	rotate
+	02410	blowup:by:spacing:
+	03346	rightside
+	03347	growby:
+	03350	hash
+	03351	has:
+	03352	copy
+	03353	size
+	03354	growto:
+	03355	empty
+	03356	minX
+	03357	minY
+	03360	maxY
+	03361	maxX
+	03362	bottom
+	03363	outline
+	03364	origin←
+	03365	corner←
+	03366	extent←
+	03367	width
+	03371	flash
+	03373	hardcopy:
+	03431	boxcomp
+	03432	fromuser
+	03433	side:
+	03434	maxstretch:
+	03435	usermove:
+	03436	fromuserevenword
+	03437	bitsFromStream:
+	03473	border:color:
+	03474	blowup:by:
+	03475	withSide:at:
+	03476	bitsOntoStream:
+	03477	withEdge:at:
+	04035	asRectCorner
+	04036	asRectOrigin
+	04037	origin
+	04040	corner
+	04322	printon:
+	04323	usermove
+	04324	usersize
+	04325	max:
+	04326	comp
+	04327	include:
+	04330	nearest:
+	04331	height←
+	04332	moveto:
+	04333	moveby:
+	04336	clear
+	04337	comp:
+	04340	reverse
+	04341	+
+	04342	-
+	04343	=
+	04344	*
+	04345	/
+	06417	asRectangle
+	013006	usersize:
+	013020	minus:
+	013021	bitsFromString:mode:clippedBy:
+	013022	bitsIntoString:mode:clippedBy:
+	013023	blt:mode:clippedBy:
+	013024	brush:mode:color:clippedBy:
+	013025	fillin:mode:
+	014647	hardcopy:thickness:
+	014650	outline:
+	014651	corners
+	014652	dragto:
+	014653	edge:
+	014722	side:distanceTo:
+	014723	sideNearest:
+	023537	area
+	023540	origin:extent:
+	023541	brush:mode:color:
+	023544	origin:corner:
+	023545	blt:mode:
+	023546	bltcomp:mode:
+	023547	color:mode:
+	023550	inset:and:
+	023552	inset:
+	023553	extent
+	023554	center
+	023555	height
+	023556	bitsFromString:mode:
+	023557	bitsIntoString:mode:
+	023560	translateto:
+	023561	leftside
+	023562	top
+	024032	translate:
+	024033	bitStringLength
+	024034	intersect:
+	024035	bitsIntoString
+	024036	bitsIntoString:
+	024037	bitsFromString:
+	024040	clear:
+	024041	width←
+	024042	intersects:
+	024043	isWithin:
+
+Textframe
+	03534	displayat:effect:clippedBy:
+	03535	put:at:maxextent:
+	03536	put:at:centered:
+	03537	copyto:effect:
+	04100	para
+	04101	window
+	04102	lastshown
+	04103	frame
+	04112	style
+	06451	aboutToFrame
+	013042	hardcopy:
+	027132	show
+	027133	measuretext:to:string:from:to:font:
+	027134	showline:to:lastx:spaces:trailingspaces:startrun:firstrunlength:
+	027135	width
+	027155	charofpt:
+	027156	ptofchar:
+	027157	frame←
+	027160	charnearpt:
+	027161	dopressjst:
+	027163	size
+	027164	lineheight
+	027165	ptofpt:
+	027333	para:frame:style:
+	027334	put:centered:
+	027335	takeCursor
+	027336	para:frame:
+	027337	rectofchar:
+	027340	scrolln:
+	027341	erase
+	027342	showin:
+	027343	put:at:
+	027365	show:
+	027366	makeParagraph
+	027367	outline
+	027452	selectchar:
+	027453	findmaxx:
+	027454	hardcopy
+	027455	asForm:
+	030603	maxx:
+	030604	style:
+	030605	comp
+	030606	extent
+	030607	corner
+	030610	height
+	030611	origin
+
+Paragraph
+	03450	makerun:val:
+	03451	run:to:
+	03452	replace:to:by:
+	03453	hideData:
+	03454	maskrun:to:under:to:
+	03455	fromBravo
+	03456	makeBoldPattern
+	03457	fromPress:value:
+	04013	text
+	04014	alignment
+	04375	copy:to:
+	04376	storeOn:
+	04377	runs
+	06415	asParagraph
+	013010	runcat:and:and:
+	013011	bravoRuns:
+	013012	applyBravo:at:to:
+	013013	presson:in:style:
+	014705	runfind:
+	014706	allFont:
+	014712	toBravo
+	023444	flushright
+	023445	◦
+	023446	runcat:to:
+	023447	justify
+	023450	allBold
+	023451	allItalic
+	023452	asVector
+	023453	text:alignment:
+	023454	pressCode
+	023455	flushleft
+	023456	length
+	023457	findString:startingAt:
+	023460	copy
+	023461	asStream
+	023462	textStyle
+	023463	alignment←
+	023464	text:
+	023465	center
+	023473	subst:for:
+	024000	hidePress:complete:
+	024001	readFrom:
+	024002	maskrunsunder:to:
+	024003	presson:in:
+	024004	text:runs:alignment:
+
+TextStyle
+	054167	tab
+	054170	space
+	054171	mode:
+	054172	maxdescent:
+	054173	maxascent:
+	054174	nameofset:
+	054175	strikeofset:
+	054676	default
+	054677	setfont:name:fromstring:
+	054700	fontfamily:
+	054701	fontsize:
+	054702	lineheight
+	054703	writeset:as:
+	054704	setfont:name:
+	056015	fonts
+	056016	mode
+	056017	maxascent
+	056020	maxdescent
+	056021	fontnames
+	056637	setoffsetfont:from:by:
+	056640	tab:
+	056641	setfont:fromfile:
+	056642	space:
+	056643	heightofset:
+	056644	maxwidthofset:
+	056645	writeset:
+
+Dispframe
+	06526	leave
+	013143	kbd
+	032767	eachtime
+	036667	text
+	037143	lasttime
+	037144	show
+	037145	ev
+	037146	firsttime
+	037147	read
+	042543	request:
+	042544	moveto:
+	042545	rect:
+	042546	clear
+	042547	prompt
+	042550	classInit
+	042551	init
+	042552	outline
+	043465	frame
+	043466	frame←
+
+HashSet
+	03374	asStream
+	03375	objects←
+	03376	swap:with:
+	03442	delete:
+	03443	packprobes
+	03444	shrink
+	04007	objects
+	04346	insertall:
+	04347	copyfrom:
+	04350	init:
+	04351	find:
+	04352	rawinsert:
+	014654	growto:
+	014655	contents
+	014656	rehash
+	014657	sparse
+	014660	findorerror:
+	014661	findorinsert:
+	014662	findornil:
+	023400	init
+	023401	has:
+	023402	copy
+	023403	size
+	023404	insert:
+
+SymbolTable
+	03446	allCallsOn:from:
+	03447	declare:from:
+	04365	◦←
+	04366	insert:withref:
+	04367	allRefs
+	04371	lookup:
+	04372	declare:
+	014674	growto:
+	014675	declare:as:
+	014676	allRefsTo:from:
+	014677	insert:with:
+	014700	rehash
+	014701	invert:
+	014702	invertRef:
+	023415	ref:←
+	023416	◦
+	023417	define:as:
+	023434	lookupRef:
+	023435	ref:
+
+ObjectReference
+	04011	eval
+	04012	value
+	04370	printon:
+	023427	value←
+	023430	object:
+
+CoreLocs
+	036662	length
+	036663	base
+	042526	◦←
+	042527	◦
+	043436	base:length:
+
+UserView
+	03225	currentCursor
+	03226	changedMessages
+	03227	space
+	03231	tablet
+	03232	noChanges
+	03233	croak
+	03402	quitThen:continue:
+	03403	notifier:level:interrupt:
+	04217	screenrect:vtab:htab:scale:color:projectWindow:disp:sched:
+	04222	leftShiftKey
+	04223	rawkbd
+	06326	Swat
+	06330	purgealittle
+	06337	reconfigure
+	06523	systemworkspace1
+	06524	systemworkspace2
+	06525	systemworkspace3
+	010013	printCrossReference:on:
+	013137	convertTime:returnSecs:
+	013141	bugScreenMenu
+	013142	release
+	013144	initCompiler
+	014602	currentCursor:
+	032734	screenextent:tab:
+	032735	notifier:stack:interrupt:
+	032746	writeChangedMessages:
+	032747	changedCategories
+	032750	run:
+	032765	classNames
+	032766	overlay:
+	032770	systemStartup
+	036647	sched
+	036665	screenrect
+	037074	notify:
+	037075	displayoffwhile⦂
+	037104	writeSources:
+	037105	unschedule:
+	037121	rawtotalsecs:
+	037122	file:classes:changesOnly:
+	037123	restartup:
+	037124	restart
+	037130	cursorloc←
+	037131	kbd:
+	037132	releaseExternalViews
+	037133	kbdnext
+	037134	rawkbck
+	037135	mp
+	037136	changedClasses
+	037137	restart⦂
+	037140	restore
+	037141	timewords
+	037142	newdisp
+	037150	quitThen:
+	037151	newdisploc:and:
+	037176	backup
+	041525	today
+	041526	request:
+	041530	ticks
+	041557	read
+	042413	InLd:
+	042414	show:
+	042415	time⦂
+	042416	scheduleOnBottom:
+	042436	restoredisplay
+	042437	versionName
+	042441	classInit
+	042442	next←
+	042443	releaseMessage
+	042444	clearshow:
+	042445	waitnobug
+	042446	projectWindow
+	042454	show
+	042513	color:scale:
+	042514	kbck
+	042515	waitbug
+	042516	dateAndTime:
+	042517	totalsecs:
+	042531	buttons
+	042532	print:
+	042533	quitFrom:
+	042535	kbd
+	042536	version
+	042537	install
+	042540	mpnext
+	042541	copyIn:
+	042542	leaveTop
+	042554	anybug
+	042555	redbug
+	042556	tabletabsolute
+	042560	workspace
+	042562	waitnokey
+	043426	promote:
+	043427	clear
+	043430	topWindow
+	043431	yellowbug
+	043444	frame
+	043445	nobug
+	043446	hasXM
+	043447	quit
+	043450	time
+	043451	bluebug
+	043452	anykeys
+	043453	cr
+	043454	tab
+	043455	ev
+	043456	x
+	043457	y
+	043462	now
+	043463	run
+	043472	tabletbug
+	043502	totalsecs
+	043547	waitclickbug
+	043552	growSmalltalk:
+	043553	rawtotalsecs
+	045006	schedule:
+	045007	keyset
+	045010	tabletrelative
+	045402	reclaim
+	045510	oopsToFile
+
+Object
+	03531	printon:
+	04235	,
+	06234	remote:
+	06235	PTR
+	06236	isArray
+	06237	isNumber
+	06256	returns
+	06257	emitForEffect:on:
+	06264	isField
+	06265	printon:indent:precedence:forValue:decompiler:
+	06266	sizeForEffect:
+	06267	emitsLoad
+	06270	emittedReceiver
+	06271	emittedVariable
+	06272	interactive
+	06273	findMacros:compilerTemps:
+	06274	sizeForValue
+	06275	emitForValue:on:
+	06276	firstPush
+	06472	itself
+	014761	error
+	027106	=
+	027107	≤
+	027110	≥
+	027111	≠
+	027112	argsOff:
+	027113	≡
+	027114	or:
+	027115	or⦂
+	027116	hash
+	027117	is:
+	027120	instfield:
+	027121	canunderstand:
+	027122	class
+	027123	asStream
+	027124	xor:
+	027125	eqv:
+	027126	and⦂
+	027301	performDangerously:with:with:with:
+	027302	messageNotUnderstood:withArgs:from:
+	027304	ⓢ
+	027305	asVector
+	027306	Is:
+	027307	title
+	027310	copy
+	027311	performDangerously:
+	027313	perform:with:with:
+	027314	perform:with:with:with:
+	027315	performDangerously:with:
+	027317	performDangerously:with:with:
+	027321	print
+	027322	inspect
+	032641	performDangerously:withArgs:
+	032642	installError
+	033701	fields
+	033702	emitForTruth:falsity:into:on:
+	033703	notify:at:in:for:
+	033714	filout
+	033715	instfields
+	033716	fullprinton:
+	034144	ref:
+	034145	isnt:
+	034146	sameAs:
+	034147	asOop
+	034160	and:
+	034161	refct
+	034162	notify:at:in:
+	034163	Isnt:
+	034164	nail
+	034165	unNail
+	034166	empty
+	034167	asParagraph
+	034170	instfield:←
+	034171	asRemoteCode:
+	034172	subError
+	034173	error:
+	034460	startup
+	034461	inVector
+	034462	asString
+	034474	sizeForTruth:falsity:
+	034475	swap⦂
+	034476	perform:
+	034477	recopy
+	034500	perform:withArgs:
+	034502	fullprint
+	034503	inspectfield:
+	034504	perform:with:
+	034506	asFullString
+
+NotifyWindow
+	03411	classInit
+	013002	enter
+	032732	of:stack:interrupt:
+	032733	of:level:interrupt:
+	042411	aboutToFrame
+
+CodePane
+	03237	formerly:
+	03240	reflects:
+	03241	oldContents
+	03242	execute:for:
+	04230	show
+	04231	execute:in:to:
+	06310	interactive
+	06403	init
+	013003	yellowbug
+	013136	doit
+	032663	eachtime
+	033754	notify:at:in:
+	033755	showing:
+	033756	hardcopy:
+	034560	compile:in:under:
+	034562	frame←
+	034563	picked
+	036042	class:selector:para:
+	036043	compile:
+	036044	redbug
+	036045	keyset
+	036046	kbd
+	036047	leave
+	036050	contents
+	041515	enter
+	041516	from:
+	041517	outside
+	041520	outline
+	042402	dirty
+	042403	selectRange:
+	042404	classInit
+	042405	close
+	042406	windowenter
+	042407	windowleave
+
+Generator
+	02423	decompileBytes:onto:
+	04171	balance
+	04232	ifExpr:thenExpr:elseExpr:
+	06300	evalKeyword:
+	06301	comment:
+	06302	trailer:
+	06303	separator:
+	06476	contents
+	013115	decompile:onto:
+	013116	generate:in:
+	013117	compileIn:
+	013122	evaluateIn:to:
+	032643	abortWith:
+	032644	variable:
+	032645	evaluate:in:to:notifying:
+	032646	for:from:to:do:on:
+	032660	initSymbols:
+	032661	litIndex:
+	032662	forfromdo:args:
+	033717	forfromtobydo:args:
+	033720	forfromtodo:args:
+	033721	newTemp
+	033722	receivingVar:
+	033723	declaration:name:asArg:
+	033724	macro:selector:args:
+	033725	keywordMessage:selector:args:
+	033726	encodeSel:
+	033727	untildo:args:
+	033751	literal:
+	033752	compile:in:under:notifying:
+	033753	ifthen:args:
+	034177	notify:
+	034513	rcvr:selector:args:
+	034514	identifier:
+	034521	whiledo:args:
+	034555	fortodo:args:
+	034556	ifthenelse:args:
+	036000	unjuggle:
+	036001	unbalance:
+	036002	terminate
+	036003	nullStatement:
+	036005	assignment:expr:
+	036006	block
+	036007	noEvalKeyword:
+	036010	juggle
+	036015	newTempForMacro
+
+ParsedConditional
+	03243	returns
+	03244	firstPush
+	03413	printon:indent:precedence:forValue:decompiler:
+	04233	ifExpr:thenExpr:elseExpr:
+	04234	findMacros:compilerTemps:
+	014613	sizeForEffect:
+	014614	sizeForValue
+	014615	emitForValue:on:
+	014616	printon:
+	014617	emitForEffect:on:
+
+MachineDouble
+	03326	asInt
+	03327	high←
+	03330	init
+	03331	low←
+	03427	gets:mtimes:
+	03430	mdiv:
+	04004	high
+	04005	low
+	04303	<
+	04304	classInit
+	04305	extract
+	04306	decreaseby:
+	04307	increaseby:
+	014646	printon:
+
+FieldReference
+	023421	value←
+	023422	value
+	023423	object:offset:
+	023424	eval
+
+ParagraphScanner
+	02407	printfrom:aligned:skip:
+	04015	width
+	013014	scan
+	014707	tab
+	014710	of:to:style:
+	014711	newrun
+	023466	in:
+	023467	backup
+	023470	position
+	024005	init
+
+BitBlt
+	03467	checksandcall
+	04016	destbase
+	04017	sourcebase
+	04020	sourceraster
+	04021	dstrike
+	04022	destx
+	04023	desty
+	04024	color
+	04025	sstrike
+	04026	sourcex
+	04027	sourcey
+	04030	width
+	04031	destraster
+	04032	function
+	04033	height
+	013016	stringReplace:with:from:to:and:from:to:
+	013017	stringCopy:from:to:with:from:to:
+	014720	init
+	014721	forCursor
+	023506	sourcex←
+	023507	sourcey←
+	023510	dstrike←
+	023511	sstrike←
+	023512	extent←
+	023513	destraster←
+	023514	callBLT
+	023515	dest←
+	023516	source←
+	023517	sourcebase←
+	023520	sourceraster←
+	023521	function←
+	023522	destbase←
+	023523	desty←
+	023524	classInit
+	023525	width←
+	023526	color←
+	023527	destx←
+	023530	height←
+	024020	paint:
+	024021	copycomp:
+	024022	fill:color:
+	024023	copy:
+
+Turtle
+	03500	dragon:
+	03501	hilbert:side:
+	03502	hilberts:
+	04041	width
+	04042	frame
+	06211	color:
+	013026	mandala:diameter:
+	013027	filberts:side:
+	014725	goto:
+	014726	init
+	014727	home
+	014730	stretchto:
+	014731	show:font:
+	014732	spiral:angle:
+	023563	width:
+	023564	black
+	023565	white
+	023566	up
+	023567	place
+	023570	pendn
+	023571	penup
+	023572	fillIn⦂
+	023573	pen:
+	023574	ink:
+	023575	erase
+	023576	xor
+	023577	go:
+	024046	place:
+	024047	turn:
+	024050	pointAt:
+	025000	frame:
+	025001	put:font:
+
+LargeInteger
+	03505	intdiv:
+	03506	compare:
+	04047	bytes
+	04050	neg
+	06427	asLarge
+	06430	isLarge
+	014736	+
+	014737	-
+	014740	*
+	014741	asSmall
+	014742	asInteger
+	024101	>
+	024102	<
+	024103	=
+	024104	≤
+	024105	≥
+	024106	printon:base:
+	024107	bytes:neg:
+	024110	bit:
+	024111	negate
+	024112	negated
+	024113	hibit
+	025037	lshift:
+	025040	/
+	025041	\
+	025042	neg←
+	025043	hash
+	025044	abs
+	025045	asFloat
+	025046	even
+	025047	field:
+	025050	field:←
+	025051	nomask:
+	025052	allmask:
+	025053	anymask:
+	025054	land:
+
+Int32
+	04052	hash
+	04053	high
+	04054	low
+	014757	<
+	024141	=
+	024142	printon:
+	024143	≠
+	024144	asInteger
+	025121	+
+	025122	>
+	025123	-
+	025124	high:low:
+
+ParsedFieldReference
+	04057	local
+	014766	emitForValue:on:
+	014767	remote:
+	024146	printon:indent:precedence:forValue:decompiler:
+	024147	sizeForValue
+	024150	printon:
+	025140	var:
+	025141	findMacros:compilerTemps:
+
+ParsedObjectReference
+	04066	local
+	06225	remote:
+	024152	printon:indent:precedence:forValue:decompiler:
+	024153	emitForValue:on:
+	024154	printon:
+	025156	sizeForValue
+	025157	var:
+	025160	findMacros:compilerTemps:
+
+Reader
+	03520	classInit
+	03521	readnum
+	03522	upto:
+	03523	readatom:
+	013035	readInto:
+	014776	rdint:
+	024165	of:
+	024166	read
+	027001	step
+
+TokenCollector
+	06227	comment:
+	06230	trailer:
+	06231	separator:
+	024167	contents
+	024170	onechar:
+	024171	default
+	024172	leftparen
+	024173	rightparen
+	024174	to:
+	024175	float:fraction:exp:
+	027003	notify:
+	027004	keyword:
+	027005	integer:
+	027006	otheratom:
+	027007	string:
+	027010	next←
+	027011	identifier:
+
+SetReader
+	027035	asSet
+	027036	length
+	027222	copy
+	027245	of:from:for:
+
+Set
+	03526	insertI:value:
+	03527	deleteI:to:
+	04074	length
+	06445	asSet
+	027037	◦
+	027040	add:
+	027041	default
+	027042	has:
+	027043	copy
+	027044	species
+	027046	asStream
+	027047	initView:
+	027223	◦←
+	027224	of:to:
+	027225	vector:
+	027226	growby:
+	027227	append:
+	027230	viewer:
+	027231	string:
+	027232	insert:
+	027233	find:
+	027234	next
+	027236	checkIndex:
+	027237	viewRange:to:
+	027240	notViewed:
+	027241	viewer
+	027242	pastend←
+	027243	grow
+	027403	product:
+	027405	deleteI:
+	027406	printon:
+	027407	delete:
+	027410	dotproduct:
+	027412	summation
+
+InspectWindow
+	06240	separator:
+	06254	comment:
+	06255	trailer:
+	06471	contents
+	013037	of:
+	013112	show:
+	027436	classInit
+	034142	identifier:
+
+VariablePane
+	027324	execute:for:
+	027325	classInit
+	027372	value
+	027373	names:values:wrt:
+	027374	selected
+	027473	yellowbug
+	030620	to:
+	030621	compile:
+	030622	deselected
+
+Menu
+	03532	bugit
+	03533	string:
+	04077	frame
+	027130	fbug
+	027131	clear
+	027327	show
+	027330	zbug
+	027331	rebug
+	027370	bug
+	027437	stringFromVector:
+	027440	moveto:
+	027471	movingsetup
+	027472	wbug
+	030615	has:
+	030616	rescan
+
+Path
+	06450	comment
+	013040	addlinefrom:to:
+	013041	addarcfrom:via:to:
+	027136	+
+	027137	width
+	027140	init
+	027141	extent
+	027142	corner
+	027143	height
+	027144	origin
+	027145	pressCode
+	027146	size
+	027332	copy
+	027442	deleteindex:
+	027443	pointnearestto:
+	027444	insert:atindex:
+	027445	rectangle
+	027446	normalize
+	027447	printon:
+	027450	translate:
+	027451	scale:
+
+Form
+	02412	edit:
+	03540	newbrush:
+	03541	line:
+	03542	arc:
+	03543	classInit
+	03544	black:
+	03545	read:
+	04104	figure
+	04105	ground
+	04106	offset
+	04107	bits
+	04110	extent
+	06452	close
+	013043	displayat:effect:clippedBy:
+	013044	resize:
+	027167	width
+	027170	pressCode
+	027171	length
+	027174	figure:
+	027175	ground:
+	027176	height
+	027177	offset:
+	027346	black
+	027347	white
+	027350	gray
+	027351	copy
+	027355	fromImage:
+	027356	fromrectangle:
+	027357	hidePress:complete:
+	027361	extent:
+	027362	fromuser
+	027363	fromuserevenword
+	027456	blinkbrush:
+	027457	extent:figure:ground:offset:
+	027460	hideData:
+	027462	setfigure:
+	027463	setground:
+	027464	write:
+	027465	presson:in:
+	027466	asInstance
+	027467	fromInstance:
+	027470	fromPress:value:
+	030600	bits:
+
+ListPane
+	03552	redbug
+	03553	keyset
+	03554	eachtime
+	03555	revise:with:
+	06245	dirty
+	06453	deselected
+	06454	selected
+	013045	scrollBy⦂copying:into:showing:in:direction:
+	013047	hardcopy:
+	013050	scrollControl⦂
+	013051	makeParagraph
+	027377	fill
+	027506	select:
+	027507	scrollUp:
+	027510	selectionRect
+	027511	scrollTo:
+	030625	yellowbug
+	030626	init
+	030643	lasttime
+	030644	leave
+	030646	enter
+	030647	dummy
+	030650	outside
+	030651	close
+	030652	outline
+	031400	of:
+	031401	frame←
+	031417	kbd
+	031421	picked
+	031422	locked
+	031423	compselection
+	031424	scrollPos
+	031425	grayselection
+	031426	firsttime
+	031427	windowenter
+	031430	windowleave
+
+ScrollBar
+	03546	slide:
+	03551	on:from:at:
+	06455	lasttime
+	013046	eachtime
+	027475	show
+	027477	boxPosition←
+	027500	classInit
+	027504	reshow⦂
+	027505	reposition⦂
+	030640	close
+	031405	on:from:
+	031407	hide
+	031410	hidewhile⦂
+	031416	firsttime
+
+Cursor
+	03547	fromtext:offset:
+	03550	printon:
+	04114	offset
+	027501	show
+	027502	hardcopy:at:
+	027503	frompage1
+	030630	topage1
+	030631	offset:
+	030633	fromString:offset:
+	031411	hardcopy:
+	031412	fromString:
+	031413	showwhile⦂
+	031415	fromtext:
+
+ClassOrganizer
+	03563	delete:
+	03564	asParagraph
+	03565	insert:
+	04122	globalCommentItself
+	04123	categories
+	013054	fromParagraph:
+	013055	classify:under:
+	027533	asStream
+	027534	invert:
+	027536	category:
+	030675	classInit
+	030676	globalComment
+	030677	globalComment←
+	031454	has:
+	031455	init:
+	031460	deleteCategory:
+
+FieldNameCollector
+	030722	leftparen
+	030723	rightparen
+	030724	identifier:
+	031476	next←
+
+RemoteParagraph
+	027565	position←
+	030741	asString
+	030742	on:
+	031514	fromParagraph:
+	031515	position
+	031516	fromString:
+	031517	asParagraph
+
+Decompiler
+	02421	conditionalJump:code:block:
+	013063	decompile:class:
+	013064	block:to:pc⦂hasValue⦂
+	013072	controlByte:code:block:
+	013073	jumpByte:code:block:
+	013074	checkForRemoteCode:code:block:
+	013075	convertMacros:sel:
+	013076	initSymbols:
+	030747	highlight:
+	031547	invertRef:environment:
+	031573	findPC:
+	032602	quickCode:class:
+	032611	loadByte:code:
+	032612	loop:whileExpr:doExpr:code:block:doSize:
+	032613	remoteReference:
+	032614	printPattern:on:
+	032615	selectorByte:code:at:
+	033611	selector:
+	033615	literal:
+	033625	makeLoad:code:
+	034015	literalIndirect:
+	034021	temp:
+	034030	instvar:
+	034047	highlight
+
+ParsedBlock
+	04132	returns
+	013065	findMacros:compilerTemps:
+	027571	emitForTruth:falsity:into:on:
+	031524	sizeForTruth:falsity:
+	031525	default
+	031544	sizeForEffect:
+	031545	sizeForValue
+	031546	emitForValue:on:
+	032603	printon:
+	032606	insertMacro:decompiler:
+	032607	printon:indent:precedence:forValue:decompiler:
+	032610	quickCode
+	033605	emitExceptLast:on:
+	033606	mustReturn:
+	033607	sizeExceptLast
+	033610	emitForEffect:on:
+	034007	firstPush
+	034010	doesReturn
+
+ParsedAssignment
+	04133	expr
+	04142	var
+	04143	emittedVariable
+	013067	isForFromToInit:loop:
+	027572	printon:
+	030753	var:expr:
+	031526	findMacros:compilerTemps:
+	031542	sizeForEffect:
+	031543	emitForValue:on:
+	032604	isForFromInit:
+	033602	printon:indent:precedence:forValue:decompiler:
+	033603	emitForEffect:on:
+	034000	sizeForValue
+	034001	firstPush
+
+ParsedMessage
+	04134	args
+	04135	op
+	04136	rcvr
+	04137	emittedReceiver
+	013066	printon:indent:precedence:forValue:decompiler:
+	027574	printon:
+	027575	findMacros:compilerTemps:
+	027576	rcvr:op:args:
+	027577	emitForValue:on:
+	030754	emittedReceiver←
+	030755	args←
+	030762	sizeForEffect:
+	030763	firstPush
+	030764	hasPC
+	031534	sizeForValue
+	031535	emitForEffect:on:
+
+ParsedNegation
+	031527	emitForTruth:falsity:into:on:
+	031530	negated
+	031531	sizeForTruth:falsity:
+	031532	printon:
+	031533	rcvr:op:args:
+
+ParsedLoop
+	04140	doExpr
+	04141	whileExpr
+	030771	sizeForValue
+	030772	whileExpr:doExpr:
+	030773	firstPush
+	031536	sizeForEffect:
+	031537	emitForValue:on:
+	031540	printon:
+	031541	findMacros:compilerTemps:
+	032605	printon:indent:precedence:forValue:decompiler:
+	033601	emitForEffect:on:
+
+ParsedForLoop
+	04144	nStatements
+	013070	printon:indent:precedence:forValue:decompiler:
+	013071	block:loc:decompiler:
+
+ParsedRemote
+	04151	local
+	031552	sizeForValue
+	031553	printon:
+	031554	remote:
+	033613	printon:indent:precedence:forValue:decompiler:
+	033614	emitForValue:on:
+	034022	expr:
+	034023	findMacros:compilerTemps:
+
+ParsedDisjunct
+	04153	emittedReceiver
+	031556	emitForTruth:falsity:into:on:
+	031557	sizeForTruth:falsity:
+	031560	sizeForEffect:
+	031561	sizeForValue
+	031562	findMacros:compilerTemps:
+	033616	printon:indent:precedence:forValue:decompiler:
+	033617	emitForValue:on:
+	033620	printon:
+	033621	emitForEffect:on:
+	034031	firstPush
+	034032	left:right:
+	034033	emittedReceiver←
+
+ParsedConjunct
+	04155	emittedReceiver
+	031564	emitForTruth:falsity:into:on:
+	031565	sizeForTruth:falsity:
+	031566	sizeForEffect:
+	031567	sizeForValue
+	031570	findMacros:compilerTemps:
+	031571	emitForEffect:on:
+	033622	printon:indent:precedence:forValue:decompiler:
+	033623	emitForValue:on:
+	033624	printon:
+	034040	firstPush
+	034041	left:right:
+	034042	emittedReceiver←
+
+CodeWindow
+	032620	class:selector:para:formerly:
+	033627	file:
+	034400	classInit
+	034401	hardcopy:
+	034402	editTitle
+
+FilePane
+	013077	yellowbug
+	034052	file:
+	034403	classInit
+
+PanedWindow
+	04157	title
+	032621	eachtime
+	033632	hardcopy:
+	033633	frame:
+	033634	hardcopyTitle:
+	033635	title:with:at:
+	033636	titlerect
+	033637	hardcopy
+	034054	takeCursor
+	034405	kbd
+	034406	redbug
+	034407	keyset
+	034410	show
+	034411	leave
+	034412	fixframe:
+	034413	erase
+	034414	enter
+	034415	yellowbug
+	034416	close
+	034417	vanish
+	034420	pickedpane
+
+Window
+	04165	frame
+	06465	aboutToFrame
+	06466	leave
+	06470	close
+	013100	editTitle
+	013110	fixedwidthfromuser:
+	013111	newframe
+	032632	eachtime
+	032633	classInit
+	032634	bluebug
+	033666	print
+	033670	outside
+	033671	showtitle
+	034115	yellowbug
+	034116	title
+	034117	hardcopy
+	034120	redbug
+	034121	keyset
+	034122	lasttime
+	034123	schedule
+	034124	enter
+	034125	frame:
+	034126	reset
+	034127	outline
+	034421	show
+	034444	fixframe:
+	034445	takeCursor
+	034446	kbd
+	034447	erase
+	034450	firsttime
+	034451	clearTitle:
+	034452	moveFrom:
+
+ParagraphEditor
+	02422	kbd
+	04160	contents
+	04161	formerly
+	06464	keyset
+	013101	scrollby:
+	013102	selectword
+	013103	checklooks
+	032622	selecting
+	032623	selectAndScroll
+	033641	fixframe:
+	033642	againOnce
+	033643	cut
+	033644	complement:
+	033645	replace:
+	033646	again
+	033647	scrollPos
+	034061	formerly:
+	034063	frameoffset
+	034064	primshow
+	034065	copy
+	034066	frame←
+	034067	leave
+	034070	Scrap←
+	034071	unselect
+	034072	typing
+	034073	complement
+	034074	select
+	034075	selectRange
+	034076	Deletion←
+	034422	show
+	034423	undo
+	034424	selectIn:
+	034425	selectionAsStream
+	034426	selection
+	034427	enter
+	034430	paste
+	034431	select:
+	034432	classInit
+	034433	height
+	034434	scrollUp:
+	034435	selectRange:
+	034436	realign
+	034437	scrollTo:
+
+TextImage
+	04162	figure
+	04163	ground
+	04164	rectangle
+	013104	edit:
+	013105	kbd
+	013106	checklooks
+	013107	select:
+	032624	fit
+	032625	displayat:effect:clippedBy:
+	032626	text:width:
+	032627	classInit
+	032630	resize
+	032631	complementfrom:to:
+	033651	show
+	033652	align
+	033653	paragraph:frame:style:figure:ground:
+	033654	reversefrom:to:
+	033655	hideData:
+	033656	copy
+	033660	setfigure
+	033661	setground
+	033662	cut
+	033663	paste
+	033664	fintype
+	033665	fromPress:value:
+	034101	c1←
+	034102	c2←
+	034103	text
+	034104	begintypein←
+	034105	pressCode
+	034106	figure:
+	034107	ground:
+	034110	presson:in:
+	034111	close
+	034112	leftflush
+	034440	white
+	034441	copyselection
+	034442	hidePress:complete:
+	034443	paragraph:frame:style:
+
+SyntaxWindow
+	032635	of:at:in:for:from:
+	033704	classInit
+
+StackPane
+	06260	separator:
+	06261	notify:
+	06262	comment:
+	06263	trailer:
+	06473	terminate
+	06474	contents
+	013113	selected
+	013114	continue:
+	032636	yellowbug
+	032637	compile:
+	032640	spawn
+	033706	deselected
+	033707	code
+	033710	close
+	033711	context:at:instance:code:
+	033712	context:instance:code:
+	033713	releaseAboveSelection
+	034151	identifier:
+	034152	interrupt:
+	034153	declaration:name:asArg:
+	034154	dirty
+	034463	execute:for:
+	034466	locked
+	034467	classInit
+	034471	selector
+
+ParseStack
+	04167	position
+	04170	length
+	034522	push:
+	034523	pop:
+	036017	init
+
+Parser
+	06306	separator:
+	013120	keywordMessage:macro:
+	013121	statement:
+	032647	binaryMessage:assign:
+	032650	onechar:
+	032651	pattern:
+	032652	alternatives:
+	032653	cascade:after:
+	032654	expression
+	032655	body:
+	032656	primary
+	032657	literal
+	033731	unaryMessage:assign:
+	033732	from:to:
+	033733	declaration:
+	033734	messageChain:
+	033735	subExpression
+	033737	terminate
+	033740	temporaries:
+	033741	notify:
+	033742	contents
+	033743	macro:
+	033744	block:
+	033746	float:fraction:exp:
+	033747	read
+	034527	keyword:
+	034530	integer:
+	034531	leftparen
+	034532	rightparen
+	034533	otheratom:
+	034535	mustBeDone
+	034537	statements:
+	034542	loopStmt:
+	034545	identifier:
+	034546	factor
+	034551	string:
+	034552	advance
+	034553	term
+	036022	resume
+	036025	comment:
+	036026	trailer:
+
+PressPrinter
+	032665	print:in:
+	032666	nextpage:
+	033757	classInit
+	034564	init
+	034565	of:
+	036051	toPrinter
+	036052	defaultframe
+	036054	close
+	041512	press:
+	041513	nextpage
+	042400	print:
+
+PressFile
+	02425	nextControl
+	02426	close
+	04174	scale
+	06311	clip:
+	013123	readPart
+	013124	drawlinefrom:to:width:
+	013125	toPrinter:
+	013134	fontindex:style:
+	032667	box:hue:sat:bright:containing⦂
+	032670	drawdiscat:radius:
+	032671	of:
+	032672	bitmap:bits:
+	032673	closeEntity:
+	032724	classInit
+	032725	AIS:width:height:croprect:at:scale:
+	032726	selectPrinter:
+	032731	open
+	033760	closePage
+	033761	part:start:
+	033762	setspacey:
+	033763	drawcurve:
+	033764	showobject⦂
+	033765	startEntity
+	034566	entity:containing⦂
+	034567	skipcontrol:type:
+	034570	setcoding:dots:lines:
+	034571	setsizewidth:height:
+	034572	dots⦂
+	034573	setwindowwidth:height:
+	034574	showrectwidth:height:
+	034575	toPrinter
+	034576	padpage
+	034577	onlyoncopy:
+	036055	setmode:
+	036057	space
+	036060	append:
+	036061	resetspace
+	036062	dotsfollow
+	036200	showchar:
+	036201	skipcontrol:
+	036203	showdots:
+	036204	brightness:
+	036205	showdotsopaque:
+	036206	part⦂code:
+	036207	startPage
+	036210	pictureinit
+	036211	padword
+	036212	saturation:
+	036213	object⦂atScreen:
+	036214	drawto:
+	036215	drawlinefromscreen:to:width:
+	036216	pictureinit:scale:
+	036217	objectGotoScreen:pen:
+	036357	setp:
+	036360	reset
+	036361	setwindowwidth:height:skipdots:skiplines:
+	036362	defaultPrinterName
+	036363	moveto:
+	036370	selectfont:
+	036371	hue:
+	036372	showrect:color:
+	036373	sety:
+	036374	setx:
+	036375	transpt:
+	036376	somefont
+	036631	data
+	037054	filin
+	037055	showrect:
+	037056	screenout:scale:
+	037057	nextParagraph
+	037060	setspacex:
+	037062	skipchars:
+	037063	showchars:
+	037064	showchars:skip:
+	037065	skipcode:data:
+	037066	Bcpl:pad:
+	037067	dotsfromAIS:
+	037070	transrect:
+	041462	page
+	041463	selectPrinter
+	041464	codefont:style:
+	041477	name
+	041501	scale:
+	041502	closeEntity
+	041503	entityorigin:
+	041504	recordnum
+
+EFTPSender
+	033766	net:host:
+	033767	process:
+
+RPPSocket
+	032675	send:
+	032676	sendData
+	033770	timerFired
+	033772	sendPacket
+	033773	socProcess:
+	036132	process:
+	036222	init
+	036223	reset
+	036265	sendPacketOnce
+	036266	release
+	036267	sendBlock:
+	037021	sendEndSequence
+
+FileStream
+	013126	read:
+	013127	writeFile:for:
+	032677	filin
+	032700	toPrinter
+	032701	append:
+	032702	skip:
+	032703	into:endError:
+	032704	pastend←
+	032705	readString:from:to:
+	032706	writeString:from:to:
+	032707	positionSize:
+	032710	position:size:
+	033774	settopage:char:
+	033775	printout:
+	033776	end
+	033777	next:from:
+	036070	wordposition←
+	036071	position←
+	036072	file
+	036100	position
+	036101	streamPosition←
+	036104	name
+	036105	directory
+	036106	readonly
+	036123	wordposition
+	036225	◦←
+	036226	◦
+	036227	flush
+	036230	shorten
+	036231	filout:
+	036232	printon:
+	036233	writeshorten
+	036234	word:
+	036235	filout
+	036236	contents
+	036237	word:←
+	036242	reset
+	036243	fixEnd
+	036244	edit
+	036245	asPressPrinter
+	036246	release
+	036250	readwriteshorten
+	036251	filoutclass:
+	036252	readwrite
+	036253	backup
+	036254	writing
+	036255	nextPage
+	036257	asParagraphPrinter
+	036606	obsolete
+	036610	streamPosition
+	036611	page
+	037000	length
+	037001	on:
+	037002	settoend
+	037003	pastend
+	037004	close
+	037005	positionPage:character:
+	037006	pad:
+	037007	pad:with:
+	037010	readPages:
+	037011	nextParagraph
+	037012	printoutclass:
+	037013	setMode:
+	037014	reopen
+
+BravoPrinter
+	032712	print:
+	036260	eject
+	036261	init
+	036262	nextpage
+
+ParagraphPrinter
+	013131	printchanges:
+	032713	printclass:
+	032714	stamp
+	036110	style←
+	036111	defaultframe
+	036112	of:
+	036113	close
+	036114	defaultleading
+	036115	leading←
+	036116	frame←
+	036264	print:
+	036612	frame
+	037016	classInit
+	037017	init
+	037020	printForget:class:
+
+RetransmitSocket
+	036141	timerFired
+	036142	startTimer
+	036270	setAddressesAndComplete:
+	036306	release
+	036307	timerOff
+	036310	timerOn
+	037023	retransmit:every:
+
+Timer
+	06314	activetime
+	06315	primstartup
+	032715	disable
+	032716	reset
+	036144	deletenext
+	036145	insertnext:
+	036157	for:action⦂
+	036160	shutoff
+	036271	startup
+	036272	insertlast:
+	036273	deletelast
+	036305	release
+	036614	nexttimer
+	036615	lasttimer
+	037024	fire
+	037026	init16
+	037027	init12
+	037030	classInit
+
+Queue
+	036147	skip:
+	036150	reset
+	036151	empty
+	036152	end
+	036153	length
+	036274	next
+	036275	peek
+	036276	contents
+	036277	deQ1
+	036300	of:from:to:
+	036301	enQ1:
+	036302	of:
+	036303	dequeue
+	036304	push:
+	037032	pastend←
+	037033	dequeue:
+
+Socket
+	06504	wakeup
+	06505	doMoreInit
+	06506	release
+	06507	sleep
+	06510	kill
+	032720	defaultAddresses:
+	032721	completePup:
+	032722	setOutAddBlock
+	036164	socProcess:
+	036165	frnHost←
+	036167	computeOutgoingCS←
+	036170	frnNet←
+	036171	setAddresses:
+	036172	filterInput←
+	036173	frnSocNum←
+	036174	lclSocNum←
+	036175	socDispose:
+	036311	default
+	036312	setAddressesAndComplete:
+	036313	defaultAndComplete:
+	036316	enable
+	036320	disable
+	036323	to:
+	036324	from:
+	036325	close
+	036352	freePacket:
+	036617	frnNet
+	036620	computeOutgoingCS
+	036621	frnHost
+	036622	filterInput
+	036623	frnSocNum
+	036624	lclSocNum
+	037034	net:host:soc:
+	037035	from:net:host:soc:
+	037036	acceptPacbuf:
+	037037	hostName:
+	037044	broadcast:to:
+	037045	freePacket
+
+NameUser
+	06317	getName:
+	013132	socProcess:
+	036322	timerFired
+	037041	init
+	037042	getAddressBlock:
+	037043	getAddressString:
+
+Pacbuf
+	032723	doChecksum
+	036327	pupID←
+	036330	init
+	036331	lock
+	036332	unlock
+	036333	dataLength←
+	036334	dataWord:←
+	036335	destSocNum
+	036336	totLengthWords
+	036337	pupID
+	036340	addressBlock
+	036341	checksum
+	036342	dataLength
+	036343	dataString
+	036344	addressBlock←
+	036345	destSocNum←
+	036346	sourceSocNum←
+	036347	lockwith:
+	036350	checksum←
+	036351	sourceSocNum
+	036625	pupString
+	036626	locked
+	037050	swapPorts
+	037051	dataString←
+	041402	◦←
+	041403	◦
+	041404	pupID1
+	041405	pupType←
+	041406	destNet←
+	041407	destHost
+	041410	destSoc0
+	041411	ethType←
+	041412	destSoc1
+	041413	transportControl←
+	041414	pupType
+	041415	word:
+	041416	destNet
+	041417	word:←
+	041420	dataWord:
+	041421	pupID0
+	041422	header
+	041423	checksumOK
+	041424	imEthDestHost
+	041425	imEthSrcHost
+	041426	destSoc1←
+	041427	pupLength
+	041430	sourceSoc0←
+	041431	sourceSoc1←
+	041432	transportControl
+	041433	ethType
+	041434	pupID0←
+	041435	pupID1←
+	041436	destSoc0←
+	041437	pupString←
+	041440	pupLength←
+	041441	destHost←
+	041442	sourceNet
+	041443	sourceNet←
+	041444	sourceHost
+	041445	sourceHost←
+	041446	sourceSoc0
+	041447	sourceSoc1
+	041450	imEthDestHost←
+	041451	imEthSrcHost←
+
+WidthTable
+	013135	fontfrom:
+	032727	lookup
+	032730	scan:until:exceeds:
+	036365	classInit
+	036366	named:pointsize:face:
+	036632	pointsize
+	036633	face
+	036634	descent
+	036635	max
+	036643	min
+	036644	ascent
+	036645	name
+	037061	findfield:on:
+	041465	tab
+	041466	tab←
+	041472	space
+
+Date
+	013140	printon:format:
+	032736	weekdayIndex
+	032737	-
+	032740	day:month:year:
+	032741	whichmonth:
+	032742	readfrom:format:
+	036650	year
+	036651	day
+	036652	dayinyear
+	037076	+
+	037077	day:year:
+	037100	fromDays:
+	037101	month
+	037102	leap
+	041532	daysinyear
+	041533	default
+	041534	monthname
+	041535	hash
+	041536	year←
+	041540	day←
+	041541	daysleft
+	041542	weekday
+	041543	daysinmonth
+	042417	daysinmonth:
+	042420	previous:
+	042421	monthday:
+	042423	printon:
+	042424	asSeconds
+	042425	<
+	042426	=
+	042427	>
+	042430	readfrom:
+	042431	from:
+	042432	classInit
+	042433	dayinmonth
+
+Time
+	032743	printon:
+	036654	hours
+	037103	fromSeconds:
+	041547	seconds:
+	041550	minutes:
+	041551	hours:
+	041552	default
+	042435	asSeconds
+
+ProjectWindow
+	037106	init
+	037107	putTitle
+	041560	runParent
+	041561	close
+	042450	yellowbug
+	042451	classInit
+	042452	userview:changes:parent:
+	042453	install
+
+BrowseWindow
+	032751	default
+	037120	classInit
+
+SystemPane
+	032752	yellowbug
+	032753	forget:
+	032754	compile:
+	037110	enter
+	037112	update
+	037113	classes
+	041565	to:
+	041570	dirty
+	042456	classInit
+	042457	leave
+	042460	deselected
+	042461	noCode
+	042462	selected
+
+ClassPane
+	032756	yellowbug
+	041574	from:to:
+	041575	compile:
+	041576	dirty
+	041577	deselected
+	042465	classInit
+	042470	close
+	042471	noCode
+	042472	selected
+
+OrganizationPane
+	032757	yellowbug
+	032760	compile:
+	037114	listFor:
+	037115	forget:
+	037116	noCode
+	037117	selected
+	042475	spawn:with:formerly:
+	042476	deselected
+	042477	classInit
+	042500	close
+	042502	class:
+	043403	dirty
+	043404	from:to:
+	043407	code:
+	043410	execute:
+
+SelectorPane
+	032762	yellowbug
+	042505	classInit
+	042506	execute:for:
+	042507	close
+	042510	selected
+	042511	deselected
+	043414	compile:in:under:
+	043417	from:to:
+	043420	compile:
+	043421	dirty
+
+EventQueue
+	032763	primitiveDequeue
+	032764	init
+	036664	time
+	037126	next
+	037127	peek
+	043432	elapsedtime
+	043440	time←
+	043441	reset
+
+UserEvent
+	036656	type
+	036657	time
+	036660	stroke
+	036661	elapsed
+	042524	x:y:type:stroke:elapsed:time:
+	042525	isKbdDown
+
+VirtualMemory
+	02432	giveBirth3
+	02433	tablewrt:on:
+	06334	specialLocs
+	06335	systemVmemOut
+	06336	systemNoHistory
+	06530	AComment
+	013166	ramwrite:
+	013167	symsFind:on:
+	013170	surgery:
+	013171	runLocs:
+	013172	pclassesOf:length:
+	013173	obwiz:
+	013174	init
+	013175	thisvmem
+	013176	staticTest:on:
+	013177	cover:
+	032771	newLowPM←
+	036702	premap
+	036703	file
+	037152	freelist:
+	037153	highpm0:gets:
+	037154	newHighPM←
+	037155	ZHB:gets:
+	037156	writeout:with:
+	037157	giveBirth2
+	037165	highPM:
+	037166	ZN:gets:
+	037167	lowPM:
+	037170	preBirth
+	037174	getpages:
+	037175	write:at:
+	042572	ZN:
+	042574	ISC:
+	042575	ZHB:
+	042576	readin:
+	042577	newZN:
+	043531	pmatm
+	043541	pagesUsed
+	043542	afterBirth
+	044606	dynaLocs:
+	044610	newZone
+	044611	mapPM
+	044612	read:at:
+	044613	run:after:
+	044614	fakevmem:
+	044615	write:from:at:
+	045003	CPT:
+	045004	freelistOffset:
+	045400	giveBirth
+	045401	pclassesOf:
+
+Vmapper
+	02431	mapMethod
+	06527	Acomment
+	013147	UniStroop
+	013150	arefsRectify
+	013151	mapHashSet
+	013152	mapHashObs
+	013153	permHashSet
+	013154	mapHashVals:
+	013155	mapMethodVec:
+	013156	mapNormal
+	013157	writefreelists
+	013160	map
+	013161	method:
+	013162	mapVector
+	013163	newoop
+	013164	mapClass
+	013165	mapMdict
+	032772	freelistRectify
+	032773	init
+	032774	mrefsRectify
+	032775	mapInteger
+	032776	mapString
+	032777	touchoop
+	036673	object
+	036674	image
+	036675	noop
+	036676	oop
+	037160	show
+	037161	nextfree:
+	037162	printon:
+	037163	readin
+	042567	Addons
+	042570	writeout
+	043504	classtrans
+	043505	mrefs
+	043506	noop:
+	043507	arefs
+	043510	UseOldUniqueStrings:
+	043513	reset
+	043514	object:
+	044600	mapUniqueString
+	044601	mapObject
+	044602	mapVmem
+	044603	newpcl:
+	044604	mapFloat
+	044605	bump
+
+BitImage
+	02434	grayEdit
+	06533	saveScreenBits
+	06534	comment
+	036733	frame
+	036734	nstrips
+	036735	strips
+	037177	copy
+	043556	moveto:
+	043561	printon:
+	043563	strips:
+	043564	pressCode
+	043565	title
+	044616	resize:
+	044620	rotate
+	044621	edit:
+	044652	line
+	044653	newbrush
+	044654	pastebrush
+	044655	horizontalsymmetry
+	044656	verticalsymmetry
+	044657	classInit
+	044660	read:
+	045011	show
+	045013	displayat:effect:clippedBy:
+	045056	fromImage:
+	045074	erase
+	045075	fromuser
+	045076	fromuserevenword
+	045403	arc
+	045404	yellowbug
+	045421	fromrectangle:
+	045613	setfigure
+	045644	setground
+	045646	write:
+	045647	blinkbrush
+	047474	nstrips:
+
+BitRectEditor
+	06531	showtitle
+	036706	tool
+	043566	redbug
+	043567	toolpic:
+	043576	actionpic:
+	044623	classInit
+	044637	outside
+	045022	fixframe:
+	045030	lostMouse
+	045055	yellowbug
+	045406	enter
+	045407	initmenu1
+	045417	bluebug
+	045420	grow
+	045600	picture:
+	045601	leave
+	047424	title
+
+RadioButtons
+	036707	vec
+	043571	value
+	043572	reset
+	043573	has:
+	044622	release:thenPush:
+	045023	setvalue:
+	045024	vec:at:height:
+	045025	vec:at:width:
+	045026	moveto:
+	045027	push:
+	045602	bug:
+
+BitRectTool
+	036710	brush
+	036712	tone
+	036713	mode
+	043577	redbug
+	044624	setbrush
+	044625	setfrom:
+	044626	classInit
+	044632	init
+	044633	getRectangle
+	044634	draw
+	044635	line
+	044636	blowup
+	045031	mpOnGrid
+	045032	block
+	045411	brush:
+	045412	shade
+	045416	blowup:to:
+	045610	showon:
+	047400	brushpt:
+	047401	frame
+	047402	paint
+	047403	frame:
+
+BitRect
+	036714	data
+	036715	title
+	044627	title:in:
+	044630	presson:in:
+	044631	strips
+	045043	height←
+	045044	extent←
+	045045	origin:corner:title:stripheight:data:
+	045046	classInit
+	045047	bitsOntoStream:
+	045050	width←
+	045051	fromuser
+	045414	copyBitsFrom:
+	045415	filin:
+	045603	show
+	045604	growby:
+	045605	edit
+	045606	filout
+	045607	saveScreenBits
+	047404	corner←
+	047405	=
+	047406	printon:
+	047410	default
+	047412	length
+	047413	hash
+	047414	growto:
+
+Image
+	02437	fromPress:value:
+	06340	pressCode
+	06532	comment
+	036722	superimage
+	036723	form
+	036724	path
+	036725	origin
+	036726	xgrid
+	036727	ygrid
+	036730	figure
+	036731	ground
+	036732	rectangle
+	044641	addpath:andform:
+	044642	classInit
+	044643	add:and:
+	044644	resize
+	044645	rectanglefromuser
+	044646	hideData:
+	044647	smallestsubimageat:
+	044650	color:effect:
+	044651	presson:in:
+	045057	black
+	045060	gray
+	045061	subimageat:
+	045062	kbd
+	045063	translate:
+	045064	display
+	045065	reverse
+	045066	appendimage:after:
+	045067	replaceimage:with:
+	045070	display:
+	045071	blink
+	045072	griddedpoint:
+	045423	edit:
+	045424	quickDisplayAt:scale:offset:
+	045425	subimageswithin:
+	045615	addimage:
+	045616	findbyrect:
+	045617	deleteimage:
+	045620	white
+	045622	normalize
+	045623	mp
+	045624	printon:
+	045625	subimage:
+	045626	substitute:for:
+	045627	origin:rectangle:path:form:figure:ground:xgrid:ygrid:
+	045630	highlite
+	045631	copy
+	045632	origin:rectangle:path:form:
+	045633	indexofsubimageat:
+	045634	origin:extent:
+	045635	fromuser
+	045636	displayat:effect:clippedBy:
+	045637	blink:
+	045640	indexofsubimagebelow:
+	045641	close
+	045642	hidePress:complete:
+	045643	outlinesubimage:
+	047430	=
+	047431	rightside
+	047432	contains:
+	047434	superimage:
+	047435	deletesubimage:
+	047436	rectangle:
+	047437	addform:andpath:
+	047440	hash
+	047441	extent
+	047442	corner
+	047443	height
+	047444	bottom
+	047445	origin:
+	047446	center
+	047447	top
+	047450	corner←
+	047451	xgrid:
+	047452	translateto:
+	047453	boxcomp
+	047454	form:
+	047455	path:
+	047456	width
+	047457	ygrid:
+	047460	leftside
+	047461	figure:
+	047462	ground:
+
+BorderedText
+	044640	displayat:effect:clippedBy:
+	045422	presson:in:
+	045621	copy
+	047427	pressCode
+
+Document
+	06343	pressCode
+	036741	name
+	044661	fromPress:
+	044670	hideData:
+	044711	copy
+	044712	findindex:
+	045133	delete:
+	045134	edit
+	045146	insert:
+	045426	fromPress:value:
+	045447	hardcopy
+	045677	resize
+	045700	bubbledelete:
+	045701	bubbleinsert:
+	047517	name:
+	047520	printon:
+	047522	classInit
+
+Heading
+	06342	pressCode
+	044662	right
+	044663	presson:in:
+	044664	origin:index:charactercodes:currentcharacter:
+	044666	left
+	044667	hideData:
+	045126	classInit
+	045437	edit:
+	045440	typein
+	045441	newfont
+	045652	up
+	045665	down
+	045666	copy
+	045667	origin:formset:currentcharacter:
+	045670	fromPress:value:
+	047477	printon:
+
+FormSet
+	02440	from:to:ascent:descent:style:styleindex:name:
+	02441	deltawidthof:by:
+	02442	include:with:
+	02443	makecu:scale:
+	036736	space
+	036737	currentformindex
+	045101	length
+	045102	changeascentto:
+	045103	changedescentto:
+	045104	fromspace:to:
+	045105	last:
+	045106	maxwidth:
+	045107	abslength
+	045110	changewidthof:to:
+	045111	strikerightx
+	045112	currentformorigin
+	045113	classInit
+	045114	fromstyle:styleindex:
+	045115	descent:
+	045116	spaceorigin:
+	045117	newspace
+	045120	show
+	045121	originx
+	045122	ascent:
+	045123	wordwidth:
+	045124	width
+	045125	from:
+	045427	deltaascent:
+	045430	deltadescent:
+	045431	copy:to:effect:
+	045432	replace:with:
+	045433	copyrange:to:from:startingat:
+	045434	initspaceat:
+	045435	copy:to:
+	045436	asForm:
+	045654	checkindex
+	045661	updateseglength
+	045663	install:
+	045664	updatemaxwidth
+	047501	descent
+	047502	wordwidth
+	047503	last
+	047504	first
+	047505	first:
+	047506	segmentlength
+	047507	height
+	047510	spaceframe
+	047511	maxwidth
+	047512	widthof:
+	047513	type:
+	047514	ascent
+	047515	type
+	047516	kern
+
+DocumentEditor
+	02444	jump
+	044672	show
+	044673	place
+	044675	move
+	044677	addspace
+	044700	init:
+	044701	update
+	044702	kbd
+	044703	cut
+	044705	deletespace
+	044706	delete
+	044707	bottom
+	044710	top
+	045135	hardcopy
+	045142	newframe
+	045144	closeScrap
+	045442	yellowbug
+	045443	redbug
+	045444	buildscreenimage
+	045445	defaultdocument:
+	045446	paste
+	045671	editTitle
+	045672	deselect
+	045673	copyselection
+	045674	leave
+	045675	classInit
+	045676	close
+	047523	title
+	047524	copy
+	047525	print
+	047530	defaultdocument
+	047531	enter
+
+PriorityInterrupt
+	03234	sleep
+	03235	deepsleep
+	047551	run:
+	047552	terminate
+	047553	+
+	047554	restart
+	047555	disable
+	047556	from:at:
+	047557	enable
+	047560	wakeup
+	047561	swap:with:
+	047562	reset
+
+RemoteContext
+	045175	cleancopy
+	045720	releaseTo:
+	047572	caller
+	047573	restart
+	047574	initialize
+
+SafeQ
+	036751	status
+	044725	next←
+	053013	enable
+	053014	length
+	053015	disable
+
+PQueue
+	06347	myend
+	044726	pastend←
+	045733	next
+	045734	peek
+	045735	contents
+	045737	of:
+	045740	dequeue:
+	045741	push:
+	052616	of:from:to:
+	052617	skip:
+	052620	reset
+	052621	empty
+	052622	end
+	052623	length
+
+ILFileDirectory
+	06363	versionNumbers
+	036771	socket
+	044734	open
+	045456	openFile:mode:
+	045767	Insert:
+	045775	release
+	052625	Find:
+	052626	allocatePage
+	052707	Delete:
+	052711	userName
+	052716	userPassword
+	053022	entryClass
+	053170	name:password:
+	053171	obsolete
+	053172	noAck
+
+ILFile
+	06545	open
+	036762	findLastPage
+	044727	Write:
+	045454	doCommand:page:error:
+	045455	errorString:
+	045742	Read:
+	045763	classInit
+	045764	writeMode:
+	045765	close:
+	052627	endFile:
+	052671	close
+	053023	allocatePage
+	053024	entryClass
+	053131	release
+
+ILFilePage
+	045743	serialNumber
+	045744	length:
+	045745	pageNumber
+	045746	pageNumber:
+	045747	command:
+	052630	mode:
+	052631	serialNumber:
+	053025	headerLength
+	053026	length
+
+EtherFilePage
+	06351	trailerLength
+	036753	packet
+	052632	init
+	052633	length:
+	052634	length
+	052635	header:←
+	053030	dataString
+	053031	headerLength
+	053032	header:
+	053033	pupType
+	053034	pupType←
+
+FilePage
+	06353	headerLength
+	06354	trailerLength
+	036755	page
+	036756	dataString
+	036757	dictionary
+	036760	file
+	045750	checkIndex:
+	052636	asStream:
+	052637	pageLength
+	052640	name:
+	052641	init
+	052642	get:
+	052643	word:
+	052644	word:←
+	052645	dataEnd:
+	052646	read:
+	052647	reopen
+	053036	◦←
+	053037	◦
+	053040	dataLength
+	053041	dataBeginning
+	053042	dataMaxEnd
+	053043	doCommand:error:
+	053044	dictionary:
+	053045	header:←
+	053046	length
+	053047	write
+	053050	page:
+	053051	full
+	053053	dataEnd
+	053054	asStream
+	053055	address
+	053056	length:
+	053057	endFile
+	053060	lastPage
+	053061	address:
+	053062	serialNumber
+	053063	serialNumber:
+	053064	pageNumber
+	053065	header:
+	053066	pageNumber:
+	053067	file:
+
+Dict
+	06355	nextEntry:
+	06356	file
+	06357	init:
+	06360	error:entry:
+	06543	asStream
+	06544	open
+	045751	makeEntry:
+	045752	rename:newName:
+	045753	Match:to:
+	045754	match:to:
+	045755	get:
+	045756	insert:
+	045757	find:
+	045760	delete:
+	045761	replace:
+	045762	write:
+	052650	◦←
+	052651	list:
+	052652	◦
+	052653	Rename:from:
+	052654	append:
+	052656	obsolete
+	052657	release
+	052662	match:
+	052663	insert:with:
+	052664	replace:with:
+	052665	close
+	052666	newEntry
+	053073	position←
+	053074	retrieve:
+	053075	Position←
+	053076	entryClass
+	053101	lookup:
+	053102	found:
+	053103	store:
+	053105	entrySize:
+	053106	next
+	053107	Find:
+	053110	contents
+	053111	create:
+	053112	reset
+	053113	Delete:
+	053114	Insert:
+	053115	position
+	053116	read:
+	053117	exists:
+	053120	reopen
+	053121	Replace:
+	053122	list
+
+File
+	06361	sameFile
+	06546	close
+	06547	release
+	06551	help
+	036763	error
+	036764	dictionary
+	036765	name
+	036766	directory
+	036767	serialNumber
+	036770	type
+	044731	Get:
+	044732	serialNumber:
+	044733	error:
+	045766	makeEntry:
+	052677	init
+	052700	length
+	052701	asStream
+	052702	classInit
+	052703	lastFullPage
+	052704	lastPage
+	052705	pageFrom:
+	052706	reopen
+	053133	printon:
+	053134	rename:
+	053135	get:
+	053136	match:
+	053137	read:
+	053140	type:
+	053141	dictionary:
+	053142	entryClass
+	053143	name:
+	053144	found:
+	053145	doCommand:page:error:
+	053146	Write:
+	053147	open
+	053150	Find:
+	053151	newPage
+	053152	endFile:
+	053153	newPage:
+	053154	Read:
+	053155	directory:
+	053156	delete
+	053157	findLastPage
+	053160	lastPage:
+
+ILSocket
+	037025	net:host:
+	044735	sendPacket:
+	045771	socProcess:
+	045772	setAck
+	052712	timerFired
+	053173	noAck
+
+ILParameterBlock
+	045773	nextword←
+	045774	nextString←
+	052714	packet←
+	052715	position:
+
+FileDirectory
+	06365	versionNumbers
+	06366	exceptionHandler:
+	06554	closeTransaction
+	036773	dictionary
+	036774	server
+	036775	directory
+	044736	insert:
+	045457	filin:format:
+	045776	retrieve:
+	045777	printon:
+	052720	userName
+	052721	userPassword
+	052722	newPage
+	052723	pressfile:
+	052730	close
+	054001	pressfilin:
+	054002	file:
+	054003	dictionary:
+	054004	newFile:
+	054005	entryClass
+	054006	server:
+	054007	allocateSN:
+	054011	login:
+	054012	login:password:
+	054013	open
+	054016	error:entry:
+	054017	oldFile:
+	054035	directory:
+	054036	filin:
+	054600	store:
+	054601	Find:
+	054602	retrieve:as:
+	054603	store:as:
+	054604	asFtpDirectory
+	054615	checkName:
+
+FtpDirectory
+	044737	replace:
+	052724	delete:
+	052725	connect:password:
+	052726	directoryName:
+	054020	commands
+	054031	close
+	054605	retrieve:as:
+	054606	store:as:
+	054607	retrieve:
+	054610	closeThen:
+	054611	rename:newName:
+	054612	store:
+	054613	login:password:
+	054614	open
+
+AltoFileDirectory
+	044740	nextEntry:
+	044747	addEntry:
+	044750	deleteEntry:
+	044751	deallocate:
+	044753	freePages
+	044754	stampBoot
+	044755	filesMatching:
+	044756	Insert:
+	045460	Position←
+	045463	growSmalltalkBy:
+	045464	rename:newName:
+	045465	checkName:fixing:
+	045466	allocate:after:
+	045467	open
+	052731	flush
+	052763	Delete:
+	054043	entryClass
+	054072	obsolete
+	054074	release
+	054075	entrySize:
+	054076	checkName:
+	054617	virtualToReal:
+	054620	configure:
+	054621	diskID
+	054635	allocateSN:
+	054640	realToVirtual:
+	054641	reset
+	054642	close
+	056002	diskNumber
+
+AltoFile
+	044742	errorString:
+	044743	sameFile
+	044744	Read:
+	044745	Get:
+	044746	updateLeader:
+	045461	Write:
+	045462	endFile:
+	052741	init
+	052755	close
+	054044	fileSize
+	054045	entryClass
+	054057	pageAddresses:
+	054061	open
+	054062	leader:
+	054064	dskprim:address:command:page:
+	054065	findLastPage
+	054622	storeOn:
+	054627	doCommand:page:error:
+	054633	readFrom:
+	054634	classInit
+	056001	leader
+
+AltoFilePage
+	036776	address
+	052734	freePage
+	052735	serialNumber
+	052736	init
+	052737	length:
+	052740	pageNumber:
+	054047	headerLength
+	054050	length
+	054051	lastPage
+	054052	pageNumber
+	054053	address:
+	054623	serialNumber:
+
+AltoFileAddressTable
+	052742	◦
+	054624	◦←
+	054625	position←
+
+RunVector
+	036777	max
+	044741	◦←
+	052746	◦
+	052747	length
+	056000	min
+
+JuniperFileController
+	06556	implementationNotes
+	044757	Read:
+	044760	Get:
+	052770	close
+	052771	length
+	052772	doAction:requestPrs:
+	052773	lastFullPage
+	054101	allocatePage
+	054102	entryClass
+	054106	longFileHandle:
+	054107	newRequestParameterBlock
+	054644	length:
+	054645	endFile:
+	054647	Write:
+	054650	open
+	054651	writePage:
+	056003	interface
+
+JuniperPageBuffer
+	06555	implementationNotes
+	052766	length:
+	054103	serialNumber:
+	054104	pageNumber:
+	056004	pageNumber
+	056005	serialNumber
+	056006	length
+
+JuniperRequestParameterBlock
+	044761	nextDataBlockString←
+	044762	longInteger:←
+	052776	parameter:←
+	052777	shortFileHandle←
+	056600	opcode←
+
+JuniperParameterBlock
+	06557	implementationNotes
+	054111	dataBlockLength
+	054112	dataBlockAdvance:
+	054113	leader:
+	054114	pupType
+	054115	packet←
+	054116	pupType←
+	056007	packet
+	056602	leader:←
+	056603	dataBlockLength←
+	056604	dataBlockGet
+
+PriorityScheduler
+	04226	sleep:
+	04227	deepsleep:
+	044763	reselect
+	044764	terminate:
+	044765	install⦂above:
+	044766	printon:
+	044767	install⦂at:
+	044770	init:
+	044771	init11
+	044772	init9
+	044773	init8
+	054123	◦
+	054126	replaceUser:
+	054130	disable
+	054653	fromSource:
+	054655	swap:at:with:
+	054656	initsched
+	054657	INSTALL⦂AT:
+	054661	resetCurrent
+	054663	init1
+	054664	errorReset
+	056011	currentPriority
+	056606	restart:
+	056607	disable:
+	056610	reset:
+	056611	critical⦂
+	056612	run:at:
+	056613	enable:
+	056614	wakeup:
+	056616	top
+
+DictionaryEntry
+	06373	dictionary
+	06374	dictionary:
+	06375	name:
+	06561	init
+	054135	storeOn:
+	054136	match:
+	054137	readFrom:
+	054140	fileSize
+
+JuniperResultParameterBlock
+	054146	resultCode
+	054147	parameter:
+	054665	longInteger:
+	054666	nextDataBlockString
+
+MessageTally
+	044776	tallyPath:
+	044777	printon:total:
+	045470	fullprinton:cutoff:
+	054151	report:
+	054152	>
+	054153	<
+	054154	=
+	054156	primitives:
+	054157	hash
+	054160	bump
+	054162	bump:
+	054667	leaves:
+	054670	report:cutoff:
+	054671	tally:
+	054672	into:
+	054673	every:
+	054674	cumprinton:from:total:over:
+	054675	moreon⦂
+	056013	method
+	056014	tally
+	056626	on⦂
+	056627	printon:
+	056630	class:method:
+	056631	abort
+	056632	from:
+	056633	reset
+	056634	classInit
+	056635	close
+	057600	breakdown
+	057601	treeprinton:tab:total:over:
+
+FontWindow
+	02451	makecu:scale:
+	02452	setwidth:
+	06563	lasttime
+	06564	help
+	045471	eachtime
+	045472	newfont:maxcharwidth:min:max:ascent:kern:
+	054706	frame
+	054707	strike
+	054711	updateseglength:raster:
+	056646	cufixup
+	056647	classInit
+	056650	firsttime
+	056651	appendxtable:
+	057603	setfont:
+	057604	setchar:
+	057605	setwidth
+	057606	show
+	057607	updatemaxwidth
+	057610	altostyle:fontnumber:at:
+	057611	setbit:color:
+	057612	setascent:
+	057613	setdescent:
+
+Etherworld
+	045473	wakeup
+	045474	kill
+	045475	Init
+	054714	setLights
+	054717	etherStop
+	054720	notify:
+	054721	etherStart
+	054723	classInit
+	054724	freePacket
+	056661	setMachineID:
+	056664	broadcastFilter:
+	056665	freePacket:
+	056666	error:
+	057614	fill
+	057615	printon:
+	057617	installIntProc
+	057620	installInputProc
+	057621	sleep
+	057622	printSocketTable
+	057623	sendOutput:
+	057624	printRoutingTable
+	060002	SIO:
+	060003	doOutput:
+	061006	broadcastFilterSet:
+	061012	getMachineID
+	061013	awake
+	061015	copyinput:
+
+RoutingUpdater
+	054715	update
+	054716	init
+	056656	timerFired
+	057616	socProcess:
+
+PressTurtle
+	054726	init:
+	056024	place
+	056672	color:
+	056673	black
+	056674	white
+	056675	up
+	056676	turn:
+	056677	initwithfile:
+	056700	close
+	056701	fillIn⦂
+	057625	go:
+	057626	goto:
+	061023	blue
+	061024	red
+	061025	cyan
+	061026	green
+	061027	magenta
+	061030	yellow
+
+SystemOrganizer
+	054727	printCategory:
+	056702	printAll
+	057627	filoutCategory:
+	057630	superclassOrder:
+
+HalfToner
+	02453	setup
+	045476	decode:using:
+	045477	doFile
+	045500	setup:
+	056025	nlines
+	056026	rect
+	056027	npix
+	056030	strm
+	057632	intoPress:file:
+	057633	test
+	061033	rect←
+
+JuniperInterface
+	06566	test
+	06567	implementationNotes
+	045501	Match:to:
+	054730	Rename:from:
+	054731	doLogin:
+	054735	classInit
+	054736	Delete:
+	054737	noOp
+	054740	close
+	054741	newRequestParameterBlock
+	054742	checkRetry:
+	054743	error:
+	056705	timerOff
+	056710	release
+	056711	userName
+	056712	userPassword
+	056713	newPacket
+	056714	directory
+	056715	closeTransaction
+	057635	timerOn
+	057636	nextFile:
+	057637	login:password:
+	057640	open
+	057642	Find:
+	057643	hash:
+	057644	checkDirectory:
+	057645	Insert:
+	057646	checkResult:
+	057647	doAction:requestPrs:
+	060006	versionNumbers
+	061045	juniperConstants
+	061046	exceptionHandler:
+	061047	entryClass
+	061050	obsolete
+	061051	server
+	061052	name:password:
+	061053	directory:
+
+JuniperSocket
+	045502	socProcess:
+	054733	sendRequest:
+	054734	sendLogin:
+	056706	timerFired
+	057641	net:host:
+
+ExceptionHandler
+	06570	description
+	06571	implementationNotes
+	045503	juniperTest
+	045504	testTransaction
+	054746	do⦂onTrapDo⦂
+	054747	restartCode
+	054750	abortCode
+	056031	result
+	056032	trapCondition
+	056725	release
+	057651	trap:
+	057652	test
+	057653	loopTest
+	061063	result←
+	061064	restart
+	061066	abort
+	061067	trap
+	061070	continue
+
+Vector
+	03253	argsOff:
+	03254	nail
+	03255	length
+	03256	unNail
+	03257	firstPush
+	04236	,
+	04237	remote:
+	04240	sizeForValue
+	04241	emitForValue:on:
+	06405	asVector
+	014621	max
+	014622	printon:
+
+String
+	03440	systemRehash
+	03460	asDecimalDigits
+	03461	findString:startingAt:
+	03462	asLarge
+	03463	asFloat
+	03464	compare:
+	03465	replace:to:by:from:to:
+	03470	copy:to:with:from:to:
+	03471	subst:for:
+	03472	asInteger
+	06207	lock
+	06210	unlock
+	013015	match:
+	014703	replace:to:by:
+	014704	-
+	014713	asUppercase
+	014714	printon:
+	014715	concat:
+	014716	hash
+	014717	asBytes
+	023441	>
+	023442	<
+	023443	asParagraph
+	023477	hasBeenUniqued
+	023500	asVector
+	023501	length
+	023502	species
+	023503	base8:
+	023504	recopy
+	023505	unique
+	023533	asFileName
+	024012	copy:to:
+	024013	word:
+	024014	word:←
+	024015	growto:
+	024016	fill:to:with:
+	024017	all←
+
+UniqueString
+	04203	◦←
+	06345	hash
+	06536	unique
+	06537	recopy
+	06541	copy
+	044713	rehash
+	044714	hasInterned:
+	044715	numArgs
+	044716	keywords
+	045150	isinfix
+	045153	isarrow
+	045450	intern:
+	045705	str:
+	045706	mustTake:
+	045707	classInit
+	045710	iskeyword
+	047533	asString
+	047534	=
+	047535	printon:
+	047540	stringhash
+	047541	isuneval
+	047542	species
+
+Natural
+	02411	natdiv:
+	03324	printon:
+	03423	natunnormalize:lookfirst:
+	03424	natdivideandCarry:extra:
+	03425	natcompare:
+	03426	printon:base:
+	03507	natadd:
+	04302	◦
+	06220	isLarge
+	013030	natsubtract:
+	013031	nattimes:
+	014645	natnormalize:
+	024100	classInit
+	024114	asInteger
+	025060	species
