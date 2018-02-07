@@ -212,4 +212,40 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">white <br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[file brightness: 255.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">file saturation: 0.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">super white]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 10pt serif">yellow </span><span style="font: 10pt serif">
+<span style="font: bold 10pt serif">yellow </span><span style="font: 10pt serif">[self color: 40]</span></div>
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<span style="font: bold 12pt serif"><br>Drawing</span></div>
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<span style="font: bold 10pt serif">fillIn⦂ expr</span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: italic 10pt serif">"Code in expr must describe a closed figure"</span><span style="font: bold 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[filling&larr; true.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">file object⦂ expr eval atScreen: fplace.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">filling&larr; false]</span></div>
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<span style="font: bold 10pt serif">go: dist </span><span style="font: 10pt serif">| old</span><span style="font: bold 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[self goto: fplace + <br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">(([fdir\90.0=0.0⇒</span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">"optimize horiz and vert lines"<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[fdir/90.0=0⇒[1.0⌾0.0];<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=1⇒[0.0⌾1.0];<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=2⇒[¬1.0⌾0.0];<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">=3⇒[0.0⌾¬1.0]]<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">fdir asRadians asDirection])*dist)]</span></div>
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<span style="font: bold 10pt serif">goto: p </span><span style="font: 10pt serif">| old</span><span style="font: bold 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[old&larr; fplace.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">fplace &larr; p x asFloat ⌾ p y asFloat.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">super goto: fplace x round ⌾ fplace y round.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">filling⇒[file objectGotoScreen: fplace pen: pen]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">pen=1⇒[file drawlinefromscreen: old to: fplace width: 0.46875*width]]</span></div>
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<span style="font: bold 10pt serif">turn: angle </span><span style="font: 10pt serif">[fdir&larr; fdir+angle\360.0]</span></div>
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<span style="font: 10pt serif"></span></div>
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<span style="font: 10pt serif">SystemOrganization classify: ↪PressTurtle under: &rsquo;Graphical Objects&rsquo;.</span></div>
+<script>function do_tabs() { // unit = px
+  var tabs = document.getElementsByClassName("tab");
+  for (var i = 0; i < tabs.length; ++i) {
+    var span = tabs[i];
+    var val = span.getAttribute("val");
+    if (val == null) console.log("Couldn't get val");
+    var rect = span.getBoundingClientRect();
+    var tabstop;
+    if (val > 0) tabstop = Math.ceil(rect.left / val) * val;
+    else tabstop = -val;
+    console.log("do_tabs", val, tabstop)
+    if (tabstop > 0) {
+      var width = tabstop - rect.left;
+      span.style.display = "inline-block";
+      span.style.width = width + "px";
+    }
+  }
+}
+do_tabs();
+</script>
+  </body>
+</html>

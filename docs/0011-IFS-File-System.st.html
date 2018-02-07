@@ -168,4 +168,32 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">setAck </span><span style="font: 10pt serif">["create acknowledgement packet"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">outAck &larr; self freePacket.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">outAck pupType &larr; LeafType.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">outAck dataString &larr; &rsquo;&rsquo;.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"control code"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">outAck◦11 &larr; Ack.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">self setAddresses: outAck]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 10pt serif">socProcess: Ipac </span><span style="font: 10pt serif">[<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"check if this is a packet we want. normally left half of pupID1 =
+<span style="font: bold 10pt serif">socProcess: Ipac </span><span style="font: 10pt serif">[<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"check if this is a packet we want. normally left half of pupID1 = Data (0).<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">in case of DestroyConnection, control code might be Dallying (10)"<br><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">Ipac◦12 "pupID1" = seqNum and⦂ Ipac pupType = LeafType⇒ [<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">"turn off timer, save result"<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">self timerOff.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">result &larr; Ipac]<br><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"recycle packet"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">self freePacket: Ipac]</span></div>
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<span style="font: bold 10pt serif">timerFired </span><span style="font: 10pt serif">[<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"timer has fired -- retransmit or abort"<br><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">result or⦂ abortTransfer⇒ ["bug?--timer may not have been disabled yet"]<br><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">self timerOn⇒ ["retransmit" self completePup: outPac]<br><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">"abort"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">abortTransfer &larr; true]</span></div>
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<span style="font: 10pt serif"></span></div>
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<span style="font: 10pt serif">SystemOrganization classify: ↪ILSocket under: &rsquo;IFS File System&rsquo;.</span></div>
+<script>function do_tabs() { // unit = px
+  var tabs = document.getElementsByClassName("tab");
+  for (var i = 0; i < tabs.length; ++i) {
+    var span = tabs[i];
+    var val = span.getAttribute("val");
+    if (val == null) console.log("Couldn't get val");
+    var rect = span.getBoundingClientRect();
+    var tabstop;
+    if (val > 0) tabstop = Math.ceil(rect.left / val) * val;
+    else tabstop = -val;
+    console.log("do_tabs", val, tabstop)
+    if (tabstop > 0) {
+      var width = tabstop - rect.left;
+      span.style.display = "inline-block";
+      span.style.width = width + "px";
+    }
+  }
+}
+do_tabs();
+</script>
+  </body>
+</html>

@@ -367,4 +367,29 @@
 <span style="font: bold 10pt serif">of: errorString at: position in: stream for: class from: context </span><span style="font: 10pt serif">| stackPane codePane<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[stackPane &larr; StackPane new.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">codePane &larr; CodePane new class: class selector: nil para: nil.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">self title: class title with: (stackPane, codePane) at: stdTemplates.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">stdFrame moveto: (user screenrect center-(stdFrame extent/2)).<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">self frame: (self fixframe: stdFrame); show.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">stackPane context: false instance: false code: codePane.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">stackPane of: context inVector.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">codePane showing: stream asArray.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">codePane from: stackPane; notify: errorString at: position in: stream]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: 10pt serif"></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt;
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<span style="font: 10pt serif">SystemOrganization classify: ↪SyntaxWindow under: &rsquo;Windows&rsquo;.</span></div>
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<span style="font: 10pt serif">SyntaxWindow classInit</span></div>
+<script>function do_tabs() { // unit = px
+  var tabs = document.getElementsByClassName("tab");
+  for (var i = 0; i < tabs.length; ++i) {
+    var span = tabs[i];
+    var val = span.getAttribute("val");
+    if (val == null) console.log("Couldn't get val");
+    var rect = span.getBoundingClientRect();
+    var tabstop;
+    if (val > 0) tabstop = Math.ceil(rect.left / val) * val;
+    else tabstop = -val;
+    console.log("do_tabs", val, tabstop)
+    if (tabstop > 0) {
+      var width = tabstop - rect.left;
+      span.style.display = "inline-block";
+      span.style.width = width + "px";
+    }
+  }
+}
+do_tabs();
+</script>
+  </body>
+</html>
