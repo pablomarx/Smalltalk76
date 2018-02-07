@@ -64,4 +64,31 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">juniperTest  </span><span style="font: 10pt serif">"ExceptionHandler new juniperTest."</span><span style="font: bold 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">| e i max f<br>[<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">e &larr; ExceptionHandler new.  i &larr; 0.  max &larr; 5.  dpj exceptionHandler: e.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">dpj open.  f &larr; dpj file: &rsquo;test.test&rsquo;.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">e do⦂ [f reset. until⦂ [ f end ] do⦂ [ user show: (f next) inString. ]. ]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">onTrapDo⦂<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[ user cr;  show: &rsquo;Juniper not responding&rsquo;.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">f release.  dpj release.  i &larr; i+1.  [ i &lt; max ⇒ [ e restart. ] e abort ]. ].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">user cr;  show: &rsquo;done&rsquo;.  f close.  dpj close.<br>]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 10pt serif">loopTest  </span><span style="font: 10pt serif">"ExceptionHandler new loopTest."</span><span style="font: bold 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">| guard i<br>[<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">guard &larr; ExceptionHandler new.  user clear.  i &larr; 0.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">guard do⦂<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[ user show: i asString.  i &larr; i+1.  guard trap: i.  user show: &rsquo; end&rsquo;. ]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">onTrapDo⦂<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[ i &lt; 10 ⇒ [ guard restart ]  guard continue ].<br></span><span class="tab" val="79"></span><span style="font: 10p
+<span style="font: bold 10pt serif">loopTest  </span><span style="font: 10pt serif">"ExceptionHandler new loopTest."</span><span style="font: bold 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">| guard i<br>[<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">guard &larr; ExceptionHandler new.  user clear.  i &larr; 0.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">guard do⦂<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[ user show: i asString.  i &larr; i+1.  guard trap: i.  user show: &rsquo; end&rsquo;. ]<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">onTrapDo⦂<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[ i &lt; 10 ⇒ [ guard restart ]  guard continue ].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">user show: &rsquo; done.&rsquo;.  user cr.  ⇑ guard result<br>]</span></div>
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<span style="font: 10pt serif"></span></div>
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<span style="font: 10pt serif">SystemOrganization classify: ↪ExceptionHandler under: &rsquo;ExceptionHandling&rsquo;.</span></div>
+<span style="font: 10pt serif">
+</span><script>function do_tabs() { // unit = px
+  var tabs = document.getElementsByClassName("tab");
+  for (var i = 0; i < tabs.length; ++i) {
+    var span = tabs[i];
+    var val = span.getAttribute("val");
+    if (val == null) console.log("Couldn't get val");
+    var rect = span.getBoundingClientRect();
+    var tabstop;
+    if (val > 0) tabstop = Math.ceil(rect.left / val) * val;
+    else tabstop = -val;
+    console.log("do_tabs", val, tabstop)
+    if (tabstop > 0) {
+      var width = tabstop - rect.left;
+      span.style.display = "inline-block";
+      span.style.width = width + "px";
+    }
+  }
+}
+do_tabs();
+</script>
+  </body>
+</html>
