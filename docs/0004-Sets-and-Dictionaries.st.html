@@ -477,4 +477,31 @@
 <span style="font: bold 10pt serif">printAll </span><span style="font: 10pt serif">| cat<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[for⦂ cat from: commentVector do⦂<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[self printCategory: cat]]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">printCategory: cat </span><span style="font: 10pt serif">[user displayoffwhile⦂ [<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">(dp0 file: (cat+&rsquo;.press&rsquo;) asFileName) printoutclass: (self superclassOrder: cat)]]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<span style="font: bold 10pt serif">superclassOrder: cat </span><span style="font: 10pt serif">| all lis a i c sup  "Arrange classes in superclass order so they can be filed in"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[lis&larr; (self category: cat) copy. all &larr; (Vector new: lis length) asStream.<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">while⦂ lis length&gt;0 do⦂<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[i&larr; 1.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">until⦂<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[a&larr; lis◦i. sup&larr; c&larr; Smalltalk◦a.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">until⦂ "Make sure it doesn&rsquo;t have an as yet unprinted superclass"<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">[sup&larr; sup superclass.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">sup≡nil⇒[true]<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">lis has: sup title unique]<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">do⦂ [].<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">sup≡nil]<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">do⦂ [i&larr; i+1].<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">all next &larr; a.<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">lis&larr; lis delete: a].<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">⇑all contents]</span></div>
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<span style="font: 10pt serif"></span></div>
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<span style="font: 10pt serif">SystemOrganization classify: ↪SystemOrganizer under: &rsquo;Sets and Dictionaries&rsquo;.</span></div>
+<script>function do_tabs() { // unit = px
+  var tabs = document.getElementsByClassName("tab");
+  for (var i = 0; i < tabs.length; ++i) {
+    var span = tabs[i];
+    var val = span.getAttribute("val");
+    if (val == null) console.log("Couldn't get val");
+    var rect = span.getBoundingClientRect();
+    var tabstop;
+    if (val > 0) tabstop = Math.ceil(rect.left / val) * val;
+    else tabstop = -val;
+    console.log("do_tabs", val, tabstop)
+    if (tabstop > 0) {
+      var width = tabstop - rect.left;
+      span.style.display = "inline-block";
+      span.style.width = width + "px";
+    }
+  }
+}
+do_tabs();
+</script>
+  </body>
+</html>

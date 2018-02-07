@@ -318,4 +318,34 @@
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 <span style="font: bold 10pt serif">isKbdDown<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">["if stroke a down stroke and not keyset or mouse button, return it,<br></span><span class="tab" val="79"></span><span class="tab" val="79"></span><span style="font: 10pt serif">otherwise return false"<br></span><span class="tab" val="79"></span><span style="font: 10pt serif">type ≠ 1 ⇒ [⇑false] ⇑stroke &gt; 16]</span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
-<span style="font: bold 10pt serif">stroke </span><span style="font: italic 10pt serif">"return an event stroke"</span><span style="font: 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[</span><span style="font: italic 10pt serif">"0-2 = top,middle,bottom mouse buttons, 3-7 = keyset left to right, 8-255 = keyboard"</span><span style="font: 10pt serif"><br></span><span cl
+<span style="font: bold 10pt serif">stroke </span><span style="font: italic 10pt serif">"return an event stroke"</span><span style="font: 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[</span><span style="font: italic 10pt serif">"0-2 = top,middle,bottom mouse buttons, 3-7 = keyset left to right, 8-255 = keyboard"</span><span style="font: 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">⇑stroke]</span></div>
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<span style="font: bold 10pt serif">time </span><span style="font: italic 10pt serif">"return an event stroke"</span><span style="font: 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[</span><span style="font: italic 10pt serif">"1 - 32767 sixtieths of second since Events time reset"</span><span style="font: 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">⇑time]</span></div>
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<span style="font: bold 10pt serif">type </span><span style="font: italic 10pt serif">"return event type"</span><span style="font: 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">[</span><span style="font: italic 10pt serif">"2 = upstroke event, 1 = downstroke event, 0 = time-elapsed event"</span><span style="font: 10pt serif"><br></span><span class="tab" val="79"></span><span style="font: 10pt serif">⇑type]</span></div>
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<span style="font: 10pt serif"></span></div>
+<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<span style="font: 10pt serif">SystemOrganization classify: ↪UserEvent under: &rsquo;Events&rsquo;.</span></div>
+<script>function do_tabs() { // unit = px
+  var tabs = document.getElementsByClassName("tab");
+  for (var i = 0; i < tabs.length; ++i) {
+    var span = tabs[i];
+    var val = span.getAttribute("val");
+    if (val == null) console.log("Couldn't get val");
+    var rect = span.getBoundingClientRect();
+    var tabstop;
+    if (val > 0) tabstop = Math.ceil(rect.left / val) * val;
+    else tabstop = -val;
+    console.log("do_tabs", val, tabstop)
+    if (tabstop > 0) {
+      var width = tabstop - rect.left;
+      span.style.display = "inline-block";
+      span.style.width = width + "px";
+    }
+  }
+}
+do_tabs();
+</script>
+  </body>
+</html>
