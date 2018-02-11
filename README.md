@@ -24,7 +24,7 @@ These sources were recovered from [xmsmall.dsk](http://www.bitsavers.org/bits/Xe
 18. In the bottom pane, type `SystemOrganization filoutAll`
 19. Select the text `SystemOrganization filoutAll`
 20. Middle click the text selection, and select `Do it`
-21. As each category is written to disk, it will appear in the upper left handle corner of the screen in the `UserView`.  This process will take some time.
+21. As each category is written to disk, it will appear in the upper left hand corner of the screen in the `UserView`.  This process will take some time.
 22. Once completed, stop Contralto.
 23. Use [aar](http://www.bitsavers.org/bits/Xerox/Alto/tools/aar.c) to extract the files from blank.dsk. e.g. `aar x blank.dsk`
 24. Use `dd` to fix the byte ordering in the files. e.g. `for f in *.st; do dd if=$f of=$f.tmp conv=swab; mv $f.tmp $f; done`
