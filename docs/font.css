@@ -1,0 +1,30 @@
+@font-face {
+	font-family: 'ParcPlace';
+	src: url('ParcPlace.ttf') format('truetype');
+}
+body {
+	font-family: 'ParcPlace';
+	font-size: 12pt;
+}
+SPAN.bold {
+	font-weight: bold;
+}
+SPAN.italic {
+	font-style: italic;
+}
+SPAN.small {
+	font-size: 10pt;
+}
+SPAN.large {
+	font-size: 12pt;
+}
+SPAN.giant {
+	font-size: 18pt;
+}
+SPAN.underline {
+	text-decoration: underline;
+}
+SPAN.monospace {
+	/* XXX */
+	font: 10pt monospace;
+}
