@@ -6,537 +6,537 @@
 	<link rel="stylesheet" type="text/css" href="font.css"/>
   </head>
   <body>
-    <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+    <div class="line left">
 <span class="small">&rsquo;From Smalltalk 5.5k XM November 24 on 22 November 1980 at 2:57:08 am.&rsquo;<br></span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span class="medium bold">"Etherworld"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold">Class new title: &rsquo;Etherworld&rsquo;<br></span><span class="tab"></span><span class="medium bold">subclassof: Object<br></span><span class="tab"></span><span class="medium bold">fields: &rsquo;&rsquo;<br></span><span class="tab"></span><span class="medium bold">declare: &rsquo;&rsquo;;<br></span><span class="tab"></span><span class="medium bold">sharing: EtherPool;<br></span><span class="tab"></span><span class="medium bold">asFollows</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small italic"><br>This is, of course, the class that controls all of the basic ethernet operations.  There should not be more than one EtherWorld, and one, E, has to be defined for the system to work.    <br><br>In this implementation, and due to timing considerations, it is expected that the transmitter will post quite quickly;  thus, we disable interrupts and busy wait for its completion.<br><br>In general, the interrupt is only armed when we have started the receiver.  The Etherworld currently uses these input processes in the PrioityScheduler: <br></span><span class="tab"></span><span class="small italic">IntProc, at IntProcLevel (14)  -- awakened when the device interrupts<br></span><span class="tab"></span><span class="small italic">InputProc, at InputProcLevel (13) -- distributes packets to sockets, <br></span><span class="tab"></span><span class="small italic">allowing each  socket to then run.<br><br>Note that some of the timers may be on other levels.<br><br>The ethernet can be in one of several states:<br></span><span class="tab"></span><span class="small italic">if E ≡ nil, there is nothing<br></span><span class="tab"></span><span class="small italic">if E ~≡ nil, etherState can be ethAwake, ethAsleep, ethDead.<br><br>ethDead means E created, and classInit done, but nothing else.<br>ethAsleep means all data structures created, but no attempt to start.<br>ethAwake means it is up and running.<br><br>The messages wakeup,  sleep and kill move to one of those states.<br>Other messages are used for single transitions from adjacent states.<br><br>If you just want to temporarily prevent the device from running use etherStop and etherStart.<br>Should go to ethAsleep (use E sleep) if you quit, since may come up on a different machine.<br><br>The lights on the right side of the screen are Etherworld signals.  They mean  Etherworld awakened; packet addressed to the Alto received; packet being processed; output being sent; and input rejected.<br></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Initialization/Termination</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">classInit <br></span><span class="small">[<br>"if this needs to be filed in again, execute this first<br></span><span class="tab"></span><span class="small">Smalltalk declare: ↪EtherPool as: (SymbolTable new init: 32).<br><br>access variables from outside with (for example) with EtherPool◦↪ethAwake"<br><br>Smalltalk declare: ↪(E).<br><br>EtherPool declare: ↪( ethInPacNext checkIncomingCS  <br></span><span class="tab"></span><span class="small">IntProcLevel InputProcLevel ethIntBits<br></span><span class="tab"></span><span class="small">etherState ethAwake ethAsleep ethDead)<br></span><span class="tab"></span><span class="small">as: (false,false,14,13,020,0,3,1,0).<br><br>EtherPool declare: ↪(  <br></span><span class="tab"></span><span class="small">NETNUM ALTONUM <br></span><span class="tab"></span><span class="small">freeQ justArrivedQ   <br></span><span class="tab"></span><span class="small">sockeTable routingTable routingHopCount routingUpdateUser<br></span><span class="tab"></span><span class="small">IntProc InputProc broadcastFilter <br></span><span class="tab"></span><span class="small">IntLight InputLight OutputLight )]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">etherStart </span><span class="small">"allows ether to start running again"<br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="small">"makes sure the interrupt is on, and kicks the device"<br></span><span class="tab"></span><span class="small">etherState=ethAwake ⇒<br></span><span class="tab"></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="tab"></span><span class="small">[mem◦0601=0⇒ [mem◦0601&larr;ethIntBits]]. <br></span><span class="tab"></span><span class="tab"></span><span class="small">self SIO: 3.   "forces it to wake up again"<br></span><span class="tab"></span><span class="tab"></span><span class="small">].<br></span><span class="tab"></span><span class="small">self notify: &rsquo;Attempt to etherStart when not awake!!.&rsquo;.<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">etherStop </span><span class="small">"temporarily shuts off the ether stuff"<br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="tab"></span><span class="small">Top critical⦂ <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">mem◦0601&larr;0.<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">self SIO: 3.<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">mem◦0600 &larr; 0.<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">].<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">Init </span><span class="small">| i "</span><span class="small italic">move from state ethDead to ethAsleep</span><span class="small">"<br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">if we were already running, bring it all down, just in case!!</span><span class="small">"<br></span><span class="tab"></span><span class="small">[etherState=ethDead ⇒ [] self kill]. "</span><span class="small italic">now sure we are ethDead</span><span class="small">"<br></span><span class="tab"></span><span class="small">NETNUM &larr; ALTONUM&larr;0.  "may get reset later"<br></span><span class="tab"></span><span class="small">self setLights.<br></span><span class="tab"></span><span class="small">(justArrivedQ&larr;(SafeQ new) of: (Vector new: 20)) enable.<br></span><span class="tab"></span><span class="small">[freeQ⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">(freeQ&larr; (SafeQ new) of: (Vector new: 20)) enable.<br></span><span class="tab"></span><span class="tab"></span><span class="small">for⦂ i to: 10 do⦂ [freeQ next&larr; Pacbuf init]]<br></span><span class="tab"></span><span class="small">justArrivedQ disable].<br><br></span><span class="tab"></span><span class="small">ethInPacNext&larr; self freePacket.<br></span><span class="tab"></span><span class="small">sockeTable&larr; Dictionary new init: 10. <br></span><span class="tab"></span><span class="small">routingTable&larr; String new: 255.<br></span><span class="tab"></span><span class="small">routingTable all &larr; 0. "1-255, 0 is special"<br></span><span class="tab"></span><span class="small">routingHopCount &larr; String new: 255.<br></span><span class="tab"></span><span class="small">routingHopCount all &larr; 8.<br></span><span class="tab"></span><span class="small">routingUpdateUser &larr; RoutingUpdater init.<br></span><span class="tab"></span><span class="small">self installIntProc.<br></span><span class="tab"></span><span class="small">self installInputProc.<br></span><span class="tab"></span><span class="small">IntProc enable.<br></span><span class="tab"></span><span class="small">InputProc enable.<br></span><span class="tab"></span><span class="small">etherState &larr; ethAsleep.<br></span><span class="tab"></span><span class="small">"we are still asleep, must do a wakeup to get numbers, start, etc."<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">kill | socket </span><span class="small">"shuts down ethernet and PUP world completely"<br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="tab"></span><span class="small">"Should free up all of the storage, etc.....<br></span><span class="tab"></span><span class="tab"></span><span class="small">Would need to wakeup or Init, to get started again.<br></span><span class="tab"></span><span class="tab"></span><span class="small">Device may have been running"<br></span><span class="tab"></span><span class="tab"></span><span class="small">etherState=ethDead⇒[] "do nothing"<br></span><span class="tab"></span><span class="tab"></span><span class="small">[etherState=ethAwake ⇒ [self sleep]].<br></span><span class="tab"></span><span class="tab"></span><span class="small">"everything now shut down"<br></span><span class="tab"></span><span class="tab"></span><span class="small">for⦂ socket from: (sockeTable values) do⦂<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[socket≡nil⇒[] socket kill]. <br></span><span class="tab"></span><span class="tab"></span><span class="small">Top terminate: IntProcLevel; terminate: InputProcLevel.<br></span><span class="tab"></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="tab"></span><span class="small">ethInPacNext⇒ <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">ethInPacNext≡nil⇒ []<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">ethInPacNext locked⇒[ethInPacNext unlock]<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">]<br></span><span class="tab"></span><span class="tab"></span><span class="small">].<br></span><span class="tab"></span><span class="tab"></span><span class="small">ethInPacNext &larr; false.<br></span><span class="tab"></span><span class="tab"></span><span class="small">"Release the PQueues to avoid circular data structures"<br></span><span class="tab"></span><span class="tab"></span><span class="small">[freeQ and⦂ freeQ≠nil⇒[freeQ release. freeQ &larr; nil]].<br></span><span class="tab"></span><span class="tab"></span><span class="small">[justArrivedQ≠nil⇒[justArrivedQ release. justArrivedQ &larr; nil]].<br></span><span class="tab"></span><span class="tab"></span><span class="small">[routingUpdateUser≡ nil⇒ [] routingUpdateUser release].<br></span><span class="tab"></span><span class="tab"></span><span class="small">routingUpdateUser &larr; routingTable &larr; routingHopCount &larr; nil.<br></span><span class="tab"></span><span class="tab"></span><span class="small">etherState &larr; ethDead.<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">setLights<br></span><span class="tab"></span><span class="small">[IntLight&larr; Rectangle new origin: 576⌾0 extent: 16⌾16.<br></span><span class="tab"></span><span class="small">InputLight&larr; Rectangle new origin: 592⌾0 extent: 16⌾16.<br></span><span class="tab"></span><span class="small">OutputLight&larr;Rectangle new origin: 576⌾16 extent: 16⌾16]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">sleep </span><span class="small">| socket "be sure to do this before a user quit" <br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="small">etherState=ethDead ⇒ [self Init] "that is, go from dead to asleep"<br></span><span class="tab"></span><span class="small">etherState=ethAsleep ⇒ [] "already asleep"<br></span><span class="tab"></span><span class="small">etherState=ethAwake ⇒ <br></span><span class="tab"></span><span class="tab"></span><span class="small">["try to shut down gracefully"<br></span><span class="tab"></span><span class="tab"></span><span class="small">for⦂ socket from: (sockeTable values) do⦂<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[socket≡nil⇒[] socket sleep]. "warn the sockets, leaves them in table"<br></span><span class="tab"></span><span class="tab"></span><span class="small">self etherStop.<br></span><span class="tab"></span><span class="tab"></span><span class="small">etherState&larr;ethAsleep.<br></span><span class="tab"></span><span class="tab"></span><span class="small">"when next we wake up, may be on a new machine/net"<br></span><span class="tab"></span><span class="tab"></span><span class="small">].<br></span><span class="tab"></span><span class="small">"when next we wake up, may be on a new machine/net"<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">wakeup </span><span class="small">| socket "Try to get everything up and running" <br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="small">etherState=ethAwake ⇒ [self etherStart] "do nothing, kick the receiver".<br></span><span class="tab"></span><span class="small">[etherState=ethDead ⇒ [self sleep]]. "that is, go from dead to asleep"<br></span><span class="tab"></span><span class="small">etherState=ethAsleep ⇒<br></span><span class="tab"></span><span class="tab"></span><span class="small">["this is the tricky one, need to get our machine # and routing table.<br></span><span class="tab"></span><span class="tab"></span><span class="small">may have come up on a different network and host, assume the worst"<br></span><span class="tab"></span><span class="tab"></span><span class="small">ALTONUM &larr; self getMachineID.<br></span><span class="tab"></span><span class="tab"></span><span class="small">self setMachineID: ALTONUM.<br></span><span class="tab"></span><span class="tab"></span><span class="small">NETNUM &larr; 0.<br></span><span class="tab"></span><span class="tab"></span><span class="small">for⦂ socket from: sockeTable values do⦂ [<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">socket≡nil⇒ [] socket setOutAddBlock].<br><br></span><span class="tab"></span><span class="tab"></span><span class="small">etherState &larr; ethAwake.<br></span><span class="tab"></span><span class="tab"></span><span class="small">self etherStart.<br></span><span class="tab"></span><span class="tab"></span><span class="small">routingUpdateUser update.<br></span><span class="tab"></span><span class="tab"></span><span class="small">NETNUM = 0⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">etherState &larr; ethAsleep.<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">user notify: &rsquo;no routing tables&rsquo;]<br><br></span><span class="tab"></span><span class="tab"></span><span class="small">"tell leftover sockets current net&host, and that we are awake again"<br></span><span class="tab"></span><span class="tab"></span><span class="small">for⦂ socket from: (sockeTable values) do⦂<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[socket≡nil⇒[] socket setOutAddBlock; wakeup]. <br></span><span class="tab"></span><span class="tab"></span><span class="small">].<br></span><span class="tab"></span><span class="small">self notify: &rsquo;In wakeup, found Ethernet in some unknown state.&rsquo;.<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Input Interrupt Routines</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">copyinput: string </span><span class="small">[user croak] primitive: 108</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">installInputProc </span><span class="small">| inBuf destSoc [<br></span><span class="tab"></span><span class="small">InputProc &larr; Top install⦂ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">while⦂ [true] do⦂ [  "</span><span class="small italic">infinite loop for process in scheduler</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">InputLight comp. <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">while⦂ [inBuf&larr;justArrivedQ next] do⦂ [<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">process each incoming buffer, know it&rsquo;s a PUP</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">verify the incoming checksum</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">checkIncomingCS and⦂ (inBuf checksumOK)≡false⇒<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">["</span><span class="small italic">reject it, done</span><span class="small">" self freePacket: inBuf]<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">To be honest, we should check the destNet and destHost,<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small italic">but they generally have to be OK.....<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small italic">OK to pass the packet on</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">(destSoc &larr; sockeTable lookup: inBuf destSocNum) ⇒<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[ destSoc acceptPacbuf: inBuf].<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">couldn&rsquo;t find a socket for it, done</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small"> self freePacket: inBuf]. <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">InputLight comp. <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">InputProc sleep   "</span><span class="small italic">last action in the loop</span><span class="small">"]] <br></span><span class="tab"></span><span class="small">at: InputProcLevel]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">installIntProc  </span><span class="small">[<br></span><span class="tab"></span><span class="small">IntProc &larr; Top install⦂ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">while⦂ [true] do⦂ [  "</span><span class="small italic">infinite loop for process in scheduler.<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small italic">Interrupt just happened, running at a high level, interface off.<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small italic">Something just happened, do the common cases first.<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small italic">Input is wired down below; only comes here if OK.<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small italic">Note: we can only come here if last action was to start the rec!!</span><span class="small">"<br><br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">IntLight comp. <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">copy out the packet first</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[ethInPacNext ⇒[self copyinput: ethInPacNext pupString]<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">"user cr; show: &rsquo;warning, no packet pre-fetched. tell John&rsquo;."<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">ethInPacNext &larr; self freePacket⇒ [self copyinput: ethInPacNext pupString]<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">"user cr; show: &rsquo;input lost&rsquo;"].<br><br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">start the receiver</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">self SIO: 2.<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[ethInPacNext⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">now process this input</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">justArrivedQ next&larr; ethInPacNext. <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">ethInPacNext &larr; self freePacket.<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">Top wakeup: InputProcLevel.  "</span><span class="small italic">all done</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">]].<br><br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">IntLight comp. <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">IntProc sleep    "</span><span class="small italic">last action in the loop</span><span class="small">"]]<br></span><span class="tab"></span><span class="small">at: IntProcLevel]<br></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Output Routines</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">doOutput: string </span><span class="small">[] primitive: 100</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">sendOutput: ethOutPac </span><span class="small">| post<br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">This is the one and only place from which we  send output.<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small italic">Only one packet gets passed in to us at a time.<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small italic">For performance, we wait here for the transmitter to post!!!!<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small italic">Nominally, we are running at level 0;  thus, this must be run<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small italic">at a Top critical, to protect from multiple calls.</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[etherState≠ethAwake ⇒ <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[self wakeup. user show: &rsquo;starting Ethernet...&rsquo;]].<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">Top critical⦂<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">OutputLight comp. <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">mem◦0606&larr; (ethOutPac totLengthWords)."EthOutCntLoc"<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[(post &larr; self doOutput: ethOutPac pupString) ≠ 0777 ⇒ <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[user cr; show: &rsquo;Warning, bad output post: &rsquo;+ post base8]].<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">OutputLight comp. <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">]. "end of the critical part"<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>User messages</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">awake </span><span class="small">[⇑etherState = ethAwake]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">broadcastFilter: val<br></span><span class="tab"></span><span class="small">[val ⇒ [broadcastFilter&larr;true. self broadcastFilterSet: 1] <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">broadcastFilter &larr; false.  self broadcastFilterSet: 0.]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">broadcastFilterSet: val<br></span><span class="tab"></span><span class="small">[user croak ] primitive: 107</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">freePacket </span><span class="small">| p [<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">get a packet</span><span class="small">"<br></span><span class="tab"></span><span class="small">freeQ⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">(p &larr; freeQ next) ⇒ [⇑p]<br></span><span class="tab"></span><span class="tab"></span><span class="small">user show: &rsquo;Warning, empty freeQ, in Etherworld&rsquo;.<br></span><span class="tab"></span><span class="tab"></span><span class="small">⇑false]<br></span><span class="tab"></span><span class="small">⇑Pacbuf new init]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">freePacket: p </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">put a used packet into free queue</span><span class="small">"<br></span><span class="tab"></span><span class="small">[freeQ and⦂ p⇒ [freeQ next &larr; p]].<br></span><span class="tab"></span><span class="small">⇑false]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Utility messages</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">error: str </span><span class="small">[user cr. user show: str]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">fill </span><span class="small">| "I want to replenish the freeQ" outstanding [<br></span><span class="tab"></span><span class="small">freeQ≡false or⦂ freeQ≡nil⇒ []<br></span><span class="tab"></span><span class="small">outstanding &larr; (Pacbuf howMany) - (freeQ length).<br></span><span class="tab"></span><span class="small">user cr; show: (outstanding asString)+&rsquo; packets outstanding&rsquo;.<br></span><span class="tab"></span><span class="small">until⦂ [freeQ length=10] do⦂ [freeQ next &larr; Pacbuf init].<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">getMachineID  </span><span class="small">[⇑ (self SIO: 0) \ 256]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">notify: strng </span><span class="small">| "turn off the Ethernet before doing a user notify" <br></span><span class="tab"></span><span class="small">[self etherStop.<br></span><span class="tab"></span><span class="small">user show: &rsquo; Etherworld stopped&rsquo;.<br></span><span class="tab"></span><span class="small"> [Top currentPriority ≠ 1⇒[user cr; show: &rsquo;priority is &rsquo; + (Top currentPriority) asString.  ]].<br></span><span class="tab"></span><span class="small"> user notify: strng]<br></span><span class="tab"></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">printon: s </span><span class="small">[<br></span><span class="tab"></span><span class="small">etherState = ethDead ⇒ [s append: &rsquo;Etherworld,  etherState = ethDead.&rsquo;].<br></span><span class="tab"></span><span class="small">s append: &rsquo;Etherworld running on &rsquo;; print: NETNUM;<br></span><span class="tab"></span><span class="tab"></span><span class="small">append: &rsquo;#&rsquo;+(ALTONUM base8)+&rsquo;#&rsquo; ; cr.<br></span><span class="tab"></span><span class="small">[freeQ⇒ [s print: freeQ length; append: &rsquo; Pacbufs in freeQ&rsquo;]<br></span><span class="tab"></span><span class="tab"></span><span class="small">s append: &rsquo;no freeQ&rsquo;].<br></span><span class="tab"></span><span class="small">s cr; append: &rsquo;etherState = &rsquo;.<br></span><span class="tab"></span><span class="small">etherState = ethAsleep ⇒ [s append: &rsquo;etherAsleep&rsquo;].<br></span><span class="tab"></span><span class="small">etherState = ethAwake ⇒ [s append: &rsquo;etherAwake&rsquo;].<br></span><span class="tab"></span><span class="small">s print: etherState.<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">printRoutingTable </span><span class="small">| </span><span class="small bold">i </span><span class="small"><br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="small">for⦂ i from: 1 to: 255 do⦂ <br></span><span class="tab"></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="tab"></span><span class="small">routingTable◦i ≠ 0 ⇒<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">user cr.  user show: &rsquo;To net &rsquo; + i asString + <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">&rsquo; via host &rsquo; + (routingTable◦i) asString + &rsquo;, hop count = &rsquo; +<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">(routingHopCount◦i) asString.<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">]<br></span><span class="tab"></span><span class="tab"></span><span class="small">]<br></span><span class="tab"></span><span class="small">user cr.<br></span><span class="tab"></span><span class="small">] </span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">printSocketTable </span><span class="small">| i [<br></span><span class="tab"></span><span class="small">sockeTable≡nil⇒[user cr; show: &rsquo;no socketTable&rsquo;]<br></span><span class="tab"></span><span class="small">for⦂ i from: sockeTable objects do⦂ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">i≡nil⇒[]<br></span><span class="tab"></span><span class="tab"></span><span class="small">user cr; print: i; show: &rsquo;, &rsquo;; print: sockeTable◦i<br></span><span class="tab"></span><span class="tab"></span><span class="small">]<br></span><span class="tab"></span><span class="small">]<br></span><span class="tab"></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">setMachineID: ID </span><span class="small">[mem◦0610 &larr; ID]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">SIO: sioArg </span><span class="small">[] primitive: 91</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small"></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small">SystemOrganization classify: ↪Etherworld under: &rsquo;Ethernet Control&rsquo;.</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small">Etherworld classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span class="medium bold"><br>"Int32"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold">Class new title: &rsquo;Int32&rsquo;<br></span><span class="tab"></span><span class="medium bold">subclassof: Number<br></span><span class="tab"></span><span class="medium bold">fields: &rsquo;high low&rsquo;<br></span><span class="tab"></span><span class="medium bold">declare: &rsquo;&rsquo;;<br></span><span class="tab"></span><span class="medium bold">asFollows</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small italic"><br>This class should probably be part of Number rather than Etherworld.<br>NOTE THAT + AND - SHOULD BE FIXED TO RETURN TO SMALLTALK IF TYPE OF ARG IS NOT INT32</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Initialization</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">asInteger </span><span class="small">[high = 0 ⇒ [⇑ low] ⇑high*65536 + low]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">high: high low: low</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Info about self</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">hash </span><span class="small">[⇑ low]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">high </span><span class="small">[⇑ high]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">low </span><span class="small">[⇑ low]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">printon: strm <br></span><span class="tab"></span><span class="small">[high printon: strm base: 8. strm append: &rsquo;|&rsquo;. low printon: strm base: 8 ]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Arithmetic</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">≠ arg </span><span class="small">[⇑ low ≠ arg low or⦂ high ≠ arg high]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">+ arg </span><span class="small">[⇑self + arg asInt32] primitive: 93</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">- arg </span><span class="small">[⇑self - arg asInt32] primitive: 92</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">&lt; arg </span><span class="small italic">"revised M. Dolbec 6/25/80"</span><span class="small bold"><br></span><span class="tab"></span><span class="small">[high = arg high⇒ <br></span><span class="tab"></span><span class="tab"></span><span class="small">[low &lt; 0 ⇒ <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[arg low &lt; 0 ⇒ <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[⇑low &gt; arg low]<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">⇑false]<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">arg low &gt; 0 ⇒<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[⇑low &lt; arg low] <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">⇑true]<br></span><span class="tab"></span><span class="tab"></span><span class="small">⇑high &lt; arg high]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">= arg </span><span class="small">[⇑low = arg low and⦂ high = arg high]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">&gt; arg </span><span class="small italic">"revised M. Dolbec 6/25/80"</span><span class="small bold"><br></span><span class="tab"></span><span class="small">[⇑arg &lt; self]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small"></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small">SystemOrganization classify: ↪Int32 under: &rsquo;Ethernet Control&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span class="medium bold"><br>"Pacbuf"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold">Class new title: &rsquo;Pacbuf&rsquo;<br></span><span class="tab"></span><span class="medium bold">subclassof: Object<br></span><span class="tab"></span><span class="medium bold">fields: &rsquo;pupString locked&rsquo;<br></span><span class="tab"></span><span class="medium bold">declare: &rsquo;&rsquo;;<br></span><span class="tab"></span><span class="medium bold">asFollows</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small italic"><br>This is the basic unit for building and interpreting packets for the ethernet.<br>It contains the messages that allow fields of a packet to be filled and read.<br>Most users will prefer to use the socket mechanisms</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Initialization</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">init <br></span><span class="tab"></span><span class="small">[pupString &larr; String new: 558.<br></span><span class="tab"></span><span class="small">locked &larr; false]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Ethernet header</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">ethType </span><span class="small">[⇑pupString word: 2]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">ethType&larr; eT </span><span class="small">[pupString word: 2 &larr; eT]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">imEthDestHost </span><span class="small">[⇑pupString◦1]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">imEthDestHost&larr; iEDH </span><span class="small">[pupString◦1 &larr; iEDH]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">imEthSrcHost </span><span class="small">[⇑pupString◦2]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">imEthSrcHost&larr; iESH </span><span class="small">[pupString◦2 &larr; iESH]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>PUP Header</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">addressBlock </span><span class="small">[⇑pupString◦(13 to: 24) ]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">addressBlock&larr; addBlock </span><span class="small">"for quickly setting the 6 fields" [<br></span><span class="tab"></span><span class="small">"pupString◦(13 to: 24) &larr; addBlock"<br></span><span class="tab"></span><span class="small">pupString copy: 13 to: 24 with: addBlock from: 1 to: 12]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">destHost </span><span class="small">[⇑pupString◦14]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">destHost&larr; dH </span><span class="small">[pupString◦14 &larr; dH]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">destNet </span><span class="small">[⇑pupString◦13]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">destNet&larr; dN </span><span class="small">[pupString◦13 &larr;  dN]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">destSoc0 </span><span class="small">[⇑pupString word: 8]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">destSoc0&larr; i </span><span class="small">[⇑pupString word: 8&larr;i]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">destSoc1 </span><span class="small">[⇑pupString word: 9]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">destSoc1&larr; i </span><span class="small">[⇑pupString word: 9&larr;i]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">destSocNum </span><span class="small">[⇑Int32 new high: (pupString word: 8) low: (pupString word: 9) ]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">destSocNum&larr; dSN </span><span class="small">[pupString word: 8 &larr; dSN high.<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small"> pupString word: 9 &larr; dSN low]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pupID </span><span class="small">[⇑Int32 new high: (pupString word: 5) low: (pupString word: 6) ]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pupID0 </span><span class="small">[⇑pupString word: 5 ]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pupID0&larr; pID </span><span class="small">[⇑pupString word: 5 &larr; pID ]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pupID1 </span><span class="small">[⇑pupString word: 6 ]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pupID1&larr; pID </span><span class="small">[⇑pupString word: 6 &larr; pID ]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pupID&larr; pID </span><span class="small">[pupString word: 5 &larr; pID high.<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small"> pupString word: 6 &larr; pID low]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pupLength </span><span class="small">[⇑pupString word: 3]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pupLength&larr; pL </span><span class="small">[⇑pupString word: 3 &larr; pL]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pupType </span><span class="small">[⇑pupString◦8]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pupType&larr; pT </span><span class="small">[pupString◦8 &larr; pT]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">sourceHost </span><span class="small">[⇑pupString◦20]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">sourceHost&larr; sH </span><span class="small">[pupString◦20 &larr; sH]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">sourceNet </span><span class="small">[⇑pupString◦19]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">sourceNet&larr; sN </span><span class="small">[pupString◦19 &larr; sN]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">sourceSoc0 </span><span class="small">[⇑pupString word: 11]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">sourceSoc0&larr; i </span><span class="small">[⇑pupString word: 11&larr;i]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">sourceSoc1 </span><span class="small">[⇑pupString word: 12]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">sourceSoc1&larr; i </span><span class="small">[⇑pupString word: 12&larr;i]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">sourceSocNum </span><span class="small">[⇑Int32 new high: (pupString word: 11) low: (pupString word: 12)]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">sourceSocNum&larr; sSN </span><span class="small">[pupString word: 11 &larr; sSN high.<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small"> pupString word: 12 &larr; sSN low]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">swapPorts </span><span class="small">| i [<br></span><span class="tab"></span><span class="small">for⦂ i from: 13 to: 18 do⦂ [pupString swap: i with: i+6]]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">totLengthWords </span><span class="small">[⇑((self pupLength)+5)/2]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">transportControl </span><span class="small">[⇑pupString◦7]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">transportControl&larr; tC </span><span class="small">[pupString◦7 &larr; tC]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>PUP Checksum</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">checksum  </span><span class="small">[⇑pupString word: ((self pupLength+1)/2)+2]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">checksumOK </span><span class="small">"Boolean, returns true or false"<br></span><span class="tab"></span><span class="small">["just look at the current packet"<br></span><span class="tab"></span><span class="small">⇑self checksum = self doChecksum]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">checksum&larr;  cs <br></span><span class="tab"></span><span class="small bold"> </span><span class="small">[pupString word: (((self pupLength+1)/2)+2) &larr; </span><span class="small bold">cs</span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">doChecksum </span><span class="small">| i cs <br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="small">cs &larr; 0. <br></span><span class="tab"></span><span class="small">for⦂ i from: (3 to: (((self length + 1)/2)+2)) do⦂ "does not work"<br></span><span class="tab"></span><span class="tab"></span><span class="small">[cs&larr;cs+(pupString word: i). </span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">   "for packets with carries"<br></span><span class="tab"></span><span class="tab"></span><span class="small">[cs &lt;0⇒[cs &larr; (cs lshift: 1)+1] cs &larr; cs lshift: 1]].<br></span><span class="tab"></span><span class="small">[cs=¬1⇒[cs &larr; 0]]. <br></span><span class="tab"></span><span class="small">⇑cs<br></span><span class="tab"></span><span class="small">] primitive: 94 </span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Data </span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">dataLength </span><span class="small">[⇑(pupString word: 3) "self pupLength" - 22]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">dataLength&larr; len </span><span class="small">[⇑pupString word: 3 "self pupLength" &larr; len + 22]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">dataString </span><span class="small">[⇑pupString copy: 25 to: 24+self dataLength]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">dataString&larr; str </span><span class="small">| i [</span><span class="small bold"><br></span><span class="tab"></span><span class="small">i &larr; str length.<br></span><span class="tab"></span><span class="small">i &gt; 532 ⇒ [user notify: &rsquo;Data string too big for single PUP&rsquo;]<br></span><span class="tab"></span><span class="small">pupString copy: 25 to: 24 + i with: str from: 1 to: i.<br></span><span class="tab"></span><span class="small">self dataLength &larr; i.<br></span><span class="tab"></span><span class="small">⇑str]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">dataWord: i </span><span class="small">[⇑pupString word: i + 12]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">dataWord: i &larr; v </span><span class="small">[⇑pupString word: i + 12 &larr; v]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Etc</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">◦ i </span><span class="small">[⇑pupString◦i]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">◦ i &larr; v </span><span class="small">[⇑pupString◦i &larr; v]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">header </span><span class="small">[⇑pupString◦(1 to: 24) ]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">lock </span><span class="small">[locked⇒[E notify: &rsquo;trying to lock a buffer already locked&rsquo;]<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">locked&larr;true. ⇑pupString lock]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">locked </span><span class="small">[⇑locked]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">lockwith: string </span><span class="small">[locked⇒[E notify: &rsquo;trying to lock a buffer already locked&rsquo;]<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">locked&larr;string. ⇑pupString lock]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pupString  </span><span class="small">[⇑pupString]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pupString &larr; pupString </span><span class="small">[⇑pupString]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">unlock </span><span class="small">[locked⇒[locked&larr;false.  pupString unlock]<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">user notify: &rsquo;trying to unlock a buffer not locked&rsquo;]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">word: i </span><span class="small">[⇑pupString word: i]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">word: i &larr; v </span><span class="small">[⇑pupString word: i &larr; v]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small"></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small">SystemOrganization classify: ↪Pacbuf under: &rsquo;Ethernet Control&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span class="medium bold"><br>"SafeQ"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold">Class new title: &rsquo;SafeQ&rsquo;<br></span><span class="tab"></span><span class="medium bold">subclassof: PQueue<br></span><span class="tab"></span><span class="medium bold">fields: &rsquo;enabled&rsquo;<br></span><span class="tab"></span><span class="medium bold">declare: &rsquo;&rsquo;;<br></span><span class="tab"></span><span class="medium bold">asFollows</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small italic"><br>checks all objects enqueued, to be sure not there already</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>As yet unclassified</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">disable </span><span class="small">[enabled &larr; false]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">enable </span><span class="small">[enabled &larr; true]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">length </span><span class="small">[⇑position - readposition]<br></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">next &larr; arg </span><span class="small">| i "short comment" [[enabled⇒<br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="small">for⦂ i from: (readposition+1) to: position do⦂<br></span><span class="tab"></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="tab"></span><span class="small">(array◦i)≡arg⇒[E notify: &rsquo;putting same guy on Q twice&rsquo;]<br></span><span class="tab"></span><span class="tab"></span><span class="small">]]].<br></span><span class="tab"></span><span class="small">arg locked⇒[E notify: &rsquo;putting locked Pacbuf on Q&rsquo;]<br></span><span class="tab"></span><span class="small">super next &larr; arg<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">status </span><span class="small">[⇑enabled]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small"></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small">SystemOrganization classify: ↪SafeQ under: &rsquo;Ethernet Control&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span class="medium bold"><br>"Socket"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold">Class new title: &rsquo;Socket&rsquo;<br></span><span class="tab"></span><span class="medium bold">subclassof: Object<br></span><span class="tab"></span><span class="medium bold">fields: &rsquo;socNumber computeOutgoingCS filterInput outAddBlock<br></span><span class="tab"></span><span class="medium bold">lclSocNum frnNet frnHost frnSocNum&rsquo;<br></span><span class="tab"></span><span class="medium bold">declare: &rsquo;&rsquo;;<br></span><span class="tab"></span><span class="medium bold">sharing: EtherPool;<br></span><span class="tab"></span><span class="medium bold">asFollows</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small italic"><br>Sockets are used to do all communication through the net.  <br>It is expected that a specialized server or process can have<br>its own subclass of Socket with its own definitions of the<br>&rsquo;Overwrite by Subclass&rsquo; operations.  Note that subclasses will<br>have to access some global variables. <br><br>Each socket is identified by a 32-bit lclSocNum, which really<br>defines who we are.<br>In addition, aspects of the lcl and frn addresses are used  to make<br>decisions about accepting<br>incoming packets, addressing outgoing packets, defaulting fields, etc.<br><br>The input distributor assures that an input was destined for our net<br>(not trying to<br>find a gateway) and our host (either explicitly or as broadcast, <br>if not filtered), and found us by socket number.  Input need NOT be<br>filtered by the socket according to source, since the client may want<br>to see error messages from an intermediate address.<br><br>As a convenience, however, the socket can be asked to filterInput,<br>so it only accepts things which match the frnPort.<br>Thus, local and foreign attributes are primarily used to default<br>fields of an outgoing  packet.</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Initialization</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">default <br></span><span class="tab"></span><span class="small">["default local socket number and leave frn port open"<br></span><span class="tab"></span><span class="small">self net: 0 host: 0 soc: (Int32 new high: 0 low: 0)<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">from: lclSocNum  <br></span><span class="tab"></span><span class="small">["set lcl soc number, leave frnPort open -- useful for creating<br></span><span class="tab"></span><span class="small">a well-known socket as a listener"<br></span><span class="tab"></span><span class="small">self from: lclSocNum net: 0 host: 0 soc: (Int32 new high: 0 low: 0)<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">from: lclSocNum net: frnNet host: frnHost soc: frnSocNum <br></span><span class="tab"></span><span class="small bold"> </span><span class="small">[<br></span><span class="tab"></span><span class="small">"this is the most general initialization, both lcl soc# and frnPort given"<br></span><span class="tab"></span><span class="small">outAddBlock &larr; String new: 12.<br></span><span class="tab"></span><span class="small">self setOutAddBlock.<br></span><span class="tab"></span><span class="small">computeOutgoingCS &larr; filterInput &larr; false. <br></span><span class="tab"></span><span class="small">sockeTable insert: lclSocNum with: self.  "put me in socket table"<br></span><span class="tab"></span><span class="small">self doMoreInit<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">hostName: name </span><span class="small">| a nh [<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">lookup name, then set net and host numbers (maybe socket?)</span><span class="small">"<br></span><span class="tab"></span><span class="small">a &larr; NameUser init.<br></span><span class="tab"></span><span class="small">nh &larr; a getAddressBlock: name.<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">since this socket may get many responses,<br></span><span class="tab"></span><span class="small italic">make sure socket is not half deleted from sockeTable after first response</span><span class="small">"<br></span><span class="tab"></span><span class="small">Top critical⦂ [a close].<br></span><span class="tab"></span><span class="small">nh⇒ [self net: nh◦1 host: nh◦2]<br></span><span class="tab"></span><span class="small">"invalid name?"<br></span><span class="tab"></span><span class="small">⇑false]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">net: frnNet host: frnHost soc: frnSocNum </span><span class="small">[</span><span class="small bold"><br></span><span class="tab"></span><span class="small">"default the local socket number:<br></span><span class="tab"></span><span class="small">use some memory dependent info (space) for the high word so that no two<br></span><span class="tab"></span><span class="tab"></span><span class="small">sockets (instances) can be the same, also non-zero.<br></span><span class="tab"></span><span class="small">use time for low word, so that same instance will not usually have the<br></span><span class="tab"></span><span class="tab"></span><span class="small">same socket number (odds = 1/65536)"<br><br></span><span class="tab"></span><span class="small">lclSocNum &larr; Int32 new high: self nail low: user ticks.<br></span><span class="tab"></span><span class="small">self unNail; from: lclSocNum net: frnNet host: frnHost soc: frnSocNum<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">setOutAddBlock<br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="small">outAddBlock◦1 &larr; frnNet. outAddBlock◦2 &larr; frnHost.<br></span><span class="tab"></span><span class="small">outAddBlock word: 2 &larr; frnSocNum high.<br></span><span class="tab"></span><span class="small">outAddBlock word: 3 &larr; frnSocNum low.<br></span><span class="tab"></span><span class="small">outAddBlock◦7 &larr; NETNUM. outAddBlock◦8 &larr; ALTONUM.<br></span><span class="tab"></span><span class="small">outAddBlock word: 5 &larr; lclSocNum high.<br></span><span class="tab"></span><span class="small">outAddBlock word: 6 &larr; lclSocNum low.<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">to: h </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">convenient default if on my net</span><span class="small">"<br></span><span class="tab"></span><span class="small">self net: NETNUM host: h]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">wakeup </span><span class="small">| "when E goes from ethAsleep to ethAwak" <br></span><span class="tab"></span><span class="small">[  ]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Process incoming packet</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">acceptPacbuf: Ipac </span><span class="small">| temp<br></span><span class="tab"></span><span class="small">["if we get here, we know that the input distributer has verified the<br></span><span class="tab"></span><span class="small">PUP dest as being us (or a broadcast, if broadcast filter is off).<br></span><span class="tab"></span><span class="small">We do not have responsibility for verifying incoming checksum.<br></span><span class="tab"></span><span class="small">First, check if we&rsquo;ve been asked to filter by source:"<br></span><span class="tab"></span><span class="small">filterInput and⦂ <br></span><span class="tab"></span><span class="tab"></span><span class="small">(</span><span class="tab"></span><span class="small">(frnNet ≠ Ipac sourceNet) or⦂<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">  ((frnHost ≠ Ipac sourceHost) or⦂ (frnSocNum ≠ Ipac sourceSocNum))<br></span><span class="tab"></span><span class="tab"></span><span class="small">)<br></span><span class="tab"></span><span class="tab"></span><span class="small"> ⇒ [⇑self socDispose: Ipac]<br></span><span class="tab"></span><span class="tab"></span><span class="small">"It&rsquo;s good, take it..."<br></span><span class="tab"></span><span class="tab"></span><span class="small">⇑self socProcess: Ipac<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Process outgoing packet</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">broadcast: packet to: socNumber</span><span class="small">| "I want to broadcast this packet" [<br></span><span class="tab"></span><span class="small">self setAddresses: packet.<br></span><span class="tab"></span><span class="small">packet<br></span><span class="tab"></span><span class="tab"></span><span class="small">destHost&larr;0;<br></span><span class="tab"></span><span class="tab"></span><span class="small">destNet&larr;0;<br></span><span class="tab"></span><span class="tab"></span><span class="small">destSoc0&larr;socNumber high;<br></span><span class="tab"></span><span class="tab"></span><span class="small">destSoc1&larr;socNumber low.<br></span><span class="tab"></span><span class="small">"I assume that the length and type have been done"<br></span><span class="tab"></span><span class="small">self completePup: packet.<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">completePup: pac </span><span class="small">| </span><span class="small bold">t<br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="small">"the user must have set all 6 address fields,ID, length, and type"<br></span><span class="tab"></span><span class="small">"Now route the packet appropriately, assuming we have Ethernet..."<br></span><span class="tab"></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="tab"></span><span class="small">NETNUM =  pac destNet ⇒  [pac imEthDestHost &larr;pac destHost] <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">"most common case"<br></span><span class="tab"></span><span class="tab"></span><span class="small">0 = pac destNet ⇒ [pac imEthDestHost &larr; 0] "broadcast"<br></span><span class="tab"></span><span class="tab"></span><span class="small">0 = (t &larr; routingTable◦(pac destNet)) ⇒<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">user show: &rsquo;<br>Inaccessible destination net: &rsquo; + pac destNet asString+ &rsquo;, packet not sent.&rsquo;.<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">⇑pac.<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">].<br></span><span class="tab"></span><span class="tab"></span><span class="small">pac imEthDestHost &larr; t.<br></span><span class="tab"></span><span class="tab"></span><span class="small">].<br></span><span class="tab"></span><span class="small">pac imEthSrcHost &larr; ALTONUM.<br></span><span class="tab"></span><span class="small">pac ethType &larr; 01000.<br></span><span class="tab"></span><span class="small">pac transportControl&larr; 0. <br><br></span><span class="tab"></span><span class="small">"as a socket we have an option about computing outgoing checksums"<br></span><span class="tab"></span><span class="small">pac checksum &larr; [computeOutgoingCS⇒[pac doChecksum] ¬1].<br><br></span><span class="tab"></span><span class="small">"Fix this up later......"<br></span><span class="tab"></span><span class="small">E sendOutput: pac.<br></span><span class="tab"></span><span class="small">⇑pac<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">defaultAddresses: pac   </span><span class="small">"overwrites any fields which are 0"<br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="small">[pac destNet = 0 ⇒ [pac destNet &larr; frnNet]].<br></span><span class="tab"></span><span class="small">[pac destHost = 0 ⇒ [pac destHost &larr; frnHost]].<br></span><span class="tab"></span><span class="small">[(pac destSoc0 = 0) and: (pac destSoc1=0) ⇒ <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[pac destSocNum &larr; frnSocNum]].<br></span><span class="tab"></span><span class="small">[pac sourceNet = 0 ⇒ [pac sourceNet &larr; NETNUM]].<br></span><span class="tab"></span><span class="small">[pac sourceHost = 0 ⇒ [pac sourceHost &larr; ALTONUM]].<br></span><span class="tab"></span><span class="small">[(pac sourceSoc0 = 0) and: (pac sourceSoc1 = 0) ⇒ <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[pac sourceSocNum &larr; lclSocNum]].<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">defaultAndComplete: pac<br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="small">self defaultAddresses: pac.<br></span><span class="tab"></span><span class="small">self completePup: pac.<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">setAddresses: pac </span><span class="small">[pac addressBlock &larr; outAddBlock]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">setAddressesAndComplete: pac <br></span><span class="tab"></span><span class="small">[pac addressBlock &larr; outAddBlock.  self completePup: pac]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Access to Parts</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">close </span><span class="small">[self release.<br></span><span class="tab"></span><span class="small">sockeTable lookup: lclSocNum⇒[sockeTable delete: lclSocNum]]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">computeOutgoingCS </span><span class="small">[⇑</span><span class="small bold">computeOutgoingCS</span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">computeOutgoingCS&larr; computeOutgoingCS </span><span class="small">[⇑</span><span class="small bold">computeOutgoingCS</span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">disable  </span><span class="tab"></span><span class="small">["left for compatibility" user show: &rsquo;unnecessary disable&rsquo;.<br></span><span class="tab"></span><span class="small">self close.]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">enable </span><span class="small">["now a no-op" user show: &rsquo;someone did unnecessary enable&rsquo;. self print]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">filterInput  </span><span class="small">[⇑filterInput]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">filterInput&larr; filterInput </span><span class="small">[⇑filterInput ]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">freePacket </span><span class="small">| p [<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">get a packet</span><span class="small">"<br></span><span class="tab"></span><span class="small">freeQ⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">(p &larr; freeQ next)⇒ [⇑p]<br></span><span class="tab"></span><span class="tab"></span><span class="small">user show: &rsquo;Warning, empty freeQ, in Socket&rsquo;.<br></span><span class="tab"></span><span class="tab"></span><span class="small">⇑false]<br></span><span class="tab"></span><span class="small">⇑Pacbuf new init]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">freePacket: p </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">put a used packet into free queue</span><span class="small">"<br></span><span class="tab"></span><span class="small">[freeQ and⦂ p⇒ [freeQ next &larr; p]].<br></span><span class="tab"></span><span class="small">⇑false]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">frnHost </span><span class="small">[⇑frnHost]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">frnHost&larr; frnHost </span><span class="small">[⇑frnHost]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">frnNet </span><span class="small">[⇑frnNet]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">frnNet&larr; frnNet </span><span class="small">[⇑frnNet]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">frnSocNum </span><span class="small">[⇑frnSocNum]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">frnSocNum&larr; frnSocNum </span><span class="small">[⇑frnSocNum]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">lclSocNum </span><span class="small">[⇑lclSocNum]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">lclSocNum&larr; lclSocNum </span><span class="small">[⇑lclSocNum]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Overwrite by Subclasses</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">doMoreInit</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">kill </span><span class="small">["whole world about to go.  I don&rsquo;t care, but my subclasses might"]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">release </span><span class="small">"</span><span class="small italic">disable Timers, undo circular structures etc.</span><span class="small">"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">sleep </span><span class="small">["the user is quitting.  I don&rsquo;t care, but my subclasses might"]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">socDispose: Ipac </span><span class="small">[self freePacket: Ipac]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">socProcess: Ipac </span><span class="small">[self freePacket: Ipac]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small"></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small">SystemOrganization classify: ↪Socket under: &rsquo;Ethernet Control&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span class="medium bold"><br>"RetransmitSocket"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold">Class new title: &rsquo;RetransmitSocket&rsquo;<br></span><span class="tab"></span><span class="medium bold">subclassof: Socket<br></span><span class="tab"></span><span class="medium bold">fields: &rsquo;retransTimer retransMax retransCount&rsquo;<br></span><span class="tab"></span><span class="medium bold">declare: &rsquo;&rsquo;;<br></span><span class="tab"></span><span class="medium bold">asFollows</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small italic"><br>An abstract socket for handling retransmission behavior</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Socket</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">release </span><span class="small">[<br></span><span class="tab"></span><span class="small">retransTimer≡nil⇒ []<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">release circular structure</span><span class="small">"<br></span><span class="tab"></span><span class="small">retransTimer disable. retransTimer &larr; nil]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">setAddressesAndComplete: pac </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">this may need to be bracketed as critical?</span><span class="small">"<br></span><span class="tab"></span><span class="small">pac addressBlock &larr; outAddBlock.<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">start timer</span><span class="small">"<br></span><span class="tab"></span><span class="small">retransCount &larr; 0. retransTimer reset.<br></span><span class="tab"></span><span class="small">self completePup: pac<br><br></span><span class="tab"></span><span class="small">"self startTimer.<br></span><span class="tab"></span><span class="small">super setAddressesAndComplete: pac"]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Timer</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">retransmit: retransMax every: delay </span><span class="small">[<br></span><span class="tab"></span><span class="small">retransTimer &larr; Timer new.<br></span><span class="tab"></span><span class="small">retransTimer for: delay action⦂ [self timerFired]]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">startTimer </span><span class="small">[retransCount &larr; 0. retransTimer reset]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">timerOff </span><span class="small">[retransTimer≡nil⇒ [] retransTimer disable]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">timerOn </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">turn on timer if retry count has not been reached</span><span class="small">"<br></span><span class="tab"></span><span class="small">(retransCount &larr; retransCount + 1) ≤ retransMax ⇒ [retransTimer reset]<br></span><span class="tab"></span><span class="small">⇑false]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Subclass</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">timerFired </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">subclass should redefine this</span><span class="small">"<br></span><span class="tab"></span><span class="small">self timerOn⇒ ["</span><span class="small italic">again, e.g. self completePup: pac"</span><span class="small">]<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">done</span><span class="small">"]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small"></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small">SystemOrganization classify: ↪RetransmitSocket under: &rsquo;Ethernet Control&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span class="medium bold"><br>"NameUser"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold">Class new title: &rsquo;NameUser&rsquo;<br></span><span class="tab"></span><span class="medium bold">subclassof: RetransmitSocket<br></span><span class="tab"></span><span class="medium bold">fields: &rsquo;resultType resultSet result outPac&rsquo;<br></span><span class="tab"></span><span class="medium bold">declare: &rsquo;&rsquo;;<br></span><span class="tab"></span><span class="medium bold">asFollows</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small italic"><br>Typical use: <br>   foo &larr; NameUser init.<br>   foo getAddressBlock: string.  --- returns 6-byte string<br></span><span class="tab"></span><span class="small italic">foo getAddressString.  --- returns string like 2#2#0<br>   foo close.</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Initialization</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">init <br></span><span class="tab"></span><span class="small">["create a NameUser, to socket 4, from a default local socket number"<br></span><span class="tab"></span><span class="small">E wakeup.<br></span><span class="tab"></span><span class="small">self net: 0 host: 0 soc: 4 asInt32.<br></span><span class="tab"></span><span class="small">self retransmit: 2 every: 300]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Output requests</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">getAddressBlock: str </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">returns a string, 6 bytes: net/host/socket</span><span class="small">"<br></span><span class="tab"></span><span class="small">result &larr; resultSet &larr; false.<br></span><span class="tab"></span><span class="small">outPac &larr; self freePacket.<br></span><span class="tab"></span><span class="small">outPac pupType&larr; 0220; dataString&larr; str.<br></span><span class="tab"></span><span class="small">self setAddressesAndComplete: outPac.<br></span><span class="tab"></span><span class="small">until⦂ resultSet do⦂ [].<br></span><span class="tab"></span><span class="small">⇑result]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">getAddressString: str </span><span class="small">| temp  "return string representation"<br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="small">temp &larr; self getAddressBlock: str ⇒<br></span><span class="tab"></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="tab"></span><span class="small">⇑(temp◦1) base8 + &rsquo;#&rsquo; + (temp◦2) base8 + &rsquo;#&rsquo; +<br></span><span class="tab"></span><span class="tab"></span><span class="small">(temp word: 2) base8 + &rsquo;|&rsquo; +  (temp word: 3) base8.<br></span><span class="tab"></span><span class="tab"></span><span class="small">]<br></span><span class="tab"></span><span class="small">⇑false<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">getName: str </span><span class="small">| "convert string address back to host name"<br></span><span class="tab"></span><span class="small">["not implemented yet"]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Handle input</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">socProcess: Ipac </span><span class="small">| i j best bestHops "overwrite from Socket"<br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="small">"called from Ether stuff, running at a very high level"<br></span><span class="tab"></span><span class="small">["dummy block"<br></span><span class="tab"></span><span class="small">resultSet ⇒ ["we are not waiting!!"]<br></span><span class="tab"></span><span class="small">"must be the answer, or an error"<br></span><span class="tab"></span><span class="small">self timerOff.<br></span><span class="tab"></span><span class="small">resultSet &larr; true.<br></span><span class="tab"></span><span class="small">0222 = Ipac pupType ⇒ "error"<br></span><span class="tab"></span><span class="tab"></span><span class="small">["user show: (Ipac dataString). "].<br></span><span class="tab"></span><span class="small">0221 ≠ Ipac pupType ⇒ "error"<br></span><span class="tab"></span><span class="tab"></span><span class="small">["user show: &rsquo;unknown pup received by name user.&rsquo;"].<br><br></span><span class="tab"></span><span class="small">"an answer arrived"<br></span><span class="tab"></span><span class="small">result &larr; Ipac dataString. "1 or more 6 byte blocks"<br></span><span class="tab"></span><span class="small">result length = 6 ⇒ ["all done"].<br></span><span class="tab"></span><span class="small">"more than one, find the nearest address"<br></span><span class="tab"></span><span class="small">best &larr; 1.  bestHops &larr; 16.<br></span><span class="tab"></span><span class="small">for⦂ i from: 1 to: (result length) by: 6 do⦂<br></span><span class="tab"></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="tab"></span><span class="small">NETNUM = (result◦i) ⇒ [best &larr; i.  bestHops &larr; 0].<br></span><span class="tab"></span><span class="tab"></span><span class="small">j&larr; routingHopCount◦(result◦i).<br></span><span class="tab"></span><span class="tab"></span><span class="small">j &lt; bestHops ⇒ [best&larr;i. bestHops&larr;j].<br></span><span class="tab"></span><span class="tab"></span><span class="small">].<br></span><span class="tab"></span><span class="small">result &larr; result copy: best to: (best+5).<br></span><span class="tab"></span><span class="small">]"dummy block".<br></span><span class="tab"></span><span class="small">"all done"<br></span><span class="tab"></span><span class="small">self freePacket: Ipac.<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">timerFired  </span><span class="small">[<br></span><span class="tab"></span><span class="small">self timerOn⇒ [self completePup: outPac]<br></span><span class="tab"></span><span class="small">resultSet &larr; true]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small"></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small">SystemOrganization classify: ↪NameUser under: &rsquo;Ethernet Control&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span class="medium bold"><br>"RoutingUpdater"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold">Class new title: &rsquo;RoutingUpdater&rsquo;<br></span><span class="tab"></span><span class="medium bold">subclassof: RetransmitSocket<br></span><span class="tab"></span><span class="medium bold">fields: &rsquo;outPac resultSet&rsquo;<br></span><span class="tab"></span><span class="medium bold">declare: &rsquo;&rsquo;;<br></span><span class="tab"></span><span class="medium bold">asFollows</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small italic"><br>A specialized sub-class of Socket, designed to send out requests<br>for the current routing info, and update the routing table.</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Initialization</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">init </span><span class="small">[<br></span><span class="tab"></span><span class="small">"create a new local soc number, broadcast to socket 2"<br></span><span class="tab"></span><span class="small">super net: 0 host: 0 soc: 2 asInt32.<br></span><span class="tab"></span><span class="small">outPac &larr; self freePacket.<br></span><span class="tab"></span><span class="small">outPac pupType &larr; 0200.<br></span><span class="tab"></span><span class="small">outPac dataString &larr; &rsquo;&rsquo;.<br></span><span class="tab"></span><span class="small">self retransmit: 3 every: 300.<br>]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Sending</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">update </span><span class="small">| i <br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="small">for⦂ i to: 255 do⦂ [routingTable◦i &larr; 0. routingHopCount◦i&larr;8].<br></span><span class="tab"></span><span class="small">resultSet &larr; false.<br></span><span class="tab"></span><span class="small">self setAddressesAndComplete: outPac.<br></span><span class="tab"></span><span class="small">until⦂ resultSet do⦂ []]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Overwrite from Socket</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">socProcess: pac </span><span class="small">| block gateway net count i <br></span><span class="tab"></span><span class="small">[</span><span class="small bold"><br></span><span class="tab"></span><span class="small">"</span><span class="small italic">an input has arrived, we are running at a higher level.<br></span><span class="tab"></span><span class="small italic">Check the packet type</span><span class="small">"<br></span><span class="tab"></span><span class="small">if⦂ pac pupType = 0201 then⦂ <br></span><span class="tab"></span><span class="tab"></span><span class="small">[self timerOff.<br></span><span class="tab"></span><span class="tab"></span><span class="small">resultSet &larr; NETNUM &larr; pac sourceNet.<br><br></span><span class="tab"></span><span class="tab"></span><span class="small">block &larr; pac pupString.<br></span><span class="tab"></span><span class="tab"></span><span class="small">gateway &larr; pac sourceHost.<br></span><span class="tab"></span><span class="tab"></span><span class="small">for⦂ i from: 25 to: 24+pac dataLength by: 4 do⦂ <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">net &larr; block◦i. <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">count &larr; block◦(i+3) + 1.<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">count &lt; (routingHopCount◦net) ⇒ <br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">[routingTable◦net &larr; gateway. routingHopCount◦net &larr; count]<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">]<br></span><span class="tab"></span><span class="tab"></span><span class="small">].<br></span><span class="tab"></span><span class="small">self freePacket: pac<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">timerFired </span><span class="small">[<br></span><span class="tab"></span><span class="small">self timerOn⇒ [self completePup: outPac]<br></span><span class="tab"></span><span class="small">resultSet &larr; true]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small"></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small">SystemOrganization classify: ↪RoutingUpdater under: &rsquo;Ethernet Control&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span class="medium bold"><br>"RPPSocket"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold">Class new title: &rsquo;RPPSocket&rsquo;<br></span><span class="tab"></span><span class="medium bold">subclassof: RetransmitSocket<br></span><span class="tab"></span><span class="medium bold">fields: &rsquo;seqNum outPac ackOK abortTransfer inQ ackType transaction myStream eof&rsquo;<br></span><span class="tab"></span><span class="medium bold">declare: &rsquo;&rsquo;;<br></span><span class="tab"></span><span class="medium bold">asFollows</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small italic"><br>I establish a reliable packet protocol for communication.<br>This is a sub-class of Socket, and uses many of its messages.</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Intialization</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">init </span><span class="small">[<br></span><span class="tab"></span><span class="small">self retransmit: 10 every: 180.<br></span><span class="tab"></span><span class="small">seqNum &larr; transaction &larr; 0.<br></span><span class="tab"></span><span class="small">outPac &larr; ackOK  &larr; false.<br></span><span class="tab"></span><span class="small">abortTransfer &larr; true. "stop an old timer from perhaps firing"]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Termination</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">release </span><span class="small">[self reset. inQ &larr; false. super release]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">reset </span><span class="small">[<br></span><span class="tab"></span><span class="small">outPac &larr; self freePacket: outPac.<br></span><span class="tab"></span><span class="small">self timerOff]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Sending Data</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">send: myStream <br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="small">"Sends a whole stream, and an end sequence.<br></span><span class="tab"></span><span class="small italic">let the caller hand in a stream, or a file already opened</span><span class="small">"<br></span><span class="tab"></span><span class="small">[outPac ⇒ [] outPac &larr; self freePacket].<br></span><span class="tab"></span><span class="small">seqNum &larr; 0.<br></span><span class="tab"></span><span class="small">abortTransfer &larr; eof &larr; false.<br></span><span class="tab"></span><span class="small">until⦂ [eof or⦂ abortTransfer] do⦂ [self sendData].<br></span><span class="tab"></span><span class="small">abortTransfer ⇒ [self reset. ⇑false]<br><br></span><span class="tab"></span><span class="small">"We hit the end of file, do the end sequence and close the connection"<br></span><span class="tab"></span><span class="small">self sendEndSequence ⇒ [⇑myStream] ⇑false.  "all done!"<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">sendBlock: str <br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="tab"></span><span class="small">"Take the data from a string (1-532 bytes), send it out; uses outPac"<br></span><span class="tab"></span><span class="tab"></span><span class="small">outPac dataString &larr; str.<br></span><span class="tab"></span><span class="tab"></span><span class="small">self sendPacket.  "tries to do it reliably"<br></span><span class="tab"></span><span class="tab"></span><span class="small">abortTransfer⇒[⇑false]<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">sendData </span><span class="small">| i t buf len [<br></span><span class="tab"></span><span class="small">"send one packet of data from myStream"<br></span><span class="tab"></span><span class="small">buf &larr; outPac pupString.<br></span><span class="tab"></span><span class="small">i &larr; 24.<br></span><span class="tab"></span><span class="small">"data bytes are 1-512, 25-536"<br></span><span class="tab"></span><span class="small">[myStream is: FileStream⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">"read characters faster (should work especially well for the usual case:<br></span><span class="tab"></span><span class="tab"></span><span class="small">FileStreams starting on a page boundary, with page sizes of 512)"<br><br></span><span class="tab"></span><span class="tab"></span><span class="small">len &larr; 512 - (myStream readString: buf from: i+1 to: i+512)]<br><br></span><span class="tab"></span><span class="small">"fill the buffer the slow, careful way"<br></span><span class="tab"></span><span class="small">while⦂ (i &lt; 536 and⦂ (t &larr; myStream next)) do⦂ [buf◦(i &larr;i+1) &larr; t]<br></span><span class="tab"></span><span class="small">len &larr; i-24].<br><br></span><span class="tab"></span><span class="small">eof &larr; len &lt; 512.<br><br></span><span class="tab"></span><span class="small">len = 0⇒ ["empty packet. don&rsquo;t send"]<br><br></span><span class="tab"></span><span class="small">outPac pupType &larr; 030. "Data"<br></span><span class="tab"></span><span class="small">"set the packet length"<br></span><span class="tab"></span><span class="small">outPac dataLength &larr; len.<br><br></span><span class="tab"></span><span class="small">"send packet reliably or abort, then return"<br></span><span class="tab"></span><span class="small">self sendPacket. <br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">sendEndSequence<br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="tab"></span><span class="small">"This will do the 3-way handshake, and close the connection.<br></span><span class="tab"></span><span class="tab"></span><span class="small">send end, wait for ack"<br></span><span class="tab"></span><span class="tab"></span><span class="small">outPac pupType &larr; 032. "end"<br></span><span class="tab"></span><span class="tab"></span><span class="small">"set the packet length"<br></span><span class="tab"></span><span class="tab"></span><span class="small">outPac pupLength &larr; 22.<br></span><span class="tab"></span><span class="tab"></span><span class="small">self sendPacket. "gets sent reliably, we hope"<br></span><span class="tab"></span><span class="tab"></span><span class="small">abortTransfer⇒[self reset. ⇑false].<br><br></span><span class="tab"></span><span class="tab"></span><span class="small">"send the last gratuitous end, do not try to retransmit"<br></span><span class="tab"></span><span class="tab"></span><span class="small">self sendPacketOnce.<br></span><span class="tab"></span><span class="tab"></span><span class="small">self reset.<br></span><span class="tab"></span><span class="tab"></span><span class="small">⇑true.<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">sendPacket </span><span class="small">| <br></span><span class="tab"></span><span class="small">"general routine to send the outPac packet, maybe retransmit, get ack" <br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="small">ackOK &larr; abortTransfer &larr; false.<br></span><span class="tab"></span><span class="small">outPac pupID1 &larr; seqNum. <br></span><span class="tab"></span><span class="small">outPac pupID0 &larr; transaction. "pupID0 can be used by one of my subclasses"<br></span><span class="tab"></span><span class="small">self setAddressesAndComplete: outPac.<br></span><span class="tab"></span><span class="small">until⦂ [abortTransfer or⦂ ackOK] do⦂ [].<br></span><span class="tab"></span><span class="small">seqNum &larr; seqNum + 1.<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">sendPacketOnce </span><span class="small">| <br></span><span class="tab"></span><span class="small">"special routine to send the outPac packet, no retransmission" <br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="small">outPac pupID1 &larr; seqNum. <br></span><span class="tab"></span><span class="small">outPac pupID0 &larr; transaction. "pupID0 can be used by one of my subclasses"<br></span><span class="tab"></span><span class="small">self setAddressesAndComplete: outPac; timerOff.<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Receiving Data</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Handle Input</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">process: packet </span><span class="small">["</span><span class="small italic">my subclasses use this</span><span class="small">" self freePacket: packet]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">socProcess: Ipac </span><span class="small">"</span><span class="small italic">I have received a packet</span><span class="small">" [<br></span><span class="tab"></span><span class="small">Ipac pupType = ackType ⇒[<br></span><span class="tab"></span><span class="tab"></span><span class="small">[Ipac pupID1 = seqNum and⦂ Ipac pupID0 = transaction⇒[<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">a legal acknowledgement</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">self timerOff.<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">ackOK &larr; true]<br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">an old acknowledgement</span><span class="small">"].<br></span><span class="tab"></span><span class="tab"></span><span class="small">self freePacket: Ipac]<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">must be a trasmission started elsewhere</span><span class="small">"<br></span><span class="tab"></span><span class="small">self process: Ipac.]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Timer Interupts</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">timerFired </span><span class="small">[<br></span><span class="tab"></span><span class="small">"This piece of code only runs when a Timer fires;  <br></span><span class="tab"></span><span class="small">Don&rsquo;t do an active return"<br></span><span class="tab"></span><span class="small">ackOK or⦂ abortTransfer⇒ ["This transaction has been terminated"]<br></span><span class="tab"></span><span class="small">self timerOn⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">"retransmit"<br></span><span class="tab"></span><span class="tab"></span><span class="small">self completePup: outPac]<br></span><span class="tab"></span><span class="small">user show: &rsquo;Excessive retransmits in RPP retransmit&rsquo; .<br></span><span class="tab"></span><span class="small">abortTransfer &larr; true]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small"></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small">SystemOrganization classify: ↪RPPSocket under: &rsquo;Ethernet Control&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span class="medium bold"><br>"EFTPSender"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold">Class new title: &rsquo;EFTPSender&rsquo;<br></span><span class="tab"></span><span class="medium bold">subclassof: RPPSocket<br></span><span class="tab"></span><span class="medium bold">fields: &rsquo; &rsquo;<br></span><span class="tab"></span><span class="medium bold">declare: &rsquo;&rsquo;;<br></span><span class="tab"></span><span class="medium bold">asFollows</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small italic"><br>A specialized sub-class of RPPSocket, designed to send files to an<br>EFTP receiver.  By convention, the receiver will be on socket 020<br>There can only be one outstanding packet at a time, called outPac.</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Initialization</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">net: n host: h<br></span><span class="tab"></span><span class="small">[<br></span><span class="tab"></span><span class="small">"Each instance of an EFTPSender has a unique lclSocket, but<br></span><span class="tab"></span><span class="tab"></span><span class="small">always goes to socket 020 of the receiver"<br></span><span class="tab"></span><span class="small">super net: n host: h soc: (Int32 new high: 0 low: 020).<br></span><span class="tab"></span><span class="small">"unlike plain sockets, we only want acks from this dest."<br></span><span class="tab"></span><span class="small">filterInput &larr; true.<br></span><span class="tab"></span><span class="small">self retransmit: 5 every: 180.<br></span><span class="tab"></span><span class="small">outPac &larr; false.<br></span><span class="tab"></span><span class="small">transaction &larr; 0.<br></span><span class="tab"></span><span class="small">ackType &larr; 031.<br></span><span class="tab"></span><span class="small">]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Receiving</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">process: packet </span><span class="small">| error "The printer is trying to tell me something" [<br></span><span class="tab"></span><span class="small">packet pupType = 033⇒[<br></span><span class="tab"></span><span class="tab"></span><span class="small">"error 33!!!" error &larr; packet dataString.<br></span><span class="tab"></span><span class="tab"></span><span class="small">self freePacket: packet.<br></span><span class="tab"></span><span class="tab"></span><span class="small">user show: &rsquo;remote server aborted: &rsquo;; show: error◦(3 to: error length).<br></span><span class="tab"></span><span class="tab"></span><span class="small">abortTransfer&larr;true]]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small"></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small">SystemOrganization classify: ↪EFTPSender under: &rsquo;Ethernet Control&rsquo;.</span></div>
   </body>
 </html>

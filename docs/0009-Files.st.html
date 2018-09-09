@@ -6,555 +6,555 @@
 	<link rel="stylesheet" type="text/css" href="font.css"/>
   </head>
   <body>
-    <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+    <div class="line left">
 <span class="small">&rsquo;From Smalltalk 5.5k XM November 24 on 22 November 1980 at 2:57:08 am.&rsquo;<br></span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span class="medium bold">"File"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold">Class new title: &rsquo;File&rsquo;<br></span><span class="tab"></span><span class="medium bold">subclassof: Dict<br></span><span class="tab"></span><span class="medium bold">fields: &rsquo;directory type name serialNumber pageReaders pageBuffer lastpn error&rsquo;<br></span><span class="tab"></span><span class="medium bold">declare: &rsquo;&rsquo;;<br></span><span class="tab"></span><span class="medium bold">sharing: FilePool;<br></span><span class="tab"></span><span class="medium bold">asFollows</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small italic"><br>A collection of FilePages usually on some device external to the virtual memory, which can be viewed and modified. File is a generalization: some examples are AltoFile and WoodstockFile. FilePage and FileDirectory are related classes. FileStream provides Stream access to Files.<br><br>Subclasses should override any superclass message implemented as [self subError]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Documentation</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">help </span><span class="small">"<br><br>A common way to access a </span><span class="small bold">File</span><span class="small"> is through a </span><span class="small bold">FileStream</span><span class="small">.<br></span><span class="tab"></span><span class="small">to create a FileStream on either an old or new file:<br></span><span class="tab"></span><span class="tab"></span><span class="small">&lt;FileStream&gt; &larr; &lt;FileDirectory&gt; </span><span class="small bold">file:</span><span class="small"> &lt;String&gt;. (see also </span><span class="small bold">oldFile:</span><span class="small"> and </span><span class="small bold">newFile:</span><span class="small">)<br></span><span class="tab"></span><span class="small">e.g. f &larr; dp0 file: &rsquo;test&rsquo;.<br><br></span><span class="tab"></span><span class="small">The default access mode (</span><span class="small bold">readwriteshorten</span><span class="small">) allows you to read or write, and<br></span><span class="tab"></span><span class="small">automatically shorten a File (to its current position) upon closing).  If you want to<br></span><span class="tab"></span><span class="small">only read a file, </span><span class="small bold">readonly</span><span class="small"> mode is faster and safer.<br><br>Some common ways to access a FileStream (see </span><span class="small bold">Stream</span><span class="small"> and </span><span class="small bold">FileStream</span><span class="small">):<br></span><span class="tab"></span><span class="small">reading a character (an Integer between 0 and 255)<br></span><span class="tab"></span><span class="tab"></span><span class="small bold">next, ◦</span><span class="small"><br></span><span class="tab"></span><span class="small">reading a String of characters<br></span><span class="tab"></span><span class="tab"></span><span class="small bold">upto:</span><span class="tab"></span><span class="small bold">, next:, nextString, contents</span><span class="small"><br></span><span class="tab"></span><span class="small">reading other kinds of objects<br></span><span class="tab"></span><span class="tab"></span><span class="small bold">nextword, word:, nextNumber:, nextParagraph</span><span class="small"><br><br></span><span class="tab"></span><span class="small">writing characters<br></span><span class="tab"></span><span class="tab"></span><span class="small bold">next&larr;, ◦&larr;</span><span class="small"><br></span><span class="tab"></span><span class="small">writing a String of characters<br></span><span class="tab"></span><span class="tab"></span><span class="small bold">append:, nextString&larr;</span><span class="small"><br></span><span class="tab"></span><span class="small">writing other kinds of objects<br></span><span class="tab"></span><span class="tab"></span><span class="small bold">nextword, word:&larr;, print:</span><span class="small"><br><br></span><span class="tab"></span><span class="small">finding position<br></span><span class="tab"></span><span class="tab"></span><span class="small bold">position, wordposition, length, end, positionSize:</span><span class="small"><br><br></span><span class="tab"></span><span class="small">changing position (besides reading/writing)<br></span><span class="tab"></span><span class="tab"></span><span class="small bold">position&larr;, skip:, skipTo:, reset, settoend, wordposition&larr;, position:size:<br></span><span class="small"><br>When finished with a FileStream, &lt;FileStream&gt; </span><span class="small bold">close</span><span class="small">.<br><br>For information about using or creating other views of file organizations (</span><span class="small bold">Btree</span><span class="small">, file-based object dictionaries, Findit), about WFS and Juniper files, and general file problems, see Steve Weyer.<br>"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Dictionary</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">close</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">entryClass </span><span class="small">["</span><span class="small italic">a subclass of FilePage</span><span class="small">" self subError]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">Find: page </span><span class="small">[⇑page pageNumber ≤ lastpn]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">found: page </span><span class="small">["</span><span class="small italic">read an existing page</span><span class="small">" self subError]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">makeEntry: page </span><span class="small">[<br></span><span class="tab"></span><span class="small">page is: self entryClass⇒ [page init; serialNumber: serialNumber. ⇑page]<br></span><span class="tab"></span><span class="small">⇑[(self entryClass new) dictionary: self;<br></span><span class="tab"></span><span class="tab"></span><span class="small">init; pageNumber: page; serialNumber: serialNumber]]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">open </span><span class="small">["</span><span class="small italic">compute lastpn</span><span class="small">" self findLastPage]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">release</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">reopen </span><span class="small">[<br></span><span class="tab"></span><span class="small">[self sameFile⇒ []<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">init and directory access</span><span class="small">"<br></span><span class="tab"></span><span class="small">directory get: self init].<br></span><span class="tab"></span><span class="small">self open]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>DictionaryEntry</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">dictionary </span><span class="small">[⇑directory]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">dictionary: directory</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">init </span><span class="small">[lastpn &larr; false. error &larr; nullString. serialNumber &larr; String new: 4]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">match: entry </span><span class="small">[⇑self name match: entry name]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">name </span><span class="small">[⇑name]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">name: name</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">printon: strm </span><span class="small">[strm append: name]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Initialize</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">classInit </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">subclasses of File may want to share variables in pools.<br></span><span class="tab"></span><span class="small italic">execute before filin:</span><span class="small"><br></span><span class="tab"></span><span class="tab"></span><span class="small">Smalltalk declare: ↪XFilePool as: (SymbolTable new init: 16).<br></span><span class="tab"></span><span class="small italic">in classInit:</span><span class="small"> XFilePool declare: ↪() as: ↪()"<br><br></span><span class="tab"></span><span class="small">FilePool declare: ↪(read write shorten) as: ↪(1 2 4)]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">sameFile </span><span class="small">"</span><span class="small italic">is File&rsquo;s current internal representation the same as what is stored externally? if so, usually can avoid some initialization, directory lookup</span><span class="small">"<br></span><span class="tab"></span><span class="small">[⇑false]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Name</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">serialNumber </span><span class="small">[⇑serialNumber]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">serialNumber: s </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">stored as a String of 4 characters rather than as various Numbers</span><span class="small">"<br></span><span class="tab"></span><span class="small">s is: String⇒ [serialNumber &larr; s]<br></span><span class="tab"></span><span class="small">s is: Substring⇒ [serialNumber &larr; s copy]<br></span><span class="tab"></span><span class="small">s is: Integer⇒ [serialNumber word: 1 &larr; 0; word: 2 &larr; s]<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">Vector of Integers</span><span class="small">"<br></span><span class="tab"></span><span class="small">serialNumber word: 1 &larr; s◦1; word: 2 &larr; s◦2]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>FileDirectory</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">delete </span><span class="small">[⇑directory delete: self]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">directory </span><span class="small">[⇑directory]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">directory: directory</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">rename: newName </span><span class="small">[⇑directory rename: self newName: newName]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">type </span><span class="small">[⇑type]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">type: type </span><span class="small">"used by different Files in different ways, e.g. read/write mode"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>File Length</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">endFile: page </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">make File end with this FilePage. false means delete all of File</span><span class="small">"<br></span><span class="tab"></span><span class="small">self subError]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">findLastPage </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">the default definitions for </span><span class="small bold">findLastPage</span><span class="small italic"> and </span><span class="small bold">length</span><span class="small italic"> are circular.<br></span><span class="tab"></span><span class="small italic">at least one of them must be defined by a subclass"<br></span><span class="small"><br></span><span class="tab"></span><span class="small">⇑lastpn &larr; self pageFrom: self length]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">lastFullPage </span><span class="small">[(self read: self lastPage) full⇒ [⇑lastpn] ⇑lastpn-1]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">lastPage </span><span class="small">["</span><span class="small italic">length in pages</span><span class="small">"<br></span><span class="tab"></span><span class="small">lastpn⇒ [⇑lastpn] ⇑self findLastPage]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">lastPage: lastpn </span><span class="small">"</span><span class="small italic">for those who know what they&rsquo;re doing</span><span class="small">"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">length </span><span class="small">| page [<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">length in characters</span><span class="small">"<br></span><span class="tab"></span><span class="small">page &larr; self read: self lastPage.<br></span><span class="tab"></span><span class="small">⇑lastpn-1 * page dataLength + page length]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pageFrom: len </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">compute page number for a character index</span><span class="small">"<br></span><span class="tab"></span><span class="small">⇑(len-1 / self entryClass new dataLength) asSmall+ 1]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>FilePage</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">doCommand: com page: page error: s </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">execute a File command on page. if an error occurs, include<br></span><span class="tab"></span><span class="small">error &larr; &rsquo;some error message&rsquo;.<br></span><span class="tab"></span><span class="small">⇑self error: s<br></span><span class="tab"></span><span class="small italic">if s is false, returns false.<br></span><span class="tab"></span><span class="small italic">otherwise s is passed to an error routine</span><span class="small">" self subError]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">error </span><span class="small">[⇑error]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">error: e </span><span class="small">[<br></span><span class="tab"></span><span class="small">e⇒ [e &larr; [(Stream default) append: name; append: &rsquo; in &rsquo;; append: e;<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">append: &rsquo;, &rsquo;; append: error; contents].<br></span><span class="tab"></span><span class="tab"></span><span class="small">error &larr; nullString.<br></span><span class="tab"></span><span class="tab"></span><span class="small">⇑super error: e]<br></span><span class="tab"></span><span class="small">⇑false]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">Get: page </span><span class="small">| p pn [<br></span><span class="tab"></span><span class="small">pn &larr; page pageNumber.<br></span><span class="tab"></span><span class="small">p &larr; self Read: page⇒ [⇑p]<br><br></span><span class="tab"></span><span class="small">"</span><span class="small italic">current last page of the file is assumed full</span><span class="small">"<br></span><span class="tab"></span><span class="small">for⦂ p from: lastpn+1 to: pn-1 do⦂ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">page pageNumber: p.<br></span><span class="tab"></span><span class="tab"></span><span class="small">page &larr; self Write: page].<br><br></span><span class="tab"></span><span class="small">"</span><span class="small italic">return an empty last page which is not written yet</span><span class="small">"<br></span><span class="tab"></span><span class="small">page pageNumber: pn; length: 0.<br></span><span class="tab"></span><span class="small">⇑page]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">get: pn </span><span class="small">[⇑self Get: (self makeEntry: pn)]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">newPage </span><span class="small">[⇑self makeEntry: 0]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">newPage: pn </span><span class="small">[⇑self makeEntry: pn]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">Read: page </span><span class="small">["</span><span class="small italic">return page or false</span><span class="small">" self subError]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">read: pn </span><span class="small">[⇑self Read: (self makeEntry: pn)]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">Write: page </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">update </span><span class="small bold">lastpn</span><span class="small italic">, write page and return result (maybe next page)</span><span class="small">"<br></span><span class="tab"></span><span class="small">self subError]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>FileStream</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">asStream </span><span class="small">[⇑(FileStream new) on: [self open; get: 1]]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small"></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small">SystemOrganization classify: ↪File under: &rsquo;Files&rsquo;.</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small">File classInit</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span class="medium bold"><br>"FileDirectory"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold">Class new title: &rsquo;FileDirectory&rsquo;<br></span><span class="tab"></span><span class="medium bold">subclassof: Dict<br></span><span class="tab"></span><span class="medium bold">fields: &rsquo;directory fileReaders&rsquo;<br></span><span class="tab"></span><span class="medium bold">declare: &rsquo;&rsquo;;<br></span><span class="tab"></span><span class="medium bold">sharing: FilePool;<br></span><span class="tab"></span><span class="medium bold">asFollows</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small italic"><br>A collection of Files. FileDirectory is a generalization: some examples are AltoFileDirectory and WoodstockFileDirectory</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Dictionary</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">checkName: s </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">default behavior is to get rid of ending period.<br></span><span class="tab"></span><span class="small italic">subclasses can do any kind of checking they want and<br></span><span class="tab"></span><span class="small italic">return false if name is no good</span><span class="small">"<br><br></span><span class="tab"></span><span class="small">s empty or⦂ s last ≠ (&rsquo;.&rsquo;◦1)⇒ [⇑s]<br></span><span class="tab"></span><span class="small">⇑s copy: 1 to: s length-1]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">close </span><span class="small">[<br></span><span class="tab"></span><span class="small">self obsolete⇒ []<br></span><span class="tab"></span><span class="small">externalViews delete: self.<br></span><span class="tab"></span><span class="small">self release]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">entryClass </span><span class="small">["</span><span class="small italic">a subclass of File</span><span class="small">" self subError]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">error: e entry: file </span><span class="small">[⇑file error: e]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">Find: file </span><span class="small">| name [<br></span><span class="tab"></span><span class="small">name &larr; self checkName: file name⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">file name: name.<br></span><span class="tab"></span><span class="tab"></span><span class="small">⇑self Position &larr; file]<br></span><span class="tab"></span><span class="small">file error: &rsquo;illegal name&rsquo;]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">insert: file </span><span class="small">| old [<br></span><span class="tab"></span><span class="small">"note: this changes the default behavior found in Dict.<br></span><span class="tab"></span><span class="small">this creates a new version rather than generating an error if the name exists"<br><br></span><span class="tab"></span><span class="small">file &larr; self makeEntry: file.<br></span><span class="tab"></span><span class="small">[self versionNumbers⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">"ignore explicit version and directory will create a next version"<br></span><span class="tab"></span><span class="tab"></span><span class="small">file &larr; self makeEntry: (file name asStream upto: &rsquo;!&rsquo;◦1)]<br><br></span><span class="tab"></span><span class="small">self Find: file⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">old &larr; self makeEntry: (file name + &rsquo;$&rsquo;).<br></span><span class="tab"></span><span class="tab"></span><span class="small">"otherwise, if the file already exists,<br></span><span class="tab"></span><span class="tab"></span><span class="small">rename it to name$, deleting that file first if it exists"<br></span><span class="tab"></span><span class="tab"></span><span class="small">[self Find: old⇒ [self Delete: old]].<br></span><span class="tab"></span><span class="tab"></span><span class="small">self rename: file name newName: old name.<br></span><span class="tab"></span><span class="tab"></span><span class="small">"reposition to original name"<br></span><span class="tab"></span><span class="tab"></span><span class="small">self Find: file⇒ [self error: &rsquo;insert/rename ??&rsquo; entry: file]]<br></span><span class="tab"></span><span class="small">"file didn&rsquo;t exist"].<br><br></span><span class="tab"></span><span class="small">self Insert: file.<br></span><span class="tab"></span><span class="small">⇑file]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">open </span><span class="small">[externalViews insert: self]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">printon: strm </span><span class="small">[<br></span><span class="tab"></span><span class="small">strm append: [self obsolete⇒ [&rsquo;a closed &rsquo;] &rsquo;an open &rsquo;];<br></span><span class="tab"></span><span class="tab"></span><span class="small">append: self class title;<br></span><span class="tab"></span><span class="tab"></span><span class="small">append: &rsquo; on &rsquo;.<br></span><span class="tab"></span><span class="small">self server printon: strm]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>DictionaryEntry</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">dictionary </span><span class="small">[⇑directory]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">dictionary: directory</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Initialize</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">directory: directory</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>File</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">allocateSN: file </span><span class="small">["</span><span class="small italic">allocate a new serial number for a File</span><span class="small">" self subError]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">directory </span><span class="small">[⇑directory]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">newPage </span><span class="small">["</span><span class="small italic">return a dummy FilePage from a dummy File</span><span class="small">"<br></span><span class="tab"></span><span class="small">⇑(self makeEntry: nullString) newPage]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">versionNumbers </span><span class="small">["generally, version numbers are not supported" ⇑false]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>FileStream</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">file: name </span><span class="small">[⇑(self get: name) asStream]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">filin: s </span><span class="small">[self filin: s format: 1]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">filin: s format: ft </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">read Class definitions or Changes from FileStreams or PressFiles<br></span><span class="tab"></span><span class="small italic">ft: 1 (FileStream=Bravo), 2 (Press)</span><span class="small">"<br><br></span><span class="tab"></span><span class="small">user displayoffwhile⦂ [<br></span><span class="tab"></span><span class="small">s is: Vector⇒ [for⦂ s from: s do⦂ [self filin: s format: ft]]<br><br></span><span class="tab"></span><span class="small">"</span><span class="small italic">special case for Alto and patterns</span><span class="small">"<br></span><span class="tab"></span><span class="small">(s is: String) and⦂ ((s has: &rsquo;*&rsquo;◦1) or⦂ (s has: &rsquo;#&rsquo;◦1))⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">self filin: (self filesMatching: s) format: ft]<br><br></span><span class="tab"></span><span class="small">[s is: UniqueString⇒ ["</span><span class="small italic">Class name</span><span class="small">" s &larr; s + [ft=1⇒ [&rsquo;.st&rsquo;] &rsquo;.press&rsquo;]]].<br><br></span><span class="tab"></span><span class="small">([ft=1⇒ [self oldFile: s] self pressfile: s]) filin]]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">newFile: name </span><span class="small">[⇑(self insert: name) asStream]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">oldFile: name </span><span class="small">[⇑(self find: name) asStream]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pressfile: name </span><span class="small">[⇑PressFile new of: (self file: name)]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pressfilin: s </span><span class="small">[self filin: s format: 2]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>FTP</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">asFtpDirectory </span><span class="small">| ftp [<br></span><span class="tab"></span><span class="small">"to allow convenient (kludgey) access to file servers (e.g. phylum, dpj) via Ftp"<br></span><span class="tab"></span><span class="small">(ftp &larr; FtpDirectory new) server: self server; open.<br></span><span class="tab"></span><span class="small">[ftp userName empty⇒ [ftp login: self userName password: self userPassword]].<br></span><span class="tab"></span><span class="small">⇑ftp]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">login: name </span><span class="small">[⇑self login: name password: &rsquo;&rsquo; "</span><span class="small italic">or prompt?</span><span class="small">"]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">login: name password: pw </span><span class="small">[self subError]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">retrieve: s </span><span class="small">| t [<br></span><span class="tab"></span><span class="small">s is: Vector⇒ [for⦂ t from: s do⦂ [self retrieve: t as: t]]<br></span><span class="tab"></span><span class="small">⇑self retrieve: s as: s]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">retrieve: s1 as: s2 </span><span class="small">| f [<br></span><span class="tab"></span><span class="small">[self exists: s1⇒ [f &larr; self oldFile: s1] ⇑false].<br></span><span class="tab"></span><span class="small">f readonly.<br></span><span class="tab"></span><span class="small">([s2 is: FileStream⇒ [s2] dp0 file: s2]) append: f; close.<br></span><span class="tab"></span><span class="small">f close]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">server </span><span class="small">[⇑directory]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">server: directory</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">store: s </span><span class="small">| t [<br></span><span class="tab"></span><span class="small">s is: Vector⇒ [for⦂ t from: s do⦂ [self store: t as: t]]<br></span><span class="tab"></span><span class="small">⇑self store: s as: s]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">store: s1 as: s2 </span><span class="small">| f [<br></span><span class="tab"></span><span class="small">[s1 is: FileStream⇒ [f &larr; s1] dp0 exists: s1⇒ [f &larr; dp0 oldFile: s1] ⇑false].<br></span><span class="tab"></span><span class="small">f readonly.<br></span><span class="tab"></span><span class="small">(self file: s2) append: f; close.<br></span><span class="tab"></span><span class="small">f close]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">userName </span><span class="small">[⇑[currentProfile≡nil⇒ [&rsquo;&rsquo;] currentProfile userName: self server]]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">userPassword </span><span class="small">[⇑[currentProfile≡nil⇒ [&rsquo;&rsquo;] currentProfile userPassword: self server]]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Juniper</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">closeTransaction </span><span class="small">"</span><span class="small italic">default is to do nothing</span><span class="small">"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">exceptionHandler: eh </span><span class="small">"</span><span class="small italic">default is to do nothing</span><span class="small">"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small"></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small">SystemOrganization classify: ↪FileDirectory under: &rsquo;Files&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span class="medium bold"><br>"FilePage"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold">Class new title: &rsquo;FilePage&rsquo;<br></span><span class="tab"></span><span class="medium bold">subclassof: Dict<br></span><span class="tab"></span><span class="medium bold">fields: &rsquo;file page&rsquo;<br></span><span class="tab"></span><span class="medium bold">declare: &rsquo;&rsquo;;<br></span><span class="tab"></span><span class="medium bold">sharing: FilePool;<br></span><span class="tab"></span><span class="medium bold">asFollows</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small italic"><br>A block, chunk, or page of information from some collection of pages (a File).  FilePage is a generalization: some examples are AltoFilePage and WoodstockFilePage</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Dictionary</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">◦i </span><span class="small">[⇑page◦(self checkIndex: i)]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">◦i &larr; v </span><span class="small">[⇑page◦(self checkIndex: i) &larr; v]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">asStream </span><span class="small">[⇑self asStream: Stream new]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">reopen </span><span class="small">[file reopen; makeEntry: self "</span><span class="small italic">self may have been released</span><span class="small">"]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>DictionaryEntry</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">dictionary </span><span class="small">[⇑file]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">dictionary: file</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">init </span><span class="small">[<br></span><span class="tab"></span><span class="small">[page≡nil⇒ ["self page:" page &larr; String new: self pageLength]].<br></span><span class="tab"></span><span class="small">self length: 0"not sure who depends on this besides FileStream read:"]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">name: sp </span><span class="small">[self init; serialNumber: sp◦1; pageNumber: sp◦2]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Initialize</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">file: file</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">page: page</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>File</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">doCommand: com error: s </span><span class="small">[⇑file doCommand: com page: self error: s]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">endFile </span><span class="small">[⇑file endFile: self]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">file </span><span class="small">[⇑file]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">get: pn </span><span class="small">["</span><span class="small italic">recycle self</span><span class="small">" self pageNumber: pn; length: 0. ⇑file Get: self]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">read: pn </span><span class="small">["</span><span class="small italic">recycle self</span><span class="small">" self pageNumber: pn; length: 0. ⇑file Read: self]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">write </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">some files, e.g. AltoFile, will return a last empty page instead of a full one</span><span class="small">"<br></span><span class="tab"></span><span class="small">⇑file Write: self]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Page</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">address </span><span class="small">["</span><span class="small italic">page address, e.g. on a disk</span><span class="small">" self subError]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">address: a </span><span class="small">[self subError]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">asStream: s </span><span class="small">| offset [<br></span><span class="tab"></span><span class="small">offset &larr; self headerLength.<br></span><span class="tab"></span><span class="small">⇑s of: self dataString from: offset+1 to: offset+self length "self dataEnd"]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">checkIndex: i </span><span class="small">[<br></span><span class="tab"></span><span class="small">i &gt; 0 and⦂ i ≤ self length⇒ [⇑i + self headerLength]<br></span><span class="tab"></span><span class="small">self error: &rsquo;illegal index&rsquo;]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">dataBeginning </span><span class="small">[⇑self headerLength]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">dataEnd </span><span class="small">["</span><span class="small italic">logical end of data in page</span><span class="small">" ⇑self headerLength + self length]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">dataEnd: pos </span><span class="small">[self length: pos - self headerLength]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">dataLength </span><span class="small">["</span><span class="small italic">physical length of data in page. default</span><span class="small">" ⇑512]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">dataMaxEnd </span><span class="small">["</span><span class="small italic">physical end of data in page</span><span class="small">" ⇑self headerLength + self dataLength]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">dataString </span><span class="small">[⇑page]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">full </span><span class="small">[⇑self length = self dataLength]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">header: n </span><span class="small">["</span><span class="small italic">return n-th header word</span><span class="small">" ⇑page word: n]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">header: n &larr; v </span><span class="small">["</span><span class="small italic">set and return n-th header word</span><span class="small">" ⇑page word: n &larr; v]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">headerLength </span><span class="small">["</span><span class="small italic">length of stuff before data begins in page</span><span class="small">" ⇑0]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">lastPage </span><span class="small">["</span><span class="small italic">is this last page in file?</span><span class="small">" ⇑self pageNumber ≥ file lastPage]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">length </span><span class="small">["</span><span class="small italic">logical length of data in page</span><span class="small">" self subError]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">length: len </span><span class="small">[self subError]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">page </span><span class="small">[⇑page]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pageLength </span><span class="small">["</span><span class="small italic">physical size of page</span><span class="small">"<br></span><span class="tab"></span><span class="small">⇑self headerLength + self dataLength + self trailerLength]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pageNumber </span><span class="small">[self subError]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pageNumber: pn </span><span class="small">[self subError]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">serialNumber </span><span class="small">[⇑file serialNumber]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">serialNumber: sn </span><span class="small">[self subError]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">trailerLength </span><span class="small">["</span><span class="small italic">length of stuff after data ends in page</span><span class="small">" ⇑0]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">word: i </span><span class="small">["</span><span class="small italic">no bounds checking</span><span class="small">" ⇑page word: self headerLength/2 + i]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">word: i &larr; v </span><span class="small">["</span><span class="small italic">no bounds checking</span><span class="small">" ⇑page word: self headerLength/2 + i &larr; v]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small"></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small">SystemOrganization classify: ↪FilePage under: &rsquo;Files&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span class="medium bold"><br>"EtherFilePage"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold">Class new title: &rsquo;EtherFilePage&rsquo;<br></span><span class="tab"></span><span class="medium bold">subclassof: FilePage<br></span><span class="tab"></span><span class="medium bold">fields: &rsquo;&rsquo;<br></span><span class="tab"></span><span class="medium bold">declare: &rsquo;&rsquo;;<br></span><span class="tab"></span><span class="medium bold">asFollows</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small italic"><br>A FilePage which consists of an ethernet packet (Pacbuf) containing network information, header info and data</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>FilePage</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">dataString </span><span class="small">[⇑page pupString]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">header: n </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">for accessing information after pup header, e.g. file commands and parameters.<br></span><span class="tab"></span><span class="small italic">n = 1 to (self headerLength-24)/2</span><span class="small">"<br></span><span class="tab"></span><span class="small">⇑page word: 12+n]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">header: n &larr; v </span><span class="small">[⇑page word: 12+n &larr; v]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">headerLength </span><span class="small">[⇑44 "</span><span class="small italic">ethernet encap.(4), pup header(20), file label (20=default)</span><span class="small">"]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">init </span><span class="small">[<br></span><span class="tab"></span><span class="small">[page≡nil⇒ ["self page:" page &larr; file allocatePage]].<br></span><span class="tab"></span><span class="small">self length: 0]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">length </span><span class="small">[⇑page pupLength - (self headerLength - 2)]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">length: len </span><span class="small">[page pupLength &larr; len + self headerLength - 2]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">trailerLength </span><span class="small">[⇑2 "</span><span class="small italic">checksum</span><span class="small">"]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Ether</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">packet </span><span class="small">[⇑page]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pupType </span><span class="small">[⇑page pupType]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pupType&larr; p </span><span class="small">[⇑page pupType&larr; p]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small"></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small">SystemOrganization classify: ↪EtherFilePage under: &rsquo;Files&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span class="medium bold"><br>"FileStream"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold">Class new title: &rsquo;FileStream&rsquo;<br></span><span class="tab"></span><span class="medium bold">subclassof: Stream<br></span><span class="tab"></span><span class="medium bold">fields: &rsquo;page dirty rwmode&rsquo;<br></span><span class="tab"></span><span class="medium bold">declare: &rsquo;&rsquo;;<br></span><span class="tab"></span><span class="medium bold">sharing: FilePool;<br></span><span class="tab"></span><span class="medium bold">asFollows</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small italic"><br>A Stream which windows a File. see File example</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Dictionary</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">close </span><span class="small">[<br></span><span class="tab"></span><span class="small">self obsolete⇒ []<br></span><span class="tab"></span><span class="small">[self writing⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">rwmode anymask: shorten⇒ [self shorten]<br></span><span class="tab"></span><span class="tab"></span><span class="small">self flush]].<br></span><span class="tab"></span><span class="small">"self release (sort of)"<br></span><span class="tab"></span><span class="small">dirty &larr; limit &larr; 0.<br></span><span class="tab"></span><span class="small">self file close.<br></span><span class="tab"></span><span class="small">externalViews delete: self]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">file </span><span class="small">[⇑page file]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">obsolete </span><span class="small">[⇑dirty]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">release </span><span class="small">[<br></span><span class="tab"></span><span class="small">self obsolete⇒ []<br></span><span class="tab"></span><span class="small">dirty &larr; limit &larr; 0.<br></span><span class="tab"></span><span class="small">self file release]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">reopen </span><span class="small">| pos [<br></span><span class="tab"></span><span class="small">dirty "self obsolete"⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">reopen to current position</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="small">pos &larr; position.<br></span><span class="tab"></span><span class="tab"></span><span class="small">self read: page pageNumber⇒ [position &larr; pos min: limit]<br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">if that page doesn&rsquo;t exist, go to last one that does.<br></span><span class="tab"></span><span class="tab"></span><span class="small italic">note that settoend would be recursive</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="small">self read: (self file lastPage)⇒ [position &larr; limit]<br></span><span class="tab"></span><span class="tab"></span><span class="small">self error: &rsquo;cannot reopen or settoend&rsquo;]<br></span><span class="tab"></span><span class="small">⇑false]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Initialize</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">on: page </span><span class="small italic">"some page from a File, usually page 1, or another FileStream</span><span class="small">" [<br></span><span class="tab"></span><span class="small">[page is: FileStream⇒ [page &larr; page page]].<br></span><span class="tab"></span><span class="small">page asStream: self.<br></span><span class="tab"></span><span class="small">externalViews insert: self.<br></span><span class="tab"></span><span class="small">"obsolete flag"<br></span><span class="tab"></span><span class="small">dirty &larr; false]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Access Modes</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">readonly </span><span class="small">[self setMode: read]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">readwrite </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">allow read and write but don&rsquo;t automatically shorten</span><span class="small">"<br></span><span class="tab"></span><span class="small">self setMode: read + write]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">readwriteshorten </span><span class="small">["</span><span class="small italic">allow read and write and shorten File upon closing</span><span class="small">"<br></span><span class="tab"></span><span class="small">self setMode: read+write+shorten]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">setMode: m </span><span class="small">[<br></span><span class="tab"></span><span class="small">rwmode = m⇒ []<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">don&rsquo;t flush if first time or not write mode or continuing write mode</span><span class="small">"<br></span><span class="tab"></span><span class="small">[rwmode≡nil or⦂ ((rwmode nomask: write) or⦂ (m anymask: write))⇒ []<br></span><span class="tab"></span><span class="small">self flush].<br></span><span class="tab"></span><span class="small">rwmode &larr; m]<br></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">writeshorten </span><span class="small">["</span><span class="small italic">allow write and shorten File upon closing. in general, this would be faster for overwriting Files since pages might not have to be read first. at present, treated same as </span><span class="small bold">readwriteshorten</span><span class="small">"<br></span><span class="tab"></span><span class="small">self setMode: write+shorten]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">writing </span><span class="small">[<br></span><span class="tab"></span><span class="small">rwmode≡nil⇒ ["</span><span class="small italic">default mode. true</span><span class="small">" ⇑self readwriteshorten]<br></span><span class="tab"></span><span class="small">⇑(rwmode land: write) = write]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Stream</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">◦i </span><span class="small">[<br></span><span class="tab"></span><span class="small">self position &larr; i-1.<br></span><span class="tab"></span><span class="small">⇑self next]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">◦i &larr; v </span><span class="small">[<br></span><span class="tab"></span><span class="small">self position &larr; i-1.<br></span><span class="tab"></span><span class="small">⇑self next &larr; v]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">append: s </span><span class="small">[<br></span><span class="tab"></span><span class="small">"try to make some special cases go much faster"<br></span><span class="tab"></span><span class="small">[s is: String⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">s length &gt; 80⇒ [self writeString: s from: 1 to: s length. ⇑s]]<br></span><span class="tab"></span><span class="small">s is: Stream⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">(s limit - s position &gt; 80) and⦂ (s asArray is: String)⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">self writeString: s asArray from: s position+1 to: s limit. ⇑s]]<br></span><span class="tab"></span><span class="small">s is: FileStream⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">self writeFile: s for: nil. ⇑s]<br></span><span class="tab"></span><span class="small">].<br><br></span><span class="tab"></span><span class="small">⇑super append: s]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">contents </span><span class="small">| s ["</span><span class="small italic">read all of a File</span><span class="small">"<br></span><span class="tab"></span><span class="small">self readonly; reset.<br></span><span class="tab"></span><span class="small">s &larr; self next: self length.<br></span><span class="tab"></span><span class="small">self close.<br></span><span class="tab"></span><span class="small">⇑s]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">end </span><span class="small">[<br></span><span class="tab"></span><span class="small">self reopen.<br></span><span class="tab"></span><span class="small">position &lt; limit⇒ [⇑false]<br></span><span class="tab"></span><span class="small">self read: page pageNumber+1⇒ [⇑"page empty" position = limit]<br></span><span class="tab"></span><span class="small">⇑true]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">into: s endError: err </span><span class="small">| charsRead len t [<br></span><span class="tab"></span><span class="small">len &larr; s  length.<br></span><span class="tab"></span><span class="small">[len &gt; 80⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">charsRead &larr; len - (self readString: s from: 1 to: len)]<br><br></span><span class="tab"></span><span class="small">"in line: super into: s endError: err"<br></span><span class="tab"></span><span class="small">charsRead &larr; 0.<br></span><span class="tab"></span><span class="small">"read until count or stream is exhausted"<br></span><span class="tab"></span><span class="small">while⦂ (charsRead &lt; len and⦂ (t &larr; self next)) do⦂ [s◦(charsRead &larr; charsRead+1) &larr;t]].<br><br></span><span class="tab"></span><span class="small">err⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">charsRead = len⇒ [⇑s]<br></span><span class="tab"></span><span class="tab"></span><span class="small">user notify: &rsquo;only read first &rsquo; + charsRead asString]<br></span><span class="tab"></span><span class="small">⇑charsRead]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">length </span><span class="small">[<br></span><span class="tab"></span><span class="small">page lastPage⇒ [⇑page pageNumber-1 * page dataLength + page length]<br></span><span class="tab"></span><span class="small">⇑self file length]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">next: n from: strm </span><span class="small">[<br></span><span class="tab"></span><span class="small">n &gt; 80 and⦂ (strm is: FileStream)⇒ [self writeFile: strm for: n]<br></span><span class="tab"></span><span class="small">⇑super next: n from: strm]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pastend </span><span class="small">[<br></span><span class="tab"></span><span class="small">self reopen or⦂ (page lastPage≡false and⦂ self nextPage)⇒ [⇑self next]<br></span><span class="tab"></span><span class="small">⇑false]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pastend&larr; v </span><span class="small">[<br></span><span class="tab"></span><span class="small">self writing⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">self reopen⇒ [⇑self next &larr; v]<br></span><span class="tab"></span><span class="tab"></span><span class="small">[limit &lt; page dataMaxEnd or⦂ [<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">self nextPage⇒ [position=limit]<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">self error: &rsquo;could not get page&rsquo;]⇒ [limit &larr; page dataMaxEnd]].<br></span><span class="tab"></span><span class="tab"></span><span class="small">⇑self next&larr; v]<br></span><span class="tab"></span><span class="small">self error: &rsquo;no writing allowed&rsquo;]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">position </span><span class="small">[⇑self positionSize: 1]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">position&larr; p </span><span class="small">[⇑self position: p size: 1]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">printon: strm </span><span class="small">[<br></span><span class="tab"></span><span class="small">super printon: strm.<br></span><span class="tab"></span><span class="small">strm append: &rsquo; on &rsquo;.<br></span><span class="tab"></span><span class="small">self file printon: strm]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">reset </span><span class="small">["self position &larr; 0"<br></span><span class="tab"></span><span class="small">self read: 1⇒ []<br></span><span class="tab"></span><span class="small">self error: &rsquo;reset&rsquo;]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">settoend </span><span class="small">["self position &larr; self length"<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">make sure file is open so lastPage is correct</span><span class="small">"<br></span><span class="tab"></span><span class="small">self reopen.<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">when writing on the last page, lastPage may be too small</span><span class="small">"<br></span><span class="tab"></span><span class="small">self read: (self file lastPage max: page pageNumber)⇒ [position &larr; limit]<br></span><span class="tab"></span><span class="small">self error: &rsquo;settoend???&rsquo;]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">skip: n </span><span class="small">| p plen [<br></span><span class="tab"></span><span class="small">n=0⇒ []<br></span><span class="tab"></span><span class="small">self reopen.<br></span><span class="tab"></span><span class="small">p &larr; position + n.<br></span><span class="tab"></span><span class="small">[n &gt; 0⇒ [p ≥ limit]<br></span><span class="tab"></span><span class="small">self fixEnd "</span><span class="small italic">important on last page</span><span class="small">".<br></span><span class="tab"></span><span class="small">p &lt; page dataBeginning]⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">simply: self position &larr; self position + n.<br></span><span class="tab"></span><span class="tab"></span><span class="small italic">however, since we are incurable optimizers...</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="small">plen &larr; page dataLength.<br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">assume p is not Large, otherwise use intdiv:</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="small">p &larr; p - page dataBeginning.<br></span><span class="tab"></span><span class="tab"></span><span class="small">self positionPage: (page pageNumber + [n &lt; 0⇒ [(p+1)/plen - 1] p/plen])<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">character: p \ plen⇒ []<br></span><span class="tab"></span><span class="tab"></span><span class="small">self error: &rsquo;cannot skip &rsquo; + n asString]<br><br></span><span class="tab"></span><span class="small">"</span><span class="small italic">same page</span><span class="small">"<br></span><span class="tab"></span><span class="small">position &larr; p]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">word: i </span><span class="small">[<br></span><span class="tab"></span><span class="small">self wordposition &larr; i-1.<br></span><span class="tab"></span><span class="small">⇑self nextword]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">word: i &larr; v </span><span class="small">[<br></span><span class="tab"></span><span class="small">self wordposition &larr; i-1.<br></span><span class="tab"></span><span class="small">⇑self nextword &larr; v]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">wordposition </span><span class="small">[⇑self positionSize: 2]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">wordposition&larr; w </span><span class="small">[⇑self position: w size: 2]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>File</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">directory </span><span class="small">[⇑self file directory]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">fixEnd </span><span class="small">[<br></span><span class="tab"></span><span class="small">self writing and⦂ position &gt; page dataEnd⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">fix the end of page</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="small">page dataEnd: (limit &larr; position)]]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">flush </span><span class="small">[<br></span><span class="tab"></span><span class="small">self obsolete⇒ [⇑page]<br></span><span class="tab"></span><span class="small">self fixEnd.<br></span><span class="tab"></span><span class="small">⇑page write]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">name </span><span class="small">[⇑self file name]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">nextPage </span><span class="small">[⇑self read: page pageNumber+1]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pad: size </span><span class="small">| rem [<br></span><span class="tab"></span><span class="small">"skip to next boundary of size and return how many characters skipped"<br></span><span class="tab"></span><span class="small">rem &larr; (([page dataLength \ size = 0⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">position - page dataBeginning] self position]) \ size) asSmall.<br></span><span class="tab"></span><span class="small">rem = 0⇒ [⇑0]<br></span><span class="tab"></span><span class="small">self skip: size - rem.<br></span><span class="tab"></span><span class="small">⇑size - rem]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">pad: size with: val </span><span class="small">| rem [<br></span><span class="tab"></span><span class="small">"pad to next boundary of size and return how many characters padded"<br></span><span class="tab"></span><span class="small">rem &larr; (([page dataLength \ size = 0⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">position - page dataBeginning] self position]) \ size) asSmall.<br></span><span class="tab"></span><span class="small">rem = 0⇒ [⇑0]<br></span><span class="tab"></span><span class="small">self next: size - rem &larr; val.<br></span><span class="tab"></span><span class="small">⇑size - rem]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">page </span><span class="small">[⇑page]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">position: objpos size: size </span><span class="small">| len pn c pos [<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">set the current character position and the current page<br></span><span class="tab"></span><span class="small italic">from the position of an object of a given size (see </span><span class="small bold">positionSize:</span><span class="small italic">)</span><span class="small">"<br><br></span><span class="tab"></span><span class="small">len &larr; page dataLength.<br></span><span class="tab"></span><span class="small">[size = len⇒ ["</span><span class="small italic">page size</span><span class="small">" pn &larr; objpos+1. c &larr; 0]<br><br></span><span class="tab"></span><span class="small">pos &larr; objpos.<br></span><span class="tab"></span><span class="small">[size = 1⇒ []<br></span><span class="tab"></span><span class="small">len \ size = 0⇒ ["</span><span class="small italic">page length is a multiple of size</span><span class="small">" len &larr; len / size]<br></span><span class="tab"></span><span class="small">pos &larr; objpos * size.<br></span><span class="tab"></span><span class="small">size &larr; 1].<br><br></span><span class="tab"></span><span class="small">"</span><span class="small italic">obtain quotient (page) and remainder (position)</span><span class="small">"<br></span><span class="tab"></span><span class="small">pos &larr; pos intdiv: len.<br></span><span class="tab"></span><span class="small">pn &larr; 1 + (pos◦1) asSmall.<br></span><span class="tab"></span><span class="small">c &larr; size * (pos◦2) asSmall].<br><br></span><span class="tab"></span><span class="small">self positionPage: pn character: c⇒ [⇑objpos]<br></span><span class="tab"></span><span class="small">self error: &rsquo;cannot read page &rsquo; + pn asString]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">positionPage: pn character: c </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">normally accessed by </span><span class="small bold">position:size:, skip:</span><span class="small">"<br></span><span class="tab"></span><span class="small">self read: pn⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">c assumed between 0 and page dataLength. position, limit were set in </span><span class="small bold">on:</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="small">position &larr; position + c.<br></span><span class="tab"></span><span class="tab"></span><span class="small">position ≤ limit or⦂ self writing⇒ [⇑true]<br></span><span class="tab"></span><span class="tab"></span><span class="small">position &larr; limit.<br></span><span class="tab"></span><span class="tab"></span><span class="small">⇑false]<br><br></span><span class="tab"></span><span class="small">c=0⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">try end of previous page</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="small">⇑self positionPage: pn-1 character: page dataLength]<br></span><span class="tab"></span><span class="small">⇑false]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">positionSize: size </span><span class="small">| len pos [<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">compute the position for an object of a given size,<br></span><span class="tab"></span><span class="tab"></span><span class="small italic">e.g. characters (1), words (2), fixed length (n),<br></span><span class="tab"></span><span class="small italic">from the current character position and the current page</span><span class="small">"<br><br></span><span class="tab"></span><span class="small">len &larr; page dataLength.<br></span><span class="tab"></span><span class="small">size = 1 or⦂ len \ size ≠ 0⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">pos &larr; page pageNumber-1 * len + (position - page dataBeginning).<br></span><span class="tab"></span><span class="tab"></span><span class="small">size=1⇒ [⇑pos]<br></span><span class="tab"></span><span class="tab"></span><span class="small">⇑pos / size]<br><br></span><span class="tab"></span><span class="small">"</span><span class="small italic">page length is a multiple of size</span><span class="small">"<br></span><span class="tab"></span><span class="small">⇑page pageNumber-1 * (len/size) + <br></span><span class="tab"></span><span class="tab"></span><span class="small">(position - page dataBeginning / size)]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">read: pn </span><span class="small">| p [<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">normally accessed by </span><span class="small bold">nextPage, position:size:, reopen, reset, settoend</span><span class="small">"<br></span><span class="tab"></span><span class="small">pn &lt; 1⇒ [⇑false]<br></span><span class="tab"></span><span class="small">self obsolete⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">reopen the file, (re)read the page</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="small">page reopen.<br></span><span class="tab"></span><span class="tab"></span><span class="small">p &larr; page read: pn⇒ [self on: p]<br></span><span class="tab"></span><span class="tab"></span><span class="small">⇑false]<br><br></span><span class="tab"></span><span class="small">pn = page pageNumber and⦂ (page length &gt; 0 or⦂ position &gt; page dataBeginning)⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">self fixEnd.<br></span><span class="tab"></span><span class="tab"></span><span class="small">page asStream: self]<br><br></span><span class="tab"></span><span class="small">"</span><span class="small italic">current page has wrong page number or is empty (possibly from error)</span><span class="small">"<br></span><span class="tab"></span><span class="small">[self writing⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">[[pn &gt; page pageNumber and⦂ page full≡false⇒ [<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">fill up last page when positioning past it</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">position &larr; page dataMaxEnd]<br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">otherwise, fixEnd</span><span class="small">" position &gt; page dataEnd]⇒ [page dataEnd: (limit &larr; position)]].<br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">write current page</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="small">p &larr; page write.<br></span><span class="tab"></span><span class="tab"></span><span class="small">p pageNumber = pn⇒ ["</span><span class="small italic">already have next page, e.g. at end of AltoFile</span><span class="small">"]<br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">read it or create it</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="small">p &larr; page get: pn]<br></span><span class="tab"></span><span class="small">p &larr; page read: pn].<br></span><span class="tab"></span><span class="small">p⇒ [(page &larr; p) asStream: self]<br></span><span class="tab"></span><span class="small">⇑false]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">settopage: p char: c </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">mainly for compatibility, since page sizes may vary.<br></span><span class="tab"></span><span class="small italic">in general, use </span><span class="small bold">position&larr;, wordposition&larr;</span><span class="small">"<br></span><span class="tab"></span><span class="small">self read: p asSmall⇒ [self skip: c asSmall]<br></span><span class="tab"></span><span class="small">self error: &rsquo;no page&rsquo;]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">shorten </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">normally called by </span><span class="small bold">close</span><span class="small italic"> and not directly by user</span><span class="small">"<br></span><span class="tab"></span><span class="small">self on: [page dataEnd: (limit &larr; position); endFile].<br></span><span class="tab"></span><span class="small">position &larr; limit]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Filin/Filout</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">asParagraphPrinter </span><span class="small">["</span><span class="small italic">default format for filout etc.</span><span class="small">" ⇑BravoPrinter init of: self]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">backup </span><span class="small">[<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">assume ivy open</span><span class="small">"<br></span><span class="tab"></span><span class="small">self directory≡dp0⇒ [ivy replace: self name]]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">filin </span><span class="small">| p [<br></span><span class="tab"></span><span class="small">user cr.<br></span><span class="tab"></span><span class="small">self readonly.<br></span><span class="tab"></span><span class="small">self end⇒ [self file error: &rsquo;empty file&rsquo;]<br></span><span class="tab"></span><span class="small">while⦂ (p &larr; self nextParagraph) do⦂ [<br></span><span class="tab"></span><span class="tab"></span><span class="small">FilinSource &larr; self.<br></span><span class="tab"></span><span class="tab"></span><span class="small">user print: nilⓢ p text; space].<br></span><span class="tab"></span><span class="small">self close.<br></span><span class="tab"></span><span class="small">FilinSource &larr; nil]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">filout </span><span class="small">[self filout: Changes contents sort]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">filout: source </span><span class="small">[(self asParagraphPrinter) stamp; printchanges: source; close]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">filoutclass: class </span><span class="small">[(self asParagraphPrinter) stamp; printclass: class; close]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">nextParagraph </span><span class="small">| text [<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">Bravo format paragraph (or self contents if no trailer)</span><span class="small">"<br></span><span class="tab"></span><span class="small">self end⇒ [⇑false]<br></span><span class="tab"></span><span class="small">text &larr; self upto: 032 "</span><span class="small italic">ctrl-z</span><span class="small">".<br></span><span class="tab"></span><span class="small">⇑text asParagraph applyBravo: self at: 1 to: text length]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Print</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">asPressPrinter </span><span class="small">["</span><span class="small italic">default format for printt etc.</span><span class="small">" ⇑PressPrinter init of: self]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">printout: source </span><span class="small">[(self asPressPrinter) stamp; printchanges: source; close; toPrinter]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">printoutclass: class </span><span class="small">[(self asPressPrinter) stamp; printclass: class; close; toPrinter]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">toPrinter </span><span class="small">| pp p [<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">print an unformatted or Bravo file as a press file</span><span class="small">"<br></span><span class="tab"></span><span class="small">user displayoffwhile⦂ [<br></span><span class="tab"></span><span class="small">pp &larr; (self directory file: self name + &rsquo;Press&rsquo;) asPressPrinter.<br></span><span class="tab"></span><span class="small">self readonly.<br></span><span class="tab"></span><span class="small">while⦂ (p &larr; self nextParagraph) do⦂ [pp print: p].<br></span><span class="tab"></span><span class="small">self close].<br></span><span class="tab"></span><span class="small">pp close; toPrinter]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>CodePane Editor</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">edit </span><span class="small">[user restartup: (CodeWindow new file: self)]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>Fast Access</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">readPages: n </span><span class="small">| charsLeft len s [<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">read n pages of characters</span><span class="small">"<br></span><span class="tab"></span><span class="small">len &larr; n * page dataLength.<br></span><span class="tab"></span><span class="small">s &larr; String new: len.<br></span><span class="tab"></span><span class="small">"charsRead &larr; self into: s endError: false."<br></span><span class="tab"></span><span class="small">charsLeft &larr; self readString: s from: 1 to: len.<br></span><span class="tab"></span><span class="small">charsLeft = 0⇒ ["</span><span class="small italic">read len chars</span><span class="small">" ⇑s]<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">return characters read only before end of file</span><span class="small">"<br></span><span class="tab"></span><span class="small">⇑s copy: 1 to: len - charsLeft]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">readString: s from: start to: stop </span><span class="small">| len charsLeft [<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">for reading a subrange of a large String from a file (quickly, if BitBlt is used);<br></span><span class="tab"></span><span class="small italic">called by </span><span class="small bold">FileStream into:endError:</span><span class="small">"<br><br></span><span class="tab"></span><span class="small">self readonly; reopen.<br></span><span class="tab"></span><span class="small">start &larr; start - 1.<br></span><span class="tab"></span><span class="small">charsLeft &larr; stop - start.<br><br></span><span class="tab"></span><span class="small">"</span><span class="small italic">keep going until all of the requested characters are copied or<br></span><span class="tab"></span><span class="small italic">until end of file. if end of current page only, next page is read.</span><span class="small">"<br></span><span class="tab"></span><span class="small">while⦂ (charsLeft &gt; 0 and⦂ self end ≡ false) do⦂ [<br><br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">len = # characters of current page that will fit in String</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="small">len &larr; limit - position min: charsLeft.<br></span><span class="tab"></span><span class="tab"></span><span class="small">charsLeft &larr; charsLeft - len.<br><br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">copy subrange of page into String</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="small">s copy: start+1 to: start+len<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">with: array from: position+1 to: position+len.<br><br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">update source and destination pointers</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="small">position &larr; position+ len.<br></span><span class="tab"></span><span class="tab"></span><span class="small">start &larr; start + len.<br></span><span class="tab"></span><span class="tab"></span><span class="small">].<br><br></span><span class="tab"></span><span class="small">"</span><span class="small italic">return the number of characters not read</span><span class="small">"<br></span><span class="tab"></span><span class="small">⇑charsLeft]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">streamPosition </span><span class="small">[⇑position]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">streamPosition&larr;position </span><span class="small">[⇑position]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">writeFile: fs for: charsLeft </span><span class="small">| start len maxLimit [<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">for copying part or all of one file to another (quickly, if BitBlt is used);<br></span><span class="tab"></span><span class="small italic">charsLeft ≡ nil means copy until end, otherwise a number of characters.</span><span class="small"><br></span><span class="tab"></span><span class="small italic">called by </span><span class="small bold">FileStream append:, next:from:</span><span class="small">"<br><br></span><span class="tab"></span><span class="small">[self writing⇒ [] self error: &rsquo;read only!&rsquo;].<br></span><span class="tab"></span><span class="small">self reopen.<br></span><span class="tab"></span><span class="small">fs readonly; reopen.<br></span><span class="tab"></span><span class="small">maxLimit &larr; page dataMaxEnd.<br><br></span><span class="tab"></span><span class="small">"</span><span class="small italic">keep going until all of the requested characters are copied or<br></span><span class="tab"></span><span class="small italic">until end of file. if end of current page only, next page is read.</span><span class="small">"<br></span><span class="tab"></span><span class="small">while⦂ ((charsLeft≡nil or⦂ charsLeft &gt; 0) and⦂ fs end ≡ false) do⦂ [<br><br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">end of current destination page?</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="small">[position = maxLimit⇒ [self nextPage]].<br><br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">len = # characters of source page that will fit in destination page</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="small">start &larr; fs streamPosition.<br></span><span class="tab"></span><span class="tab"></span><span class="small">len &larr; maxLimit - position min: fs limit - start.<br></span><span class="tab"></span><span class="tab"></span><span class="small">[charsLeft≡nil⇒ []<br></span><span class="tab"></span><span class="tab"></span><span class="small">len &larr; len min: charsLeft.<br></span><span class="tab"></span><span class="tab"></span><span class="small">charsLeft &larr; charsLeft - len].<br><br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">copy subrange of source page into destination page</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="small">array copy: position+1 to: position+len<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">with: fs asArray from: start+1 to: start+len.<br><br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">update source and destination pointers</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="small">fs streamPosition &larr; start + len.<br></span><span class="tab"></span><span class="tab"></span><span class="small">position &larr; position + len.<br></span><span class="tab"></span><span class="tab"></span><span class="small">position &gt; limit⇒ [limit &larr; position]<br></span><span class="tab"></span><span class="tab"></span><span class="small">].<br><br></span><span class="tab"></span><span class="small">"</span><span class="small italic">return the number of characters not read</span><span class="small">"<br></span><span class="tab"></span><span class="small">⇑[charsLeft ≡ nil⇒ [0] charsLeft]]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">writeString: s from: start to: stop </span><span class="small">| len charsLeft maxLimit [<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">for writing a subrange of a large String onto a file (quickly, if BitBlt is used);<br></span><span class="tab"></span><span class="small italic">called by </span><span class="small bold">FileStream</span><span class="small italic"> </span><span class="small bold">append:</span><span class="small">"<br><br></span><span class="tab"></span><span class="small">[self writing⇒ [] self error: &rsquo;read only!&rsquo;].<br></span><span class="tab"></span><span class="small">self reopen.<br></span><span class="tab"></span><span class="small">start &larr; start - 1.<br></span><span class="tab"></span><span class="small">charsLeft &larr; stop - start.<br></span><span class="tab"></span><span class="small">maxLimit &larr; page dataMaxEnd.<br><br></span><span class="tab"></span><span class="small">"</span><span class="small italic">keep going until all of the requested characters are copied</span><span class="small">"<br></span><span class="tab"></span><span class="small">while⦂ charsLeft &gt; 0 do⦂ [<br><br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">end of current page?</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="small">[position = maxLimit⇒ [self nextPage]].<br><br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">len = # characters of String that will fit in current page</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="small">len &larr; maxLimit - position min: charsLeft.<br></span><span class="tab"></span><span class="tab"></span><span class="small">charsLeft &larr; charsLeft - len.<br><br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">copy subrange of String into page</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="small">array copy: position+1 to: position+len<br></span><span class="tab"></span><span class="tab"></span><span class="tab"></span><span class="small">with: s from: start+1 to: start+len.<br><br></span><span class="tab"></span><span class="tab"></span><span class="small">"</span><span class="small italic">update source and destination pointers</span><span class="small">"<br></span><span class="tab"></span><span class="tab"></span><span class="small">start &larr; start + len.<br></span><span class="tab"></span><span class="tab"></span><span class="small">position &larr; position + len.<br></span><span class="tab"></span><span class="tab"></span><span class="small">position &gt; limit⇒ [limit &larr; position]<br></span><span class="tab"></span><span class="tab"></span><span class="small">].<br></span><span class="tab"></span><span class="small">⇑s]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small"></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small">SystemOrganization classify: ↪FileStream under: &rsquo;Files&rsquo;.</span></div>
 <div style="width: 141pt; margin-left: 425pt; margin-top: 0pt; text-align: left">
 <span class="medium bold"><br>"FtpDirectory"</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold">Class new title: &rsquo;FtpDirectory&rsquo;<br></span><span class="tab"></span><span class="medium bold">subclassof: FileDirectory<br></span><span class="tab"></span><span class="medium bold">fields: &rsquo;command&rsquo;<br></span><span class="tab"></span><span class="medium bold">declare: &rsquo;&rsquo;;<br></span><span class="tab"></span><span class="medium bold">asFollows</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small italic"><br>an interim(?) substitute for our own ftp server</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="medium bold"><br>FileDirectory</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">close </span><span class="small">[self closeThen: &rsquo;Resume. Small.Boot&rsquo;]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">closeThen: s </span><span class="small">[<br></span><span class="tab"></span><span class="small">command append: &rsquo;; &rsquo;; append: s.<br></span><span class="tab"></span><span class="small">user quitThen: command contents.<br></span><span class="tab"></span><span class="small">self open]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">commands </span><span class="small">[⇑command contents]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">connect: name password: pw </span><span class="small">[<br></span><span class="tab"></span><span class="small">command append: &rsquo; Connect/C &rsquo;; append: name; space; append: pw]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">delete: name </span><span class="small">[command append: &rsquo; Delete/C &rsquo;; append: (self checkName: name)]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">directoryName: name </span><span class="small">[<br></span><span class="tab"></span><span class="small">"this message should be directory:, but until rewriting..."<br></span><span class="tab"></span><span class="small">command append: &rsquo; Directory/C &rsquo;; append: name]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">login: name password: pw </span><span class="small">[<br></span><span class="tab"></span><span class="small">name empty⇒ []<br></span><span class="tab"></span><span class="small">command append: &rsquo; Login/C &rsquo;; append: name; space; append: pw]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">open </span><span class="small">[<br></span><span class="tab"></span><span class="small">command &larr; Stream new of: (String new: 100).<br></span><span class="tab"></span><span class="small">command append: &rsquo;Ftp &rsquo;; append: directory.<br></span><span class="tab"></span><span class="small">self login: self userName password: self userPassword]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">rename: oldName newName: newName </span><span class="small">[<br></span><span class="tab"></span><span class="small">command append: &rsquo; Rename/C &rsquo;;<br></span><span class="tab"></span><span class="tab"></span><span class="small">append: (self checkName: oldName); space; append: (self checkName: newName)]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">replace: name </span><span class="small">| s [<br></span><span class="tab"></span><span class="small">s &larr; self checkName: name.<br></span><span class="tab"></span><span class="small">(directory compare: &rsquo;maxc&rsquo;) = 2⇒ [self delete: s; store: s]<br></span><span class="tab"></span><span class="small">"</span><span class="small italic">store as highest version (ifs only)</span><span class="small">"<br></span><span class="tab"></span><span class="small">command append: &rsquo; Store/S &rsquo;; append: s; space; append: s; append: &rsquo;!H&rsquo;]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">retrieve: s </span><span class="small">| t [<br></span><span class="tab"></span><span class="small">s is: Vector⇒ [for⦂ t from: s do⦂ [self retrieve: t]]<br></span><span class="tab"></span><span class="small">command append: &rsquo; Retrieve/C &rsquo;; append: (self checkName: s)]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">retrieve: remote as: local </span><span class="small">[<br></span><span class="tab"></span><span class="small">command append: &rsquo; Retrieve/S &rsquo;;<br></span><span class="tab"></span><span class="tab"></span><span class="small">append: (self checkName: remote); space; append: (self checkName: local)]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">store: s </span><span class="small">| t [<br></span><span class="tab"></span><span class="small">s is: Vector⇒ [for⦂ t from: s do⦂ [self store: t]]<br></span><span class="tab"></span><span class="small">command append: &rsquo; Store/C &rsquo;; append: (self checkName: s)]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small bold">store: local as: remote </span><span class="small">[<br></span><span class="tab"></span><span class="small">command append: &rsquo; Store/S &rsquo;;<br></span><span class="tab"></span><span class="tab"></span><span class="small">append: (self checkName: local); space; append: (self checkName: remote)]</span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small"></span></div>
-<div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
+<div class="line left">
 <span class="small">SystemOrganization classify: ↪FtpDirectory under: &rsquo;Files&rsquo;.</span></div>
   </body>
 </html>
