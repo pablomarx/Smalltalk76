@@ -28,3 +28,8 @@ SPAN.monospace {
 	/* XXX */
 	font: 10pt monospace;
 }
+
+SPAN.tab {
+	width: 38px;
+	display: inline-block;
+}

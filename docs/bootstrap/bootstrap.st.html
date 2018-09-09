@@ -66,25 +66,5 @@
 <span class="small"><br></span><span class="medium bold">Class new title: &rsquo;ObjectReference&rsquo;<br></span><span class="tab" val="24"></span><span class="medium bold">fields: &rsquo;object&rsquo;<br></span><span class="small">ObjectReference understands: &rsquo;</span><span class="small underline">value</span><span class="small"> [!object]&rsquo;<br>ObjectReference understands: &rsquo;</span><span class="small underline">value &larr;</span><span class="small"> object&rsquo;<br>ObjectReference understands: &rsquo;</span><span class="small underline">printon:</span><span class="small"> strm<br></span><span class="tab" val="24"></span><span class="small">[strm append: &rsquo;&rsquo;-&gt;&rsquo;&rsquo;; space; print: object class]&rsquo;<br></span><span class="small"><br></span><span class="medium bold">Class new title: &rsquo;FieldReference&rsquo;<br></span><span class="tab" val="24"></span><span class="medium bold">fields: &rsquo;object offset&rsquo;<br></span><span class="small">FieldReference understands: &rsquo;</span><span class="small underline">value</span><span class="small"> [!object instfield: offset]&rsquo;<br>FieldReference understands: &rsquo;</span><span class="small underline">value &larr;</span><span class="small"> value<br></span><span class="tab" val="24"></span><span class="small">[!object instfield: offset &larr; value]&rsquo;<br></span></div>
 <div style="width: 442pt; margin-left: 84pt; margin-top: 0pt; text-align: left">
 </div>
-<script>function do_tabs() { // unit = px
-  var tabs = document.getElementsByClassName("tab");
-  for (var i = 0; i < tabs.length; ++i) {
-    var span = tabs[i];
-    var val = span.getAttribute("val");
-    if (val == null) console.log("Couldn't get val");
-    var rect = span.getBoundingClientRect();
-    var tabstop;
-    if (val > 0) tabstop = Math.ceil(rect.left / val) * val;
-    else tabstop = -val;
-    console.log("do_tabs", val, tabstop)
-    if (tabstop > 0) {
-      var width = tabstop - rect.left;
-      span.style.display = "inline-block";
-      span.style.width = width + "px";
-    }
-  }
-}
-do_tabs();
-</script>
   </body>
 </html>
