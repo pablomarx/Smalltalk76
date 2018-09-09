@@ -37,7 +37,10 @@
 	 * SOFTWARE OR FROM OTHER DEALINGS IN THE SOFTWARE.
 	 */
 	font-family: 'ParcPlace';
-	src: url('ParcPlaceLegacy.ttf') format('truetype');
+    src: url('ParcPlaceLegacy.eot');
+    src: url('ParcPlaceLegacy.woff2') format('woff2'),
+           url('ParcPlaceLegacy.woff') format('woff'),
+           url('ParcPlaceLegacy.ttf') format('truetype');
 }
 body {
 	font-family: 'ParcPlace';
