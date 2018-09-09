@@ -65,3 +65,26 @@ SPAN.monospace {
 	/* XXX */
 	font: 10pt monospace;
 }
+
+SPAN.tab {
+	width: 38px;
+	display: inline-block;
+}
+
+DIV.line {
+	width: 442pt; 
+	margin-left: 84pt; 
+	margin-top: 0pt;
+}
+
+DIV.left {
+	text-align: left;
+}
+
+DIV.center {
+	text-align: center;
+}
+
+DIV.right {
+	text-align: right;
+}
