@@ -69,11 +69,6 @@ SPAN.monospace {
 	font: 10pt monospace;
 }
 
-SPAN.tab {
-	width: 38px;
-	display: inline-block;
-}
-
 DIV.line {
 	width: 442pt; 
 	margin-left: 84pt; 
