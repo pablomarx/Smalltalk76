@@ -69,6 +69,21 @@ class OOZEHandle {
 		if (this.immediateData != null) return 'Immediate';
 		return 'Resident';
 	}
+	valid() {
+		if (this.zonePageArray == null) return true;
+
+		var maxLen;
+		if (this.isBytes) {
+			maxLen = Math.floor((this.maxSize + 1) / 2); 
+		}
+		else {
+			maxLen = this.maxSize;
+		}
+
+		var wordAddress = this.address + maxLen - 1;
+		var page = Math.floor(wordAddress / 256);
+		return (page + 1) <= this.zonePageArray.length;
+	}
 	bytes() {
 		if (this.size == 0) {
 			return [];
