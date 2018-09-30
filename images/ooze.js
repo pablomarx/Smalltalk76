@@ -738,8 +738,38 @@ class OOZEImage {
 			console.log('{vpn, jmpix, jmp} = '+(zipWord0 & 0xFFF)+', '+jmpix+', '+jmp);
 		}
 	}
+	isValidClass(oop) {
+		if (this.pmEntry(oop) == null) return false;
+		var h = this.oozeHandle(oop);
+		if (h.valid() == false) return false;
+		if ((h.classOop != 0 || h.size != 9) && (h.classOop != 1 || h.size != 21)) {
+			// Not a class
+			return false;
+		}
+		if (this.pmEntry(h.at(4)) == null) throw "some error...";
+		if (this.classOf(h.at(4)) != 11 /*MessageDict*/)  throw "MDict not a MessageDict";
+		if (this.classOf(h.at(1)) < 385/*String*/ || this.classOf(h.at(1)) > 386/*UniqueString*/) throw "title not a string or atom";
+		return true;
+	}
+	allValidClasses() {
+		// Should really use allInstances of 0 and 1, and allInstances would scan
+		// the pclass map for valid pclasses, and then use last item on free list
+		// to end the last pclass."
+		var classes = this.allInstancesOf(0); // Class
+		classes = classes.concat(this.allInstancesOf(1)); // VariableLengthClass
+		return classes.filter(i => { 
+			var r; 
+			try { 
+				r = this.isValidClass(i);
+			} catch (e) {
+				console.log("oop: "+i+", isValidClass threw: "+e)
+				return false;
+			} 
+			return r
+		});
+	}
 	dumpClasses() {
-		this.allInstancesOf(0).map(oop => { image.printObject(oop); });
+		this.allValidClasses().forEach(oop => { image.printObject(oop); });
 	}
 	dumpSymbols() {
 		this.allInstancesOf(386).map(oop => { image.printObject(oop); })
