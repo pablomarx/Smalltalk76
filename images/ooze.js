@@ -615,7 +615,7 @@ class OOZEImage {
 		else {
 			var fields = handle.fields();
 			s += ' fields=(';
-			for (var i=0; i<fields.length; i++) {
+			for (var i=1; i<fields.length; i++) {
 				var x = fields[i];
 				s += this.shortPrintObject(x);
 				s += ' ';
