@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="ooze.js"></script>
+<script>
+var image = null;
+
+window.addEventListener("load", function() {
+	var imageName = "release.boot";
+//	var imageName = "xmsmall.boot";
+//	var imageName = "QuickSilver.boot";
+	
+	console.log("Loading "+imageName);
+	var req = new XMLHttpRequest();
+	req.open("GET", imageName, true);
+	req.responseType = 'arraybuffer';
+	req.onload = function () { 
+		image = new OOZEImage();
+		image.readImage(new Uint16Array(req.response));
+	};
+	req.send(null);
+});
+</script>
+</head>
+<body></body>
+</html>
