@@ -1,11 +1,11 @@
-'From Smalltalk 5.5k XM November 24 on 4 October 1990 at 11:44:27 pm.'
-\g
-"Coord"l15000z20000\gbf5 
+'From Smalltalk 5.5k XM November 24 on 4 October 1990 at 11:44:27 pm.'
+
+"Coord" 
 Class new title: 'Coord'
 	subclassof: Object
 	fields: 'pt tic box pageviewer cursor underbits showing'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 I am used by PublicationViewer to display its anchor and mark:
 	pt					the Point in points relative to pageviewer origin where I am showing
@@ -14,50 +14,50 @@ I am used by PublicationViewer to display its anchor and mark:
 	pageviewer	the PageViewer in which I am showing
 	cursor			the Cursor which I display when I am showing
 	underbits		the String of bits which I cover (false if not showing)
-	showing		the flag which indicates whether or not I am showing\gi
+	showing		the flag which indicates whether or not I am showing
 
-Init/Access\gbf5 
-box [⇑box]\gb4B1b4B
-box←box\gb
-cursor [⇑cursor]\gb7B1b7B
-cursorpt [⇑(pageviewer scaleDn: pt)+(pageviewer frame origin)-cursor offset]\gb9B1b65B
-cursor←cursor\gb
-forget [pt←tic←box←pageviewer←cursor←underbits←showing←nil]\gb7B
-frame [⇑self cursorpt extent: 16⌾16]\gb6B1b28B
-init [pt←tic←box←pageviewer←cursor←underbits←showing←false]\gb5B
-pageviewer [⇑pageviewer]\gb11B1b11B
-pageviewer←pageviewer\gb
-pt [⇑pt]\gb3B1b3B
-pt←pt\gb
-showing [⇑showing]\gb8B1b8B
-showing←showing\gb
-tic [⇑tic]\gb4B1b4B
-tic←tic\gb
-underbits [⇑underbits]\gb10B1b10B
-underbits←underbits\gb
+Init/Access 
+box [⇑box]
+box←box
+cursor [⇑cursor]
+cursorpt [⇑(pageviewer scaleDn: pt)+(pageviewer frame origin)-cursor offset]
+cursor←cursor
+forget [pt←tic←box←pageviewer←cursor←underbits←showing←nil]
+frame [⇑self cursorpt extent: 16⌾16]
+init [pt←tic←box←pageviewer←cursor←underbits←showing←false]
+pageviewer [⇑pageviewer]
+pageviewer←pageviewer
+pt [⇑pt]
+pt←pt
+showing [⇑showing]
+showing←showing
+tic [⇑tic]
+tic←tic
+underbits [⇑underbits]
+underbits←underbits
 
-Showing\gbf5 
+Showing 
 show | f "Save underbits and BitBlt the cursor at the specified point"
 	[f←self frame. underbits←f bitsIntoString.
-	cursor showat: (f origin+cursor offset) mode: oring. showing←true]\gb5B3bi1B61I
+	cursor showat: (f origin+cursor offset) mode: oring. showing←true]
 showAt: cursorinfo "Extract the fields from cursorinfo and show the cursor"
 	[self unshow.
 	pageviewer←cursorinfo◦1. pt←cursorinfo◦2.
 	box←cursorinfo◦3. tic←cursorinfo◦4. cursor←cursorinfo◦5.
-	self show]\gb18i1B56I
-showSame [showing⇒[self show] ]\gb8i1BI
+	self show]
+showSame [showing⇒[self show] ]
 unshow "Restore the original bits to the screen"
-	[showing⇒[self frame bitsFromString: underbits. underbits←showing←false] ]\gb6i1B41bI2B
-unshowSame | s [s←showing. self unshow. showing←s]\gb11B3i1I
-\g
-SystemOrganization classify: ↪Coord under: 'Publication Editor'.\g
+	[showing⇒[self frame bitsFromString: underbits. underbits←showing←false] ]
+unshowSame | s [s←showing. self unshow. showing←s]
+
+SystemOrganization classify: ↪Coord under: 'Publication Editor'.
 
-"PageViewer"l15000z20000\gbf5 
+"PageViewer" 
 Class new title: 'PageViewer'
 	subclassof: Window
 	fields: 'publicationviewer publication pageindex pagenumframe selectedbox backcolor attributes cursorinfo dirty'
 	declare: 'PageAttributes CrossCursor PageCursor BoxCursor BoxMenu AnchorCursor PageMenu ';
-	asFollows\gbf5 
+	asFollows 
 
 A PageViewer is a Window that is a pane of a PublicationViewer with:
 	publicationviewer	the PanedWindow of which I am a pane
@@ -68,9 +68,9 @@ A PageViewer is a Window that is a pane of a PublicationViewer with:
 	backcolor				the Integer color which fills my window (default is gray)
 	attributes				the AttributeMenu currently being displayed (false if none)
 	cursorinfo				the Vector of (view,pt,box,tic,cursor) where cursor last was
-	dirty						the flag which indicates whether or not I need to be redrawn\gi
+	dirty						the flag which indicates whether or not I need to be redrawn
 
-Init/Access\gbf5 
+Init/Access 
 attributesInit "PageViewer classInit. PageViewer new attributesInit."
 	|	colorviewer ViewerAttributes
 	[	colorviewer←[AttributeViewer new
@@ -84,11 +84,11 @@ attributesInit "PageViewer classInit. PageViewer new attributesInit."
 			PageAttributes title: 'Viewer⇒';
 				extract: ↪itself; assign: nil; viewer: ViewerAttributes.
 			PageAttributes title: 'Page⇒';
-				extract: ↪page; assign: nil; viewer: nil  ]\gb15B
-backcolor [⇑backcolor]\gb10B1b10B
-backcolor←backcolor [dirty←true]\gb20B
+				extract: ↪page; assign: nil; viewer: nil  ]
+backcolor [⇑backcolor]
+backcolor←backcolor [dirty←true]
 classInit "PageViewer classInit."
-	[	self cursorInit; menuInit; attributesInit  ]\gb10B
+	[	self cursorInit; menuInit; attributesInit  ]
 cursorInit "PageViewer classInit. PageViewer new cursorInit."
 	[	PageCursor←Cursor new fromtext: '
 0000000000000000
@@ -157,10 +157,10 @@ cursorInit "PageViewer classInit. PageViewer new cursorInit."
 0001110000011100
 0011100000001110
 0111000000000111
-0110000000000011' offset: 8⌾8  ]\gb11B
-frame←frame "For compatibility with PanedWindow frame:"\gb12Bi
-fullScale [self scale=(1,1)⇒[⇑true] ⇑false]\gb10B19b5B2b6B
-init [selectedbox←attributes←false. backcolor←gray "052652"]\gb5B
+0110000000000011' offset: 8⌾8  ]
+frame←frame "For compatibility with PanedWindow frame:"
+fullScale [self scale=(1,1)⇒[⇑true] ⇑false]
+init [selectedbox←attributes←false. backcolor←gray "052652"]
 menuInit "PageViewer classInit. PageViewer new menuInit."
 	[	BoxMenu←MenuSet new default init.
 			BoxMenu add: [(ActionMenu new) string:		"1"
@@ -257,21 +257,21 @@ file out'; init].
 						PageMenu menu: 11 line: 2 tomenu: 12.
 				PageMenu menu: 8 line: 4 tomenu: 13  ]
 
-\gb9B2314b1B
-page [⇑publication◦pageindex]\gb5B1b22B
-pageindex [⇑pageindex]\gb10B1b10B
-pageindex←pageindex\gb
-pagenum [⇑self page pagenum]\gb8B1b18B
-pagenumframe [⇑pagenumframe]\gb13B1b13B
-publication: publication publicationviewer: publicationviewer\gb
-publication←publication\gb
-scale [⇑publicationviewer scale]\gb6B1b24B
-selectedbox [⇑selectedbox]\gb12B1b12B
-selectedbox←selectedbox\gb
 
-Window Protocol\gbf5 
-bluebug [⇑false]\gb8B1b6B
-close [publicationviewer←publication←selectedbox←attributes←cursorinfo←nil]\gb5i1BI
+page [⇑publication◦pageindex]
+pageindex [⇑pageindex]
+pageindex←pageindex
+pagenum [⇑self page pagenum]
+pagenumframe [⇑pagenumframe]
+publication: publication publicationviewer: publicationviewer
+publication←publication
+scale [⇑publicationviewer scale]
+selectedbox [⇑selectedbox]
+selectedbox←selectedbox
+
+Window Protocol 
+bluebug [⇑false]
+close [publicationviewer←publication←selectedbox←attributes←cursorinfo←nil]
 eachtime
 	[frame has: user mp⇒
 		[self updateCursor.
@@ -283,16 +283,16 @@ eachtime
 		user anykeys⇒[⇑self keyset] ]
 	self outside⇒[⇑false]
 	user anybug⇒[frame has: user mp⇒[ ] ⇑false]
-	user kbck⇒[user kbd. frame flash] "flush typing outside"]\gb10B56b9B34b12B21b15B19b13B20b12B19b6B39b6B37i22I
-enter [PageCursor show. self showAttributesSame]\gb5i1BI
-firsttime [frame has: user mp⇒[self reset; enter. ⇑self] ⇑false]\gb10B40b5B2b6B
+	user kbck⇒[user kbd. frame flash] "flush typing outside"]
+enter [PageCursor show. self showAttributesSame]
+firsttime [frame has: user mp⇒[self reset; enter. ⇑self] ⇑false]
 keyset | name "This is a kluge to capture the screen bits for documentation"
 	[frame flash. name←'Screen.press' asFileName.
-	(dp0 pressfile: name) screenout: (user screenrect) scale: PressScale]\gb6i1BI7i64I
-leave [self unshowAttributes]\gb5i1BI
+	(dp0 pressfile: name) screenout: (user screenrect) scale: PressScale]
+leave [self unshowAttributes]
 outside [frame has: user mp⇒[⇑false] ⇑true]
-\gb8B21b6B2b5B
-picked [⇑frame has: user mp]\gb7B1b19B
+
+picked [⇑frame has: user mp]
 redbug | pt2
 	[pt2←user mp.
 	[(self attributesAt: pt2)⇒
@@ -302,12 +302,12 @@ redbug | pt2
 			user leftShiftKey⇒
 				[self anchorSelect]
 				self markSelect].
-	user waitnobug. self redrawDirty]\gb7B
+	user waitnobug. self redrawDirty]
 show
 	[(frame inset: (¬2⌾¬2)) clear: black. frame color: backcolor mode: storing.
-	self redrawAll]\gb6B
-windowenter [self showPageNum; show]\gb12B
-windowleave\gb
+	self redrawAll]
+windowenter [self showPageNum; show]
+windowleave
 yellowbug | v menu item
 	[NormalCursor show.
 	[selectedbox⇒
@@ -372,10 +372,10 @@ yellowbug | v menu item
 			=13⇒	"pub⇒filing⇒"			[item
 					=1⇒	"file in"					[publicationviewer fileIn];
 					=2⇒	"file out"				[publicationviewer fileOut] ] ] ].
-	PageCursor show. self redrawDirty]\gb10B13b2B114i11I18i8I31i12I35i11I36i8I43i9I28i15I17i16I32i14I31i8I28i19I16i6I30i5I31i6I32i5I31i8I30i11I19i5I31i6I106i11I26i7I21i12I35i10I40i15I31i15I17i8I29i8I29i9I30i8I29i14I18i9I50i6I53i16I17i10I49i6I52i14I18i9I29i10I29i14I18i12I48i10I53i15I17i7I29i11I38i14I18i14I99i15I18i8I102i17I95i13I18i9I42i10I
+	PageCursor show. self redrawDirty]
 
-Page Manipulation\gbf5 
-addPage [publication addPage. self lastPage]\gb8B
+Page Manipulation 
+addPage [publication addPage. self lastPage]
 addPageDuplicate | box newbox page newpage i
 	[publication addPage. page←self page. newpage←publication◦(publication length).
 	for⦂ box from: page do⦂
@@ -384,7 +384,7 @@ addPageDuplicate | box newbox page newpage i
 		[newbox←newpage◦(page find: box).
 		[(box uplink) and⦂ (i←page find: box uplink)>0⇒[newbox uplink←newpage◦i] ].
 		[(box downlink) and⦂ (i←page find: box downlink)>0⇒[newbox downlink←newpage◦i] ] ].
-	self lastPage]\gb17B
+	self lastPage]
 deletePage: removeFlag renum: renumFlag | numviews firstpageindex delpage delbox i
 	[self unshowAttributes.
 	numviews←publicationviewer numviews.
@@ -400,25 +400,25 @@ deletePage: removeFlag renum: renumFlag | numviews firstpageindex delpage delbox
 					[(publication◦i) pagenum←(publication◦i) pagenum-1] ] ].
 			publication delete: delpage.
 			publicationviewer changeViews: numviews firstpageindex: firstpageindex]
-		self redrawAll]\gb40B42b2B
-firstPage [self newPage: 1]\gb9i1BI
-lastPage [self newPage: (publication length)]\gb8i1BI
+		self redrawAll]
+firstPage [self newPage: 1]
+lastPage [self newPage: (publication length)]
 newPage: newpageindex | view
 	[(view←publicationviewer viewShowing: (publication◦newpageindex))⇒
 		[frame flash. view frame flash. ⇑false]
 		self erasePageNum; unshowAttributes. pageindex←newpageindex. selectedbox←false.
-			self windowenter; enter]\gb22B109b6B
+			self windowenter; enter]
 nextPage | i
-	[for⦂ i from: (pageindex+1) to: (publication length) do⦂ [(self newPage: i)⇒[⇑self] ] ]\gb9B3b2B77b5B
+	[for⦂ i from: (pageindex+1) to: (publication length) do⦂ [(self newPage: i)⇒[⇑self] ] ]
 prevPage | i j
-	[for⦂ i from: 1 to: (pageindex-1) do⦂ [j←pageindex-i. (self newPage: j)⇒[⇑self] ] ]\gb9B5b2B73b5B
+	[for⦂ i from: 1 to: (pageindex-1) do⦂ [j←pageindex-i. (self newPage: j)⇒[⇑self] ] ]
 
-Box Manipulation\gbf5 
+Box Manipulation 
 addBox: type | v f newbox
 	[self unshowAttributes.
 	f←Rectangle new fromuser. f←self scaleUp: (f-frame origin).
 	newbox←(self page) addBox: type pageviewer: self frame: f.
-	self tidyAll: newbox; redrawDirty; boxSelect: newbox]\gb13B
+	self tidyAll: newbox; redrawDirty; boxSelect: newbox]
 addBoxDuplicate | view pt tic newbox
 	[self unshowAttributes.
 	publicationviewer mark cursor show. while⦂ (user nobug) do⦂ [pt←user mp].
@@ -427,14 +427,14 @@ addBoxDuplicate | view pt tic newbox
 	newbox←selectedbox duplicate: view.
 	newbox frame: ((selectedbox frame) tic: tic moveto: pt).
 	(view page) add: newbox.
-	view unshowSame; redrawDirty; showSame. self newSelection: newbox]\gb16B180b5B
+	view unshowSame; redrawDirty; showSame. self newSelection: newbox]
 adjustBox
 	[(publicationviewer mark showing)⇒
 		[publicationviewer unshowMark. self getPt.
 		[(publicationviewer anchor showing) and⦂
 			(publicationviewer anchor box)≡(publicationviewer mark box)⇒
 				[self stretchBox] self moveBox].
-		publicationviewer showMarkAt: cursorinfo] ]\gb11B
+		publicationviewer showMarkAt: cursorinfo] ]
 continuedFrom | view prevbox
 	[prevbox←self getBox. view←cursorinfo◦1.
 	[((view and⦂ prevbox) and⦂
@@ -442,7 +442,7 @@ continuedFrom | view prevbox
 		(selectedbox uplink≡false and⦂ prevbox downlink≡false)))⇒[ ] frame flash. ⇑self].
 	[((prevbox class)≡(selectedbox class))⇒[ ] frame flash. ⇑self].
 	selectedbox continuedFrom: prevbox. self newSelection: prevbox]
-\gb14B227b5B60b5B
+
 continuedTo | view nextbox
 	[nextbox←self getBox. view←cursorinfo◦1.
 	[((view and⦂ nextbox) and⦂
@@ -450,39 +450,39 @@ continuedTo | view nextbox
 		(selectedbox downlink≡false and⦂ nextbox uplink≡false)))⇒[ ] frame flash. ⇑self].
 	[((nextbox class)≡(selectedbox class))⇒[ ] frame flash. ⇑self].
 	selectedbox continuedTo: nextbox. self newSelection: nextbox]
-\gb12B227b5B60b5B
+
 deleteBox
 	[self unshowAttributes. publicationviewer unshowMark.
 	[publicationviewer anchor box≡selectedbox⇒[publicationviewer unshowAnchor] ].
 	self unshowSame.
 	self tidy: selectedbox. selectedbox delete.
 	self page delete: selectedbox. selectedbox←false.
-	self showSame]\gb11B
+	self showSame]
 editBox
 	[self fullScale⇒
-		[self unshowSame. selectedbox edit: self. self redrawDirty; showSame] ]\gb9B
+		[self unshowSame. selectedbox edit: self. self redrawDirty; showSame] ]
 fillBox [self unshowSame. selectedbox fill: self. self redrawDirty; showSame]
-\gb8B
+
 firstBox [self newSelection: (selectedbox firstbox)]
-\gb9B
+
 getBox
 	[user waitnobug. self cursorBox. while⦂ (user nobug) do⦂ [self cursorBox].
-	PageCursor show. user waitnobug. ⇑cursorinfo◦3]\gb8B109b13B
+	PageCursor show. user waitnobug. ⇑cursorinfo◦3]
 getPt
 	[user waitnobug. self cursorMark. while⦂ (user nobug) do⦂ [self cursorMark].
-	user waitnobug. ⇑cursorinfo◦2]\gb7B94b13B
+	user waitnobug. ⇑cursorinfo◦2]
 lastBox [self newSelection: (selectedbox lastbox)]
-\gb8B
+
 moveBox | f
 	[f←selectedbox frame.
 	f tic: (cursorinfo◦4) moveto: (cursorinfo◦2).
-	cursorinfo◦2←f pointoftic: (cursorinfo◦4). self newFrame: f]\gb8B
-nextBox | b [ [(b←selectedbox downlink)⇒[ ] b←selectedbox]. self newSelection: b]\gb8B
-prevBox | b [ [(b←selectedbox uplink)⇒[ ] b←selectedbox]. self newSelection: b]\gb8B
+	cursorinfo◦2←f pointoftic: (cursorinfo◦4). self newFrame: f]
+nextBox | b [ [(b←selectedbox downlink)⇒[ ] b←selectedbox]. self newSelection: b]
+prevBox | b [ [(b←selectedbox uplink)⇒[ ] b←selectedbox]. self newSelection: b]
 stretchBox | f atic
 	[f←(cursorinfo◦3) frame. atic←publicationviewer anchor tic.
 	f tic: (cursorinfo◦4) stretchto: (cursorinfo◦2) anchor: atic.
-	cursorinfo◦2←f pointoftic: (cursorinfo◦4). self newFrame: f]\gb11B
+	cursorinfo◦2←f pointoftic: (cursorinfo◦4). self newFrame: f]
 underBox | page i j box underbox
 	[page←self page. j←page find: selectedbox. underbox←false.
 	for⦂ i from: (j+1) to: (self page length) do⦂
@@ -491,37 +491,37 @@ underBox | page i j box underbox
 		[(box←page◦i) intersects: selectedbox⇒[underbox←box] ] ].
 	underbox⇒
 		[self unshowAttributes. selectedbox←false. publicationviewer unshowMark.
-		underbox show: self. self boxSelect: underbox] frame flash]\gb9B
+		underbox show: self. self boxSelect: underbox] frame flash]
 unlink [self unshowSame. selectedbox unlink. self redrawDirty; showSame]
-\gb7B
 
-Box Scaling/Framing\gbf5 
+
+Box Scaling/Framing 
 newFrame: f
 	[self unshowSame.
 	self tidy: selectedbox. selectedbox frame: f; show: self.
 	[(publicationviewer mark showing)⇒
 		[publicationviewer mark pt←f pointoftic: (publicationviewer mark tic)] ].
-	self showSame]\gb13B
+	self showSame]
 scaleDn: a | scale [scale←self scale. ⇑a*(scale◦1)/(scale◦2)]
-\gb11B27b22B
-scaleUp: a | scale [scale←self scale. ⇑a*(scale◦2)/(scale◦1)]
-\gb11B27b22B
 
-Box Selection\gbf5 
+scaleUp: a | scale [scale←self scale. ⇑a*(scale◦2)/(scale◦1)]
+
+
+Box Selection 
 anchorSelect
 	[cursorinfo◦5←AnchorCursor.
 	(self≡publicationviewer anchor pageviewer) and⦂
 		((publicationviewer anchor showing) and⦂
 			(((cursorinfo◦2)-publicationviewer anchor pt) abs≤(8⌾8)))⇒
 				[publicationviewer unshowAnchor]
-				publicationviewer showAnchorAt: cursorinfo]\gb14B
+				publicationviewer showAnchorAt: cursorinfo]
 boxAt: pt | box [for⦂ box from: self page do⦂ [box has: pt⇒[⇑box] ]. ⇑false]
-\gb10B50b4B5b6B
+
 boxSelect: box | pt tic cursor
 	[self unshowAttributes; unshowSame. selectedbox←box.
 	[(tic←publicationviewer mark tic)⇒[ ] tic←0]. pt←box pointoftic: tic.
 	cursor←Cursor new fromTic: tic. cursorinfo←(self,pt,box,tic,cursor).
-	self redrawDirty. publicationviewer showSame; showMarkAt: cursorinfo]\gb15B
+	self redrawDirty. publicationviewer showSame; showMarkAt: cursorinfo]
 markSelect
 	[ [(publicationviewer mark pageviewer)⇒
 		[publicationviewer mark pageviewer selectedbox←false] ].
@@ -531,7 +531,7 @@ markSelect
 				(((cursorinfo◦2)-publicationviewer mark pt) abs≤(8⌾8)))⇒
 					[self unshowAttributes. publicationviewer unshowMark. selectedbox←false]
 					publicationviewer showMarkAt: cursorinfo]
-		self unshowAttributes. publicationviewer unshowMark]\gb12B
+		self unshowAttributes. publicationviewer unshowMark]
 newSelection: newbox | view newpage newpageindex
 	[self unshowAttributes. publicationviewer unshowMark. view←self.
 	newpage←newbox page. newpageindex←publication find: newpage.
@@ -539,26 +539,26 @@ newSelection: newbox | view newpage newpageindex
 		[(view←publicationviewer viewShowing: newpage)⇒
 			[view picked⇒[ ] view takeCursor]
 			self newPage: newpageindex. view←self] ].
-	selectedbox←false. view boxSelect: newbox]\gb20i1BI
+	selectedbox←false. view boxSelect: newbox]
 pageTicAt: pt | f tic
 	[f←self scaleUp: (frame copy moveto: 0⌾0). tic←f ticofpoint: pt.
-	(f inset: 8⌾8) has: pt⇒[⇑false] pt←f pointoftic: tic. ⇑(tic,pt)]\gb14B99b6B24b9B
+	(f inset: 8⌾8) has: pt⇒[⇑false] pt←f pointoftic: tic. ⇑(tic,pt)]
 
-Page/Box Display\gbf5 
-colorPage: i [backcolor←(white, ltgray, gray, dkgray, black)◦i. self enter]\gb13B
+Page/Box Display 
+colorPage: i [backcolor←(white, ltgray, gray, dkgray, black)◦i. self enter]
 erasePageNum | f c
 	[ [self fullScale⇒
 		[f←(pagenumframe origin copy-(6⌾2)) rect: (pagenumframe corner copy+(3⌾2)).
 			c←white]
 		f←(pagenumframe origin copy-(6⌾4)) rect: (pagenumframe corner copy+(6⌾2)).
 		c←publicationviewer backcolor].
-	f clear: c]\gb13B
+	f clear: c]
 redraw: allBoxes | box
 	[for⦂ box from: self page do⦂
 		[(allBoxes or⦂ box dirty) and⦂ selectedbox≠box⇒[box show: self] ].
-	selectedbox and⦂ (allBoxes or⦂ selectedbox dirty)⇒[selectedbox show: self] ]\gb17B5b1B
-redrawAll [self redraw: true]\gb10B
-redrawDirty [self redraw: false]\gb12B
+	selectedbox and⦂ (allBoxes or⦂ selectedbox dirty)⇒[selectedbox show: self] ]
+redrawAll [self redraw: true]
+redrawDirty [self redraw: false]
 showPageNum | p para textframe ptx xoff yoff
 	[p←self pagenum.
 	para←(Paragraph new text: (p asString) alignment: 0) allBold.
@@ -566,18 +566,18 @@ showPageNum | p para textframe ptx xoff yoff
 	ptx←(textframe rectofchar: para length+1) corner x+7.
 	[(self fullScale) or⦂ (p even≡false)⇒[xoff←frame width-ptx] xoff←3]. yoff←¬16.
 	textframe put: para at: (frame origin+(xoff⌾yoff)); outline.
-	pagenumframe←textframe frame]\gb12B
-showSame [publicationviewer showSame. self showAttributesSame]\gb9B
+	pagenumframe←textframe frame]
+showSame [publicationviewer showSame. self showAttributesSame]
 tidy: f | fs box
 	[fs←(self scaleDn: f)+frame origin.
 	(fs intersect: frame) color: backcolor mode: storing.
 	for⦂ box from: self page do⦂
-		[(box intersects: f) and⦂ (selectedbox≠box)⇒[box makeDirty] ] ]\gb8B8i1I
+		[(box intersects: f) and⦂ (selectedbox≠box)⇒[box makeDirty] ] ]
 tidyAll: f
-	[self tidy: f. selectedbox and⦂ (selectedbox intersects: f)⇒[selectedbox makeDirty] ]\gb12B
-unshowSame [self unshowAttributesSame. publicationviewer unshowSame]\gb10i1BI
+	[self tidy: f. selectedbox and⦂ (selectedbox intersects: f)⇒[selectedbox makeDirty] ]
+unshowSame [self unshowAttributesSame. publicationviewer unshowSame]
 
-Filing/Hardcopy\gbf5 
+Filing/Hardcopy 
 fileIn | ext files files2 s name newpage
 	[ext←'page'. files←(dp0 filesMatching: '*.'+ext+'.') sort.
 	[files empty⇒
@@ -586,40 +586,40 @@ fileIn | ext files files2 s name newpage
 		name←files◦((Menu new stringFromVector: files2) zbug).
 		newpage←nil filinFrom: name. newpage pagenum←(self page) pagenum.
 		newpage openAis. "a kluge to open the appropriate ais files"
-		(self page) forget. publication◦pageindex←newpage. self windowenter; enter] ]\gb7B361i43I
+		(self page) forget. publication◦pageindex←newpage. self windowenter; enter] ]
 fileOut | name
 	[name←(publicationviewer title)+(self pagenum asString)+'.page'.
 	(self page) closeAis. "a kluge to close all appropriate ais files"
 	(self page) filoutOn: name.
-	(self page) openAis. "a kluge to open all appropriate ais files"]\gb8B96i44I52i43I
+	(self page) openAis. "a kluge to open all appropriate ais files"]
 hardcopy | name pressfile
 	[user displayoffwhile⦂
 		[name←(publicationviewer title)+(self pagenum asString)+'.press'.
 		pressfile←ScreenPressFile new pressfile: name.
-		(self page) hardcopy: pressfile. pressfile close; toPrinter] ]\gb9B
+		(self page) hardcopy: pressfile. pressfile close; toPrinter] ]
 
-Attributes\gbf5 
-attributes | a [a←PageAttributes viewee: self. (a viewer)◦2←(self page) attributes. ⇑a]\gb11B73b2B
-attributesAt: pt [attributes⇒[⇑attributes has: pt] ⇑false]\gb17B13b19B2b6B
+Attributes 
+attributes | a [a←PageAttributes viewee: self. (a viewer)◦2←(self page) attributes. ⇑a]
+attributesAt: pt [attributes⇒[⇑attributes has: pt] ⇑false]
 attributesEdit | f1 f2
 	[NormalCursor show.
 	[selectedbox⇒[f1←selectedbox frame] ].
 	attributes Bug⇒
 		[selectedbox⇒
 			[f2←selectedbox frame. selectedbox frame: f1. self newFrame: f2]
-			self unshowSame; show; showSame] ]\gb15B
-flipAttributes [attributes⇒[self unshowAttributes] self showAttributes]\gb15B
+			self unshowSame; show; showSame] ]
+flipAttributes [attributes⇒[self unshowAttributes] self showAttributes]
 showAttributes | pt
 	[CrossCursor show. user waitbug. pt←user mp. NormalCursor show.
 	[selectedbox⇒
 		["Box attributes"	attributes←selectedbox attributes]
 		["Page attributes"	attributes←self attributes] ].
-	attributes showat: (pt-(attributes frame extent/2))]\gb15B88i16I39i17I
-showAttributesSame [attributes⇒[attributes reshow] ]\gb19B
-unshowAttributes [attributes⇒[attributes unshow. attributes←false] ]\gb17B
-unshowAttributesSame [attributes⇒[attributes unshow] ]\gb21B
+	attributes showat: (pt-(attributes frame extent/2))]
+showAttributesSame [attributes⇒[attributes reshow] ]
+unshowAttributes [attributes⇒[attributes unshow. attributes←false] ]
+unshowAttributesSame [attributes⇒[attributes unshow] ]
 
-Cursor/Mp Control\gbf5 
+Cursor/Mp Control 
 cursorBox | view pt box tic cursor
 	[pt←user mp.
 	box←false. tic←publicationviewer mark tic. cursor←CrossCursor.
@@ -627,14 +627,14 @@ cursorBox | view pt box tic cursor
 		[pt←view scaleUp: (pt-view frame origin).
 		(box←view boxAt: pt) and⦂ box≠selectedbox⇒
 			[cursor←BoxCursor. pt←box inPts pointoftic: tic] ] ].
-	cursor show. cursorinfo←(view,pt,box,tic,cursor)]\gb10B24b2B
+	cursor show. cursorinfo←(view,pt,box,tic,cursor)]
 cursorMark | view pt tic cursor
 	[pt←user mp.
 	tic←publicationviewer mark tic. cursor←publicationviewer mark cursor.
 	[(view←publicationviewer pickedpane: pt)⇒
 		[pt←view scaleUp: (pt-view frame origin)] ].
-	cursor show. cursorinfo←(self,pt,selectedbox,tic,cursor)]\gb11B20b2B
-mp [⇑user mp-frame origin]\gb3B1b21B
+	cursor show. cursorinfo←(self,pt,selectedbox,tic,cursor)]
+mp [⇑user mp-frame origin]
 updateCursor | pt pt2 box tic cursor v
 	[pt2←user mp. pt←self scaleUp: (pt2-frame origin). box←tic←false.
 	[(self attributesAt: pt2) or⦂ (publicationviewer attributesAt: pt2)⇒
@@ -648,24 +648,24 @@ updateCursor | pt pt2 box tic cursor v
 					(selectedbox)⇒
 						[cursor←BoxCursor]
 						cursor←PageCursor].
-	cursor show. cursorinfo←(self,pt,box,tic,cursor)]\gb13B23i1I1b1Bi1I
-\g
-SystemOrganization classify: ↪PageViewer under: 'Publication Editor'.\g
-PageViewer classInit\g
+	cursor show. cursorinfo←(self,pt,box,tic,cursor)]
+
+SystemOrganization classify: ↪PageViewer under: 'Publication Editor'.
+PageViewer classInit
 
-"Publication"l15000z20000\gbf5 
+"Publication" 
 Class new title: 'Publication'
 	subclassof: Set
 	fields: 'firstpagenum pagesize dirty'
 	declare: 'PublicationAttributes ';
-	asFollows\gbf5 
+	asFollows 
 
 I am a Set of PublicationPages with:
 	firstpagenum		the Integer number of the first page
 	pagesize			the Point pagewidth⌾pageheight in points (default size)
-	dirty					the flag which indicates whether or not I need to be redrawn\gi
+	dirty					the flag which indicates whether or not I need to be redrawn
 
-Init/Access\gbf5 
+Init/Access 
 attributesInit "Publication classInit. Publication new attributesInit."
 	|	unitviewer integerviewer
 		dimensionsmenu
@@ -685,18 +685,18 @@ attributesInit "Publication classInit. Publication new attributesInit."
 			PublicationAttributes title: '1st Page#';
 				extract: ↪firstpagenum; assign: 'firstpagenum←'; viewer: integerviewer copy.
 			PublicationAttributes title: 'Page Size⇒';
-				extract: ↪pagesize; assign: nil; viewer: dimensionsmenu  ]\gb15B
+				extract: ↪pagesize; assign: nil; viewer: dimensionsmenu  ]
 classInit "Publication classInit."
-	[	self attributesInit  ]\gb10B
-dirty [⇑dirty]\gb6B1b6B
-dirty←dirty\gb
-firstpagenum [⇑firstpagenum]\gb13B1b13B
+	[	self attributesInit  ]
+dirty [⇑dirty]
+dirty←dirty
+firstpagenum [⇑firstpagenum]
 firstpagenum←firstpagenum | i page
-	[i←firstpagenum. for⦂ page from: self do⦂ [page pagenum←i. i←i+1]. dirty←true]\gb26B8b2B
-forget | page [for⦂ page from: self do⦂ [page forget]. firstpagenum←pagesize←nil]\gb7B
-init [firstpagenum←1. pagesize←612⌾792. dirty←false]\gb5B
-lastpagenum [⇑(firstpagenum+(self numpages)-1)]\gb12B1b33B
-numpages [⇑self length]\gb9B1b12B
+	[i←firstpagenum. for⦂ page from: self do⦂ [page pagenum←i. i←i+1]. dirty←true]
+forget | page [for⦂ page from: self do⦂ [page forget]. firstpagenum←pagesize←nil]
+init [firstpagenum←1. pagesize←612⌾792. dirty←false]
+lastpagenum [⇑(firstpagenum+(self numpages)-1)]
+numpages [⇑self length]
 numpages←n | i l
 	[l←self numpages.
 	(n≤0 or⦂ n≡l)⇒
@@ -704,29 +704,29 @@ numpages←n | i l
 		dirty←true.
 		(n<l)⇒
 		[for⦂ i from: n+1 to: (l) do⦂ [self◦i forget. self deleteI: i] ]
-		for⦂ i from: (l+1) to: n do⦂ [self addPage] ]\gb11B
-pagesize [⇑pagesize]\gb9B1b9B
-pagesize←pagesize\gb
+		for⦂ i from: (l+1) to: n do⦂ [self addPage] ]
+pagesize [⇑pagesize]
+pagesize←pagesize
 
-Adding Pages\gbf5 
+Adding Pages 
 addPage | page
 	[page←PublicationPage default init: (self lastpagenum+1).
-	self add: page. ⇑page]\gb8B6b2B75b5B
+	self add: page. ⇑page]
 
-Attributes/Hardcopy\gbf5 
-attributes [⇑PublicationAttributes viewee: self]\gb11B1b35B
+Attributes/Hardcopy 
+attributes [⇑PublicationAttributes viewee: self]
 hardcopy: pressfile | page
-	[for⦂ page from: self do⦂ [page hardcopy: pressfile. pressfile page] ]\gb20B
-\g
-SystemOrganization classify: ↪Publication under: 'Publication Editor'.\g
-Publication classInit\g
+	[for⦂ page from: self do⦂ [page hardcopy: pressfile. pressfile page] ]
+
+SystemOrganization classify: ↪Publication under: 'Publication Editor'.
+Publication classInit
 
-"PublicationBox"l15000z20000\gbf5 
+"PublicationBox" 
 Class new title: 'PublicationBox'
 	subclassof: Rectangle
 	fields: 'page uplink downlink margin color border bordercolor dirty file'
 	declare: 'BoxAttributes ';
-	asFollows\gbf5 
+	asFollows 
 
 I am a Rectangle on a PublicationPage with content-independent information:
 	page			the PublicationPage on which I reside
@@ -737,9 +737,9 @@ I am a Rectangle on a PublicationPage with content-independent information:
 	border		the Integer width in points of my border (>0⇒inside frame)
 	bordercolor	the Integer color of my border (white,ltgray,gray,dkgray,black)
 	dirty			the flag which indicates whether or not I need to be redrawn
-	file			the input FileStream (false if none)\gi
+	file			the input FileStream (false if none)
 
-Init/Access\gbf5 
+Init/Access 
 attributesInit "PublicationBox classInit. PublicationBox new attributesInit."
 	|	unitviewer stringviewer colorviewer
 		dimensionsmenu locationmenu marginsmenu colorbordermenu GeneralAttributes
@@ -797,66 +797,66 @@ attributesInit "PublicationBox classInit. PublicationBox new attributesInit."
 			BoxAttributes title: 'General⇒';
 				extract: ↪itself; assign: nil; viewer: GeneralAttributes.
 			BoxAttributes title: 'Specific⇒';
-				extract: ↪itself; assign: nil; viewer: nil  ]\gb15B
-border [⇑border]\gb7B1b7B
-bordercolor [⇑bordercolor]\gb12B1b12B
-bordercolor←bordercolor\gb
-border←border\gb
-botMargin [⇑margin corner y]\gb10B1b16B
-botMargin←b [margin corner y←b]\gb12B
+				extract: ↪itself; assign: nil; viewer: nil  ]
+border [⇑border]
+bordercolor [⇑bordercolor]
+bordercolor←bordercolor
+border←border
+botMargin [⇑margin corner y]
+botMargin←b [margin corner y←b]
 classInit "PublicationBox classInit."
-	[	self attributesInit  ]\gb10B
-color [⇑color]\gb6B1b6B
-color←color\gb
-dirty [⇑dirty]\gb6B1b6B
-dirty←dirty\gb
-downlink [⇑downlink]\gb9B1b9B
-downlink←downlink\gb
-file [⇑file]\gb5B1b5B
-filename [file⇒[⇑file copy: 1 to: (file length-1)] ⇑'-no file-']\gb9B7b33B2b12B
-file←file\gb
-firstbox | box [box←self. until⦂ box uplink≡false do⦂ [box←box uplink]. ⇑box]\gb9B63b4B
-lastbox | box [box←self. until⦂ box downlink≡false do⦂ [box←box downlink]. ⇑box]\gb8B67b4B
-leftMargin [⇑margin origin x]\gb11B1b16B
-leftMargin←l [margin origin x←l]\gb13B
-makeClean [dirty←false]\gb10B
-makeDirty [dirty←true]\gb10B
-margin [⇑margin]\gb7B1b7B
-margin←margin\gb
-originx [⇑origin x]\gb8B1b9B
-originx←originx [self moveto: originx⌾(self originy)]\gb16B
-originy [⇑origin y]\gb8B1b9B
-originy←originy [self moveto: (self originx)⌾originy]\gb16B
-page [⇑page]\gb5B1b5B
-page←page\gb
-rightMargin [⇑margin corner x]\gb12B1b16B
-rightMargin←r [margin corner x←r]\gb14B
-topMargin [⇑margin origin y]\gb10B1b16B
-topMargin←t [margin origin y←t]\gb12B
-type | t [t←self class asString. ⇑t copy: 7 to: (t length-3)]\gb5B28b27B
-uplink [⇑uplink]\gb7B1b7B
-uplink←uplink\gb
+	[	self attributesInit  ]
+color [⇑color]
+color←color
+dirty [⇑dirty]
+dirty←dirty
+downlink [⇑downlink]
+downlink←downlink
+file [⇑file]
+filename [file⇒[⇑file copy: 1 to: (file length-1)] ⇑'-no file-']
+file←file
+firstbox | box [box←self. until⦂ box uplink≡false do⦂ [box←box uplink]. ⇑box]
+lastbox | box [box←self. until⦂ box downlink≡false do⦂ [box←box downlink]. ⇑box]
+leftMargin [⇑margin origin x]
+leftMargin←l [margin origin x←l]
+makeClean [dirty←false]
+makeDirty [dirty←true]
+margin [⇑margin]
+margin←margin
+originx [⇑origin x]
+originx←originx [self moveto: originx⌾(self originy)]
+originy [⇑origin y]
+originy←originy [self moveto: (self originx)⌾originy]
+page [⇑page]
+page←page
+rightMargin [⇑margin corner x]
+rightMargin←r [margin corner x←r]
+topMargin [⇑margin origin y]
+topMargin←t [margin origin y←t]
+type | t [t←self class asString. ⇑t copy: 7 to: (t length-3)]
+uplink [⇑uplink]
+uplink←uplink
 
-Common Box Methods\gbf5 
-attributes | a [a←BoxAttributes viewee: self. (a viewer)◦2←self attributesS. ⇑a]\gb11B66b2B
+Common Box Methods 
+attributes | a [a←BoxAttributes viewee: self. (a viewer)◦2←self attributesS. ⇑a]
 create: pageviewer page: page frame: f
 	[uplink←downlink←false. margin←0⌾0 rect: 0⌾0. color←white.
 	border←0. bordercolor←white. file←false. origin←corner←0⌾0. self frame: f]
-\gb40B
-delete [self unlink. page←margin←color←border←bordercolor←dirty←file←nil]\gb7B
+
+delete [self unlink. page←margin←color←border←bordercolor←dirty←file←nil]
 duplicate: pageviewer | box
 	[box←(self class) copy: self. box origin: origin copy corner: corner copy.
 	box page←pageviewer page. box uplink←false. box downlink←false.
 	box margin←margin copy. box file←false. box dirty←true. ⇑box]
-\gb22B204b4B
-edit: pageviewer [NormalCursor show]\gb17B
+
+edit: pageviewer [NormalCursor show]
 fill: pageviewer | ext files files2 s name
 	[ext←self type. files←(dp0 filesMatching: '*.'+ext+'.') sort.
 	[files empty⇒
 		[(Menu new string: '*none*') zbug. file←dirty←false]
 		files2←files transform⦂ s to⦂ (s copy: 1 to: s length-ext length-2).
-		file←files◦((Menu new stringFromVector: files2) zbug). dirty←true] ]\gb17B25b2B
-frame: f [self origin: (f origin copy) corner: (f corner copy); fixFrame]\gb9B
+		file←files◦((Menu new stringFromVector: files2) zbug). dirty←true] ]
+frame: f [self origin: (f origin copy) corner: (f corner copy); fixFrame]
 hardcopy: pressfile | f b ox oy cx cy w h
 	[f←self borderFrame inMicas. b←border inMicas.
 	ox←f origin x-b. oy←f origin y-b. cx←f corner x. cy←f corner y.
@@ -866,31 +866,31 @@ hardcopy: pressfile | f b ox oy cx cy w h
 		pressfile setp: ox⌾oy; showrectwidth: w height: b.
 		pressfile setp: ox⌾oy; showrectwidth: b height: h.
 		pressfile setp: ox⌾cy; showrectwidth: w height: b.
-		pressfile setp: cx⌾oy; showrectwidth: b height: h] ]\gb20B21b2B
+		pressfile setp: cx⌾oy; showrectwidth: b height: h] ]
 show: pageviewer | fs fb
 	[fs←self scaledFrame: pageviewer. fb←self borderFrame: pageviewer.
 	(fs intersect: pageviewer frame) clear: color.
-	(fb intersect: pageviewer frame) border: border color: bordercolor. dirty←false]\gb17B
+	(fb intersect: pageviewer frame) border: border color: bordercolor. dirty←false]
 
-Box Linking\gbf5 
+Box Linking 
 continuedFrom: prevbox | nextbox "Assume prevbox is not false"
 	[ [(nextbox←prevbox downlink)⇒[nextbox uplink←self. downlink←nextbox] ].
 	prevbox downlink←self. uplink←prevbox]
-\gb23B10i29bI2B
+
 continuedTo: nextbox | prevbox "Assume nextbox is not false"
 	[ [(prevbox←nextbox uplink)⇒[prevbox downlink←self. uplink←prevbox] ].
 	downlink←nextbox. nextbox uplink←self]
-\gb21B10i29bI2B
+
 unlink | prevbox nextbox
 	[prevbox←uplink. nextbox←downlink.
 	[prevbox⇒[prevbox downlink←nextbox] ].
 	[nextbox⇒[nextbox uplink←prevbox] ].
-	uplink←downlink←false]\gb7B17b2B
+	uplink←downlink←false]
 
-Box Scaling/Framing\gbf5 
-borderFrame | f [f←self inset: border⌾border. ⇑f]\gb12B3b1B30b2B
+Box Scaling/Framing 
+borderFrame | f [f←self inset: border⌾border. ⇑f]
 borderFrame: pageviewer | f
-	[f←(pageviewer scaleDn: (self borderFrame))+pageviewer frame origin. ⇑f]\gb24B74b2B
+	[f←(pageviewer scaleDn: (self borderFrame))+pageviewer frame origin. ⇑f]
 fixFrame | f w h ox oy cx cy
 	[w←page pagesize x. h←page pagesize y.
 	[self width≤0⇒[self width←32] ]. [self height≤0⇒[self height←32] ].
@@ -898,35 +898,35 @@ fixFrame | f w h ox oy cx cy
 	ox←origin x. oy←origin y.
 	[ox<0⇒[ox←0] ]. [oy<0⇒[oy←0] ]. self moveto: ox⌾oy.
 	cx←corner x. cy←corner y.
-	[cx>w⇒[ox←ox-cx+w] ]. [cy>h⇒[oy←oy-cy+h] ]. self moveto: ox⌾oy]\gb9B19i1I
-frame | f [f←Rectangle new origin: origin copy corner: corner copy. ⇑f]\gb6B3b1B58b2B
-marginFrame | f [f←(origin+(margin origin)) rect: (corner-(margin corner)). ⇑f]\gb12B64b2B
+	[cx>w⇒[ox←ox-cx+w] ]. [cy>h⇒[oy←oy-cy+h] ]. self moveto: ox⌾oy]
+frame | f [f←Rectangle new origin: origin copy corner: corner copy. ⇑f]
+marginFrame | f [f←(origin+(margin origin)) rect: (corner-(margin corner)). ⇑f]
 marginFrame: pageviewer | f
-	[f←(pageviewer scaleDn: (self marginFrame))+pageviewer frame origin. ⇑f]\gb24B3b1B70b2B
-newLocation: oldf | f [f←self frame. ⇑(f origin≠oldf origin)]\gb18B19b23B
-newSize: oldf | f [f←self frame. ⇑(f width≠oldf width) or⦂ (f height≠oldf height)]\gb14B19b48B
+	[f←(pageviewer scaleDn: (self marginFrame))+pageviewer frame origin. ⇑f]
+newLocation: oldf | f [f←self frame. ⇑(f origin≠oldf origin)]
+newSize: oldf | f [f←self frame. ⇑(f width≠oldf width) or⦂ (f height≠oldf height)]
 scaledFrame: pageviewer | f
-	[f←(pageviewer scaleDn: (self frame))+pageviewer frame origin. ⇑f]\gb24B68b2B
+	[f←(pageviewer scaleDn: (self frame))+pageviewer frame origin. ⇑f]
 scaleDn: scale [⇑(self frame)*(scale◦1)/(scale◦2)]
-\gb15B1b33B
+
 scaleUp: scale [⇑(self frame)*(scale◦2)/(scale◦1)]
-\gb15B1b33B
-\g
-SystemOrganization classify: ↪PublicationBox under: 'Publication Editor'.\g
-PublicationBox classInit\g
+
+
+SystemOrganization classify: ↪PublicationBox under: 'Publication Editor'.
+PublicationBox classInit
 
-"AisBox"l15000z20000\gbf5 
+"AisBox" 
 Class new title: 'AisBox'
 	subclassof: PublicationBox
 	fields: 'halftoner'
 	declare: 'AisAttributes ';
-	asFollows\gbf5 
+	asFollows 
 
 I am a PublicationBox whose content-dependent information consists of a
 	half-toned image read from an Ais file:
-	halftoner		the HalfToner for halftoning/cropping/displaying the image\gi
+	halftoner		the HalfToner for halftoning/cropping/displaying the image
 
-Init/Access\gbf5 
+Init/Access 
 attributesInit "AisBox classInit. AisBox new attributesInit."
 	|	unitreader1 unitreader2
 	[	unitreader1←UnitViewer new readonly units: (('pixels',1) inVector).
@@ -935,64 +935,64 @@ attributesInit "AisBox classInit. AisBox new attributesInit."
 			AisAttributes title: 'width';
 				extract: ↪widthPixels; assign: nil; viewer: unitreader1 copy.
 			AisAttributes title: 'height';
-				extract: ↪heightLines; assign: nil; viewer: unitreader2 copy  ]\gb15B
+				extract: ↪heightLines; assign: nil; viewer: unitreader2 copy  ]
 classInit "AisBox classInit."
-	[	self attributesInit  ]\gb10B
-halftoner [⇑halftoner]\gb10B1b10B
-halftoner←halftoner\gb
-heightLines [halftoner⇒[⇑halftoner nlines] ⇑0]\gb12B12b17B2b2B
-widthPixels [halftoner⇒[⇑halftoner npix] ⇑0]\gb12B12b15B2b2B
+	[	self attributesInit  ]
+halftoner [⇑halftoner]
+halftoner←halftoner
+heightLines [halftoner⇒[⇑halftoner nlines] ⇑0]
+widthPixels [halftoner⇒[⇑halftoner npix] ⇑0]
 
-Common Box Methods\gbf5 
-attributesS [⇑AisAttributes viewee: self]\gb12B1b27B
+Common Box Methods 
+attributesS [⇑AisAttributes viewee: self]
 create: pageviewer page: page frame: f
 	[super create: pageviewer page: page frame: f.
-	"self leftMargin←5. self rightMargin←5." halftoner←false]\gb40B
+	"self leftMargin←5. self rightMargin←5." halftoner←false]
 delete: pageviewer
 	[super delete: pageviewer.
-	halftoner←nil]\gb20B
+	halftoner←nil]
 duplicate: pageviewer | box
 	[box←super duplicate: pageviewer.
 	box halftoner←false. ⇑box]
-\gb22B63b4B
+
 edit: pageviewer | f
 	[super edit: pageviewer.
-	halftoner⇒[halftoner setup: (dp0 file: file)] ]\gb17B3b2B
+	halftoner⇒[halftoner setup: (dp0 file: file)] ]
 fill: pageviewer
 	[super fill: pageviewer.
 	halftoner←HalfToner new. halftoner rect←self marginFrame+PubOffset.
-	halftoner setup: (dp0 file: file)]\gb18B
+	halftoner setup: (dp0 file: file)]
 frame: f | oldf
 	[oldf←self frame. super frame: f.
 	file⇒
 		[halftoner rect←self marginFrame+PubOffset.
-		self newSize: oldf⇒[halftoner setup: (dp0 file: file)] ] ]\gb9B
+		self newSize: oldf⇒[halftoner setup: (dp0 file: file)] ] ]
 hardcopy: pressfile | f
 	[super hardcopy: pressfile.
 	halftoner⇒
 		[f←halftoner rect. halftoner rect←self marginFrame.
 		pressfile pictureinit. halftoner intoPress: pressfile file: file.
-		halftoner rect←f] ]\gb20B3b2B
+		halftoner rect←f] ]
 show: pageviewer | f
 	[super show: pageviewer.
-	pageviewer fullScale and⦂ file⇒[halftoner doFile] ]\gb17B
-\g
-SystemOrganization classify: ↪AisBox under: 'Publication Editor'.\g
-AisBox classInit\g
+	pageviewer fullScale and⦂ file⇒[halftoner doFile] ]
+
+SystemOrganization classify: ↪AisBox under: 'Publication Editor'.
+AisBox classInit
 
-"PublicationPage"l15000z20000\gbf5 
+"PublicationPage" 
 Class new title: 'PublicationPage'
 	subclassof: Set
 	fields: 'pagenum pagesize margin'
 	declare: 'PageAttributes ';
-	asFollows\gbf5 
+	asFollows 
 
 I am a Set of PublicationBoxes with:
 	pagenum	the Integer page number which appears on the hardcopy
 	pagesize	the Point pagewidth⌾pageheight in points
-	margin		the Rectangle left⌾top rect: right⌾bottom in points\gi
+	margin		the Rectangle left⌾top rect: right⌾bottom in points
 
-Init/Access\gbf5 
+Init/Access 
 attributesInit "PublicationPage classInit. PublicationPage new attributesInit."
 	|	unitviewer unitreader colorviewer
 		sizemenu marginsmenu
@@ -1025,55 +1025,55 @@ attributesInit "PublicationPage classInit. PublicationPage new attributesInit."
 			PageAttributes title: 'Size⇒';
 				extract: ↪pagesize; assign: nil; viewer: sizemenu.
 			PageAttributes title: 'Margins⇒';
-				extract: ↪itself; assign: nil; viewer: marginsmenu  ]\gb15B
-botMargin [⇑margin corner y]\gb10B1b16B
-botMargin←b [margin corner y←b]\gb12B1b17B
+				extract: ↪itself; assign: nil; viewer: marginsmenu  ]
+botMargin [⇑margin corner y]
+botMargin←b [margin corner y←b]
 classInit "PublicationPage classInit."
-	[	self attributesInit  ]\gb10B
-forget | box [for⦂ box from: self do⦂ [box delete]. pagenum←pagesize←margin←nil]\gb7B
-init: pagenum [pagesize←612⌾792. margin←0⌾0 rect: 0⌾0]\gb14B
-leftMargin [⇑margin origin x]\gb11B1b16B
-leftMargin←l [margin origin x←l]\gb13B1b17B
-margin [⇑margin]\gb7B1b7B
-margin←margin\gb
-numboxes [⇑self length]\gb9B1b12B
-pagenum [⇑pagenum]\gb8B1b8B
-pagenum←pagenum\gb
-pagesize [⇑pagesize]\gb9B1b9B
-pagesize←pagesize\gb
-rightMargin [⇑margin corner x]\gb12B1b16B
-rightMargin←r [margin corner x←r]\gb14B1b17B
-topMargin [⇑margin origin y]\gb10B1b16B
-topMargin←t [margin origin y←t]\gb12B1b17B
+	[	self attributesInit  ]
+forget | box [for⦂ box from: self do⦂ [box delete]. pagenum←pagesize←margin←nil]
+init: pagenum [pagesize←612⌾792. margin←0⌾0 rect: 0⌾0]
+leftMargin [⇑margin origin x]
+leftMargin←l [margin origin x←l]
+margin [⇑margin]
+margin←margin
+numboxes [⇑self length]
+pagenum [⇑pagenum]
+pagenum←pagenum
+pagesize [⇑pagesize]
+pagesize←pagesize
+rightMargin [⇑margin corner x]
+rightMargin←r [margin corner x←r]
+topMargin [⇑margin origin y]
+topMargin←t [margin origin y←t]
 
-Adding Boxes\gbf5 
+Adding Boxes 
 addBox: i pageviewer: pageviewer frame: f | type newbox
 	[type←(TextBox,AisBox,TableBox)◦i.
 	newbox←type new create: pageviewer page: self frame: f.
-	self add: newbox. ⇑newbox]\gb42B126b7B
+	self add: newbox. ⇑newbox]
 closeAis | box
 	[for⦂ box from: self do⦂
 		[(box is: AisBox) and⦂ (box file)⇒
-			[box halftoner strm close. box halftoner strm←nil] ] ]\gb9B
+			[box halftoner strm close. box halftoner strm←nil] ] ]
 openAis | box
 	[for⦂ box from: self do⦂
 		[(box is: TextBox)⇒[box markCorrupted]
 		(box is: AisBox) and⦂ (box file)⇒
-			[box halftoner strm←dp0 file: (box file). box halftoner strm readonly] ] ]\gb8B
+			[box halftoner strm←dp0 file: (box file). box halftoner strm readonly] ] ]
 
-Attributes/Hardcopy\gbf5 
-attributes [⇑PageAttributes viewee: self]\gb11B1b28B
-hardcopy: pressfile | box [for⦂ box from: self do⦂ [box hardcopy: pressfile] ]\gb20B
-\g
-SystemOrganization classify: ↪PublicationPage under: 'Publication Editor'.\g
-PublicationPage classInit\g
+Attributes/Hardcopy 
+attributes [⇑PageAttributes viewee: self]
+hardcopy: pressfile | box [for⦂ box from: self do⦂ [box hardcopy: pressfile] ]
+
+SystemOrganization classify: ↪PublicationPage under: 'Publication Editor'.
+PublicationPage classInit
 
-"PublicationViewer"l15000z20000\gbf5 
+"PublicationViewer" 
 Class new title: 'PublicationViewer'
 	subclassof: PanedWindow
 	fields: 'publication pageviews numviews scale backcolor attributes anchor mark grid measure measureinfo measureframe measureXY gridXY rectG rectM rectA dirty'
 	declare: 'PageTemplates MarkOffset MeasureOffset PointMenu GridOffset GOffset MOffset CrossCursor AOffset PublicationAttributes Scale PublicationCursor AnchorCursor PublicationMenu ';
-	asFollows\gbf5 
+	asFollows 
 
 I am a PanedWindow whose panes are PageViewers:
 	publication		the Publication which I view
@@ -1093,10 +1093,10 @@ I am a PanedWindow whose panes are PageViewers:
 	rectG					the Rectangle in measureinfo for turning on/off my grid
 	rectM				the Rectangle in measureinfo for taking a measure
 	rectA					the Rectangle in measureinfo for applying my measure
-	dirty					the flag which indicates whether or not I need to be redrawn\gi
+	dirty					the flag which indicates whether or not I need to be redrawn
 
-Init/Access\gbf5 
-anchor [⇑anchor]\gb7B1b7B
+Init/Access 
+anchor [⇑anchor]
 attributesInit "PublicationViewer classInit. PublicationViewer new attributesInit."
 	|	unitviewer displayviewer colorviewer
 		ViewerAttributes
@@ -1119,11 +1119,11 @@ attributesInit "PublicationViewer classInit. PublicationViewer new attributesIni
 			PublicationAttributes title: 'Viewer⇒';
 				extract: ↪itself; assign: nil; viewer: ViewerAttributes.
 			PublicationAttributes title: 'Publication⇒';
-				extract: ↪publication; assign: nil; viewer: nil  ]\gb15B
-backcolor [⇑backcolor]\gb10B1b10B
-backcolor←backcolor [dirty←true]\gb20B
+				extract: ↪publication; assign: nil; viewer: nil  ]
+backcolor [⇑backcolor]
+backcolor←backcolor [dirty←true]
 classInit "PublicationViewer classInit."
-	[	self cursorInit; menuInit; attributesInit; templatesInit; measureInit  ]\gb10B
+	[	self cursorInit; menuInit; attributesInit; templatesInit; measureInit  ]
 cursorInit "PublicationViewer classInit. PublicationViewer new cursorInit."
 	[	PublicationCursor←Cursor new fromtext: '
 0000011111111100
@@ -1175,10 +1175,10 @@ cursorInit "PublicationViewer classInit. PublicationViewer new cursorInit."
 0001110000011100
 0011100000001110
 0111000000000111
-0110000000000011' offset: 8⌾8  ]\gb11B
-dirty [⇑dirty]\gb6B1b6B
-dirty←dirty\gb
-firstpageindex [⇑(panes◦1) pageindex]\gb15B1b20B
+0110000000000011' offset: 8⌾8  ]
+dirty [⇑dirty]
+dirty←dirty
+firstpageindex [⇑(panes◦1) pageindex]
 init: numviews | i "Initialize with the specified number of empty pages"
 	[publication←Publication new default init.
 	for⦂ i to: numviews do⦂ [publication addPage].
@@ -1193,7 +1193,7 @@ init: numviews | i "Initialize with the specified number of empty pages"
 	user restartup: (PublicationViewer new init: 3).
 	user restartup: (PublicationViewer new init: 4).
 
-"\gb15B4i53bI2B
+"
 init: numviews fromFile: title "Read in the publication from the specified file"
 	[publication←nil filinFrom: (title+'.pub').
 	self initPageViews.
@@ -1204,7 +1204,7 @@ init: numviews fromFile: title "Read in the publication from the specified file"
 	user killWindows: PublicationViewer.
 	user restartup: (PublicationViewer new init: 1 fromFile: 'Sample1').
 
-"\gb31Bi49bI2B
+"
 initPageViews | i view
 	[backcolor←white. attributes←false. measure←0⌾0. grid←Grid init.
 	grid window: (PageTemplates◦1◦1+PubOffset); grid: 10⌾10; at: 0⌾0.
@@ -1213,10 +1213,10 @@ initPageViews | i view
 	pageviews←Set new default.
 	for⦂ i to: 4 do⦂
 		[view←PageViewer new publication: publication publicationviewer: self.
-		pageviews add: view] ]\gb14B
-mark [⇑mark]\gb5B1b5B
-measureframe [⇑measureframe]\gb13B1b13B
-measureinfo [⇑measureinfo]\gb12B1b12B
+		pageviews add: view] ]
+mark [⇑mark]
+measureframe [⇑measureframe]
+measureinfo [⇑measureinfo]
 measureInit "PublicationViewer classInit. PublicationViewer new measureInit."
 	|	unitviewer
 	[	unitviewer←[UnitViewer default
@@ -1230,7 +1230,7 @@ measureInit "PublicationViewer classInit. PublicationViewer new measureInit."
 	"	MOffset←10⌾¬1. MeasureOffset←40⌾1. GOffset←210⌾¬1. GridOffset←240⌾1.
 		AOffset←420⌾¬1."
 		MOffset←60⌾¬1. MeasureOffset←90⌾1. AOffset←370⌾¬1.
-		DefaultTextStyle setfont: 15 fromfile: 'PubIcon11'  ]\gb11i1BI
+		DefaultTextStyle setfont: 15 fromfile: 'PubIcon11'  ]
 menuInit "PublicationViewer classInit. PublicationViewer new menuInit."
 	[	PublicationMenu←MenuSet new default init.
 			PublicationMenu add: [(ActionMenu new) string:	"1"
@@ -1256,14 +1256,14 @@ file out'; init].
 			PublicationMenu menu: 1 line: 2 tomenu: 2.
 				PublicationMenu menu: 2 line: 2 tomenu: 3.
 					PublicationMenu menu: 3 line: 2 tomenu: 4.
-			PublicationMenu menu: 1 line: 3 tomenu: 5  ]\gb9B
-numviews [⇑numviews]\gb9B1b9B
-numviews←numviews [dirty←true]\gb18B
-pageheight [⇑(PageTemplates◦1◦1) height+1]\gb11B1b29B
-pagewidth [⇑(PageTemplates◦1◦1) width+1]\gb10B1b28B
-panes [⇑panes]\gb6B1b6B
-publication [⇑publication]\gb12B1b12B
-scale [⇑scale]\gb6B1b6B
+			PublicationMenu menu: 1 line: 3 tomenu: 5  ]
+numviews [⇑numviews]
+numviews←numviews [dirty←true]
+pageheight [⇑(PageTemplates◦1◦1) height+1]
+pagewidth [⇑(PageTemplates◦1◦1) width+1]
+panes [⇑panes]
+publication [⇑publication]
+scale [⇑scale]
 Spy
 [
 spy every: 10; on⦂ [Z←PublicationViewer new init: 4]; report: 'AltoInit.spy'; close.
@@ -1271,7 +1271,7 @@ spy every: 10; on⦂ [Z showInfo]; report: 'AltoMeasureInfo.spy'; close.
 spy every: 10; on⦂ [Z show]; report: 'AltoShowPub.spy'; close.
 spy every: 10; on⦂ [Z enter]; report: 'AltoEnterPub.spy'; close.
 spy every: 10; on⦂ [for⦂ Y to: 5 do⦂ [(Z panes◦1) windowenter] ]; report: 'AltoShowPage.spy'; close.
-]\gb4B1b1B
+]
 templatesInit "PublicationViewer classInit. PublicationViewer new templatesInit."
 	| sc sc2 sc3 width height swidth sheight marginx marginy topl topr botl botr
 	[	"The following five parameters may be changed:"
@@ -1296,16 +1296,16 @@ templatesInit "PublicationViewer classInit. PublicationViewer new templatesInit.
 		topr←topl+((swidth+marginx)⌾0).
 		botl←topl+(0⌾(sheight+marginy)).
 		botr←topr+(0⌾(sheight+marginy)).
-		PageTemplates◦3←(topl,topr,botl,botr)  ]\gb14B149i47I101i38I26u7U8u7U6u7U8i41I31u15U347u15U331u15U
+		PageTemplates◦3←(topl,topr,botl,botr)  ]
 
-Window Protocol\gbf5 
-bluebug [NormalCursor show. ⇑super bluebug]\gb8B20b14B
+Window Protocol 
+bluebug [NormalCursor show. ⇑super bluebug]
 close | pane
 	[anchor forget. mark forget. publication forget.
 	for⦂ pane from: panes do⦂ [pane close].
 	publication←pageviews←scale←nil. attributes←false.
 	anchor←mark←grid←measure←measureinfo←measureframe←nil.
-	measureXY←gridXY←rectG←rectM←rectA←dirty←nil]\gb6B
+	measureXY←gridXY←rectG←rectM←rectA←dirty←nil]
 eachtime | pane
 	[frame has: user mp⇒
 		[self updateCursor.
@@ -1318,40 +1318,40 @@ eachtime | pane
 		for⦂ pane from: panes do⦂ [pane startup] ]
 	self outside⇒[ ]
 	user anybug⇒[frame has: user mp⇒[ ] ⇑false]
-	user kbck⇒[user kbd. frame flash] "flush typing outside" ]\gb9B64b9B34b12B40b16B19b13B20b12B62b1B39b6B37i22I
-editTitle [super editTitle. self showInfo. title←titlepara text]\gb9i1BI
+	user kbck⇒[user kbd. frame flash] "flush typing outside" ]
+editTitle [super editTitle. self showInfo. title←titlepara text]
 enter | pane
 	[self show.
 	for⦂ pane from: panes do⦂ [pane windowenter].
-	self showSame. self showAttributesSame]\gb6B
-firsttime [frame has: user mp⇒[self reset; enter; showInfo. ⇑self] ⇑false]\gb9i1BI50b5B2b6B
+	self showSame. self showAttributesSame]
+firsttime [frame has: user mp⇒[self reset; enter; showInfo. ⇑self] ⇑false]
 frame: frame | tStream orig pane
 	[tStream←templates asStream. orig←frame origin.
-	for⦂ pane from: panes do⦂ [pane frame←(tStream next)+orig] ]\gb13B
+	for⦂ pane from: panes do⦂ [pane frame←(tStream next)+orig] ]
 keyset | name "This is a kluge to capture the screen bits for documentation"
 	[frame flash. name←'Screen.press' asFileName.
-	(dp0 pressfile: name) screenout: (user screenrect) scale: PressScale]\gb7B7i62I
+	(dp0 pressfile: name) screenout: (user screenrect) scale: PressScale]
 leave | pane
 	[for⦂ pane from: panes do⦂ [pane windowleave].
-	self unshowAttributes. NormalCursor show]\gb6B
-newframe [self frame: (PageTemplates◦1◦1+PubOffset); takeCursor]\gb9B
+	self unshowAttributes. NormalCursor show]
+newframe [self frame: (PageTemplates◦1◦1+PubOffset); takeCursor]
 outside | pt
 	[pt←user mp.
 	titleframe window has: pt⇒
 		[NormalCursor show. [user anybug⇒[self editTitle] ]. ⇑true]
 	measureframe has: pt⇒
-		[NormalCursor show. [user anybug⇒[self editInfo] ]. ⇑true] ⇑false]\gb8B102b5B79b5B2b6B
-pickedpane | pane [for⦂ pane from: panes do⦂ [pane picked⇒[⇑pane] ] ⇑false]\gb11B48b5B4b6B
+		[NormalCursor show. [user anybug⇒[self editInfo] ]. ⇑true] ⇑false]
+pickedpane | pane [for⦂ pane from: panes do⦂ [pane picked⇒[⇑pane] ] ⇑false]
 pickedpane: pt | pane
-	[for⦂ pane from: panes do⦂ [pane frame has: pt⇒[⇑pane] ] ⇑false]\gb15B56b5B4b6B
+	[for⦂ pane from: panes do⦂ [pane frame has: pt⇒[⇑pane] ] ⇑false]
 redbug
 	[ [(self attributesAt: user mp)⇒[self attributesEdit] ].
 	user waitnobug. self redrawDirty]
-\gb8B
+
 show | pane
 	[(frame inset: (¬2⌾¬2)) clear: black. frame color: backcolor mode: storing.  
 	[growing⇒[ ] self showtitle].
-	for⦂ pane from: panes do⦂ [pane outline] ]\gb5B
+	for⦂ pane from: panes do⦂ [pane outline] ]
 yellowbug | v menu item
 	[NormalCursor show.
 	(v←PublicationMenu bug)≡false⇒[ ]
@@ -1368,18 +1368,18 @@ yellowbug | v menu item
 		=5⇒	"filing⇒"				[item
 				=1⇒	"file in"				[self fileIn];
 				=2⇒	"file out"			[self fileOut] ].
-	self redrawDirty]\gb10B125i11I16i12I33i10I38i8I18i14I43i13I16i8I45i17I38i9I18i9I27i10I
+	self redrawDirty]
 
-Pane Manipulation\gbf5 
+Pane Manipulation 
 changeViews: numviews
 	[self changeViews: numviews firstpageindex: self firstpageindex]
-\gb23B
+
 changeViews: numviews firstpageindex: firstpageindex
 	[(panes◦1) erasePageNum.
-	self views: numviews title: title firstpageindex: firstpageindex]\gb54B
+	self views: numviews title: title firstpageindex: firstpageindex]
 redrawDirty
 	[dirty or⦂ publication dirty⇒
-		[self changeViews: numviews. dirty←false. publication dirty←false] ]\gb13B
+		[self changeViews: numviews. dirty←false. publication dirty←false] ]
 views: viewset title: title firstpageindex: firstpageindex | i view views template
 	[ [viewset
 		=1⇒	"full scale"
@@ -1401,12 +1401,12 @@ views: viewset title: title firstpageindex: firstpageindex | i view views templa
 	for⦂ i to: numviews do⦂
 		[view←pageviews◦i. views add: view. view pageindex←firstpageindex+i-1].
 	self title: title with: views at: template.
-	self newframe; enter]\gb59B24b1B17i12I65i26I338i39I
+	self newframe; enter]
 viewShowing: page | pane
 	[for⦂ pane from: panes do⦂ [pane page=page⇒[⇑pane] ] ⇑false]
-\gb18B6b2B44b5B4b6B
 
-Measure Info\gbf5 
+
+Measure Info 
 editInfo | pt
 	[while⦂ (measureframe has: (pt←user mp)) do⦂
 		[measureXY has: (pt←user mp)⇒
@@ -1416,7 +1416,7 @@ editInfo | pt
 		user redbug⇒
 			[rectM has: pt⇒[self measure]
 			"rectG has: pt⇒[self flipGrid]"
-			rectA has: pt⇒[self apply] ] ] ]\gb8i1BI4i2I
+			rectA has: pt⇒[self apply] ] ] ]
 initInfo | mo
 	[measureframe←Rectangle new
 		origin: (titleframe corner x+4)⌾(frame origin y-16)
@@ -1427,24 +1427,24 @@ initInfo | mo
 "	self showTitle: 'G' offset: GOffset.		rectG←(mo+GOffset) extent: (26⌾15)."
 	self showTitle: 'A' offset: AOffset.		rectA←(mo+AOffset) extent: (29⌾15).
 	measureXY←PointMenu copy. "gridXY←PointMenu copy."
-	(panes◦1) showPageNum]\gb8i1BI
-showInfo [self initInfo; updateInfo]\gb9B
+	(panes◦1) showPageNum]
+showInfo [self initInfo; updateInfo]
 showPara: para offset: offset | orig corn clipframe
 	[orig←measureframe origin+offset. corn←(orig x+40)⌾(measureframe corner y).
 	clipframe←orig rect: corn.
 	(Textframe new para: (para allFont: 15) frame: (measureframe copy))
-		displayat: (measureframe origin+offset) effect: storing clippedBy: clipframe]\gb30B21b2B
+		displayat: (measureframe origin+offset) effect: storing clippedBy: clipframe]
 showTitle: titlestr offset: offset | para
-	[para←titlestr asParagraph. self showPara: para offset: offset]\gb35B
+	[para←titlestr asParagraph. self showPara: para offset: offset]
 updateGrid
 	["gridXY unshow.
-	gridXY viewee: (grid grid); showat: (measureframe origin+GridOffset)"]\gb12B
-updateInfo [self updateMeasure; updateGrid]\gb11B
+	gridXY viewee: (grid grid); showat: (measureframe origin+GridOffset)"]
+updateInfo [self updateMeasure; updateGrid]
 updateMeasure
 	[measureXY unshow.
-	measureXY viewee: measure; showat: (measureframe origin+MeasureOffset)]\gb15B
+	measureXY viewee: measure; showat: (measureframe origin+MeasureOffset)]
 
-Anchor/Mark\gbf5 
+Anchor/Mark 
 apply | apt f diff
 	[rectA comp.
 	[anchor showing⇒[apt←anchor pt] apt←0⌾0. anchor box←false].
@@ -1457,51 +1457,51 @@ apply | apt f diff
 		mark pageviewer newFrame: f. mark pt←(mark box) pointoftic: (mark tic).
 		"[anchor box⇒[anchor pt←(anchor box) pointoftic: (anchor tic)] ]."
 		mark show] ].
-	user waitnobug. rectA comp]\gb6B12i2I
+	user waitnobug. rectA comp]
 measure
 	[rectM comp. user waitnobug.
 	[mark showing⇒
 		[anchor showing⇒[measure←mark pt-(anchor pt)] measure←mark pt-(0⌾0)] ].
-	self updateMeasure. rectM comp]\gb7i2BI
+	self updateMeasure. rectM comp]
 showAnchorAt: cursorinfo | view pt cursor f
 	[view←cursorinfo◦1. pt←cursorinfo◦2. cursor←cursorinfo◦5.
 	f←((view scaleDn: pt)+(view frame origin)-cursor offset) extent: 16⌾16.
 	(mark showing and⦂ ((f intersects: mark frame) or⦂
 	(anchor showing and⦂ (anchor frame intersects: mark frame))))⇒
 		[mark unshowSame. anchor showAt: cursorinfo. mark showSame]
-		anchor showAt: cursorinfo]\gb25B18b1B
-showMarkAt: cursorinfo [mark showAt: cursorinfo]\gb23B
-showSame [anchor showSame. mark showSame]\gb8i1BI
+		anchor showAt: cursorinfo]
+showMarkAt: cursorinfo [mark showAt: cursorinfo]
+showSame [anchor showSame. mark showSame]
 unshowAnchor
 	[(mark showing and⦂
 	(anchor showing and⦂ (anchor frame intersects: mark frame)))⇒
 		[mark unshowSame. anchor unshow. mark showSame]
-		anchor unshow]\gb14B
-unshowMark [mark unshow]\gb11B
-unshowSame [mark unshowSame. anchor unshowSame]\gb10i1BI
+		anchor unshow]
+unshowMark [mark unshow]
+unshowSame [mark unshowSame. anchor unshowSame]
 
-Attributes/Grid\gbf5 
+Attributes/Grid 
 attributes | a
-	[a←PublicationAttributes viewee: self. (a viewer)◦2←publication attributes. ⇑a]\gb11B81b2B
-attributesAt: pt [attributes⇒[⇑attributes has: pt] ⇑false]\gb17B13b19B2b6B
-attributesEdit [NormalCursor show. attributes Bug⇒[self redrawDirty] ]\gb15B
-flipAttributes [attributes⇒[self unshowAttributes] self showAttributes]\gb15B
-flipGrid [rectG comp. user waitnobug]\gb9B
-gridActive [⇑false]\gb11B1b6B
-gridActive←gridActive\gb
-gridOrigin [⇑grid origin-PubOffset]\gb11B1b22B
-gridOrigin←gridOrigin [grid at: (gridOrigin+PubOffset)]\gb22B
-gridScale [⇑grid grid]\gb10B1b10B
-gridScale←scale [grid grid: scale. self updateGrid]\gb16B
+	[a←PublicationAttributes viewee: self. (a viewer)◦2←publication attributes. ⇑a]
+attributesAt: pt [attributes⇒[⇑attributes has: pt] ⇑false]
+attributesEdit [NormalCursor show. attributes Bug⇒[self redrawDirty] ]
+flipAttributes [attributes⇒[self unshowAttributes] self showAttributes]
+flipGrid [rectG comp. user waitnobug]
+gridActive [⇑false]
+gridActive←gridActive
+gridOrigin [⇑grid origin-PubOffset]
+gridOrigin←gridOrigin [grid at: (gridOrigin+PubOffset)]
+gridScale [⇑grid grid]
+gridScale←scale [grid grid: scale. self updateGrid]
 showAttributes | pt
 	[CrossCursor show. user waitbug. pt←user mp. NormalCursor show.
 	attributes←self attributes.
-	attributes showat: (pt-(attributes frame extent/2))]\gb15B
-showAttributesSame [attributes⇒[attributes reshow] ]\gb19B
-unshowAttributes [attributes⇒[attributes unshow. attributes←false] ]\gb17B
-unshowAttributesSame [attributes⇒[attributes unshow] ]\gb21B
+	attributes showat: (pt-(attributes frame extent/2))]
+showAttributesSame [attributes⇒[attributes reshow] ]
+unshowAttributes [attributes⇒[attributes unshow. attributes←false] ]
+unshowAttributesSame [attributes⇒[attributes unshow] ]
 
-Filing/Hardcopy\gbf5 
+Filing/Hardcopy 
 fileIn | ext files files2 s name newpub page i
 	[ext←'pub'. files←(dp0 filesMatching: '*.'+ext+'.') sort.
 	[files empty⇒
@@ -1513,30 +1513,30 @@ fileIn | ext files files2 s name newpub page i
 		publication forget. publication←newpub.
 		for⦂ i to: 4 do⦂ [(pageviews◦i) publication←newpub]. titlepara←nil.
 		name←name copy: 1 to: name length-ext length-2.
-		self views: numviews title: name firstpageindex: 1] ]\gb7B354i9I
+		self views: numviews title: name firstpageindex: 1] ]
 fileOut | page
 	[for⦂ page from: publication do⦂ [page closeAis]. "a kluge"
 	publication filoutOn: (title+'.pub').
-	for⦂ page from: publication do⦂ [page openAis]. "a kluge"]\gb8B58i9I89i9I
+	for⦂ page from: publication do⦂ [page openAis]. "a kluge"]
 hardcopy | name pressfile
 	[user displayoffwhile⦂
 		[name←self title+'.press'.
 		pressfile←ScreenPressFile new pressfile: name.
-		publication hardcopy: pressfile. pressfile close; toPrinter] ]\gb9B
+		publication hardcopy: pressfile. pressfile close; toPrinter] ]
 
-Cursor Control\gbf5 
+Cursor Control 
 updateCursor [self attributesAt: user mp⇒[CrossCursor show] PublicationCursor show]
-\gb13B
-\g
-SystemOrganization classify: ↪PublicationViewer under: 'Publication Editor'.\g
-PublicationViewer classInit\g
+
+
+SystemOrganization classify: ↪PublicationViewer under: 'Publication Editor'.
+PublicationViewer classInit
 
-"TableBox"l15000z20000\gbf5 
+"TableBox" 
 Class new title: 'TableBox'
 	subclassof: PublicationBox
 	fields: 'columns rows entrylist entryoverlap pageviewer selectedentry'
 	declare: 'RowsMenu EntryTypeMenu EntryCursor ColumnCursor ColsMenu RowCursor EntryMenu TableMenu EntryECursor TableAttributes TableCursor ';
-	asFollows\gbf5 
+	asFollows 
 
 I am a PublicationBox whose content-dependent information consists of a
 	matrix of one or more rows of one or more columns of PublicationBoxes,
@@ -1546,9 +1546,9 @@ I am a PublicationBox whose content-dependent information consists of a
 	entrylist		the Set of PublicationBox entries
 	entryoverlap	the Integer amount of overlap in bits (<0⇒gap)
 	pageviewer	the PageViewer in which I currently reside
-	selectedentry	the currently selected entry (false if none)\gi
+	selectedentry	the currently selected entry (false if none)
 
-Init/Access\gbf5 
+Init/Access 
 attributesInit "TableBox classInit. TableBox new attributesInit."
 	|	unitviewer unitreader stringviewer colorviewer
 		matrixmenu dimensionsmenu marginsmenu overlapbordermenu entrymenu
@@ -1601,11 +1601,11 @@ attributesInit "TableBox classInit. TableBox new attributesInit."
 			TableAttributes title: 'Matrix⇒';
 				extract: ↪itself; assign: nil; viewer: matrixmenu.
 			TableAttributes title: 'Entry⇒';
-				extract: ↪itself; assign: nil; viewer: entrymenu  ]\gb15B
+				extract: ↪itself; assign: nil; viewer: entrymenu  ]
 classInit "TableBox classInit."
-	[	self cursorInit; menuInit; attributesInit  ]\gb10B
-columns [⇑columns]\gb8B1b8B
-columns←columns\gb
+	[	self cursorInit; menuInit; attributesInit  ]
+columns [⇑columns]
+columns←columns
 cursorInit "TableBox classInit. TableBox new cursorInit."
 	[	TableCursor←Cursor new fromtext: '
 0000000000000000
@@ -1691,12 +1691,12 @@ cursorInit "TableBox classInit. TableBox new cursorInit."
 0000000000000000
 0000000000000000
 0000000000000000
-0000000000000000' offset: 8⌾8  ]\gb11B
-entrylist [⇑entrylist]\gb10B1b10B
-entrylist←entrylist\gb
-entryoverlap [⇑entryoverlap]\gb13B1b13B
-entryoverlap←entryoverlap\gb
-makeClean | e [super makeClean. for⦂ e from: entrylist do⦂ [e makeClean] ]\gb10B
+0000000000000000' offset: 8⌾8  ]
+entrylist [⇑entrylist]
+entrylist←entrylist
+entryoverlap [⇑entryoverlap]
+entryoverlap←entryoverlap
+makeClean | e [super makeClean. for⦂ e from: entrylist do⦂ [e makeClean] ]
 menuInit "TableBox classInit. TableBox new menuInit."
 	[	ColsMenu←Menu new string:
 'COLUMNS
@@ -1746,16 +1746,16 @@ new arrangement⇒'; init].
 rotate right
 rotate left'; init].
 			TableMenu firstmenu←1.
-			TableMenu menu: 1 line: 2 tomenu: 2  ]\gb9B
-pageviewer [⇑pageviewer]\gb11B1b11B
-pageviewer←pageviewer\gb
-rows [⇑rows]\gb5B1b5B
-rows←rows\gb
-selectedentry [⇑selectedentry]\gb14B1b14B
-selectedentry←selectedentry\gb
+			TableMenu menu: 1 line: 2 tomenu: 2  ]
+pageviewer [⇑pageviewer]
+pageviewer←pageviewer
+rows [⇑rows]
+rows←rows
+selectedentry [⇑selectedentry]
+selectedentry←selectedentry
 
-Common Box Methods\gbf5 
-attributesS [⇑TableAttributes viewee: self]\gb12B1b29B
+Common Box Methods 
+attributesS [⇑TableAttributes viewee: self]
 create: pageviewer page: page frame: f | i type entry
 	[super create: pageviewer page: page frame: f.
 	[(columns←ColsMenu zbug-1)<0⇒[columns←1] ].
@@ -1767,16 +1767,16 @@ create: pageviewer page: page frame: f | i type entry
 		[entry←type new create: pageviewer page: page frame: f.
 		entry margin←margin. entry border←border. entry bordercolor←bordercolor.
 		entrylist add: entry].
-	self frame: self]\gb39B14b2B
+	self frame: self]
 delete | entry
 	[super delete.
 	for⦂ entry from: entrylist do⦂ [entry delete].
-	columns←rows←entrylist←entryoverlap←pageviewer←selectedentry←nil]\gb7B
+	columns←rows←entrylist←entryoverlap←pageviewer←selectedentry←nil]
 duplicate: view | box i entry
 	[box←super duplicate: view.
 	box pageviewer←view. box entrylist←Set new default.
 	for⦂ i to: (columns*rows) do⦂
-		[box entrylist add: (entrylist◦i duplicate: view)] ⇑box]\gb16B180b4B
+		[box entrylist add: (entrylist◦i duplicate: view)] ⇑box]
 edit: pageviewer | v menu item pt entry colors
 	[super edit: pageviewer.
 	TableCursor show. selectedentry←false. user waitnobug.
@@ -1816,10 +1816,10 @@ edit: pageviewer | v menu item pt entry colors
 					[self entrySelect: false. TableCursor show]
 					⇑self] ].
 			user waitnobug. self redrawDirty].
-	TableCursor show]\gb17B336i11I21i6I51i15I20i9I40i9I40i6I159i11I21i12I48i18I19i11I33i14I35i12I350b5B
+	TableCursor show]
 fill: pageviewer | entry
 	[super fill: pageviewer.
-	for⦂ entry from: entrylist do⦂ [entry fill: pageviewer] ]\gb17B
+	for⦂ entry from: entrylist do⦂ [entry fill: pageviewer] ]
 frame: f | w h i j k
 	[super frame: f. self makeDirty.
 	(rows≡nil or⦂ columns≡nil)⇒[⇑self]
@@ -1829,50 +1829,50 @@ frame: f | w h i j k
 	for⦂ i to: rows do⦂
 		[for⦂ j to: columns do⦂
 			[entrylist◦k frame: (self frameEntry: i⌾j with: w⌾h). k←k+1] ].
-	corner←(entrylist◦(k-1)) corner]\gb9B11b2B33i1I28b5B3i52I
+	corner←(entrylist◦(k-1)) corner]
 hardcopy: pressfile | entry
 	[super hardcopy: pressfile.
-	for⦂ entry from: entrylist do⦂ [entry hardcopy: pressfile] ]\gb20B
+	for⦂ entry from: entrylist do⦂ [entry hardcopy: pressfile] ]
 show: pageviewer | entry
 	[super show: pageviewer.
-	for⦂ entry from: entrylist do⦂ [entry show: pageviewer] ]\gb17B
+	for⦂ entry from: entrylist do⦂ [entry show: pageviewer] ]
 
-Table Manipulation\gbf5 
-entryBorder [⇑(entrylist◦1) border]\gb12B1b21B
-entryBorderColor [⇑(entrylist◦1) bordercolor]\gb17B1b26B
+Table Manipulation 
+entryBorder [⇑(entrylist◦1) border]
+entryBorderColor [⇑(entrylist◦1) bordercolor]
 entryBorderColor←bordercolor | entry
-	[self makeDirty. for⦂ entry from: entrylist do⦂ [entry bordercolor←bordercolor] ]\gb29B
+	[self makeDirty. for⦂ entry from: entrylist do⦂ [entry bordercolor←bordercolor] ]
 entryBorder←border | entry
-	[self makeDirty. for⦂ entry from: entrylist do⦂ [entry border←border] ]\gb19B
-entryBotMargin [⇑(entrylist◦1) botMargin]\gb15B1b24B
+	[self makeDirty. for⦂ entry from: entrylist do⦂ [entry border←border] ]
+entryBotMargin [⇑(entrylist◦1) botMargin]
 entryBotMargin←b | entry
 	[self botMargin←b.
-	self makeDirty. for⦂ entry from: entrylist do⦂ [entry botMargin←b] ]\gb17B
-entryHeight [⇑(entrylist◦1) height+1]\gb12B1b23B
+	self makeDirty. for⦂ entry from: entrylist do⦂ [entry botMargin←b] ]
+entryHeight [⇑(entrylist◦1) height+1]
 entryHeight←h
-	[self height←(h*rows)-(entryoverlap*(rows-1))-1. self frame: self]\gb15B
-entryLeftMargin [⇑(entrylist◦1) leftMargin]\gb16B1b25B
+	[self height←(h*rows)-(entryoverlap*(rows-1))-1. self frame: self]
+entryLeftMargin [⇑(entrylist◦1) leftMargin]
 entryLeftMargin←l | entry
 	[self leftMargin←l.
-	self makeDirty. for⦂ entry from: entrylist do⦂ [entry leftMargin←l] ]\gb18B
-entryMargin [⇑(entrylist◦1) margin]\gb12B1b21B
+	self makeDirty. for⦂ entry from: entrylist do⦂ [entry leftMargin←l] ]
+entryMargin [⇑(entrylist◦1) margin]
 entryMargin←m | entry
 	[margin←m⌾m rect: m⌾m.
-	self makeDirty. for⦂ entry from: entrylist do⦂ [entry margin←margin] ]\gb14B
-entryOverlap [⇑entryoverlap]\gb13B1b13B
-entryOverlap←entryoverlap [self frame: self]\gb26B
-entryRightMargin [⇑(entrylist◦1) rightMargin]\gb17B1b26B
+	self makeDirty. for⦂ entry from: entrylist do⦂ [entry margin←margin] ]
+entryOverlap [⇑entryoverlap]
+entryOverlap←entryoverlap [self frame: self]
+entryRightMargin [⇑(entrylist◦1) rightMargin]
 entryRightMargin←r | entry
 	[self rightMargin←r.
-	self makeDirty. for⦂ entry from: entrylist do⦂ [entry rightMargin←r] ]\gb19B
-entryTopMargin [⇑(entrylist◦1) topMargin]\gb15B1b24B
+	self makeDirty. for⦂ entry from: entrylist do⦂ [entry rightMargin←r] ]
+entryTopMargin [⇑(entrylist◦1) topMargin]
 entryTopMargin←t | entry
 	[self topMargin←t.
-	self makeDirty. for⦂ entry from: entrylist do⦂ [entry topMargin←t] ]\gb17B
-entryType [⇑(entrylist◦1) type]\gb10B1b19B
-entryWidth [⇑(entrylist◦1) width+1]\gb11B1b22B
+	self makeDirty. for⦂ entry from: entrylist do⦂ [entry topMargin←t] ]
+entryType [⇑(entrylist◦1) type]
+entryWidth [⇑(entrylist◦1) width+1]
 entryWidth←w
-	[self width←(w*columns)-(entryoverlap*(columns-1))-1. self frame: self]\gb14B
+	[self width←(w*columns)-(entryoverlap*(columns-1))-1. self frame: self]
 newMatrix | newcolumns newrows newnum num i k entry
 	[NormalCursor show.
 	[(newcolumns←ColsMenu zbug-1)<0⇒[newcolumns←1] ].
@@ -1886,28 +1886,28 @@ newMatrix | newcolumns newrows newnum num i k entry
 		[for⦂ i from: newnum+1 to: num do⦂
 			[entry←entrylist◦k delete: pageviewer. entrylist delete: entry] ] ] ].
 	columns←newcolumns. rows←newrows.
-	pageviewer tidy: self. self frame: self]\gb10B41b2B
+	pageviewer tidy: self. self frame: self]
 rotateLeft | entry k "Put the first entry at the end of the table"
 	[entry←entrylist delete: entrylist◦1. entrylist add: entry.
-	self frame: self]\gb11B9i46bI2B
+	self frame: self]
 rotateRight | entry k "Put the last entry at the beginning of the table"
 	[entry←entrylist delete: entrylist◦(columns*rows). entrylist insertI: 1 value: entry.
-	self frame: self]\gb12B9i51bI2B
+	self frame: self]
 transpose | newentrylist i j k l cols "Interchange rows and columns"
 	[newentrylist←Set new default. k←1.
 	for⦂ i to: columns do⦂ [l←i.
 		for⦂ j to: rows do⦂
 			[newentrylist◦k←entrylist◦l. k←k+1. l←l+columns] ].
 	entrylist←newentrylist. cols←columns. columns←rows. rows←cols.
-	pageviewer tidy: self. self frame: self]\gb10B27i31bI2B
+	pageviewer tidy: self. self frame: self]
 
-Entry Manipulation\gbf5 
-editEntry [selectedentry edit: pageviewer]\gb10B
+Entry Manipulation 
+editEntry [selectedentry edit: pageviewer]
 exchange: entry1 with: entry2 | f1 f2 k1 k2
 	[f1←entry1 frame. f2←entry2 frame.
 	k1←entrylist find: entry1. k2←entrylist find: entry2.
 	entrylist◦k2←entry1. entry1 frame: f2; makeDirty.
-	entrylist◦k1←entry2. entry2 frame: f1; makeDirty]\gb30B13b2B
+	entrylist◦k1←entry2. entry2 frame: f1; makeDirty]
 exchangeColumns | entry k1 k2 i
 	[ColumnCursor show.
 	(entry←self getEntry) and⦂ (entry≠selectedentry)⇒
@@ -1918,12 +1918,12 @@ exchangeColumns | entry k1 k2 i
 			for⦂ i to: rows do⦂
 				[self exchange: entrylist◦k1 with: entrylist◦k2.
 				k1←k1+columns. k2←k2+columns] ]
-		user screenrect flash]\gb16B15b1B
+		user screenrect flash]
 exchangeEntries | entry
 	[EntryECursor show.
 	(entry←self getEntry) and⦂ (entry≠selectedentry)⇒
 		[self exchange: entry with: selectedentry]
-	user screenrect flash]\gb16B7b1B
+	user screenrect flash]
 exchangeRows | entry k1 k2 i
 	[RowCursor show.
 	(entry←self getEntry) and⦂ (entry≠selectedentry)⇒
@@ -1934,43 +1934,43 @@ exchangeRows | entry k1 k2 i
 			for⦂ i to: columns do⦂
 				[self exchange: entrylist◦k1 with: entrylist◦k2.
 				k1←k1+1. k2←k2+1] ]
-		user screenrect flash]\gb13B15b1B
+		user screenrect flash]
 frameEntry: ij with: wh | row col w h ox oy
 	[row←ij x-1. col←ij y-1. w←wh x. h←wh y.
 	ox←self origin x+(col*(w-entryoverlap)).
-	oy←self origin y+(row*(h-entryoverlap)). ⇑ox⌾oy extent: w⌾h]\gb24B146b18B
+	oy←self origin y+(row*(h-entryoverlap)). ⇑ox⌾oy extent: w⌾h]
 getEntry | pt
 	[pt←pageviewer mp. while⦂ (user nobug) do⦂ [pt←pageviewer mp].
-	pt←pageviewer scaleUp: pt. EntryCursor show. ⇑self entryAt: pt]\gb9B4b1B110b17B
+	pt←pageviewer scaleUp: pt. EntryCursor show. ⇑self entryAt: pt]
 
-Entry Selection\gbf5 
+Entry Selection 
 entryAt: pt | entry [for⦂ entry from: entrylist do⦂ [entry has: pt⇒[⇑entry] ] ⇑false]
-\gb12B56b6B4b6B
-entrySelect: entry [self flipSelectedEntry. selectedentry←entry. self flipSelectedEntry]
-\gb19B
 
-Table/Entry Display\gbf5 
+entrySelect: entry [self flipSelectedEntry. selectedentry←entry. self flipSelectedEntry]
+
+
+Table/Entry Display 
 flipSelectedEntry | f "Does nothing if there is no selected entry"
 	[selectedentry⇒
-		[f←selectedentry scaledFrame: pageviewer. (f origin+(0⌾0 rect: 9⌾9)) comp] ]\gb18B4i44I
+		[f←selectedentry scaledFrame: pageviewer. (f origin+(0⌾0 rect: 9⌾9)) comp] ]
 redraw: allEntries | entry "Redraw entries, depending on 'allEntries'"
 	[ [dirty⇒
 		[self show: pageviewer]
 		for⦂ entry from: entrylist do⦂
 			[(allEntries or⦂ entry dirty)⇒[entry show: pageviewer. dirty←true] ] ].
-	dirty⇒[self flipSelectedEntry; makeClean] ]\gb19B8i43I
-redrawAll [self redraw: true]\gb10B
-redrawDirty [self redraw: false]\gb12B
-\g
-SystemOrganization classify: ↪TableBox under: 'Publication Editor'.\g
-TableBox classInit\g
+	dirty⇒[self flipSelectedEntry; makeClean] ]
+redrawAll [self redraw: true]
+redrawDirty [self redraw: false]
+
+SystemOrganization classify: ↪TableBox under: 'Publication Editor'.
+TableBox classInit
 
-"TextBox"l15000z20000\gbf5 
+"TextBox" 
 Class new title: 'TextBox'
 	subclassof: PublicationBox
 	fields: 'para c1 c2 text coveredarea corrupted'
 	declare: 'TextAttributes ';
-	asFollows\gbf5 
+	asFollows 
 
 I am a PublicationBox whose content-dependent information consists of a
 	Paragraph and display/run-around information:
@@ -1979,9 +1979,9 @@ I am a PublicationBox whose content-dependent information consists of a
 	c2					the Integer index of the last character from para
 	text				the Text for displaying the text (c1 to: c2) from para
 	coveredarea	the Set containing intersecting Rectangles for run-around
-	corrupted		the flag for indicating that the text needs to be re-copyfitted\gi
+	corrupted		the flag for indicating that the text needs to be re-copyfitted
 
-Init/Access\gbf5 
+Init/Access 
 attributesInit "TextBox classInit. TextBox new attributesInit."
 	|	unitviewer integerviewer
 	[	unitviewer←UnitViewer default
@@ -1993,105 +1993,105 @@ attributesInit "TextBox classInit. TextBox new attributesInit."
 			TextAttributes title: 'length';
 				extract: ↪length; assign: nil; viewer: integerviewer.
 			TextAttributes title: 'leading';
-				extract: ↪leading; assign: 'leading←'; viewer: unitviewer  ]\gb15B
-c1 [⇑c1]\gb3B1b3B
-c1←c1\gb
-c2 [⇑c2]\gb3B1b3B
-c2←c2\gb
+				extract: ↪leading; assign: 'leading←'; viewer: unitviewer  ]
+c1 [⇑c1]
+c1←c1
+c2 [⇑c2]
+c2←c2
 classInit "TextBox classInit."
-	[	self attributesInit; fontInit  ]\gb10B20b2B
-corrupted [⇑corrupted]\gb10B1b10B
-corrupted←corrupted\gb
-coveredarea [⇑coveredarea]\gb12B1b12B
-coveredarea←coveredarea\gb
+	[	self attributesInit; fontInit  ]
+corrupted [⇑corrupted]
+corrupted←corrupted
+coveredarea [⇑coveredarea]
+coveredarea←coveredarea
 fontInit "TextBox classInit. TextBox new fontInit. TextEditor classInit."
 	[	DefaultFontSet←FontSet new fromVector:
 			('TimesRoman10', 'TimesRoman12', 'TimesRoman14', 'TimesRoman8',
 			'Helvetica14', 'Helvetica12', 'Helvetica10', 'Helvetica8', 'Hippo10', 'Hippo8',
-			'Math10', 'Math8', 'TimesRoman18', 'Helvetica18', 'OldEnglish18', 'Logo24')  ]\gb9B64b1B
-leading [⇑text linelead inPts]\gb8B1b20B
-leading←leading [text linelead: (leading inMicas)]\gb16B
-length [⇑c2-c1+1]\gb7B1b8B
-para [⇑para]\gb5B1b5B
-para←para\gb
-text [⇑text]\gb5B1b5B
-text←text\gb
+			'Math10', 'Math8', 'TimesRoman18', 'Helvetica18', 'OldEnglish18', 'Logo24')  ]
+leading [⇑text linelead inPts]
+leading←leading [text linelead: (leading inMicas)]
+length [⇑c2-c1+1]
+para [⇑para]
+para←para
+text [⇑text]
+text←text
 
-Common Box Methods\gbf5 
-attributesS [⇑TextAttributes viewee: self]\gb12B1b28B
+Common Box Methods 
+attributesS [⇑TextAttributes viewee: self]
 create: pageviewer page: page frame: f
 	[super create: pageviewer page: page frame: f.
 	para←'  ' asParagraph allFont: 0. c1←1. self botMargin←5.
-	self getCoveredArea; newText; runAround; copyFit]\gb40B47b1B
+	self getCoveredArea; newText; runAround; copyFit]
 delete
 	[super delete.
-	c1←c2←para←text←corrupted←coveredarea←nil]\gb8B
+	c1←c2←para←text←corrupted←coveredarea←nil]
 duplicate: pageviewer | box
 	[box←super duplicate: pageviewer.
 	box para←'  ' asParagraph allFont: 0. box c1←1.
-	box newText; getCoveredArea; runAround; copyFit. ⇑box]\gb22B140b4B
+	box newText; getCoveredArea; runAround; copyFit. ⇑box]
 edit: pageviewer
 	[super edit: pageviewer.
-	TextEditor new edit: text. c2←text lastshown. downlink⇒[downlink fillList] ]\gb18B
+	TextEditor new edit: text. c2←text lastshown. downlink⇒[downlink fillList] ]
 fill: pageviewer | f firstbox
 	[super fill: pageviewer.
 	f←(dp0 file: file) readonly. para←f contents asParagraph fromBravo. f close.
 	firstbox←self firstbox. firstbox file←file. firstbox para←para.
-	firstbox fillList]\gb17B12b2B
+	firstbox fillList]
 frame: f | oldf
 	[oldf←self frame. super frame: f.
 	text≡nil⇒[⇑self] self fillList]
 	"[self newCoveredArea⇒[self runAround] ].
 	self newSize: oldf⇒[self fillList]
-	self newLocation: oldf⇒[self newTextOrigin] ]"\gb9B53b5B
+	self newLocation: oldf⇒[self newTextOrigin] ]"
 hardcopy: pressfile | to
 	[super hardcopy: pressfile.
 	to←text origin.
 	text origin: ((to x)-(PubOffset x inMicas))⌾((to y)+(PubOffset y inMicas)).
-	text presson: pressfile. text origin: to]\gb20B4b2B
+	text presson: pressfile. text origin: to]
 show: pageviewer
 	[super show: pageviewer.
 	[corrupted⇒[self fillList] ].
-	(pageviewer fullScale)⇒[text showall. dirty←corrupted←false] ] \gb18B
+	(pageviewer fullScale)⇒[text showall. dirty←corrupted←false] ] 
 
-Box Linking\gbf5 
+Box Linking 
 continuedFrom: prevbox
 	[super continuedFrom: prevbox.
-	file←prevbox file. para←prevbox para. self fillList]\gb24B
+	file←prevbox file. para←prevbox para. self fillList]
 continuedTo: nextbox
 	[super continuedTo: nextbox.
-	nextbox file←file. nextbox para←para. nextbox fillList]\gb22B
+	nextbox file←file. nextbox para←para. nextbox fillList]
 unlink | d
 	[d←downlink. super unlink.
 	file←false. para←'Text' asParagraph allFont: 0. c1←1. self newText.
-	d⇒[d fillList] ]\gb7B3b2B
+	d⇒[d fillList] ]
 
-Text Flowing\gbf5 
-copyFit [text copyfitall: c1. c2←text lastshown. dirty←true. corrupted←false]\gb8B
+Text Flowing 
+copyFit [text copyfitall: c1. c2←text lastshown. dirty←true. corrupted←false]
 fillList | box c maxlength
 	[box←self. [uplink⇒[c←uplink c2+1] c←1]. maxlength←para length.
 	while⦂ (box and⦂ (c≤maxlength)) do⦂
 		[box file←file; para←para; c1←c.
 		box newText; getCoveredArea; runAround; copyFit.
-		c←box c2+1. box←box downlink] ]\gb9B
-markCorrupted [corrupted←dirty←true]\gb14B
+		c←box c2+1. box←box downlink] ]
+markCorrupted [corrupted←dirty←true]
 markDownCorrupted | box
-	[box←downlink. while⦂ box do⦂ [box markCorrupted. box←box downlink] ]\gb18B
+	[box←downlink. while⦂ box do⦂ [box markCorrupted. box←box downlink] ]
 newText
 	[text←Text new frame: ((self marginFrame+PubOffset) inMicas) para: para
-		fontset: DefaultFontSet columns: 1]\gb9B
-newTextOrigin | f [f←(self marginFrame+PubOffset) inMicas. text origin: (f origin)]\gb14B
+		fontset: DefaultFontSet columns: 1]
+newTextOrigin | f [f←(self marginFrame+PubOffset) inMicas. text origin: (f origin)]
 
-Text Run-Around\gbf5 
+Text Run-Around 
 getCoveredArea | box
 	[coveredarea←Set new default.
 	for⦂ box from: page do⦂
 		[((self≠box) and⦂ (self intersects: box))" and⦂ (box is: AisBox)"⇒
-			[coveredarea add: (self intersect: box)] ] ]\gb15B
+			[coveredarea add: (self intersect: box)] ] ]
 newCoveredArea | old i
 	[old←coveredarea copy. self getCoveredArea.
 	[(old≡nil) or⦂ (old length)≠(coveredarea length)⇒
-		[⇑true] for⦂ i to: (old length) do⦂ [(old◦i)≠(coveredarea◦i)⇒[⇑true] ] ]. ⇑false]\gb15B107b5B56b5B7b6B
+		[⇑true] for⦂ i to: (old length) do⦂ [(old◦i)≠(coveredarea◦i)⇒[⇑true] ] ]. ⇑false]
 runAround | f fc m measure linei in out inset outset y flag
 	[f←(self marginFrame+PubOffset) inMicas.
 	measure←text linemeasure.
@@ -2104,7 +2104,7 @@ runAround | f fc m measure linei in out inset outset y flag
 					[(out←f corner x-fc origin x)<measure⇒[outset←out max: inset] ].
 				(in≥measure) and⦂ (out≥measure)⇒[flag←true] ] ].
 		m←[flag⇒[0] (measure-inset-outset) max: 0].
-		(text lines◦linei) inset: (inset min: measure); measure: m] ]\gb10B
-\g
-SystemOrganization classify: ↪TextBox under: 'Publication Editor'.\g
-TextBox classInit\g 
+		(text lines◦linei) inset: (inset min: measure); measure: m] ]
+
+SystemOrganization classify: ↪TextBox under: 'Publication Editor'.
+TextBox classInit

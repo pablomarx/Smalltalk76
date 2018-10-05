@@ -1,11 +1,11 @@
-'From Smalltalk 5.5k XM November 24 on 4 October 1990 at 11:41:27 pm.'
-\g
-"Axes"l15000z20000\gbf5 
+'From Smalltalk 5.5k XM November 24 on 4 October 1990 at 11:41:27 pm.'
+
+"Axes" 
 Class new title: 'Axes'
 	subclassof: Object
 	fields: 'origin window mode xScale yScale xaxis yaxis'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 I display a pair of x-y axes with the following characteristics:
 	origin		the point at which the axes cross (screen coordinates)
@@ -22,25 +22,25 @@ Notes:
 	Show--at:wrt: positions with-respect-to window origin.
 	Display--only at:* causes saving of covered bits and movement of axes.
 See example for a sample definition
-\gi
 
-Init\gbf5 
-default [self mode: xoring; xScale: 0; yScale: 0]\gb8B
 
-Parts\gbf5 
-finescale [⇑(xScale◦2) ⌾ (yScale◦2)]\gb10B1b24B
-mode [⇑mode]\gb5B
-origin [⇑origin]\gb7B
-relOrigin [⇑origin-window origin]\gb10B
-scale [⇑(xScale◦1) ⌾ (yScale◦1)] "gives coarse only"\gb6B1b24B1i
-window [⇑window]\gb7B1b7B
-xScale [⇑xScale] "a Vector: (coarse, fine)"\gb7B1b7B1i
-yScale [⇑yScale] "a Vector: (coarse, fine)"\gb7B1b7B1i
+Init 
+default [self mode: xoring; xScale: 0; yScale: 0]
 
-Change\gbf5 
-mode: mode\gb
+Parts 
+finescale [⇑(xScale◦2) ⌾ (yScale◦2)]
+mode [⇑mode]
+origin [⇑origin]
+relOrigin [⇑origin-window origin]
+scale [⇑(xScale◦1) ⌾ (yScale◦1)] "gives coarse only"
+window [⇑window]
+xScale [⇑xScale] "a Vector: (coarse, fine)"
+yScale [⇑yScale] "a Vector: (coarse, fine)"
+
+Change 
+mode: mode
 xScale: k [self xScale: k finescale: k] "no finescale ticks"
-\gb10B29i21I
+
 xScale: k finescale: l | w a b r x [
 	w←user screenrect width.
 	a←0⌾0 rect: w⌾5. b←a bitsIntoString. a clear: white.
@@ -54,9 +54,9 @@ xScale: k finescale: l | w a b r x [
 			r blt: r width⌾0 mode: storing clippedBy: user screenrect.
 			r growby: r width⌾0] ].
 	xScale←(k,l). xaxis←(a, a bitsIntoString, false).
-	a bitsFromString: b ]\gb32B1b2B115i6I28i13I22i43I100i6I44i12I
+	a bitsFromString: b ]
 yScale: k [self yScale: k finescale: k] "no finescale ticks"
-\gb10B30i20I
+
 yScale: k finescale: l | h a b r y [
 	h←user screenrect height.
 	a←0⌾0 rect: 5⌾h. b←a bitsIntoString. a clear: white.
@@ -70,27 +70,27 @@ yScale: k finescale: l | h a b r y [
 			r blt: 0⌾r height mode: storing clippedBy: user screenrect.
 			r growby: 0⌾r height] ].
 	yScale←(k,l). yaxis←(a, a bitsIntoString, false).
-	a bitsFromString: b ]\gb35B116i6I28i13I22i43I100i6I45i12I
+	a bitsFromString: b ]
 
-Show\gbf5 
+Show 
 at: origin | k z [
 	[ window≡nil ⇒ [window←user screenrect] ].
 	k←xScale◦1. z←window origin x.
 	xaxis◦1 moveto: ([k=0⇒[z] z+(origin x-z \k)-k])⌾(origin y-2).
 	k←yScale◦1. z←window origin y.
 	yaxis◦1 moveto: (origin x-2)⌾([k=0⇒[z] z+(origin y-z \k)-k]).
-	self savebits ]\gb16B
-at: origin in: window [self at: origin]\gb22B
-at: pt wrt: window [self at: pt+window origin] "pt with-respect-to window origin"\gb19B27i
-reshow [self at: origin; show] "redisplay on changed screen"\gb7B23b1Bi
+	self savebits ]
+at: origin in: window [self at: origin]
+at: pt wrt: window [self at: pt+window origin] "pt with-respect-to window origin"
+reshow [self at: origin; show] "redisplay on changed screen"
 restorebits [
 	[xaxis◦3 ⇒[(xaxis◦1 intersect: window) bitsFromString: xaxis◦3. xaxis◦3←false] ].
 	[yaxis◦3 ⇒[(yaxis◦1 intersect: window) bitsFromString: yaxis◦3. yaxis◦3←false] ]. ]
-\gb12B
+
 savebits [
 	xaxis◦3 ← (xaxis◦1 intersect: window) bitsIntoString.
 	yaxis◦3 ← (yaxis◦1 intersect: window) bitsIntoString. ]
-\gb9B
+
 show [
 	[ xaxis◦3 ⇒ [] self savebits ].
 	xaxis◦1 bitsFromString: xaxis◦2 mode: mode clippedBy: window.
@@ -99,10 +99,10 @@ show [
 		[ xScale◦1≠0⇒[(origin-(0⌾2) extent: 1⌾5) comp] ].
 		[ yScale◦1≠0⇒[(origin-(2⌾0) extent: 5⌾1) comp] ]. ]
 	mode=storing and⦂ yScale◦1=0 ⇒ [ "redraw covered x-axis piece"
-		(origin-(2⌾0) extent: 5⌾1) comp ] ]\gb5B175i1I2i26I138i1I2i29I
-unshow [self restorebits]\gb7B
+		(origin-(2⌾0) extent: 5⌾1) comp ] ]
+unshow [self restorebits]
 
-Example\gbf5 
+Example 
 example
 "	Creating, showing, and changing an Axes
 	axes←Axes new default.
@@ -115,16 +115,16 @@ example
 	axes at: 20⌾20 wrt: Rectangle new fromuser; show.
 	axes show. axes unshow.
 "
-\gb8B2i39I
-\g
-SystemOrganization classify: ↪Axes under: 'Axes/Gridding'.\g
+
+
+SystemOrganization classify: ↪Axes under: 'Axes/Gridding'.
 
-"Grid"l15000z20000\gbf5 
+"Grid" 
 Class new title: 'Grid'
 	subclassof: Rectangle
 	fields: 'window tracker'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 grid is defined by tiling the rectangle from its origin.
 the grid points may be shown and unshown (xoring), clipped by window.
@@ -133,10 +133,10 @@ bugging returns the closest grid point to the mouse, relative to origin.
 	will not finish as long as either the leftShiftKey or the mouse button is down.
 	currently selected point is updated only while mouse button is down.
 	false is returned if a point outside the window is bugged.
-\gi
 
-Init\gbf5 
-copy [ ⇑[self class new tracker: tracker copy; at: origin in: window copy; grid: self grid] ]\gb5B2b85B
+
+Init 
+copy [ ⇑[self class new tracker: tracker copy; at: origin in: window copy; grid: self grid] ]
 default | v [
 	v←UnitViewer new readonly
 		units: (('grid', 10) inVector, ('pts', 1), ('picas', 12), ('inches', (72, 100))).
@@ -144,28 +144,28 @@ default | v [
 		title: 'x'; extract: ↪x; assign: 'x←'; viewer: v copy;
 		title: 'y'; extract: ↪y; assign: 'y←'; viewer: v copy ].
 	self origin: 0⌾0 corner: 10⌾10;
-		grid: self extent; window: user screenrect. ]\gb8B
-init [self default]\gb5B
+		grid: self extent; window: user screenrect. ]
+init [self default]
 
-Parts\gbf5 
-grid [⇑self extent]\gb
-tracker [⇑tracker]\gb
-window [⇑window]\gb
+Parts 
+grid [⇑self extent]
+tracker [⇑tracker]
+window [⇑window]
 
-Change\gbf5 
+Change 
 grid: g | u [
 	self extent← g.
 	u←(tracker viewer◦1) units. u menu action◦1←g x. u attribute◦3←g x.
-	u←(tracker viewer◦2) units. u menu action◦1←g y. u attribute◦3←g y. ]\gb8B
-tracker: tracker\gb
-units: u [self unitsx: u; unitsy: u.]\gb9B
-unitsx: u [(tracker viewer◦1) units: u. self grid: self grid.]\gb10B
-unitsy: u [(tracker viewer◦2) units: u. self grid: self grid.]\gb10B
-window: window\gb
+	u←(tracker viewer◦2) units. u menu action◦1←g y. u attribute◦3←g y. ]
+tracker: tracker
+units: u [self unitsx: u; unitsy: u.]
+unitsx: u [(tracker viewer◦1) units: u. self grid: self grid.]
+unitsy: u [(tracker viewer◦2) units: u. self grid: self grid.]
+window: window
 
-Show\gbf5 
-at: pt [self moveto: pt]\gb7B
-at: pt in: window [self at: pt]\gb18B
+Show 
+at: pt [self moveto: pt]
+at: pt in: window [self at: pt]
 linebits | r save x pt b [
 	r←self linerect.
 	save←r bitsIntoString.
@@ -178,9 +178,9 @@ linebits | r save x pt b [
 			pt x ← x+pt x. ] ].
 	b←r bitsIntoString.
 	r bitsFromString: save.
-	⇑b ]\gb26B249b2B
-linerect [⇑window origin extent: window width⌾1]\gb
-reshow [self at: origin; show] "redisplay on changed screen"\gb7B23b1Bi
+	⇑b ]
+linerect [⇑window origin extent: window width⌾1]
+reshow [self at: origin; show] "redisplay on changed screen"
 show | pt r a b x y [
 	(origin-(2⌾0) extent: 5⌾1) comp.
 	(origin-(0⌾2) extent: 1⌾5) comp.
@@ -190,10 +190,10 @@ show | pt r a b x y [
 	r←self linerect. b←self linebits.
 	while⦂ pt y<window bottom do⦂ [
 		r moveto: pt; bitsFromString: b mode: xoring clippedBy: window.
-		pt←pt+(0⌾self height). ]. ]\gb5B
-unshow [self show "since xoring"]\gb7B11i14I
+		pt←pt+(0⌾self height). ]. ]
+unshow [self show "since xoring"]
 
-Bug\gbf5 
+Bug 
 bug | pt old [
 	old←pt←false. tracker reset.
 	while⦂ true do⦂ [
@@ -205,8 +205,8 @@ bug | pt old [
 				old←pt. ] ]
 		[ old ⇒ [tracker unshow] ].
 		user anybug ⇒ [ old←false. (pt←self mp) ⇒ [self flash: pt] ]
-		old ⇒ [⇑old] ⇑pt ] ]\gb4B368b10B
-flash: pt [ (pt+origin-2 extent: 5) flash ]\gb10B
+		old ⇒ [⇑old] ⇑pt ] ]
+flash: pt [ (pt+origin-2 extent: 5) flash ]
 mp | pt g offset [
 	window has: (pt←user mp) ⇒ [
 		g←self grid.
@@ -215,9 +215,9 @@ mp | pt g offset [
 		pt←((pt x|g x)⌾(pt y|g y))-((origin x|g x)⌾(origin y|g y)).
 		window has: pt+origin ⇒ [⇑pt]
 		⇑false ]
-	⇑false ]\gb17B196b3B4b6B4b6B
+	⇑false ]
 
-Example\gbf5 
+Example 
 example [] "
 Y←Grid init.
 Y window: Rectangle new fromuser.
@@ -230,6 +230,6 @@ Y unitsx: ( ('units', nil) inVector, ('cm', (28.35, 100)), ('pts', 1) ).
 Y unitsy: ( ('units', nil) inVector, ('picas', 12), ('pts', 1) ).
 
 Rectangle new fromuser clear: white.
-"\gb8B
-\g
-SystemOrganization classify: ↪Grid under: 'Axes/Gridding'.\g 
+"
+
+SystemOrganization classify: ↪Grid under: 'Axes/Gridding'.

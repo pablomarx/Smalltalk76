@@ -1,11 +1,11 @@
-'From Smalltalk 5.5k XM November 24 on 4 October 1990 at 11:39:12 pm.'
-\g
-"AttributeMenu"l15000z20000\gbf5 
+'From Smalltalk 5.5k XM November 24 on 4 October 1990 at 11:39:12 pm.'
+
+"AttributeMenu" 
 Class new title: 'AttributeMenu'
 	subclassof: Menu
 	fields: 'viewee title extract assign viewer showing underbits'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 AttributeMenus are Menus augmented with:
 	underbits	the bits of what I cover
@@ -25,59 +25,59 @@ I access the following globals:
 	Smalltalk declare: ↪attributeText as: nil. "AttributeViewer uses"
 	Smalltalk declare: ↪attributeValue as: nil.
 	Smalltalk declare: ↪attributeOldValue as: nil.
-See example for sample definition\gi
+See example for sample definition
 
-Init\gbf5 
-assign⦂ a [assign←assign, a]\gb9i1BI
-assign: a [assign←assign, [ a≡nil ⇒ [] a unique ] ]\gb10B
-assign←assign\gb
-attribute: viewee [self viewee: viewee]\gb18B
+Init 
+assign⦂ a [assign←assign, a]
+assign: a [assign←assign, [ a≡nil ⇒ [] a unique ] ]
+assign←assign
+attribute: viewee [self viewee: viewee]
 copy | i t [
 	t←self class init.
 	t title←title; extract←extract; assign←assign.
 	for⦂ i to: viewer length do⦂ [t viewer: (viewer◦i) copy].
-	⇑t ]\gb5B136b2B
-extract⦂ e [extract←extract, e]\gb10i1BI
-extract: e [extract←extract, [ e≡nil ⇒ [] e unique ]]\gb11B
-extract←extract\gb
+	⇑t ]
+extract⦂ e [extract←extract, e]
+extract: e [extract←extract, [ e≡nil ⇒ [] e unique ]]
+extract←extract
 init [
 	title←Vector new: 0.
 	extract←Vector new: 0.
 	assign←Vector new: 0.
 	viewer←Vector new: 0.
 	showing←Set default.
-	self reset. ]\gb5B
+	self reset. ]
 title: t [
 	[ title≡nil ⇒ [self init] ].
 	title←title, t.
 	self stringFromVector: title.
-	text para flushright. ]\gb9B
-title←title [self stringFromVector: title. text para flushright.]\gb12B
+	text para flushright. ]
+title←title [self stringFromVector: title. text para flushright.]
 viewee: viewee | i v [
 	for⦂ i from: showing do⦂ [
-		(viewer◦i) attribute: (self extractI: i) ] ]\gb20B
-viewer: v [ viewer←viewer, v. v≡nil or⦂ v ismenu ⇒ [] showing add: viewer length ]\gb10B
-viewer←viewer\gb
+		(viewer◦i) attribute: (self extractI: i) ] ]
+viewer: v [ viewer←viewer, v. v≡nil or⦂ v ismenu ⇒ [] showing add: viewer length ]
+viewer←viewer
 
-Parts\gbf5 
-assign [⇑assign]\gb7B
-attribute [⇑viewee]\gb10B
-extract [⇑extract]\gb8B
-index [⇑1+(thisline origin y-text frame origin y / text lineheight)]\gb6B1b60B
-ismenu "I'm not a leaf"\gb7Bi
-showing [⇑showing]\gb8B1b8B
-text [⇑text]\gb
-thisline [⇑thisline]\gb9B
-title [⇑title]\gb6B
-viewee [⇑viewee]\gb7B
-viewer [⇑viewer]\gb7B
+Parts 
+assign [⇑assign]
+attribute [⇑viewee]
+extract [⇑extract]
+index [⇑1+(thisline origin y-text frame origin y / text lineheight)]
+ismenu "I'm not a leaf"
+showing [⇑showing]
+text [⇑text]
+thisline [⇑thisline]
+title [⇑title]
+viewee [⇑viewee]
+viewer [⇑viewer]
 
-Show\gbf5 
+Show 
 at: pt | i [
 	self moveto: pt; reset.
 	for⦂ i from: showing do⦂ [
-		(viewer◦i) attribute: (self extractI: i); at: (self atI: i) ] ]\gb10B
-atI: i [⇑frame rightside ⌾ ((i-1)*text lineheight+text frame top)]\gb7B1b57B
+		(viewer◦i) attribute: (self extractI: i); at: (self atI: i) ] ]
+atI: i [⇑frame rightside ⌾ ((i-1)*text lineheight+text frame top)]
 covering: i | j k v  [ "viewer◦i should be showing"
 	j←showing find: i.
 	j=0 ⇒ [⇑false] "I'm not showing"
@@ -85,30 +85,30 @@ covering: i | j k v  [ "viewer◦i should be showing"
 	for⦂ k from: j+1 to: showing length do⦂ [
 		v intersects: viewer◦(showing◦k) ⇒
 			[⇑k "index in showing of deepest viewer intersecting over v"] ]
-	⇑false ]\gb12B10i29I29b6B1i18I98b2B1i56I5b6B
+	⇑false ]
 intersects: a | i [
 	a intersects: frame ⇒ [⇑true]
 	for⦂ i from: showing do⦂ [
 		viewer◦i intersects: a ⇒ [⇑true] ].
-	⇑false ]\gb14B30b5B58b5B6b6B
+	⇑false ]
 moveto: pt | move [ "Move the menu to the new location"
 	move←pt-text frame origin.
 	frame moveby: move.
 	text frame moveby: move.
-	thisline moveby: move ]\gb11B6i1I2i35I
+	thisline moveby: move ]
 reset | i "recursive thru showing tree" [
 	underbits←false.
-	for⦂ i from: showing do⦂ [(viewer◦i) reset]. ]\gb39B
-resetbits [underbits←false]\gb10B
-reshow [self reset viewee: viewee; show] "redisplay on changed screen"\gb7B33b1Bi
-restorebits [underbits⇒[frame bitsFromString: underbits] ]\gb12B
-savebits [underbits←frame bitsIntoString]\gb9B
+	for⦂ i from: showing do⦂ [(viewer◦i) reset]. ]
+resetbits [underbits←false]
+reshow [self reset viewee: viewee; show] "redisplay on changed screen"
+restorebits [underbits⇒[frame bitsFromString: underbits] ]
+savebits [underbits←frame bitsIntoString]
 show | i "must at: first" [
 	[ underbits ⇒ [] self savebits ].
 	super show.
-	for⦂ i from: showing do⦂ [(viewer◦i) show]. ]\gb5B3i7b3B7I
-show: viewee at: pt [self viewee: viewee; at: pt; show]\gb20B
-showat: pt [self at: pt; show]\gb11B
+	for⦂ i from: showing do⦂ [(viewer◦i) show]. ]
+show: viewee at: pt [self viewee: viewee; at: pt; show]
+showat: pt [self at: pt; show]
 showI: i | j k [ "show viewer◦i at top of showing"
 	showing has: i ⇒ [
 		(j←self covering: i) ⇒ [ "showing index of first cover"
@@ -120,11 +120,11 @@ showI: i | j k [ "show viewer◦i at top of showing"
 			showing delete: i; add: i.
 			(viewer◦i) show. ] ]
 	showing add: i. "new show"
-	(viewer◦i) show: (self extractI: i) at: (self atI: i). ]\gb9B88i34I252i10I
+	(viewer◦i) show: (self extractI: i) at: (self atI: i). ]
 unshow | i [
 	for⦂ i from: showing length to: 1 by: ¬1 do⦂ [
 		(viewer◦(showing◦i)) unshow].
-	self restorebits resetbits. ]\gb7B
+	self restorebits resetbits. ]
 unshowI: i | j k [
 	showing has: i ⇒ [
 		[ (j←self covering: i) ⇒ [] j←showing length+1 ].
@@ -132,10 +132,10 @@ unshowI: i | j k [
 		(viewer◦i) unshow.
 		for⦂ k from: j to: showing length do⦂ [ (viewer◦(showing◦k)) show ].
 		showing delete: i. ] ]
-\gb11B
-visible: i [ showing has: i ⇒ [self covering: i ⇒ [⇑false] ⇑true ] ⇑false ]\gb11B40b6B2b5B3b6B
 
-Bug/Edit\gbf5 
+visible: i [ showing has: i ⇒ [self covering: i ⇒ [⇑false] ⇑true ] ⇑false ]
+
+Bug/Edit 
 assignI: i | e "Value of attribute i" [
 	e←assign◦i.
 	e is: UniqueString⇒[viewee perform: e with: (viewer◦i) attribute]
@@ -144,7 +144,7 @@ assignI: i | e "Value of attribute i" [
 	attributeOldValue←self extractI: i.
 	attributeViewee←viewee.
 	attributeMenu←self.
-	e "sender←thisContext; can kill smalltalk" eval. "remote code" ]\gb11B4i22I218i19I27i13I
+	e "sender←thisContext; can kill smalltalk" eval. "remote code" ]
 bug | r pt left i [
 	user nobug⇒[⇑false]
 	[ (r←text frame) has: user mp ⇒ [thisline comp. left←r leftside] ⇑false ].
@@ -159,7 +159,7 @@ bug | r pt left i [
 			 moveto: ((text ptofpt: pt) x←left); "follow mouse"
 			 comp ].
 	pt x≥r rightside⇒[⇑self edit]
-	thisline comp. ⇑false ]\gb4B29b6B68b7B157b6B86i14I32b10B17b8B
+	thisline comp. ⇑false ]
 Bug | trace i menu index res [
 	while⦂ ((trace←self has: user mp) or⦂ user anybug) do⦂ [
 		trace and⦂ user anybug ⇒ [
@@ -172,34 +172,34 @@ Bug | trace i menu index res [
 				menu assignI: index; thisline comp. ].
 			res ⇒ [⇑true] ] ].
 	⇑false ]
-\gb4B159i1I2i11I115i20I41i10I91b5B8b6B
+
 edit | i v res [
 	self showI: (i←self index).
 	v←viewer◦i.
 	[ res←v bug ⇒ [self assignI: i] ].
-	self thisline comp. ⇑res ]\gb14B101b6B
+	self thisline comp. ⇑res ]
 extractI: i | e "Get value of attribute i" [
 	(e←extract◦i)≡nil⇒[⇑nil]
 	e class≡UniqueString⇒[⇑viewee perform: e]
 	attributeViewee←viewee.
 	attributeMenu←self.
 	e "sender←thisContext;" eval. "remote code"
-	⇑attributeValue. ]\gb12B4i26I23b4B25b18B79i13bI19B
+	⇑attributeValue. ]
 flashbug | a [
 	self showat: user mp-(frame extent/2).
 	a←self Bug.
 	self unshow.
-	⇑a ]\gb12B71b2B
+	⇑a ]
 has: pt | i v res "trace from menu having pt" [
 	text frame has: pt ⇒ [⇑self inVector "first element is menu with pt"]
 	for⦂ i from: showing length to: 1 by: ¬1 do⦂ [
 		(v←viewer◦(showing◦i)) ismenu ⇒ [
 			(res←v has: pt) ⇒ [⇑(res, (self, (showing◦i))) "later ones have index"] ] ]
-	⇑false ]\gb17B1i27I26b14Bi32I108b28Bi23I7b6B
+	⇑false ]
 indexI: i "make self index be i" [
-	thisline moveto: ((self atI: i) x←text frame leftside). ]\gb10Bi22I
+	thisline moveto: ((self atI: i) x←text frame leftside). ]
 
-Example\gbf5 
+Example 
 example
 "	Here is an example with an AttributeMenu as a viewer for an AttributeMenu
 	| unitviewer menuviewer originmenu X oldr newr.
@@ -225,7 +225,7 @@ example
 	oldr←Rectangle new fromuser. oldr comp. newr←oldr.
 	user waitbug. X viewee: newr; showat: user mp-(X frame extent/2).
 	while⦂ (X has: user mp) do⦂ [X bug]. X unshow. oldr comp. newr comp.
-"\gb8B2i73I
+"
 exampleH
 "	Here is an example of horizontal attributes display/edit
 	| unitviewer ptmenu X oldr newr.
@@ -245,7 +245,7 @@ exampleH
 	oldr←Rectangle new fromuser. oldr comp. newr←oldr copy.
 	user waitbug. X viewee: newr; showat: user mp.
 	while⦂ (X has: user mp) do⦂ [X bug]. X unshow. oldr comp. newr comp.
-"\gb9B2i56I
+"
 exampleV
 "	Here is an example of vertical attributes display/edit
 	| unitviewer X oldr newr.
@@ -260,51 +260,51 @@ exampleV
 	oldr←Rectangle new fromuser. oldr comp. newr←oldr.
 	user waitbug. X viewee: (newr origin); showat: user mp.
 	while⦂ (X has: user mp) do⦂ [X bug]. X unshow. oldr comp. newr comp.
-"\gb9B2i54I
-\g
-SystemOrganization classify: ↪AttributeMenu under: 'Attributes'.\g
+"
+
+SystemOrganization classify: ↪AttributeMenu under: 'Attributes'.
 
-"AttributeHMenu"l15000z20000\gbf5 
+"AttributeHMenu" 
 Class new title: 'AttributeHMenu'
 	subclassof: AttributeMenu
 	fields: ''
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 I am an AttributeMenu stretched out on one line
 I use the following in a non-standard way:
 	title is now a Set of readonly viewers that display the titles
 	underbits is now unused (the viewers do their own)
 	thisline is now an Integer
-\gi
 
-Init\gbf5 
-init [super init. thisline←1.]\gb5B
+
+Init 
+init [super init. thisline←1.]
 title: t [
 	[ title≡nil ⇒ [self init] ].
-	title←title, [AttributeViewer new toString: ↪itself; attribute: t]. ]\gb9B
+	title←title, [AttributeViewer new toString: ↪itself; attribute: t]. ]
 title←t | s i [
 	t◦1 is: String ⇒ [for⦂ s from: t do⦂ [self title: s] ]
 	title←Vector new: t length.
-	for⦂ i to: t length do⦂ [title◦i ← (t◦i) copy]. ]\gb8B
+	for⦂ i to: t length do⦂ [title◦i ← (t◦i) copy]. ]
 
-Parts\gbf5 
-index [⇑thisline "I don't really use my menuness"]\gb6B1b9Bi33I
-thisline [⇑(title◦thisline) window]\gb9B1b24B
-window [⇑(title◦1) window origin rect: title last window corner]\gb
+Parts 
+index [⇑thisline "I don't really use my menuness"]
+thisline [⇑(title◦thisline) window]
+window [⇑(title◦1) window origin rect: title last window corner]
 
-Show\gbf5 
-at: pt [(title◦1) at: pt]\gb7B
-atI: i | w [ w←(title◦i) window. ⇑w rightside⌾w top ]\gb10B23b18B
+Show 
+at: pt [(title◦1) at: pt]
+atI: i | w [ w←(title◦i) window. ⇑w rightside⌾w top ]
 intersects: a [⇑a intersects: self window]
-	\gb14B1b26B
+	
 pastI: i | w [
 	showing has: i ⇒ [
 		w←(viewer◦i) window.
 		⇑w rightside⌾w top ]
-	⇑(self atI: i)+(2⌾0) ]\gb12B48b18B4b20B
-restorebits | t [ for⦂ t from: title do⦂ [t unshow]. ]\gb15B
-show [ (title◦1) show window comp. self showfrom: 1. ]\gb5B
+	⇑(self atI: i)+(2⌾0) ]
+restorebits | t [ for⦂ t from: title do⦂ [t unshow]. ]
+show [ (title◦1) show window comp. self showfrom: 1. ]
 showfrom: i | j pt [
 	pt←self atI: i.
 	for⦂ j from: i to: title length do⦂ [
@@ -312,25 +312,25 @@ showfrom: i | j pt [
 			(title◦j) showat: pt; window comp.
 			pt←self atI: j. ].
 		[ showing has: j ⇒ [(viewer◦j) showat: pt] ].
-		pt←self pastI: j. ]. ]\gb12B
+		pt←self pastI: j. ]. ]
 showI: i [
 	(showing has: i) ⇒ []
 	self unshowto: i.
 	showing add: i.
-	self showfrom: i. ]	\gb9B
-unshow [self unshowto: 1. (title◦1) unshow.]\gb7B
+	self showfrom: i. ]	
+unshow [self unshowto: 1. (title◦1) unshow.]
 unshowI: i [
 	showing has: i ⇒ [
 		self unshowto: i.
 		showing delete: i.
-		self showfrom: i. ] ]\gb11B
+		self showfrom: i. ] ]
 unshowto: i | j [
 	for⦂ j from: title length to: i+1 by: ¬1 do⦂ [
 		(viewer◦j) unshow.
 		(title◦j) unshow. ].
-	(viewer◦i) unshow. ]\gb12B
+	(viewer◦i) unshow. ]
 
-Bug/Edit\gbf5 
+Bug/Edit 
 bug | r pt i res w [
 	user nobug ⇒ [⇑false]
 	pt←user mp.
@@ -352,26 +352,26 @@ bug | r pt i res w [
 				⇑res ]
 			r comp.
 			⇑false ] ]
-	⇑false ]\gb12B1b6B17b6B227b6B201b4B17b6B6b6B
+	⇑false ]
 flashbug | a [
 	self showat: user mp-((title◦1) frame extent/2).
 	a←self Bug.
 	self unshow.
-	⇑a ]\gb12B81b2B
+	⇑a ]
 has: pt | i [
 	for⦂ i to: title length do⦂ [
 		(title◦i) window has: pt ⇒ [⇑self inVector] ].
-	⇑false ]\gb12B63b14B6b6B
-indexI: thisline\gb
-\g
-SystemOrganization classify: ↪AttributeHMenu under: 'Attributes'.\g
+	⇑false ]
+indexI: thisline
+
+SystemOrganization classify: ↪AttributeHMenu under: 'Attributes'.
 
-"AttributeViewer"l15000z20000\gbf5 
+"AttributeViewer" 
 Class new title: 'AttributeViewer'
 	subclassof: TextImage
 	fields: 'attribute menu toString fromString underbits'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 AttributeViewers are TextImages augmented with:
 	attribute		the value I deal with
@@ -385,46 +385,46 @@ My code can utilize the globals:
 	attribueMenu (caller)
 	attributeViewee (callers viewee)
 	attributeText (text)
-	attributeValue\gi
+	attributeValue
 
-Init\gbf5 
-attribute: attribute\gb
-copy [⇑(self class copy: self) reset menu: menu copy]\gb5B1b46B
+Init 
+attribute: attribute
+copy [⇑(self class copy: self) reset menu: menu copy]
 default [ "for integers, read/write. start with new me"
 	self toString: ↪asString;
-		fromString⦂ [attributeValue←attributeText asStream integerScan asInteger] ]\gb9Bi46bI
-fromString⦂ fromString\gb
-fromString: fromString [fromString≡nil ⇒ [] fromString←fromString unique]\gb23B
-init [self readonly]\gb5B
-menu: menu\gb
-readonly [self toString: ↪asString "for integers, read only. start with new me"]\gb34Bi45bI
-toString⦂ toString\gb
-toString: toString [toString≡nil ⇒ [] toString≡nil ⇒ [] toString←toString unique]\gb19B
+		fromString⦂ [attributeValue←attributeText asStream integerScan asInteger] ]
+fromString⦂ fromString
+fromString: fromString [fromString≡nil ⇒ [] fromString←fromString unique]
+init [self readonly]
+menu: menu
+readonly [self toString: ↪asString "for integers, read only. start with new me"]
+toString⦂ toString
+toString: toString [toString≡nil ⇒ [] toString≡nil ⇒ [] toString←toString unique]
 
-Parts\gbf5 
-attribute [⇑attribute]\gb10B1b10B
-ismenu [⇑false] "no subtree here"\gb7B1b6B2i
-isreadonly [⇑fromString≡nil and⦂ menu≡nil]\gb
-menu [⇑menu]\gb5B
-para←para\gb
+Parts 
+attribute [⇑attribute]
+ismenu [⇑false] "no subtree here"
+isreadonly [⇑fromString≡nil and⦂ menu≡nil]
+menu [⇑menu]
+para←para
 
-Show\gbf5 
-at: pt [frame←pt+(2⌾0) rect: pt. self reset.]\gb7B
-intersects: a [⇑a intersects: window]\gb14B1b21B
-reset [underbits←false]\gb6B
-resetbits [underbits←false]\gb10B
-reshow [ self savebits show. ] "redisplay on changed screen"\gb7B23i
-restorebits [underbits≡nil⇒[] underbits⇒[window bitsFromString: underbits] ]\gb12B
-savebits [underbits←window bitsIntoString]\gb9B
+Show 
+at: pt [frame←pt+(2⌾0) rect: pt. self reset.]
+intersects: a [⇑a intersects: window]
+reset [underbits←false]
+resetbits [underbits←false]
+reshow [ self savebits show. ] "redisplay on changed screen"
+restorebits [underbits≡nil⇒[] underbits⇒[window bitsFromString: underbits] ]
+savebits [underbits←window bitsIntoString]
 show [
 	underbits ⇒ [window clear: white. super show.]
-	self toString getframe savebits show. ]\gb5B
-show: v at: pt [ self attribute: v; at: pt; show. ]\gb15B
-showat: pt [self at: pt; show]\gb
-unshow [self restorebits reset]\gb7B
+	self toString getframe savebits show. ]
+show: v at: pt [ self attribute: v; at: pt; show. ]
+showat: pt [self at: pt; show]
+unshow [self restorebits reset]
 
-Edit\gbf5 
-bug [⇑self edit]\gb4B1b10B
+Edit 
+bug [⇑self edit]
 edit | button c [
 	self isreadonly ⇒ [⇑false]
 	self menubug ⇒ [⇑self unshow show "new value"]
@@ -447,13 +447,13 @@ edit | button c [
 						⇑self fromString show "new value entered" ]
 					true ]
 				false ] do⦂ [button flash] ]
-		super edit: 0. ] ]\gb5B32b8B18b18Bi11I19b7Bi26I118i26I125b21B7i4I112b7Bi7I8b21Bi21I7i5I6i5I
+		super edit: 0. ] ]
 editshow | w [
 	self editframe.
 	w←window inset:¬2.
 	underbits←w bitsIntoString.
-	w clear: black. self show. ]\gb13B
-editunshow | w [(window inset: ¬2) bitsFromString: underbits. self reset.]\gb15B
+	w clear: black. self show. ]
+editunshow | w [(window inset: ¬2) bitsFromString: underbits. self reset.]
 fromString | i t [
 	[	menu≡nil ⇒ [] t←para text.
 		for⦂ i to: menu action length do⦂ [
@@ -461,11 +461,11 @@ fromString | i t [
 	fromString class≡UniqueString ⇒ [attribute←para text perform: fromString]
 	attributeText←para text. "-Menu and -Viewee set up by caller"
 	fromString eval.
-	attribute←attributeValue. ]\gb16B121b5B108i37I
+	attribute←attributeValue. ]
 menubug | a [
 	menu≡nil ⇒ [⇑false]
 	(a←menu flashbug) ⇒ [attribute←a◦3. ⇑true]
-	⇑false ]\gb8B18b8B38b5B3b6B
+	⇑false ]
 toString | i [
 	[	menu≡nil⇒[]
 		i←menu action has: attribute.
@@ -475,21 +475,21 @@ toString | i [
 	toString is: UniqueString⇒[para←(attribute perform: toString) asParagraph.]
 	attributeValue←attribute. "-Menu and -Viewee set up by caller"
 	toString eval.
-	para←attributeText asParagraph. ]\gb9B249i36I
+	para←attributeText asParagraph. ]
 
-Private\gbf5 
-editframe [self getframe growby: self extra]\gb10B
-extra [⇑24⌾0]\gb
+Private 
+editframe [self getframe growby: self extra]
+extra [⇑24⌾0]
 getframe | pt [
 	self paragraph: para frame: (frame corner←(1000⌾1000)) style: DefaultTextStyle.
 	frame growto: (self maxx: para length+1)+(4⌾0).
 	frame height←style lineheight.
-	window←frame origin-(2⌾0) rect: frame corner. ]\gb13B
-growby: pt [frame growby: pt. window growby: pt.]\gb11B
-\g
-SystemOrganization classify: ↪AttributeViewer under: 'Attributes'.\g
+	window←frame origin-(2⌾0) rect: frame corner. ]
+growby: pt [frame growby: pt. window growby: pt.]
+
+SystemOrganization classify: ↪AttributeViewer under: 'Attributes'.
 
-"UnitViewer"l15000z20000\gbf5 
+"UnitViewer" 
 Class new title: 'UnitViewer'
 	subclassof: Object
 	fields: '	attribute	"Integer in internal units"
@@ -497,22 +497,22 @@ Class new title: 'UnitViewer'
 				units			"AttributeViewer for units choice"
 				underbits '
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
 a UnitViewer allows a finite choice of display forms, represented by the name of the unit and the number of fundamental units in this unit, organized in an ActionMenu. The following two displays are for the same field value, assuming that (pts, 1) and (picas, 12) are the menu associations (field value=144):
 	144 pts				12 picas
 
 use the form (unit, (internal count per unit, display denominator)) to for example display decimal fraction, as for (unit, (72, 100)), which will display 36 points as 0.5 unit
-\gi
 
-Init/Access\gbf5 
-attribute [⇑attribute]\gb10B
-attribute: attribute\gb
+
+Init/Access 
+attribute [⇑attribute]
+attribute: attribute
 copy | t [
 	t←self class new.
 	t	val←val copy; units←units copy; attribute: nil; reset.
-	⇑t ]\gb5B84b2B
-default [self readonly. val fromString: ↪itself]\gb8B
+	⇑t ]
+default [self readonly. val fromString: ↪itself]
 example [] "
  | colorviewer lengthviewer lengthreader pointviewer pointreader.
 (colorviewer←AttributeViewer default)
@@ -537,15 +537,15 @@ X title: 'color'; extract: nil;	assign⦂ [attributeViewee clear: attributeValue
 
 X viewee: Rectangle new fromuser. user waitbug. X showat: user mp-(X frame extent/2).
 X Bug.
-"\gb8B
-init [self default]\gb5B
-ismenu [⇑false] "no subtree here"\gb7B1b6B2i
-isreadonly [⇑val isreadonly]\gb
-menu: m [val menu: m]\gb8B
+"
+init [self default]
+ismenu [⇑false] "no subtree here"
+isreadonly [⇑val isreadonly]
+menu: m [val menu: m]
 readonly [
 	val←AttributeViewer new toString: ↪itself.
-	self units: ('', 1) inVector. ]\gb9B
-units [⇑units]\gb6B
+	self units: ('', 1) inVector. ]
+units [⇑units]
 units: u | i v ["u is Vector of form (('unit', n), . . ) where n internal units equal a unit"
 	v←Vector new: u length.
 	for⦂ i to: v length do⦂ [v◦i←(u◦i◦1)].
@@ -553,14 +553,14 @@ units: u | i v ["u is Vector of form (('unit', n), . . ) where n internal units 
 	for⦂ i to: v length do⦂ [v◦i←(u◦i◦2)].
 	units menu init action←v.
 	units attribute: units menu state;
-		toString⦂ [attributeText←(attributeValue◦1 titleI: attributeValue◦2)]. ]\gb15B1i77I
-units←units\gb
-val [⇑val]\gb
-val←val\gb
-window [⇑val window origin copy rect: units window corner copy ]\gb
+		toString⦂ [attributeText←(attributeValue◦1 titleI: attributeValue◦2)]. ]
+units←units
+val [⇑val]
+val←val
+window [⇑val window origin copy rect: units window corner copy ]
 
-Show\gbf5 
-at: pt [val at: pt]\gb7B
+Show 
+at: pt [val at: pt]
 fromString | s neg n unit c rem denom [
 	s←val para asStream.
 	neg←[s ∢ 025 "¬" ⇒ [true] false].
@@ -578,14 +578,14 @@ fromString | s neg n unit c rem denom [
 		s skip: ¬1. denom←s integerScan asInteger ].
 	attribute←attribute + ((rem*unit+(denom/2))/denom). "blem for denom odd"
 	[ attribute is: Float ⇒ [attribute←attribute round] ].
-	neg ⇒ [attribute←attribute negated]  ]\gb38B424i18I107i24I100i21I
-getframe [val getframe. units at: val window rightside⌾val window top; getframe.]\gb9B
-intersects: a [⇑a intersects: self window]\gb
-reset [underbits←false. val reset. units reset.]\gb6B
-restorebits [val restorebits. units restorebits.]\gb12B
-show [self toString getframe. val savebits show. units savebits show.]\gb5B24bi1BI
-show: attribute at: pt [self at: pt; show]\gb23B
-showat: pt [self at: pt; show]\gb
+	neg ⇒ [attribute←attribute negated]  ]
+getframe [val getframe. units at: val window rightside⌾val window top; getframe.]
+intersects: a [⇑a intersects: self window]
+reset [underbits←false. val reset. units reset.]
+restorebits [val restorebits. units restorebits.]
+show [self toString getframe. val savebits show. units savebits show.]
+show: attribute at: pt [self at: pt; show]
+showat: pt [self at: pt; show]
 toString | a unit rem denom n fraction i [
 	a←attribute abs. unit←units attribute◦3.
 	units para←(units menu titleI: (units menu action find: unit)) asParagraph.
@@ -610,11 +610,11 @@ toString | a unit rem denom n fraction i [
 		([attribute<0 ⇒ ['¬'] '']) +
 		n asString +
 		fraction +
-		015 inString "cr") asParagraph. ]\gb9B829i37I212i4I
-unshow [units unshow. val unshow.]\gb7B
+		015 inString "cr") asParagraph. ]
+unshow [units unshow. val unshow.]
 
-Edit\gbf5 
-bug [⇑self edit]\gb4B1b10B
+Edit 
+bug [⇑self edit]
 edit | button a c m old [
 	val isreadonly ⇒ [
 		[	(a←units menu flashbug) ⇒ [
@@ -643,44 +643,44 @@ edit | button a c m old [
 						self show. ⇑attribute≠old] ]
 				false ] do⦂ [button flash] ]
 		val edit: 0 ] ]
-\gb5B156b6B59b6B22b5B322b14B155b14B1i1I6i5I
-editframe [val editframe. units at: val window rightside⌾val window top; getframe.]\gb10B
+
+editframe [val editframe. units at: val window rightside⌾val window top; getframe.]
 editshow | w [
 	self toString editframe.
 	w←self window inset: ¬2.
 	underbits←w bitsIntoString.
 	w clear: black.
 	val savebits show.
-	units savebits show. ]\gb13B
-editunshow [ (self window inset: ¬2) bitsFromString: underbits. self reset. ]\gb11B
+	units savebits show. ]
+editunshow [ (self window inset: ¬2) bitsFromString: underbits. self reset. ]
 unitsbug | a [
 	(a←units menu flashbug) ⇒ [
 		a=units attribute ⇒ []
 		self editunshow fromString.
 		units attribute: a.
-		self editshow. ] ]\gb9B
+		self editshow. ] ]
 valmenubug | a old [
 	val menu≡nil ⇒ [⇑false]
 	(a←val menu flashbug) ⇒ [attribute←a◦3. ⇑true]
-	⇑false ]\gb11B27b6B43b5B1b8B
-\g
-SystemOrganization classify: ↪UnitViewer under: 'Attributes'.\g
+	⇑false ]
+
+SystemOrganization classify: ↪UnitViewer under: 'Attributes'.
 
-"ViewerSet"l15000z20000\gbf5 
+"ViewerSet" 
 Class new title: 'ViewerSet'
 	subclassof: Dictionary
 	fields: 'viewer'
 	declare: '';
-	asFollows\gbf5 
+	asFollows 
 
-I choose a viewer appropriate to the class of my attribute\gi
+I choose a viewer appropriate to the class of my attribute
 
-Init/Access\gbf5 
+Init/Access 
 copy | v i vs [
 	v←values class new: values size.
 	for⦂ i to: values size do⦂ [v◦i ← (values◦i) copy]. "unique viewers"
 	vs←self class new with: objects values: v.
-	⇑vs ]\gb13B89i17I46b3B
+	⇑vs ]
 default | lengthviewer pointviewer "a universal viewer" [
 	super init.
 	lengthviewer←UnitViewer default
@@ -700,7 +700,7 @@ default | lengthviewer pointviewer "a universal viewer" [
 X←ViewerSet default.
 X attribute: user mp; flashbug.
 X attribute: Rectangle new fromuser; flashbug.
-"\gb7i1I27Bi20I
+"
 readonly | lengthviewer pointviewer "a universal readonly viewer" [
 	super init.
 	lengthviewer←UnitViewer new readonly 
@@ -716,30 +716,30 @@ readonly | lengthviewer pointviewer "a universal readonly viewer" [
 			title: 'corner'; extract: ↪corner; viewer: pointviewer copy;
 			title: 'width'; extract: ↪width; viewer: lengthviewer copy;
 			title: 'height'; extract: ↪height; viewer: lengthviewer copy ]. ]
-\gb8i1I27Bi29I
-viewer [⇑viewer]\gb
 
-AsViewer\gbf5 
-at: pt [viewer at: pt]\gb7B
-attribute [⇑viewer attribute]\gb
+viewer [⇑viewer]
+
+AsViewer 
+at: pt [viewer at: pt]
+attribute [⇑viewer attribute]
 attribute: a | c [
 	c←a class.
 	until⦂ c≡nil do⦂ [
 		(viewer←self lookup: c) ⇒ [viewer attribute: a. ⇑self]
 		c←c superclass. ].
-	viewer←AttributeViewer new readonly attribute: a. "can show anything that can asString"]\gb18B83b5B74i28b8B1I
-bug [⇑viewer bug]\gb4B1b11B
-Bug [⇑viewer Bug]\gb4B1b11B
-edit [⇑viewer edit]\gb5B1b12B
-flashbug [⇑viewer flashbug]\gb9B1b16B
-has: pt [⇑viewer has: pt]\gb8B1b15B
-intersects: a [⇑viewer intersects: a]\gb14B1b21B
-isreadonly [⇑viewer isreadonly]\gb11B1b18B
-reset [viewer reset]\gb6B
-show [viewer show]\gb5B
-show: a at: pt [viewer show: a at: pt]\gb15B
-showat: pt [self at: pt; show]\gb
-unshow [viewer unshow]\gb7B
-viewee: v [viewer attribute: v]\gb10B
-\g
-SystemOrganization classify: ↪ViewerSet under: 'Attributes'.\g 
+	viewer←AttributeViewer new readonly attribute: a. "can show anything that can asString"]
+bug [⇑viewer bug]
+Bug [⇑viewer Bug]
+edit [⇑viewer edit]
+flashbug [⇑viewer flashbug]
+has: pt [⇑viewer has: pt]
+intersects: a [⇑viewer intersects: a]
+isreadonly [⇑viewer isreadonly]
+reset [viewer reset]
+show [viewer show]
+show: a at: pt [viewer show: a at: pt]
+showat: pt [self at: pt; show]
+unshow [viewer unshow]
+viewee: v [viewer attribute: v]
+
+SystemOrganization classify: ↪ViewerSet under: 'Attributes'.
